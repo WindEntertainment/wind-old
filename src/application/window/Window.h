@@ -5,10 +5,11 @@ namespace app {
     class Window {
     public:
         struct CreatingWindowConfig;
+        SDL_Window* m_window;
     private:
-        SDL_Window* window;
     public:
         Window(void (*)(CreatingWindowConfig* self));
+        ~Window();
     };
 
     struct Window::CreatingWindowConfig {

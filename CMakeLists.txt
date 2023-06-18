@@ -18,3 +18,6 @@ target_link_libraries(main
 
 find_package(glm CONFIG REQUIRED)
 target_link_libraries(main PRIVATE glm::glm)
+
+find_package(glog CONFIG REQUIRED)
+target_link_libraries(main PRIVATE glog::glog)
