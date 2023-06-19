@@ -13,6 +13,5 @@ namespace app {
 
         Window* m_window = nullptr;
         bool m_loop_is_active = true;
-        SDL_Event m_event = SDL_Event();
     };
 }

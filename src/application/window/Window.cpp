@@ -5,22 +5,18 @@ namespace app {
         CreatingWindowConfig config;
         buildConfig(&config);
 
-      /*  m_window = SDL_CreateWindow(
-            config.title.c_str(),
-            config.pos.x, config.pos.y,
+        m_window = glfwCreateWindow(
             config.size.x, config.size.y,
-            SDL_WINDOW_SHOWN
+            config.title.c_str(),
+            NULL, NULL
         );
-
-        if (!m_window) {
-            LOG(ERROR) << "SDL_CreateWindow returned null:" << SDL_GetError();
-            return;
-        }*/
+        
+        glfwMakeContextCurrent(m_window);
     }
 
     Window::~Window() {
         if (!m_window)
             return;
-        SDL_DestroyWindow(m_window);
+        glfwDestroyWindow(m_window);
     }
 }

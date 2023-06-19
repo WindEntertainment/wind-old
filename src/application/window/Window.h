@@ -1,11 +1,12 @@
 #include "../../utlis.h"
-#include <SDL2/SDL.h>
+#include <GLFW/glfw3.h>
+#include <GL/gl.h>
 
 namespace app {
     class Window {
     public:
         struct CreatingWindowConfig;
-        SDL_Window* m_window;
+        GLFWwindow* m_window;
     private:
     public:
         Window(void (*)(CreatingWindowConfig* self));

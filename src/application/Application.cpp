@@ -2,6 +2,15 @@
 #include <SDL2/SDL.h>
 
 namespace app {
+    void glfwErrorCallback(int _code, const char* _description) {
+        LOG(ERROR) << "glfw(" << _code << "):" << _description;
+    } 
+
+    void quitCallback() {
+        LOG(INFO) << "Free resources...";
+        glfwTerminate();
+    }
+
     Application* Application::s_app = new Application();
 
     int Application::loop(int argc, char** argv) {
@@ -14,14 +23,15 @@ namespace app {
         //FLAGS_log_dir = "./logs/";
 
         google::InitGoogleLogging(argv[0]);
-        //======================================//
 
         LOG(INFO) << "Libaries initilization...";
 
         //======================================//
 
-        if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-            LOG(ERROR) << "SDL_Init:" << SDL_GetError();
+        glfwSetErrorCallback(glfwErrorCallback);
+
+        if (!glfwInit()) {
+            LOG(ERROR) << "fail glfwInit";
             return EXIT_FAILURE;
         }
 
@@ -30,45 +40,22 @@ namespace app {
         LOG(INFO) << "Window creating...";
 
         m_window = new Window([](Window::CreatingWindowConfig* self) {
-            self->title = "Hello SDL2!";
+            self->title = "Hello GLFW3!";
             self->size = {800, 600};
             self->pos = {0, 0};
         });
-
-        m_window->m_window = SDL_CreateWindow(
-            "Test",
-            0, 0, 800, 600,
-            SDL_WINDOW_SHOWN
-        );
 
         //======================================//
 
         LOG(INFO) << "Start application loop";
 
-        SDL_Surface* window_surface = SDL_GetWindowSurface(m_window->m_window);
-        SDL_Surface* image_surface = SDL_LoadBMP("./image.bmp");
-
-        while (isLoopActive()) {
-            while (SDL_PollEvent(&m_event)) {
-                switch (m_event.type)
-                {
-                case SDL_QUIT:
-                    quit();
-                default:
-                    break;
-                }
-            }
-            
-            SDL_BlitSurface(image_surface, NULL, window_surface, NULL);
-            SDL_UpdateWindowSurface(m_window->m_window);
+        while (isLoopActive() && !glfwWindowShouldClose(m_window->m_window)) {
+            glClear(GL_COLOR_BUFFER_BIT);
+            glfwSwapBuffers(m_window->m_window);
+            glfwPollEvents();
         }
 
-        LOG(INFO) << "Free resources...";
-
-        SDL_FreeSurface(image_surface);
-        delete m_window;   
-        SDL_Quit();
-
+        atexit(quitCallback);
         return EXIT_SUCCESS;
     }
 
