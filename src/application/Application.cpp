@@ -20,7 +20,7 @@ namespace app {
 
         //======================================//
 
-        if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        if (SDL_Init(SDL_INIT_VIDEO) != 0) {
             LOG(ERROR) << "SDL_Init:" << SDL_GetError();
             return EXIT_FAILURE;
         }
