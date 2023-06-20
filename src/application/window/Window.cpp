@@ -1,4 +1,4 @@
-#include "Window.h"
+#include "../Application.h"
 
 namespace app {
     Window::Window(void (*buildConfig)(CreatingWindowConfig*)) {
@@ -12,11 +12,17 @@ namespace app {
         );
         
         glfwMakeContextCurrent(m_window);
+
+        glfwSetWindowCloseCallback(m_window, closeCallback);
     }
 
     Window::~Window() {
         if (!m_window)
             return;
         glfwDestroyWindow(m_window);
+    }
+
+    void Window::closeCallback(GLFWwindow* window) {
+        Application::instance()->quit();
     }
 }

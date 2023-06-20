@@ -8,6 +8,7 @@ namespace app {
         struct CreatingWindowConfig;
         GLFWwindow* m_window;
     private:
+        static void closeCallback(GLFWwindow* window);
     public:
         Window(void (*)(CreatingWindowConfig* self));
         ~Window();
