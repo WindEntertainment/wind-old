@@ -9,6 +9,7 @@ add_executable(main
     ./src/main.cpp
     ./src/application/Application.cpp
     ./src/application/window/Window.cpp
+    ./src/application/event-handlers/KeyEventHandler.cpp
 )
 
 find_package(glfw3 CONFIG REQUIRED)

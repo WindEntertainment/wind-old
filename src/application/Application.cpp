@@ -55,6 +55,8 @@ namespace app {
         LOG(INFO) << "Start application loop";
 
         while (isLoopActive()) {
+            if (Keyboard::isKey(GLFW_KEY_ESCAPE))
+                quit();
             glClear(GL_COLOR_BUFFER_BIT);
             glfwSwapBuffers(m_window->m_window);
             glfwPollEvents();

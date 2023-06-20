@@ -1,6 +1,4 @@
-#include "../../utlis.h"
-#include <GLFW/glfw3.h>
-#include <GL/gl.h>
+#include "../event-handlers/KeyEventHandler.h"
 
 namespace app {
     class Window {
@@ -15,8 +13,10 @@ namespace app {
     };
 
     struct Window::CreatingWindowConfig {
-        string title;
-        vec2 size;
-        vec2 pos;
+        string title = "glfw window";
+        ivec2 size = {800, 600};
+        ivec2 pos = {0, 0};
+        
+        ivec2 opengl_version = {3, 0};
     };
 }

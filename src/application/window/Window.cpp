@@ -5,6 +5,8 @@ namespace app {
         CreatingWindowConfig config;
         buildConfig(&config);
 
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, config.opengl_version.x);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, config.opengl_version.y);
         m_window = glfwCreateWindow(
             config.size.x, config.size.y,
             config.title.c_str(),
@@ -12,8 +14,10 @@ namespace app {
         );
         
         glfwMakeContextCurrent(m_window);
+        glfwSwapInterval(1);
 
         glfwSetWindowCloseCallback(m_window, closeCallback);
+        glfwSetKeyCallback(m_window, _internal::KeyEventHandler::keyCallback);
     }
 
     Window::~Window() {
