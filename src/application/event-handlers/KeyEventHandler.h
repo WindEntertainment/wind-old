@@ -4,6 +4,7 @@ namespace app {
     class Keyboard final {
     public:
         static bool isKey(int key);
+        static bool isKeyDown(int key);
     };
 
     namespace _internal {
@@ -14,7 +15,8 @@ namespace app {
         public:
             static void keyCallback(GLFWwindow*, int, int, int, int);
         private:
-            std::list<int> keys{};
+            int keys_mask;
+            int click_mask;
         };
     }
 }

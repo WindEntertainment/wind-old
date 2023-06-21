@@ -1,6 +1,7 @@
 #include <iostream>
 #include <list>
 #include <algorithm>
+#include <bitset>
 
 #include <GLFW/glfw3.h>
 #include <GL/gl.h>
