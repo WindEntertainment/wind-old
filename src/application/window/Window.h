@@ -4,12 +4,14 @@ namespace app {
     class Window {
     public:
         struct CreatingWindowConfig;
-        GLFWwindow* m_window;
     private:
+        GLFWwindow* m_window;
         static void closeCallback(GLFWwindow* window);
     public:
         Window(void (*)(CreatingWindowConfig* self));
         ~Window();
+
+        void show();
     };
 
     struct Window::CreatingWindowConfig {

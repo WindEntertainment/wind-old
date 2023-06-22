@@ -26,6 +26,11 @@ namespace app {
         glfwDestroyWindow(m_window);
     }
 
+    void Window::show() {
+        glClear(GL_COLOR_BUFFER_BIT);
+        glfwSwapBuffers(m_window);
+    }
+
     void Window::closeCallback(GLFWwindow* window) {
         Application::instance()->quit();
     }

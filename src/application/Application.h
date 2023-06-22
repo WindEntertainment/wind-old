@@ -1,4 +1,4 @@
-#include "window/Window.h"
+#include "renderer/Renderer.h"
 namespace app {
     class Application {
     private:
@@ -15,6 +15,7 @@ namespace app {
         static void quitCallback();
 
         Window* m_window = nullptr;
+        Renderer* m_renderer = nullptr;
         bool m_loop_is_active = true;
     };
 }

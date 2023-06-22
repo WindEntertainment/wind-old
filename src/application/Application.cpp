@@ -57,6 +57,8 @@ namespace app {
             return EXIT_FAILURE;
         }
 
+        m_renderer = new Renderer();
+
         //======================================//
 
         LOG(INFO) << "Start application loop";
@@ -64,15 +66,17 @@ namespace app {
         while (isLoopActive()) {
             if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
                 quit();
-            glClear(GL_COLOR_BUFFER_BIT);
-            glfwSwapBuffers(m_window->m_window);
+
+            m_window->show();
+            
+            
             glfwPollEvents();
         }
 
         return EXIT_SUCCESS;
     }
 
-    bool Application::isLoopActive() {
+    bool Application::isLoopActive()  {
         return m_loop_is_active;
     }
 
@@ -83,6 +87,10 @@ namespace app {
 
     void Application::quitCallback() {
         LOG(INFO) << "Free resources...";
+
+        delete s_app->m_window;
+        delete s_app->m_renderer;
+
         glfwTerminate();
     }
 } 
