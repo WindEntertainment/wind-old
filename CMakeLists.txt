@@ -12,6 +12,8 @@ add_executable(main
     ./src/application/window/Window.cpp
     ./src/application/event-handlers/KeyEventHandler.cpp
     ./src/application/renderer/Renderer.cpp
+
+    ./src/application/shader/Shader.cpp
 )
 
 find_package(glfw3 CONFIG REQUIRED)
