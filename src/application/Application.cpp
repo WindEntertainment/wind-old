@@ -39,7 +39,7 @@ namespace app {
         int major, minor, revision;
         glfwGetVersion(&major, &minor, &revision);
         LOG(INFO) << "glfw version:" << major << "." << minor << "." << revision;
-  
+
         //======================================//
 
         LOG(INFO) << "Window creating...";
@@ -52,11 +52,18 @@ namespace app {
 
         //======================================//
 
+        if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
+            LOG(ERROR) << "Failed GLAD load gl loader";
+            return EXIT_FAILURE;
+        }
+
+        //======================================//
+
         LOG(INFO) << "Start application loop";
 
         while (isLoopActive()) {
             if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
-                LOG(INFO) << "Hi!";
+                quit();
             glClear(GL_COLOR_BUFFER_BIT);
             glfwSwapBuffers(m_window->m_window);
             glfwPollEvents();

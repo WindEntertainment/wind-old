@@ -3,8 +3,8 @@
 #include <algorithm>
 #include <bitset>
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <GL/gl.h>
 
 #include <glm/glm.hpp>
 #include <glog/logging.h>
