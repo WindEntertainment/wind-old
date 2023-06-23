@@ -1,4 +1,5 @@
-#include "renderer/Renderer.h"
+#include "resources/Resources.h"
+
 namespace app {
     class Application {
     private:

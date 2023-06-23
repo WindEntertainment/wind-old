@@ -2,6 +2,7 @@
 #include <list>
 #include <algorithm>
 #include <bitset>
+#include <optional>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
