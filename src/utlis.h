@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <bitset>
 #include <optional>
+#include <fstream>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

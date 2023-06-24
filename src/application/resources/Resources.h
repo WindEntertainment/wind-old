@@ -3,6 +3,6 @@
 namespace app {
     namespace Resources {
         template <typename T>
-        T tryLoad(string _path);
+        T* load(string _path);
     }
 }

@@ -13,8 +13,8 @@ add_executable(main
     ./src/application/event-handlers/KeyEventHandler.cpp
     ./src/application/renderer/Renderer.cpp
 
-    ./src/application/resources/shader_loader.cpp
-    ./src/application/resources/int_loader.cpp
+    ./src/application/resources/ShaderLoader.cpp
+    ./src/application/resources/IntLoader.cpp
     ./src/application/shader/Shader.cpp
 )
 

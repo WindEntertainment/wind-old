@@ -61,6 +61,10 @@ namespace app {
 
         //======================================//
 
+        app::Resources::load<app::Shader>("./asset/shader");
+
+        //=========================================//
+
         LOG(INFO) << "Start application loop";
 
         while (isLoopActive()) {

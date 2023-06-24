@@ -2,10 +2,10 @@
 
 namespace app {
     template <typename T>
-    T Resources::tryLoad(string _path) {
+    T Resources::load(string _path) {
         LOG(INFO) << "int:" << _path;
         return 5;
     }
 
-    template int Resources::tryLoad<int>(string);
+    template int Resources::load<int>(string);
 }
