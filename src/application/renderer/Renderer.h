@@ -8,6 +8,7 @@ namespace app {
                m_VAO; // vertex array object
         
         Shader* m_shader;
+        float* m_canvas;
     public:
         Renderer(Shader* shader);
         ~Renderer();

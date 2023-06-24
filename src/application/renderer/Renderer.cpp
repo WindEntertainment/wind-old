@@ -3,6 +3,10 @@
 namespace app {
     Renderer::Renderer(Shader* _shader) {
         m_shader = _shader;
+        m_canvas = new float[800];
+        for (size_t i = 0; i < 800; ++i)
+            m_canvas[i] = rand() % 600;
+
         m_vertices = new float[18]{
             -1.0f, -1.0f,  0.0f,
              1.0f,  1.0f,  0.0f,
@@ -34,6 +38,10 @@ namespace app {
     }
 
     void Renderer::draw() {
+        m_shader->uFloatArray("canvas", 800, m_canvas);
+        for (size_t i = 0; i < 800; ++i)
+            m_canvas[i] = ((int)(m_canvas[i] + 1)) % 600;
+
         glClear(GL_COLOR_BUFFER_BIT);
         glDrawArrays(GL_TRIANGLES, 0, 6);
     }

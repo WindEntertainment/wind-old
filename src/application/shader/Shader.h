@@ -10,6 +10,8 @@ namespace app {
         ~Shader();
 
         void use();
+
+        void uFloatArray(const char* name, size_t size, float* array);
     };
 
 }
