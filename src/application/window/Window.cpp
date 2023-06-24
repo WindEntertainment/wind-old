@@ -27,7 +27,6 @@ namespace app {
     }
 
     void Window::show() {
-        glClear(GL_COLOR_BUFFER_BIT);
         glfwSwapBuffers(m_window);
     }
 
