@@ -31,16 +31,19 @@ namespace app {
 
             //
             file.close();
-            return text.c_str();
+            return text;
         };
 
         //=======================================//
         //             CREATE SHADER             //
 
-        const char* vtx_shader = readFile(vtx_path);
-        const char* fgt_shader = readFile(fgt_path);
+        auto vtx_shader = readFile(vtx_path);
+        auto fgt_shader = readFile(fgt_path);
 
-        return new Shader(vtx_shader, fgt_shader);
+        return new Shader(
+            vtx_shader.c_str(),
+            fgt_shader.c_str()
+        );
     }
 
     template Shader* Resources::load<Shader>(string);
