@@ -3,12 +3,15 @@
 namespace app {
     class Renderer {
     private:
-        float* vertices;
-        GLuint VBO, // vertex buffer object 
-               VAO; // vertex array object
+        float* m_vertices;
+        GLuint m_VBO, // vertex buffer object 
+               m_VAO; // vertex array object
+        
+        Shader* m_shader;
     public:
-        Renderer();
+        Renderer(Shader* shader);
         ~Renderer();
+
+        void draw();
     };
-}
-    
+}   

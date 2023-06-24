@@ -1,12 +1,7 @@
-#version 110
+#version 400
 
-uniform mat4 MVP:
-
-attribute vec3 vColor;
-attribute vec3 vPos;
-varying vec3 color;
+in vec3 vp;
 
 void main() {
-    gl_Position = MVP * vec4(vPos, 0.0, 1.0);
-    color = vColor;   
+  gl_Position = vec4(vp, 1.0);
 }

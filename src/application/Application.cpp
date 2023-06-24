@@ -57,13 +57,12 @@ namespace app {
             return EXIT_FAILURE;
         }
 
-        m_renderer = new Renderer();
-
         //======================================//
 
-        app::Resources::load<app::Shader>("./asset/shader");
+        auto shader = app::Resources::load<app::Shader>("./asset/shader");
+        m_renderer = new Renderer(shader);
 
-        //=========================================//
+        //======================================//
 
         LOG(INFO) << "Start application loop";
 
@@ -71,8 +70,8 @@ namespace app {
             if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
                 quit();
 
+            m_renderer->draw();
             m_window->show();
-            
             
             glfwPollEvents();
         }
