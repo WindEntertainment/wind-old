@@ -1,7 +1,7 @@
 #include "../window/Window.h"
 
 namespace app {
-    class Renderer {
+    class Canvas {
     private:
         float* m_vertices;
         GLuint m_VBO, // vertex buffer object 
@@ -10,8 +10,8 @@ namespace app {
         Shader* m_shader;
         float* m_canvas;
     public:
-        Renderer(Shader* shader);
-        ~Renderer();
+        Canvas(Shader* shader);
+        ~Canvas();
 
         void draw();
     };

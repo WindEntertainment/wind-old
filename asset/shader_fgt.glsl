@@ -4,7 +4,11 @@ out vec4 frag_colour;
 uniform float[800] canvas;
 
 void main() {
-  if (gl_FragCoord.y > canvas[int(gl_FragCoord.x)])
+  int ind = int(gl_FragCoord.x);
+  float bottom = 300 - canvas[ind] / 2;
+  float top = 300 + canvas[ind] / 2;
+
+  if (gl_FragCoord.y > bottom && gl_FragCoord.y < top)
     frag_colour = vec4(1.0, 0.0, 0.0, 1.0);
   else 
     frag_colour = vec4(0.0, 0.0, 0.0, 1.0);
