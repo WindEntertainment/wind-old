@@ -60,7 +60,7 @@ namespace app {
         //======================================//
 
         auto shader = app::Resources::load<app::Shader>("./asset/shader");
-        m_renderer = new Renderer(shader);
+        m_renderer = new Canvas(shader);
 
         //======================================//
 
@@ -69,7 +69,7 @@ namespace app {
         while (isLoopActive()) {
             if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
                 quit();
-
+            
             m_renderer->draw();
             m_window->show();
             
