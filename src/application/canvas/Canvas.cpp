@@ -40,4 +40,8 @@ namespace app {
         glClear(GL_COLOR_BUFFER_BIT);
         glDrawArrays(GL_TRIANGLES, 0, 6);
     }
+
+    void Canvas::wall(int _x, float _height) {
+        m_canvas[_x] = _height;
+    }
 }

@@ -2,9 +2,6 @@ cmake_minimum_required(VERSION 3.22)
 
 project(SoulDungeon)
 
-find_package(SDL2 REQUIRED)
-include_directories(${PROJECT_NAME} ${SDL2_INCLUDE_DIRS})
-
 add_executable(main 
     ./src/main.cpp
     ./src/application/Application.cpp
@@ -12,10 +9,12 @@ add_executable(main
     ./src/application/window/Window.cpp
     ./src/application/event-handlers/KeyEventHandler.cpp
     ./src/application/canvas/Canvas.cpp
+    ./src/application/renderer/Renderer.cpp
 
     ./src/application/resources/ShaderLoader.cpp
     ./src/application/resources/IntLoader.cpp
     ./src/application/shader/Shader.cpp
+    ./src/application/world/World.cpp
 )
 
 find_package(glfw3 CONFIG REQUIRED)
