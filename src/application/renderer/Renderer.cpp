@@ -28,27 +28,27 @@ namespace app {
 
     void Renderer::render() {
 
-        if (Keyboard::isKey(GLFW_KEY_LEFT))  m_world->alpha -= PI / 50;
-        if (Keyboard::isKey(GLFW_KEY_RIGHT)) m_world->alpha += PI / 50;
+        if (Keyboard::isKey(GLFW_KEY_LEFT))  m_world->alpha -= PI / 100;
+        if (Keyboard::isKey(GLFW_KEY_RIGHT)) m_world->alpha += PI / 100;
 
         if (Keyboard::isKey(GLFW_KEY_W)) {
-            m_world->player.x += glm::cos(m_world->alpha) / 25;
-            m_world->player.y += glm::sin(m_world->alpha) / 25;
+            m_world->player.x += glm::cos(m_world->alpha) / 50;
+            m_world->player.y += glm::sin(m_world->alpha) / 50;
         }
 
         if (Keyboard::isKey(GLFW_KEY_S)) {
-            m_world->player.x += -glm::cos(m_world->alpha) / 25;
-            m_world->player.y += -glm::sin(m_world->alpha) / 25;
+            m_world->player.x += -glm::cos(m_world->alpha) / 50;
+            m_world->player.y += -glm::sin(m_world->alpha) / 50;
         }
 
         if (Keyboard::isKey(GLFW_KEY_A)) {
-            m_world->player.x += glm::cos(m_world->alpha - 90) / 25;
-            m_world->player.y += glm::sin(m_world->alpha - 90) / 25;
+            m_world->player.x += glm::cos(m_world->alpha - 90) / 50;
+            m_world->player.y += glm::sin(m_world->alpha - 90) / 50;
         }
 
         if (Keyboard::isKey(GLFW_KEY_D)) {
-            m_world->player.x += glm::cos(m_world->alpha + 90) / 25;
-            m_world->player.y += glm::sin(m_world->alpha + 90) / 25;
+            m_world->player.x += glm::cos(m_world->alpha + 90) / 50;
+            m_world->player.y += glm::sin(m_world->alpha + 90) / 50;
         }
 
         const float p4 = PI / 4;
@@ -71,23 +71,24 @@ namespace app {
     }
 
     float Renderer::raycast(vec2 _camera, float _alpha) {
-        const float step = 0.1f;
-        for (float d = 0; d < 8; d += step) {
-            vec2 curr = {
-                _camera.x + d * glm::cos(_alpha),
-                _camera.y + d * glm::sin(_alpha)
-            };
+        vec2 ray = {
+            _camera.x + 10 * glm::cos(_alpha),
+            _camera.y + 10 * glm::sin(_alpha)
+        };
 
-            vec2 cross_point;
-            for (int i = 0; i < m_world->lines.size(); ++i) {
-                vec2 a = m_world->vertex[m_world->lines[i].x],
-                     b = m_world->vertex[m_world->lines[i].y];
+        float min = MAXFLOAT;
+        vec2 cross_point;
+        for (int i = 0; i < m_world->lines.size(); ++i) {
+            vec2 a = m_world->vertex[m_world->lines[i].x],
+                 b = m_world->vertex[m_world->lines[i].y];
 
-                if (crossing(a, b, _camera, curr, cross_point))
-                    return glm::distance(cross_point, _camera);
+            if (crossing(a, b, _camera, ray, cross_point)) {
+                float dist = glm::distance(cross_point, _camera);
+                if (dist < min)
+                    min = dist;
             }
         }
-
-        return 0;
+        
+        return min;
     }
 }
