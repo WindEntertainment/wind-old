@@ -58,8 +58,7 @@ namespace app {
 
         while (alpha < m_world->alpha + p4) {
             float height = raycast(m_world->player, alpha);
-            if ((int)height != 0)
-                height = 600 / height;
+            height = 600 / (height * cos(alpha - m_world->alpha));
 
             m_canvas->wall(i, height);
 
