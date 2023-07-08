@@ -45,7 +45,7 @@ namespace app {
         LOG(INFO) << "Window creating...";
 
         m_window = new Window([](Window::CreatingWindowConfig* self) {
-            self->title = "Hello GLFW3!";
+            self->title = "SoulDungeon";
             self->size = {800, 600};
             self->pos = {0, 0};
         });
@@ -60,7 +60,11 @@ namespace app {
         //======================================//
 
         auto shader = app::Resources::load<app::Shader>("./asset/shader");
-        m_renderer = new Canvas(shader);
+        m_canvas = new Canvas(shader);
+
+        m_world = new World();
+
+        m_renderer = new Renderer(m_canvas, m_world);
 
         //======================================//
 
@@ -70,7 +74,7 @@ namespace app {
             if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
                 quit();
             
-            m_renderer->draw();
+            m_renderer->render();
             m_window->show();
             
             glfwPollEvents();
@@ -92,6 +96,8 @@ namespace app {
         LOG(INFO) << "Free resources...";
 
         delete s_app->m_window;
+        delete s_app->m_canvas;
+        delete s_app->m_world;
         delete s_app->m_renderer;
 
         glfwTerminate();

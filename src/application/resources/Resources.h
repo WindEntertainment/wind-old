@@ -1,4 +1,4 @@
-#include "../canvas/Canvas.h""
+#include "../renderer/Renderer.h"
 
 namespace app {
     namespace Resources {

@@ -14,5 +14,7 @@ namespace app {
         ~Canvas();
 
         void draw();
+
+        void wall(int x, float height);
     };
 }   
