@@ -1,14 +1,12 @@
 {
     "configurations": [
         {
-            "name": "Linux",
+            "name": "Windows",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${vcpkgRoot}/x64-linux/include",
-                "/home/neutrinozh/vcpkg/installed/x64-linux/include"
+                "C:\\vcpkg\\vcpkg\\installed\\x64-windows\\include"
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/clang-14",
             "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],
