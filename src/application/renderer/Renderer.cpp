@@ -56,7 +56,7 @@ namespace app {
         int i = 0;
         float alpha = m_world->alpha - p4;
 
-        while (alpha < m_world->alpha + p4) {
+        while (alpha < m_world->alpha + p4 && i < 800) {
             float height = raycast(m_world->player, alpha);
             height = 600 / (height * cos(alpha - m_world->alpha));
 
