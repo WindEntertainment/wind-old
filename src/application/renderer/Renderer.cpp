@@ -27,30 +27,6 @@ namespace app {
         m_canvas(_canvas), m_world(_world) {};
 
     void Renderer::render() {
-
-        if (Keyboard::isKey(GLFW_KEY_LEFT))  m_world->alpha -= PI / 100;
-        if (Keyboard::isKey(GLFW_KEY_RIGHT)) m_world->alpha += PI / 100;
-
-        if (Keyboard::isKey(GLFW_KEY_W)) {
-            m_world->player.x += glm::cos(m_world->alpha) / 50;
-            m_world->player.y += glm::sin(m_world->alpha) / 50;
-        }
-
-        if (Keyboard::isKey(GLFW_KEY_S)) {
-            m_world->player.x += -glm::cos(m_world->alpha) / 50;
-            m_world->player.y += -glm::sin(m_world->alpha) / 50;
-        }
-
-        if (Keyboard::isKey(GLFW_KEY_A)) {  
-            m_world->player.x += glm::cos(m_world->alpha - 90) / 50;
-            m_world->player.y += glm::sin(m_world->alpha - 90) / 50;
-        }
-
-        if (Keyboard::isKey(GLFW_KEY_D)) {
-            m_world->player.x += glm::cos(m_world->alpha + 90) / 50;
-            m_world->player.y += glm::sin(m_world->alpha + 90) / 50;
-        }
-
         const float p4 = PI / 4;
 
         int i = 0;

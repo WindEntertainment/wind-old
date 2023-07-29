@@ -21,5 +21,30 @@ namespace app {
 
         glm::vec2 player = {3, 1};
         float alpha = 0.f;
+
+        void update() {
+            if (Keyboard::isKey(GLFW_KEY_LEFT))  alpha -= PI / 100;
+            if (Keyboard::isKey(GLFW_KEY_RIGHT)) alpha += PI / 100;
+
+            if (Keyboard::isKey(GLFW_KEY_W)) {
+                player.x += glm::cos(alpha) / 50;
+                player.y += glm::sin(alpha) / 50;
+            }
+
+            if (Keyboard::isKey(GLFW_KEY_S)) {
+                player.x += -glm::cos(alpha) / 50;
+                player.y += -glm::sin(alpha) / 50;
+            }
+
+            if (Keyboard::isKey(GLFW_KEY_A)) {  
+                player.x += glm::cos(alpha - 90) / 50;
+                player.y += glm::sin(alpha - 90) / 50;
+            }
+
+            if (Keyboard::isKey(GLFW_KEY_D)) {
+                player.x += glm::cos(alpha + 90) / 50;
+                player.y += glm::sin(alpha + 90) / 50;
+            }
+        }
     };
 }
