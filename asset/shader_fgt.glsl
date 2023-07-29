@@ -8,12 +8,12 @@ void main() {
   float bottom = 300 - canvas[ind] / 2;
   float top = 300 + canvas[ind] / 2;
 
-  float color = canvas[ind] / 600;
+  float color = canvas[ind] / 500;
   if (gl_FragCoord.y > bottom && gl_FragCoord.y < top)
     frag_colour = vec4(color, color, color, 1.0);
   else 
     if (gl_FragCoord.y > 300)
-      frag_colour = vec4(0.3, 0.3, 1, 1.0);
+      frag_colour = vec4(0.3, 0.3, 0.8, 1.0);
     else 
       frag_colour = vec4(0.7, 0.5, 0.3, 1.0);
 }
