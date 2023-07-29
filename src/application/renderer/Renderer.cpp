@@ -41,7 +41,7 @@ namespace app {
             m_world->player.y += -glm::sin(m_world->alpha) / 50;
         }
 
-        if (Keyboard::isKey(GLFW_KEY_A)) {
+        if (Keyboard::isKey(GLFW_KEY_A)) {  
             m_world->player.x += glm::cos(m_world->alpha - 90) / 50;
             m_world->player.y += glm::sin(m_world->alpha - 90) / 50;
         }
