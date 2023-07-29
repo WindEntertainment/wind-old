@@ -60,6 +60,7 @@ namespace app {
         //======================================//
 
         auto shader = app::Resources::load<app::Shader>("./asset/shader");
+        auto mesh = app::Resources::load<app::Mesh>("./asset/cube.obj");
         
         m_world = new World();
         m_renderer = new Renderer(m_world);
