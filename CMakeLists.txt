@@ -15,6 +15,8 @@ add_executable(main
     ./src/application/mesh/Mesh.cpp
 
     ./src/application/resources/ShaderLoader.cpp
+    ./src/application/resources/mesh-loader/MeshLoader.cpp
+    
     ./src/application/shader/Shader.cpp
     ./src/application/world/World.cpp
 )
