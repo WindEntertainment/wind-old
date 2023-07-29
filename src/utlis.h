@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <vector>
 #include <list>
 #include <algorithm>
 #include <bitset>
@@ -10,8 +12,6 @@
 
 #include <glm/glm.hpp>
 #include <glm/ext/scalar_constants.hpp>
-
-#include <glog/logging.h>
 
 using glm::vec2;
 using glm::vec3;
