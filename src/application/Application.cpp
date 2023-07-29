@@ -63,6 +63,9 @@ namespace app {
         auto mesh = app::Resources::load<app::Mesh>("./asset/cube.obj");
         
         m_world = new World();
+        m_world->mesh = mesh;
+        m_world->shader = shader;
+
         m_renderer = new Renderer(m_world);
 
         //======================================//
@@ -73,7 +76,6 @@ namespace app {
             if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
                 quit();
             
-            m_world->update();
             m_renderer->render();
             m_window->show();
             
