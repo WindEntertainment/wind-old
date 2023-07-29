@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.22)
 
+SET (CMAKE_C_COMPILER_WORKS 1)
+SET (CMAKE_CXX_COMPILER_WORKS 1)
+
 project(SoulDungeon)
 
 add_executable(main 
@@ -29,6 +32,3 @@ target_link_libraries(main PRIVATE glad::glad)
 
 find_package(glm CONFIG REQUIRED)
 target_link_libraries(main PRIVATE glm::glm)
-
-find_package(glog CONFIG REQUIRED)
-target_link_libraries(main PRIVATE glog::glog)

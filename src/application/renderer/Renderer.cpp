@@ -75,7 +75,7 @@ namespace app {
             _camera.y + 10 * glm::sin(_alpha)
         };
 
-        float min = MAXFLOAT;
+        float min = FLT_MAX;
         vec2 cross_point;
         for (int i = 0; i < m_world->lines.size(); ++i) {
             vec2 a = m_world->vertex[m_world->lines[i].x],
