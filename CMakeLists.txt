@@ -15,7 +15,6 @@ add_executable(main
     ./src/application/renderer/Renderer.cpp
 
     ./src/application/resources/ShaderLoader.cpp
-    ./src/application/resources/IntLoader.cpp
     ./src/application/shader/Shader.cpp
     ./src/application/world/World.cpp
 )

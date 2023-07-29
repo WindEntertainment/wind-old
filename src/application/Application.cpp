@@ -74,6 +74,7 @@ namespace app {
             if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
                 quit();
             
+            m_world->update();
             m_renderer->render();
             m_window->show();
             
