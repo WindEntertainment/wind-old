@@ -9,7 +9,8 @@ namespace app {
         uint m_VAO, m_VBO, m_EBO;
     public:
         Mesh(std::vector<vec3> vertices, std::vector<uint> indices);
+        ~Mesh();
 
-        uint VBO();
+        uint VAO();
     };
 }
