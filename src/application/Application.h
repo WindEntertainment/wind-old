@@ -16,7 +16,6 @@ namespace app {
         static void quitCallback();
 
         Window* m_window = nullptr;
-        Canvas* m_canvas = nullptr;
         World*  m_world = nullptr;
         Renderer* m_renderer = nullptr;
 

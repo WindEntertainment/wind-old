@@ -11,8 +11,8 @@ add_executable(main
     
     ./src/application/window/Window.cpp
     ./src/application/event-handlers/KeyEventHandler.cpp
-    ./src/application/canvas/Canvas.cpp
     ./src/application/renderer/Renderer.cpp
+    ./src/application/mesh/Mesh.cpp
 
     ./src/application/resources/ShaderLoader.cpp
     ./src/application/shader/Shader.cpp

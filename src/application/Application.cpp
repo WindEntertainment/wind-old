@@ -60,11 +60,9 @@ namespace app {
         //======================================//
 
         auto shader = app::Resources::load<app::Shader>("./asset/shader");
-        m_canvas = new Canvas(shader);
-
+        
         m_world = new World();
-
-        m_renderer = new Renderer(m_canvas, m_world);
+        m_renderer = new Renderer(m_world);
 
         //======================================//
 
@@ -97,7 +95,6 @@ namespace app {
         // LOG(INFO) << "Free resources...";
 
         delete s_app->m_window;
-        delete s_app->m_canvas;
         delete s_app->m_world;
         delete s_app->m_renderer;
 
