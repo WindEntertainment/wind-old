@@ -68,6 +68,9 @@ namespace app {
 
         m_renderer = new Renderer(m_world);
 
+        Entity* e = new Entity();
+        
+
         //======================================//
 
         // LOG(INFO) << "Start application loop";

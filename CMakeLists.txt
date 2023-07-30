@@ -18,6 +18,8 @@ add_executable(main
     ./src/application/resources/mesh-loader/MeshLoader.cpp
     
     ./src/application/shader/Shader.cpp
+
+    ./src/application/entity/Entity.cpp
     ./src/application/world/World.cpp
 )
 
