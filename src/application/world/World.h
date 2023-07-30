@@ -1,4 +1,4 @@
-#include "../mesh/Mesh.h"
+#include "../entity/Entity.h"
 
 namespace app {
     class World {
