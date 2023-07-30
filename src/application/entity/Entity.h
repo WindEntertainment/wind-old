@@ -16,5 +16,7 @@ namespace app {
         
         void addComponent(Component*);
         void removeComponent(Component*);
+
+        bool hasComponent(Component*);
     };
 }

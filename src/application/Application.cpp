@@ -63,13 +63,11 @@ namespace app {
         auto mesh = app::Resources::load<app::Mesh>("./asset/cube.obj");
         
         m_world = new World();
-        m_world->mesh = mesh;
-        m_world->shader = shader;
-
         m_renderer = new Renderer(m_world);
 
-        Entity* e = new Entity();
-        
+        auto entity = new Entity();
+        entity->addComponent(new Transform({0, 0, 0}, {0, 0, 0}));
+        entity->addComponent(new Model(mesh, shader));
 
         //======================================//
 
