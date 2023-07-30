@@ -17,6 +17,21 @@ namespace app {
         void addComponent(Component*);
         void removeComponent(Component*);
 
-        bool hasComponent(Component*);
+
+        template <typename TComponent>
+        TComponent* getComponent() {
+            std::cout << typeid(TComponent).name() << "\n";
+            for (auto component : m_components) {
+                std::cout << typeid(component).hash_code() << "\n";
+                if (typeid(component) == typeid(TComponent)) 
+                    return (TComponent*)component;
+            }
+            return nullptr;
+        }
+
+        template <typename TComponent>
+        bool hasComponent() {
+            return (getComponent<TComponent>() != nullptr);
+        }
     };
 }

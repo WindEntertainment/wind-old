@@ -3,6 +3,8 @@
 namespace app {
     //=========================================//
     
+    std::list<Entity*> World::m_entity = std::list<Entity*>();
+
     void World::addEntity(Entity* _entity) {
         m_entity.push_back(_entity);
     }
@@ -12,9 +14,4 @@ namespace app {
     }
 
     //=========================================//
-
-    template <typename TComponent>
-    std::list<TComponent*> World::findAllWithComponent(TComponent* _component) {
-        return std::list<TComponent*>();
-    }
 }
