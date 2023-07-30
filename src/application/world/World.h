@@ -3,13 +3,25 @@
 namespace app {
     class World {
     private:
-        std::list<Entity*> m_entity;
+        static std::list<Entity*> m_entity;
     public:
-        void addEntity(Entity*);
-        void removeEntity(Entity*);
+        static void addEntity(Entity*);
+        static void removeEntity(Entity*);
         
-        template <typename TComponent>
-        std::list<TComponent*> findAllWithComponent(TComponent*);
 
+
+
+        template <typename TComponent>
+        static std::list<TComponent*> findAllWithComponent() {
+            std::list<TComponent*> result;
+
+            for (auto entity : m_entity) {
+                auto component = entity->getComponent<TComponent>();
+                if (component)
+                    result.push_back(component);
+            }
+
+            return result;
+        }
     };
 }

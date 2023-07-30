@@ -69,6 +69,8 @@ namespace app {
         entity->addComponent(new Transform({0, 0, 0}, {0, 0, 0}));
         entity->addComponent(new Model(mesh, shader));
 
+        m_world->addEntity(entity);
+
         //======================================//
 
         // LOG(INFO) << "Start application loop";
