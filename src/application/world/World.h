@@ -1,9 +1,15 @@
-#include "../entity/Entity.h"
+#include "../transform/Transform.h"
 
 namespace app {
     class World {
+    private:
+        std::list<Entity*> m_entity;
     public:
-        Mesh* mesh = nullptr;
-        Shader* shader = nullptr;
+        void addEntity(Entity*);
+        void removeEntity(Entity*);
+        
+        template <typename TComponent>
+        std::list<TComponent*> findAllWithComponent(TComponent*);
+
     };
 }
