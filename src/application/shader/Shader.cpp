@@ -62,4 +62,9 @@ namespace app {
         int loc = glGetUniformLocation(m_program, _name);
         glUniform1fv(loc, _size, _arr);
     }
+
+    void Shader::uMat4f(const char* _name, glm::mat4 _mat) {
+        int loc = glGetUniformLocation(m_program, _name);
+        glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(_mat));
+    }
 }

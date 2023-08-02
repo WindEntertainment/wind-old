@@ -25,6 +25,7 @@ namespace app {
     //===================================================//
 
     void Entity::addComponent(Component* _component) {
+        _component->m_entity = this;
         m_components.push_back(_component);
     }
 

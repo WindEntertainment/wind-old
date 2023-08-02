@@ -1,9 +1,7 @@
 #include "../mesh/Mesh.h"
 
 namespace app {
-    struct Component {
-        virtual uint hash() { return 0; }
-    };
+    struct Component;
 
     class Entity {
     private:
@@ -31,6 +29,16 @@ namespace app {
         template <typename TComponent>
         bool hasComponent() {
             return (getComponent<TComponent>() != nullptr);
+        }
+    };
+
+    struct Component {
+    private:
+        Entity* m_entity;
+        friend class Entity;
+    public:
+        virtual Entity* entity() final {
+            return m_entity;    
         }
     };
 }
