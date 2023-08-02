@@ -66,7 +66,9 @@ namespace app {
         m_renderer = new Renderer(m_world);
 
         auto entity = new Entity();
-        entity->addComponent(new Transform({0, 0, 0}, {0, 0, 0}));
+
+        auto transform = new Transform({0, 0, -5}, {0, 0, 0});
+        entity->addComponent(transform);
         entity->addComponent(new Model(mesh, shader));
 
         m_world->addEntity(entity);
@@ -79,6 +81,7 @@ namespace app {
             if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
                 quit();
             
+            transform->rotation.x += 0.1;
             m_renderer->render();
             m_window->show();
             
