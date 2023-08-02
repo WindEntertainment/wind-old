@@ -1,7 +1,9 @@
 #include "../mesh/Mesh.h"
 
 namespace app {
-    struct Component {};
+    struct Component {
+        virtual uint hash() { return 0; }
+    };
 
     class Entity {
     private:
@@ -11,7 +13,7 @@ namespace app {
     public:
         ~Entity();
 
-        void bind(Entity*);
+        void bind(Entity*); 
         void unbind(Entity*);
         
         void addComponent(Component*);
@@ -20,12 +22,9 @@ namespace app {
 
         template <typename TComponent>
         TComponent* getComponent() {
-            std::cout << typeid(TComponent).name() << "\n";
-            for (auto component : m_components) {
-                std::cout << typeid(component).hash_code() << "\n";
-                if (typeid(component) == typeid(TComponent)) 
+            for (auto component : m_components)
+                if (typeid(*component) == typeid(TComponent)) 
                     return (TComponent*)component;
-            }
             return nullptr;
         }
 
