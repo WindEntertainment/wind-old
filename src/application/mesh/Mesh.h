@@ -12,5 +12,6 @@ namespace app {
         ~Mesh();
 
         uint VAO();
+        uint EBO();
     };
 }

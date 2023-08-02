@@ -18,6 +18,8 @@ namespace app {
 
         glfwSetWindowCloseCallback(m_window, closeCallback);
         glfwSetKeyCallback(m_window, _internal::KeyEventHandler::keyCallback);
+    
+        m_size = config.size;
     }
 
     Window::~Window() {
@@ -28,6 +30,10 @@ namespace app {
 
     void Window::show() {
         glfwSwapBuffers(m_window);
+    }
+
+    ivec2 Window::size() {
+        return m_size;
     }
 
     void Window::closeCallback(GLFWwindow* window) {

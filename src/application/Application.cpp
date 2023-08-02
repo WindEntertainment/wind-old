@@ -57,6 +57,8 @@ namespace app {
             return EXIT_FAILURE;
         }
 
+        glViewport(0, 0, m_window->size().x, m_window->size().y);
+
         //======================================//
 
         auto shader = app::Resources::load<app::Shader>("./asset/shader");
@@ -82,6 +84,9 @@ namespace app {
                 quit();
             
             transform->rotation.x += 0.1;
+            transform->rotation.y += 0.1;
+            transform->rotation.z += 0.1;
+
             m_renderer->render();
             m_window->show();
             
