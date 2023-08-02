@@ -1,7 +1,7 @@
 #include "../model/Model.h"
 
 namespace app {
-    struct Transform : public Component {
+    struct Transform : Component {
         vec3 position = {};
         vec3 rotation = {};
 
