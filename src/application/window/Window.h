@@ -5,6 +5,8 @@ namespace app {
     public:
         struct CreatingWindowConfig;
     private:
+        ivec2 m_size;
+
         GLFWwindow* m_window;
         static void closeCallback(GLFWwindow* window);
     public:
@@ -12,6 +14,8 @@ namespace app {
         ~Window();
 
         void show();
+
+        ivec2 size();
     };
 
     struct Window::CreatingWindowConfig {

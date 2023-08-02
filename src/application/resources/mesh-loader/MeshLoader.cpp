@@ -91,12 +91,14 @@ namespace app {
             while (offset + 1 < m_tokens.size()) {
                 offset += vntParse(offset, vnt);
                 indices.push_back(vnt.x);
+                std::cout << vnt.x << " ";
             }
+            std::cout << "\n";
         }
 
         // vertex/normal/textures
         uint vntParse(uint offset, ivec3& out) {
-            int vertex = atoi(m_tokens[offset + 1].c_str());
+            int vertex = atoi(m_tokens[offset + 1].c_str()) - 1;
             if (m_tokens[offset + 2] != "/") {
                 out = { vertex, 0, 0 };
                 return 1;
