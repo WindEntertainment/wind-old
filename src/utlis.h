@@ -19,6 +19,10 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/ext/scalar_constants.hpp>
 
+#ifdef _WIN32
+    using uint = unsigned int;
+#endif
+
 namespace fs = std::filesystem;
 
 using glm::vec2;
