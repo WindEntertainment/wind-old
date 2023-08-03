@@ -3,7 +3,7 @@
 namespace app {
     template <typename T>
     T* Resources::load(string _path) {
-        // LOG(INFO) << "Loading shader by path:" << _path;
+        logger()->info() << "Loading shader by path:" << _path;
 
         //=======================================//
         //           PATH FORMATTING             //

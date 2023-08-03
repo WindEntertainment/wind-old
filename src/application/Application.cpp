@@ -2,7 +2,7 @@
 
 namespace app {
     void glfwErrorCallback(int _code, const char* _description) {
-        // LOG(ERROR) << "glfw(" << _code << "):" << _description;
+        logger()->error() << "glfw(" << _code << "):" << _description;
     } 
 
     Application* Application::s_app = new Application();
@@ -20,29 +20,24 @@ namespace app {
         atexit(quitCallback);
         
         //======================================//
-        //FLAGS_logtostdout = true;
-        //FLAGS_log_dir = "./logs/";
-
-        //google::InitGoogleLogging(argv[0]);
-
-        // LOG(INFO) << "Libaries initilization...";
+        logger()->info() << "Libaries initilization...";
 
         //======================================//
 
         glfwSetErrorCallback(glfwErrorCallback);
 
         if (!glfwInit()) {
-            // LOG(ERROR) << "Fail glfwInit:";
+            logger()->error() << "Fail glfwInit:";
             return EXIT_FAILURE;
         }
 
         int major, minor, revision;
         glfwGetVersion(&major, &minor, &revision);
-        // LOG(INFO) << "glfw version:" << major << "." << minor << "." << revision;
+        logger()->info() << "glfw version:" << major << "." << minor << "." << revision;
 
         //======================================//
 
-        // LOG(INFO) << "Window creating...";
+        logger()->info() << "Window creating...";
 
         m_window = new Window([](Window::CreatingWindowConfig* self) {
             self->title = "SoulDungeon";
@@ -53,7 +48,7 @@ namespace app {
         //======================================//
 
         if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
-            // LOG(ERROR) << "Failed GLAD load gl loader";
+            logger()->error() << "Failed GLAD load gl loader";
             return EXIT_FAILURE;
         }
 
@@ -77,7 +72,7 @@ namespace app {
 
         //======================================//
 
-        // LOG(INFO) << "Start application loop";
+        logger()->info() << "Start application loop";
 
         while (isLoopActive()) {
             if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
@@ -101,12 +96,12 @@ namespace app {
     }
 
     void Application::quit() {
-        // LOG(INFO) << "Application try quiting...";
+        logger()->info() << "Application try quiting...";
         m_loop_is_active = false;
     }
 
     void Application::quitCallback() {
-        // LOG(INFO) << "Free resources...";
+        logger()->info() << "Free resources...";
 
         delete s_app->m_window;
         delete s_app->m_world;

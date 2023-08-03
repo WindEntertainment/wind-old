@@ -2,11 +2,13 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <map>
 #include <algorithm>
 #include <bitset>
 #include <optional>
 #include <fstream>
 #include <sstream>
+#include <filesystem>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -16,6 +18,8 @@
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/ext/scalar_constants.hpp>
+
+namespace fs = std::filesystem;
 
 using glm::vec2;
 using glm::vec3;
