@@ -9,6 +9,11 @@ add_executable(main
     ./src/main.cpp
     ./src/application/Application.cpp
     
+    ./src/application/logger/Logger.cpp
+    ./src/application/logger/LoggerColors.cpp
+    ./src/application/logger/LoggerMessage_1_of_2.cpp
+    ./src/application/logger/LoggerMessage_2_of_2.cpp
+
     ./src/application/window/Window.cpp
     ./src/application/event-handlers/KeyEventHandler.cpp
     ./src/application/renderer/Renderer.cpp
