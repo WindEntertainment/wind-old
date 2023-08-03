@@ -32,6 +32,6 @@ namespace app {
         model->shader->uMat4f("view", view);
         model->shader->uMat4f("projection", projection);
 
-        glDrawElements(GL_QUADS, 24, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, model->mesh->size(), GL_UNSIGNED_INT, 0);
     }
 }

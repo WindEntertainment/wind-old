@@ -85,15 +85,29 @@ namespace app {
         }
 
         void faceParse() {
+            std::vector<uint> inds{};
+
             ivec3 vnt = {};
             uint offset = 0;
 
             while (offset + 1 < m_tokens.size()) {
                 offset += vntParse(offset, vnt);
-                indices.push_back(vnt.x);
-                std::cout << vnt.x << " ";
+                inds.push_back(vnt.x);
             }
-            std::cout << "\n";
+
+            if (inds.size() == 3) {
+                indices.push_back(inds[0]);
+                indices.push_back(inds[1]);
+                indices.push_back(inds[2]);
+            } else if (inds.size() == 4) {
+                indices.push_back(inds[0]);
+                indices.push_back(inds[1]);
+                indices.push_back(inds[3]);
+
+                indices.push_back(inds[1]);
+                indices.push_back(inds[2]);
+                indices.push_back(inds[3]);
+            }
         }
 
         // vertex/normal/textures
