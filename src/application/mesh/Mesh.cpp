@@ -5,8 +5,8 @@ namespace app {
         return m_VAO;
     }
 
-    uint Mesh::EBO() {
-        return m_EBO;
+    uint Mesh::size() {
+        return m_indices.size();
     }
 
     Mesh::Mesh(std::vector<vec3> _vertices, std::vector<uint> _indices) {
