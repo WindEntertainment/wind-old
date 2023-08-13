@@ -85,29 +85,44 @@ namespace app {
         }
 
         void faceParse() {
-            std::vector<uint> inds{};
 
-            ivec3 vnt = {};
-            uint offset = 0;
+            //===================================//
 
-            while (offset + 1 < m_tokens.size()) {
-                offset += vntParse(offset, vnt);
-                inds.push_back(vnt.x);
+            std::vector<uint> inds{}; {
+                ivec3 vnt = {};
+                uint offset = 0;
+
+                while (offset + 1 < m_tokens.size()) {
+                    offset += vntParse(offset, vnt);
+                    inds.push_back(vnt.x);
+                }
+            }
+            
+            //===================================//
+            // triangulation convex polygon
+
+            auto v = [](int i, std::vector<uint>& polygon){
+                if (i < 0)
+                    i = polygon.size() + i;
+                i = i % polygon.size();
+                return polygon[i];
+            };
+
+            for (int i = 0; inds.size() != 3; i += 2) {
+                uint prev = v(i - 1, inds),
+                     curr = v(i, inds),
+                     next = v(i + 1, inds); 
+                    
+                indices.push_back(prev);
+                indices.push_back(curr);
+                indices.push_back(next);
+
+                inds.erase(std::find(inds.begin(), inds.end(), curr));
             }
 
-            if (inds.size() == 3) {
-                indices.push_back(inds[0]);
-                indices.push_back(inds[1]);
-                indices.push_back(inds[2]);
-            } else if (inds.size() == 4) {
-                indices.push_back(inds[0]);
-                indices.push_back(inds[1]);
-                indices.push_back(inds[3]);
-
-                indices.push_back(inds[1]);
-                indices.push_back(inds[2]);
-                indices.push_back(inds[3]);
-            }
+            indices.push_back(inds[0]);
+            indices.push_back(inds[1]);
+            indices.push_back(inds[2]);
         }
 
         // vertex/normal/textures

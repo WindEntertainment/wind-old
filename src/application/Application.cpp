@@ -85,7 +85,7 @@ namespace app {
             m_renderer->render();
             m_window->show();
             
-            glfwPollEvents();
+            glfwPollEvents(); 
         }
 
         return EXIT_SUCCESS;
