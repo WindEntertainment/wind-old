@@ -1,26 +1,31 @@
 #pragma once
-#include "logger-init-settings.h"
+#include "streams/logger_stream.h"
 
-namespace app {
-    namespace _Logger {
+namespace wind {
+    namespace logger {
+        enum class LoggerColors {
+            BLACK , RED  , GREEN,
+            YELLOW, BLUE , COLOR1,
+            COLOR2, WHITE 
+        };
+
         class Logger {
         private:
-            LoggerInitSettings* settings;
-
-            std::ofstream m_file;
-            tm m_time_info;
-            uint m_num_section;
-
-            void close();
+            tm m_time_info;  
+            void (*format)(
+                string&&, string&&,
+                std::stringstream&
+            );
+            
+            Stream* m_stream;
         public:
             class Message {
             private:
                 bool m_last;
                 std::stringstream m_message;
                 string m_tag;
-                LoggerColors m_color;
-                
-                Logger* m_parent;
+            
+                Logger* m_logger;
             public:
                 Message(const Message& org);
                 Message(string tag, Logger* parent);
@@ -40,7 +45,14 @@ namespace app {
                 }
             };
         public:
-            Logger(void (*config)(LoggerInitSettings* self));
+            Logger(
+                void (*format)(
+                    string&& tag, string&& message,
+                    std::stringstream& out
+                ),
+                Stream* output_stream
+            );
+            ~Logger();
 
             Message write(string tag);
 
@@ -48,13 +60,6 @@ namespace app {
             Message debug();
             Message warning();
             Message error();
-
-            Message sectionBegin();
-            Message sectionEnd();
-    
-            void file_output_init();
         };
     }
-
-    _Logger::Logger* logger();
 }

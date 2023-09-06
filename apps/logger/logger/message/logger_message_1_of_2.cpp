@@ -1,9 +1,9 @@
-#include "logger.h"
+#include "logger/logger.h"
 
-namespace app {
-    namespace _Logger {
+namespace wind {
+    namespace logger {
         // myLogger->write("MyTag") << "Hello, World!"; 
-        Logger::Message Logger::write(string tag) {
+        Logger::Message Logger::write(const string tag) {
             return Logger::Message(tag, this);
         }
 
@@ -25,16 +25,6 @@ namespace app {
         //
         Logger::Message Logger::warning() {
             return write("warning");
-        }
-
-        //
-        Logger::Message Logger::sectionBegin() {
-            return write("begin");
-        }
-
-        //
-        Logger::Message Logger::sectionEnd() {
-            return write("end");
         }
     }
 }
