@@ -1,9 +1,11 @@
 project(logger)
 
 add_library(${PROJECT_NAME} STATIC
+    ./logger/logger.h
+    ./logger/logger.cpp
+
     ./logger/message/logger_message_1_of_2.cpp
     ./logger/message/logger_message_2_of_2.cpp
-    ./logger/logger.cpp
 
     ./logger/streams/file/file_stream.h
     ./logger/streams/file/file_stream.cpp
@@ -13,6 +15,9 @@ add_library(${PROJECT_NAME} STATIC
 
     ./logger/streams/combine/combine_stream.h
     ./logger/streams/combine/combine_stream.cpp
+
+    ./logger/utils.h
+    ./logger/utils.cpp
 )
 
 include_directories(../logger/)

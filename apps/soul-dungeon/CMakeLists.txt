@@ -4,9 +4,10 @@ add_executable(${PROJECT_NAME}
     ./src/main.cpp
 )
 
-include_directories(../logger/src/)
-include_directories(../wind/src/)
-target_link_libraries(${PROJECT_NAME} PRIVATE wind)
+include_directories(../logger/)
+target_link_libraries(${PROJECT_NAME} PRIVATE logger)
+#include_directories(../wind/)
+#target_link_libraries(${PROJECT_NAME} PRIVATE wind)
 
 find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
