@@ -4,9 +4,19 @@
 namespace wind {
     namespace assets {
         class WaveFrontObjLoader : public ILoader {
-            ISerializable* load(const char* path) override {
-                return nullptr;
-            }
+        private:
+            Mesh* m_output_mesh;
+        public:
+            ISerializable* load(const char* path) override;
+        private:
+            vector<string> tokenize(string _line) const;
+            bool isValidInstruction(string _instruction) const;
+
+            void lineParse(string _line);
+            void vertexParse(vector<string>& tokens);
+            void faceParse(vector<string>& tokens);
+
+            uint vntParse(const vector<string>& _tokens, uint offset, glm::ivec3& out);
         };
     }
 }
