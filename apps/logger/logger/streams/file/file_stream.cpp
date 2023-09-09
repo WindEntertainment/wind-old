@@ -10,7 +10,7 @@ namespace wind {
         FileStream::FileStream(const string&& _path) {
             m_file = std::ofstream(_path);
             if (!m_file.is_open()) {
-                std::cerr << "Couldn't open file for write log:" << _path;
+                std::cerr << "Couldn't open file for write log:" << _path << "\n";
                 return;
             }
         } 
@@ -20,6 +20,7 @@ namespace wind {
                 return;
             
             m_file << _msg;
+            m_file.flush();
         }
     }
 }

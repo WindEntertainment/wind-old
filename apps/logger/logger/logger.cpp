@@ -4,6 +4,7 @@ namespace wind {
     namespace logger {
         Logger::Logger(
             void (*_format)(
+                const char*, const int,
                 string&&, string&&,
                 std::stringstream&
             ),
