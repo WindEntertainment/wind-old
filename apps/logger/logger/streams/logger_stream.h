@@ -1,10 +1,11 @@
+#pragma once
 #include "logger/utils.h"
 
 namespace wind {
     namespace logger {
         class Stream {
         public:
-            virtual void write(const string& msg);
+            virtual void write(const string& msg) = 0;
         };
     }
 }
