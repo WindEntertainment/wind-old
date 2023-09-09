@@ -3,9 +3,13 @@
 namespace wind {
     namespace assets {
         void Bundler::regLoader(string reg_exp, ILoader* loader) {
-            m_loaders.push_back(std::make_pair(
-                std::regex(reg_exp), loader
-            ));
+            try {
+                m_loaders.push_back(std::make_pair(
+                    std::regex(reg_exp), loader
+                ));
+            } catch (std::regex_error& ex) {
+                log().error() << "can't create regex from '" << reg_exp << "': " << ex.what();
+            }
         }
 
         void Bundler::assembly(
@@ -20,23 +24,36 @@ namespace wind {
                 return;
             }
 
-            for (const auto& entry : fs::directory_iterator(_src))
+            for (const auto& entry : fs::directory_iterator(_src)) {
+                ISerializable* obj = nullptr;
+                auto filename = entry.path().filename().string();
+
                 for (const auto& pair : m_loaders) {
-                    auto filename = entry.path().filename().string();
-                    if (std::regex_match(filename, pair.first)) {
-                        auto obj = pair.second->load(entry.path().c_str());
-                        if (obj) {
-                            try {
-                                obj->serialize(output);
-                            } catch (std::exception& ex) {
-                                log().error() << "Asset Bundler: can't serialize resource:" << filename << " what():" << ex.what();
-                            }
-                            delete obj;
-                        } else 
-                            log().error() << "Asset Bundler: can't load resource:" << filename;
-                    } else 
-                        log().warning() << "Asset Bundler: ignore resource:" << filename;
+                    if (!std::regex_match(filename, pair.first))
+                        continue;
+
+                    obj = pair.second->load(entry.path().c_str());
+                    if (!obj) {
+                        log().error() << "Asset Bundler: can't load resource: " << filename;
+                        break;
+                    }
+
+                    try {
+                        obj->serialize(output);
+                    } catch (std::exception& ex) {
+                        log().error() << "Asset Bundler: can't serialize resource: " << filename << " what(): " << ex.what();
+                    }
+
+                    break;
                 }
+
+                if (!obj) {
+                    log().warning() << "Asset Bundler: ignore resource: " << filename; 
+                    continue;
+                }
+
+                delete obj;
+            }
 
             output.close();
             log().info() << "Asset Bundler: assembly success";

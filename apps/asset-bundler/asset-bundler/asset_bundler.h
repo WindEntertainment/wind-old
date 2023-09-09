@@ -1,6 +1,4 @@
-#include "iloader.h"
-
-#include <iterator>
+#include "asset-bundler/loaders/iloader.h"
 #include <regex>
 
 namespace wind {
