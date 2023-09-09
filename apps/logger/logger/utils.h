@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include <map>
+#include <unordered_map>
 #include <vector>
 #include <string>
 
@@ -16,6 +17,7 @@
 using std::string;
 using std::vector;
 using std::map;
+using std::unordered_map;
 
 namespace fs = std::filesystem;
 
