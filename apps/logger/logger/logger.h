@@ -13,6 +13,7 @@ namespace wind {
         private:
             tm m_time_info;  
             void (*format)(
+                const char*, const int,
                 string&&, string&&,
                 std::stringstream&
             );
@@ -23,12 +24,19 @@ namespace wind {
             private:
                 bool m_last;
                 std::stringstream m_message;
+                
                 string m_tag;
-            
+                const char* m_file;
+                int m_line;
+
                 Logger* m_logger;
             public:
                 Message(const Message& org);
-                Message(string tag, Logger* parent);
+                Message(
+                    const char* file, const int line, 
+                    const string tag, Logger* parent
+                );
+                
                 ~Message();
 
                 template <typename T>
@@ -47,6 +55,7 @@ namespace wind {
         public:
             Logger(
                 void (*format)(
+                    const char* file, const int line,
                     string&& tag, string&& message,
                     std::stringstream& out
                 ),
@@ -54,12 +63,17 @@ namespace wind {
             );
             ~Logger();
 
-            Message write(string tag);
+            Message write(const char* file, const int line, const string tag);
 
-            Message info();
-            Message debug();
-            Message warning();
-            Message error();
+            Message INFO   (const char* file, const int line);
+            Message DEBUG  (const char* file, const int line);
+            Message WARNING(const char* file, const int line);
+            Message ERROR  (const char* file, const int line);
         };
     }
 }
+
+#define info() INFO(__FILE__, __LINE__)
+#define debug() DEBUG(__FILE__, __LINE__)
+#define warning() WARNING(__FILE__, __LINE__)
+#define error() ERROR(__FILE__, __LINE__)
