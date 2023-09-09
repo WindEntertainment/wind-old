@@ -73,7 +73,9 @@ namespace wind {
     }
 }
 
-#define info() INFO(__FILE__, __LINE__)
-#define debug() DEBUG(__FILE__, __LINE__)
-#define warning() WARNING(__FILE__, __LINE__)
-#define error() ERROR(__FILE__, __LINE__)
+#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+
+#define info() INFO(__FILENAME__, __LINE__)
+#define debug() DEBUG(__FILENAME__, __LINE__)
+#define warning() WARNING(__FILENAME__, __LINE__)
+#define error() ERROR(__FILENAME__, __LINE__)
