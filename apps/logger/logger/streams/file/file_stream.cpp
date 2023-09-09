@@ -7,8 +7,12 @@ namespace wind {
                 m_file.close();
         }
         
-        FileStream::FileStream(const string&& _path) {
-            m_file = std::ofstream(_path);
+        FileStream::FileStream(const string&& _path, const char* (*_getname)(void)) {
+            string file_path = _path;
+            if (_getname)
+                file_path += _getname();
+
+            m_file = std::ofstream(file_path);
             if (!m_file.is_open()) {
                 std::cerr << "Couldn't open file for write log:" << _path << "\n";
                 return;
