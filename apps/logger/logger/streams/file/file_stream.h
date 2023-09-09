@@ -4,7 +4,7 @@ namespace wind {
     namespace logger {
         class FileStream : public Stream {
         public:
-            FileStream(const string&& path);
+            FileStream(const string&& path, const char* (*name)(void) = nullptr);
             ~FileStream();
         private:
             std::ofstream m_file;

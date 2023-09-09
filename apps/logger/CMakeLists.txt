@@ -18,6 +18,9 @@ add_library(${PROJECT_NAME} STATIC
 
     ./logger/utils.h
     ./logger/utils.cpp
+
+    ./logger/wind_logger.h
+    ./logger/wind_logger.cpp
 )
 
 include_directories(../logger/)
