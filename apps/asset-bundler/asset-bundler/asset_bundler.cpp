@@ -3,9 +3,8 @@
 namespace wind {
     namespace assets {
         void Bundler::regLoader(string reg_exp, ILoader* loader) {
-            m_loaders.insert(std::make_pair(
-                std::regex(reg_exp),
-                loader
+            m_loaders.push_back(std::make_pair(
+                std::regex(reg_exp), loader
             ));
         }
 

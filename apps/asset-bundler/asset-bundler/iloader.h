@@ -5,6 +5,6 @@ namespace wind {
         class ILoader {
         public:
             ISerializable* load(const char* path);
-        }
+        };
     }
 }
