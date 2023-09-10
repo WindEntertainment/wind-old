@@ -24,9 +24,17 @@ namespace wind {
                 return;
             }
 
-            for (const auto& entry : fs::directory_iterator(_src)) {
+            fs::directory_iterator it;
+            try {
+                it = fs::directory_iterator(_src);
+            } catch (fs::filesystem_error& ex) {
+                log().error() << "Asset Bundler: can't open source directory: " << ex.what();
+                return;
+            }
+
+            for (const auto& entry : it) {
                 ISerializable* obj = nullptr;
-                auto filename = entry.path().filename().string();
+                auto filename = entry.path().relative_path().string();
 
                 for (const auto& pair : m_loaders) {
                     if (!std::regex_match(filename, pair.first))
@@ -39,6 +47,7 @@ namespace wind {
                     }
 
                     try {
+                        obj->id = filename;
                         obj->serialize(output);
                     } catch (std::exception& ex) {
                         log().error() << "Asset Bundler: can't serialize resource: " << filename << " what(): " << ex.what();

@@ -16,7 +16,7 @@ namespace wind {
             void vertexParse(vector<string>& tokens);
             void faceParse(vector<string>& tokens);
 
-            uint vntParse(const vector<string>& _tokens, uint offset, glm::ivec3& out);
+            uint vntParse(const vector<string>& _tokens, uint offset, glm::ivec3& out) const;
         };
     }
 }
