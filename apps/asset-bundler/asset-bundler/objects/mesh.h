@@ -6,6 +6,7 @@ namespace wind {
     namespace assets {
         struct Mesh : public ISerializable {
             void _serialize(std::ofstream& os) override;
+            void _deserialize(std::ifstream& is) override;
 
             vector<glm::vec3> vertices;
             vector<uint> indices;

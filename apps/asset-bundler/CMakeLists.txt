@@ -11,6 +11,9 @@ add_library(${PROJECT_NAME} STATIC
     ./asset-bundler/objects/iserializable.h
     ./asset-bundler/objects/mesh.h
     ./asset-bundler/objects/mesh.cpp
+
+    ./asset-bundler/bundle.h
+    ./asset-bundler/bundle.cpp
 )
 
 include_directories(../asset-bundler/)
