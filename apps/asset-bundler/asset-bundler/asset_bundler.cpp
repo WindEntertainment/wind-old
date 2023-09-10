@@ -1,26 +1,24 @@
 #include "asset_bundler.h"
-#include <openssl/md5.h>
 #include <openssl/evp.h>
 
 namespace wind {
     namespace assets {
-        namespace {
-            asset_id md5(const std::string &str){
-                EVP_MD_CTX* mdctx;           
-                unsigned char* md5_digest;
-                unsigned int   md5_digest_len = EVP_MD_size(EVP_md5());
+        asset_id getAssetIdByName(const std::string &str) {
+            EVP_MD_CTX* mdctx;           
+            unsigned char* md5_digest;
+            unsigned int   md5_digest_len = EVP_MD_size(EVP_md5());
+        
+            mdctx = EVP_MD_CTX_new();
+            EVP_DigestInit_ex(mdctx, EVP_md5(), NULL);
+
+            EVP_DigestUpdate(mdctx, str.c_str(), str.size());
+
+            md5_digest = (unsigned char *)OPENSSL_malloc(md5_digest_len);
+            EVP_DigestFinal_ex(mdctx, md5_digest, &md5_digest_len);
+            EVP_MD_CTX_free(mdctx);
             
-                mdctx = EVP_MD_CTX_new();
-                EVP_DigestInit_ex(mdctx, EVP_md5(), NULL);
-
-                EVP_DigestUpdate(mdctx, str.c_str(), str.size());
-
-                md5_digest = (unsigned char *)OPENSSL_malloc(md5_digest_len);
-                EVP_DigestFinal_ex(mdctx, md5_digest, &md5_digest_len);
-                EVP_MD_CTX_free(mdctx);
-
-                return reinterpret_cast<asset_id>(md5_digest);
-            }
+            asset_id id = *((asset_id*)md5_digest);
+            return id;
         }
         
         void Bundler::regLoader(string reg_exp, ILoader* loader) {
@@ -29,7 +27,7 @@ namespace wind {
                     std::regex(reg_exp), loader
                 ));
             } catch (std::regex_error& ex) {
-                log().error() << "can't create regex from '" << reg_exp << "': " << ex.what();
+                log().error() << "Can't create regex from '" << reg_exp << "': " << ex.what();
             }
         }
 
@@ -54,10 +52,11 @@ namespace wind {
             }
 
             auto num_assets = numberOfFilesInDirectory(_src);
-            auto header_size = num_assets * sizeof(long) * 2;
+            auto header_size = num_assets * sizeof(long) * 2 + sizeof(long);
             // header struct:
             // asset id (long) = asset offset (long) 
 
+            write(output, (size_t)num_assets);
             output.seekp(header_size, std::ios_base::beg);
             
             uint resource_ind = 0;
@@ -76,10 +75,10 @@ namespace wind {
                     }
 
                     try {
-                        obj->id = md5(filename);
+                        obj->id = getAssetIdByName(filename);
 
                         auto save_pos = output.tellp();
-                        output.seekp(resource_ind * sizeof(long) * 2, std::ios_base::beg);
+                        output.seekp(resource_ind * sizeof(long) * 2 + sizeof(long), std::ios_base::beg);
     
                         write(output, obj->id);
                         write(output, (unsigned long)save_pos);

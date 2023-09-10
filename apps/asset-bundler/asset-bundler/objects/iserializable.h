@@ -17,6 +17,8 @@ namespace wind {
 
         using asset_id = unsigned long;
 
+        asset_id getAssetIdByName(const std::string &str);
+
         struct ISerializable {
         public:
             asset_id id = 0;
