@@ -121,7 +121,7 @@ namespace wind {
         }
 
         // vertex/normal/textures
-        uint WaveFrontObjLoader::vntParse(const vector<string>& _tokens, uint offset, glm::ivec3& out) {
+        uint WaveFrontObjLoader::vntParse(const vector<string>& _tokens, uint offset, glm::ivec3& out) const {
             int vertex = atoi(_tokens[offset + 1].c_str()) - 1;
             if (_tokens[offset + 2] != "/") {
                 out = { vertex, 0, 0 };
