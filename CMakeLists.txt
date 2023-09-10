@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 SET (CMAKE_C_COMPILER_WORKS 1)
 SET (CMAKE_CXX_COMPILER_WORKS 1)
-SET (CMAKE_CXX_FLAGS "-std=c++17")
+SET (CMAKE_CXX_FLAGS "-std=c++20")
 
 project(main)
 
