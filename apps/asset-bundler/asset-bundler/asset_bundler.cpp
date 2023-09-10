@@ -3,32 +3,26 @@
 #include <openssl/evp.h>
 
 namespace wind {
-    namespace {
-        std::string md5(const std::string &str){
-            EVP_MD_CTX* mdctx;           
-            unsigned char* md5_digest;
-            unsigned int   md5_digest_len = EVP_MD_size(EVP_md5());
-           
-            mdctx = EVP_MD_CTX_new();
-            EVP_DigestInit_ex(mdctx, EVP_md5(), NULL);
-
-            EVP_DigestUpdate(mdctx, str.c_str(), str.size());
-
-            md5_digest = (unsigned char *)OPENSSL_malloc(md5_digest_len);
-            EVP_DigestFinal_ex(mdctx, md5_digest, &md5_digest_len);
-            EVP_MD_CTX_free(mdctx);
-
-            std::stringstream ss;
-
-            for(int i = 0; i < md5_digest_len; i++){
-                ss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>( md5_digest[i] );
-            }
-
-            return ss.str();
-        }
-    }
-
     namespace assets {
+        namespace {
+            asset_id md5(const std::string &str){
+                EVP_MD_CTX* mdctx;           
+                unsigned char* md5_digest;
+                unsigned int   md5_digest_len = EVP_MD_size(EVP_md5());
+            
+                mdctx = EVP_MD_CTX_new();
+                EVP_DigestInit_ex(mdctx, EVP_md5(), NULL);
+
+                EVP_DigestUpdate(mdctx, str.c_str(), str.size());
+
+                md5_digest = (unsigned char *)OPENSSL_malloc(md5_digest_len);
+                EVP_DigestFinal_ex(mdctx, md5_digest, &md5_digest_len);
+                EVP_MD_CTX_free(mdctx);
+
+                return reinterpret_cast<asset_id>(md5_digest);
+            }
+        }
+        
         void Bundler::regLoader(string reg_exp, ILoader* loader) {
             try {
                 m_loaders.push_back(std::make_pair(
@@ -59,6 +53,14 @@ namespace wind {
                 return;
             }
 
+            auto num_assets = numberOfFilesInDirectory(_src);
+            auto header_size = num_assets * sizeof(long) * 2;
+            // header struct:
+            // asset id (long) = asset offset (long) 
+
+            output.seekp(header_size, std::ios_base::beg);
+            
+            uint resource_ind = 0;
             for (const auto& entry : it) {
                 ISerializable* obj = nullptr;
                 auto filename = entry.path().relative_path().string();
@@ -74,7 +76,16 @@ namespace wind {
                     }
 
                     try {
-                        obj->id = filename;
+                        obj->id = md5(filename);
+
+                        auto save_pos = output.tellp();
+                        output.seekp(resource_ind * sizeof(long) * 2, std::ios_base::beg);
+    
+                        write(output, obj->id);
+                        write(output, (unsigned long)save_pos);
+
+                        output.seekp(save_pos, std::ios_base::beg);
+
                         obj->serialize(output);
                     } catch (std::exception& ex) {
                         log().error() << "Asset Bundler: can't serialize resource: " << filename << " what(): " << ex.what();
@@ -82,6 +93,8 @@ namespace wind {
 
                     break;
                 }
+
+                resource_ind += 1;
 
                 if (!obj) {
                     log().warning() << "Asset Bundler: ignore resource: " << filename; 
