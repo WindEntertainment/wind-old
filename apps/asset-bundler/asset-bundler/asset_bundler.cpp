@@ -1,6 +1,33 @@
 #include "asset_bundler.h"
+#include <openssl/md5.h>
+#include <openssl/evp.h>
 
 namespace wind {
+    namespace {
+        std::string md5(const std::string &str){
+            EVP_MD_CTX* mdctx;           
+            unsigned char* md5_digest;
+            unsigned int   md5_digest_len = EVP_MD_size(EVP_md5());
+           
+            mdctx = EVP_MD_CTX_new();
+            EVP_DigestInit_ex(mdctx, EVP_md5(), NULL);
+
+            EVP_DigestUpdate(mdctx, str.c_str(), str.size());
+
+            md5_digest = (unsigned char *)OPENSSL_malloc(md5_digest_len);
+            EVP_DigestFinal_ex(mdctx, md5_digest, &md5_digest_len);
+            EVP_MD_CTX_free(mdctx);
+
+            std::stringstream ss;
+
+            for(int i = 0; i < md5_digest_len; i++){
+                ss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>( md5_digest[i] );
+            }
+
+            return ss.str();
+        }
+    }
+
     namespace assets {
         void Bundler::regLoader(string reg_exp, ILoader* loader) {
             try {
