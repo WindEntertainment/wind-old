@@ -1,6 +1,6 @@
-#include "resources/resources.h"
+#include "renderer/renderer.h"
 
-namespace app {
+namespace wind {
     class Application {
     private:
         static Application* s_app;

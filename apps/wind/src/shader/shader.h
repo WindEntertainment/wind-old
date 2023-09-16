@@ -1,6 +1,6 @@
 #include "../event-handlers/key_event_handler.h"
 
-namespace app {
+namespace wind {
 
     class Shader {
     private:

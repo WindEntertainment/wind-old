@@ -1,6 +1,6 @@
-#include "../model/model.h"
+#include "../mesh/mesh.h"
 
-namespace app {
+namespace wind {
     struct Transform : Component {
         vec3 position = {};
         vec3 rotation = {};

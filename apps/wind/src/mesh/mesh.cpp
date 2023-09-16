@@ -1,17 +1,17 @@
 #include "mesh.h"
 
-namespace app {
+namespace wind {
     uint Mesh::VAO() {
         return m_VAO;
     }
 
     uint Mesh::size() {
-        return m_indices.size();
+        return m_mesh->indices.size();
     }
 
-    Mesh::Mesh(std::vector<vec3> _vertices, std::vector<uint> _indices) {
-        m_vertices = _vertices;
-        m_indices = _indices;
+    Mesh::Mesh(assets::Mesh* _mesh, Shader* _shader) {
+        m_mesh = _mesh;
+        shader = _shader;
 
         glGenVertexArrays(1, &m_VAO);
         glGenBuffers(1, &m_VBO);
@@ -21,14 +21,14 @@ namespace app {
 
         glBindBuffer(GL_ARRAY_BUFFER, m_VBO);        
         glBufferData(
-            GL_ARRAY_BUFFER, m_vertices.size() * sizeof(float) * 3,
-            m_vertices.data(), GL_STATIC_DRAW
+            GL_ARRAY_BUFFER, _mesh->vertices.size() * sizeof(float) * 3,
+            _mesh->vertices.data(), GL_STATIC_DRAW
         );
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO); 
         glBufferData(
-            GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(uint),
-            m_indices.data(), GL_STATIC_DRAW
+            GL_ELEMENT_ARRAY_BUFFER, _mesh->indices.size() * sizeof(uint),
+            _mesh->indices.data(), GL_STATIC_DRAW
         );
 
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);

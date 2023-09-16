@@ -1,14 +1,16 @@
-#include "../window/window.h"
+#pragma once
+#include "../entity/entity.h"
+#include <asset-bundler/objects/mesh.h>
 
-namespace app {
-    class Mesh {
+namespace wind {
+    struct Mesh : public Component {
     private:
-        std::vector<vec3> m_vertices;
-        std::vector<uint> m_indices;
-
         uint m_VAO, m_VBO, m_EBO;
+        assets::Mesh* m_mesh;
     public:
-        Mesh(std::vector<vec3> vertices, std::vector<uint> indices);
+        Shader* shader = nullptr;
+    public:
+        Mesh(assets::Mesh* mesh, Shader* shader);
         ~Mesh();
 
         uint VAO();

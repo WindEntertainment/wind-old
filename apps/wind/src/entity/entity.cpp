@@ -1,6 +1,6 @@
 #include "entity.h"
 
-namespace app {
+namespace wind {
     Entity::~Entity() {
         if (m_parent)
             m_parent->unbind(this);

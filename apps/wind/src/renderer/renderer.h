@@ -1,6 +1,6 @@
 #include "../world/world.h"
 
-namespace app {
+namespace wind {
     class Renderer {
     private:
         World* m_world;

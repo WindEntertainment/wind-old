@@ -1,6 +1,6 @@
 #include "./key_event_handler.h"
 
-namespace app {
+namespace wind {
     namespace _internal {
         KeyEventHandler* KeyEventHandler::s_handler = new KeyEventHandler();
         
