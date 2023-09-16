@@ -1,6 +1,6 @@
 #include "../application.h"
 
-namespace app {
+namespace wind {
     Window::Window(void (*buildConfig)(CreatingWindowConfig*)) {
         CreatingWindowConfig config;
         buildConfig(&config);

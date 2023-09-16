@@ -6,8 +6,9 @@ add_executable(${PROJECT_NAME}
 
 include_directories(../logger/)
 include_directories(../asset-bundler/)
+include_directories(../wind/src/)
 target_link_libraries(${PROJECT_NAME} PRIVATE asset-bundler)
-#target_link_libraries(${PROJECT_NAME} PRIVATE wind)
+target_link_libraries(${PROJECT_NAME} PRIVATE wind)
 
 find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw)

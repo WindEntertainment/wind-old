@@ -1,6 +1,6 @@
 #include "../shader/shader.h"
 
-namespace app {
+namespace wind {
     class Window {
     public:
         struct CreatingWindowConfig;

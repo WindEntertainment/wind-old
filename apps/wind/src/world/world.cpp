@@ -1,6 +1,6 @@
 #include "world.h"
 
-namespace app {
+namespace wind {
     //=========================================//
     
     std::list<Entity*> World::m_entity = std::list<Entity*>();

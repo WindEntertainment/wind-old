@@ -7,9 +7,6 @@ add_library(${PROJECT_NAME} STATIC
     ./src/event-handlers/key_event_handler.cpp
     ./src/renderer/renderer.cpp
     ./src/mesh/mesh.cpp
-
-    ./src/resources/shader_loader.cpp
-    ./src/resources/mesh-loader/mesh_loader.cpp
     
     ./src/shader/shader.cpp
 
@@ -17,8 +14,9 @@ add_library(${PROJECT_NAME} STATIC
     ./src/world/world.cpp
 )
 
-include_directories(../logger/src/)
-target_link_libraries(${PROJECT_NAME} PRIVATE logger)
+include_directories(../logger/)
+include_directories(../asset-bundler/)
+target_link_libraries(${PROJECT_NAME} PRIVATE asset-bundler)
 
 find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw)

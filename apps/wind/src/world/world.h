@@ -1,6 +1,6 @@
 #include "../transform/transform.h"
 
-namespace app {
+namespace wind {
     class World {
     private:
         static std::list<Entity*> m_entity;

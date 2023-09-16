@@ -1,10 +1,9 @@
 #include "shader.h"
 
-namespace app {
+namespace wind {
     Shader::Shader(const char* _vsh, const char* _fsh) {
         int  success;
         char msg[512];
-
 
         // Vertex
         GLuint vs = glCreateShader(GL_VERTEX_SHADER);

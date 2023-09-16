@@ -1,6 +1,6 @@
-#include "../mesh/mesh.h"
+#include "../window/window.h"
 
-namespace app {
+namespace wind {
     struct Component;
 
     class Entity {

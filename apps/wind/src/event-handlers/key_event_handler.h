@@ -1,7 +1,7 @@
-#include "logger.h"
+#include <logger/logger.h>
 #include "../utils.h"
 
-namespace app {
+namespace wind {
     class Keyboard final {
     public:
         static bool isKey(int key);
@@ -10,7 +10,7 @@ namespace app {
 
     namespace _internal {
         class KeyEventHandler final {
-            friend class app::Keyboard;
+            friend class wind::Keyboard;
         private:
             static KeyEventHandler* s_handler;
         public:

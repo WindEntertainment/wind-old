@@ -1,8 +1,13 @@
 #include "application.h"
 
-namespace app {
+#include <asset-bundler/asset_bundler.h>
+#include <asset-bundler/bundle.h>
+
+#include <asset-bundler/objects/shader.h>
+
+namespace wind {
     void glfwErrorCallback(int _code, const char* _description) {
-        logger()->error() << "glfw(" << _code << "):" << _description;
+        log().error() << "glfw(" << _code << "):" << _description;
     } 
 
     Application* Application::s_app = new Application();
@@ -16,28 +21,25 @@ namespace app {
     }
 
     int Application::_loop_(int argc, char** argv) {
-
-        atexit(quitCallback);
-        
         //======================================//
-        logger()->info() << "Libaries initilization...";
+        log().info() << "Libaries initilization...";
 
         //======================================//
 
         glfwSetErrorCallback(glfwErrorCallback);
 
         if (!glfwInit()) {
-            logger()->error() << "Fail glfwInit:";
+            log().error() << "Fail glfwInit:";
             return EXIT_FAILURE;
         }
 
         int major, minor, revision;
         glfwGetVersion(&major, &minor, &revision);
-        logger()->info() << "glfw version:" << major << "." << minor << "." << revision;
+        log().info() << "glfw version:" << major << "." << minor << "." << revision;
 
         //======================================//
 
-        logger()->info() << "Window creating...";
+        log().info() << "Window creating...";
 
         m_window = new Window([](Window::CreatingWindowConfig* self) {
             self->title = "SoulDungeon";
@@ -48,7 +50,7 @@ namespace app {
         //======================================//
 
         if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
-            logger()->error() << "Failed GLAD load gl loader";
+            log().error() << "Failed GLAD load gl loader";
             return EXIT_FAILURE;
         }
 
@@ -56,9 +58,14 @@ namespace app {
 
         //======================================//
 
-        auto shader = app::Resources::load<app::Shader>("./asset/shader");
-        auto mesh = app::Resources::load<app::Mesh>("./asset/monkey.obj");
+        auto bundle = wind::assets::Bundle();
+        bundle.load("assets.bundle");
+
+        auto asset_shader = bundle.getResource<wind::assets::Shader>("./asset/shader_default.glsl");
+        auto asset_mesh   = bundle.getResource<wind::assets::Mesh>("./asset/monkey.obj");
         
+        auto shader =  new Shader(asset_shader->vtx.c_str(), asset_shader->fgt.c_str());
+
         m_world = new World();
         m_renderer = new Renderer(m_world);
 
@@ -66,13 +73,13 @@ namespace app {
 
         auto transform = new Transform({0, 0, -5}, {0, 0, 0});
         entity->addComponent(transform);
-        entity->addComponent(new Model(mesh, shader));
+        entity->addComponent(new Mesh(asset_mesh, shader));
 
         m_world->addEntity(entity);
 
         //======================================//
 
-        logger()->info() << "Start application loop";
+        log().info() << "Start application loop";
 
         while (isLoopActive()) {
             if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
@@ -88,6 +95,7 @@ namespace app {
             glfwPollEvents(); 
         }
 
+        quitCallback();
         return EXIT_SUCCESS;
     }
 
@@ -96,12 +104,12 @@ namespace app {
     }
 
     void Application::quit() {
-        logger()->info() << "Application try quiting...";
+        log().info() << "Application try quiting...";
         m_loop_is_active = false;
     }
 
     void Application::quitCallback() {
-        logger()->info() << "Free resources...";
+        log().info() << "Free resources...";
 
         delete s_app->m_window;
         delete s_app->m_world;
