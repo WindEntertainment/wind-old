@@ -10,6 +10,8 @@ namespace wind {
 
         template<typename T>
         inline T read(std::ifstream& is) {
+            if (!is.good())
+                throw std::invalid_argument("end of file");
             T value;
             is.read(reinterpret_cast<char*>(&value), sizeof(value));
             return value;   

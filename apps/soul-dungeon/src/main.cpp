@@ -12,7 +12,9 @@ int main(int argc, char** argv) {
     bundle.load("assets.bundle");
 
     auto monkey = bundle.getResource<wind::assets::Mesh>("./asset/monkey.obj");
-    wind::log().info() << monkey->id;
-    wind::log().info() << monkey->vertices.size();
-    wind::log().info() << monkey->indices.size();
+    if (monkey) {
+        wind::log().info() << monkey->id;
+        wind::log().info() << monkey->vertices.size();
+        wind::log().info() << monkey->indices.size();
+    }
 }
