@@ -11,17 +11,23 @@ namespace wind {
                 return;
             }
 
-            auto num_assets = read<size_t>(m_file);
-            for (size_t i = 0; i < num_assets; ++i) {
-                auto id = read<asset_id>(m_file);
-                auto offset = read<size_t>(m_file);
+            try {
+                auto num_assets = read<size_t>(m_file);
+                for (size_t i = 0; i < num_assets; ++i) {
+                    auto id = read<asset_id>(m_file);
+                    auto offset = read<size_t>(m_file);
 
-                m_offsets.insert(std::make_pair(
-                    id, offset
-                ));
+                    m_offsets.insert(std::make_pair(
+                        id, offset 
+                    ));
+                }
+       
+                log().info() 
+                    << "Asset Bundle: finish loaded bundle header. Assets count in bundle: "
+                    << num_assets;
+            } catch (std::invalid_argument& ex) {
+                log().error() << ex.what();
             }
-            
-            log().info() << "Asset Bundle: finish loaded bundle header. Assets count in bundle: " << num_assets;
         }
     }
 }
