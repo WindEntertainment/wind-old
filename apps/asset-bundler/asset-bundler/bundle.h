@@ -13,7 +13,9 @@ namespace wind {
             T* getResource(const string&& _str_id) {
                 auto id = getAssetIdByName(_str_id);
                 if (!m_offsets.contains(id)) {
-                    log().error() << "Bundle: can't find resource by name: '" << _str_id << "' id:" << id;
+                    log().error() 
+                        << "Bundle: can't find resource by name: '" 
+                        << _str_id << "' id:" << id;
                     return nullptr;
                 }
 

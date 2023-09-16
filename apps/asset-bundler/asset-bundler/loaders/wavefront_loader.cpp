@@ -8,10 +8,11 @@ namespace wind {
 
             // open file
             std::ifstream file(_path);
-            if (!file.is_open())
-                throw std::invalid_argument(string(
-                    "Can't open file by path: ", _path
-                ));  
+            if (!file.is_open()) {
+                log().error() << 
+                    "Can't open file by path: [" << _path << "]";
+                return nullptr;
+            }
 
             // parsing
             string line;

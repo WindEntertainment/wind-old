@@ -1,26 +1,8 @@
 #pragma once
-#include <logger/wind_logger.h>
+#include "asset-bundler/utils.h"
 
 namespace wind {
     namespace assets {       
-        template<typename T>
-        inline void write(std::ofstream& os, T data) {
-            os.write(reinterpret_cast<char*>(&data), sizeof(data));
-        }
-
-        template<typename T>
-        inline T read(std::ifstream& is) {
-            if (!is.good())
-                throw std::invalid_argument("end of file");
-            T value;
-            is.read(reinterpret_cast<char*>(&value), sizeof(value));
-            return value;   
-        }
-
-        using asset_id = unsigned long;
-
-        asset_id getAssetIdByName(const std::string &str);
-
         struct ISerializable {
         public:
             asset_id id = 0;
@@ -36,6 +18,5 @@ namespace wind {
             virtual void _serialize(std::ofstream& os) = 0;
             virtual void _deserialize(std::ifstream& is) = 0;
         };
-
     }
 }
