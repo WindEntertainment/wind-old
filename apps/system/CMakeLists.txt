@@ -1,22 +1,15 @@
-project(wind)
+project(system)
 
 add_library(${PROJECT_NAME} STATIC
-    ./src/application.cpp
-
-    ./src/window/window.cpp
-    ./src/event-handlers/key_event_handler.cpp
-    ./src/renderer/renderer.cpp
-    ./src/mesh/mesh.cpp
-    
-    ./src/shader/shader.cpp
-
-    ./src/entity/entity.cpp
-    ./src/world/world.cpp
+    ./system/window.h
+    ./system/utils.h
 )
 
+include_directories(../renderer/)
 include_directories(../logger/)
 include_directories(../asset-bundler/)
 target_link_libraries(${PROJECT_NAME} PRIVATE asset-bundler)
+target_link_libraries(${PROJECT_NAME} PRIVATE renderer)
 
 find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw)

@@ -1,5 +1,5 @@
-#include <application.h>
+#include <renderer/renderer.h>
 
 int main(int argc, char** argv) {
-    return wind::Application::loop(argc, argv);
+    
 }
