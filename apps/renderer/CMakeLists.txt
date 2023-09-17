@@ -1,13 +1,21 @@
-project(soul-dungeon)
+project(renderer)
 
-add_executable(${PROJECT_NAME}
-    ./src/main.cpp
+add_library(${PROJECT_NAME} STATIC
+    ./renderer/renderer.h
+    ./renderer/renderer.cpp
+
+    ./renderer/shader.h
+    ./renderer/shader.cpp
+
+    ./renderer/mesh.h
+    ./renderer/mesh.cpp
+    
+    ./renderer/utils.h
 )
 
-include_directories(../logger/)
-include_directories(../asset-bundler/)
 include_directories(../renderer/)
-target_link_libraries(${PROJECT_NAME} PRIVATE renderer)
+include_directories(../logger/)
+target_link_libraries(${PROJECT_NAME} PRIVATE logger)
 
 find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
@@ -21,6 +29,3 @@ target_link_libraries(${PROJECT_NAME} PRIVATE glad::glad)
 
 find_package(glm CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
-
-find_package(OpenSSL REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE OpenSSL::SSL OpenSSL::Crypto)

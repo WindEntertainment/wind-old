@@ -9,4 +9,6 @@ project(main)
 add_subdirectory(./apps/logger)
 add_subdirectory(./apps/asset-bundler)
 add_subdirectory(./apps/wind)
+add_subdirectory(./apps/renderer)
+
 add_subdirectory(./apps/soul-dungeon)
