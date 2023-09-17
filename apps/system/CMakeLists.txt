@@ -6,6 +6,9 @@ add_library(${PROJECT_NAME} STATIC
 
     ./system/window.h
     ./system/window.cpp
+
+    ./system/events/keyboard.h
+    ./system/events/keyboard.cpp
     
     ./system/utils.h
     ./system/utils.cpp

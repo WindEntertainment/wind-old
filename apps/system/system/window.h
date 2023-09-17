@@ -8,6 +8,8 @@ namespace wind {
         private:
             ivec2 m_size;
 
+            std::function<void()> close_event;
+
             GLFWwindow* m_window;
             static void closeCallback(GLFWwindow* window);
         public:
@@ -15,7 +17,6 @@ namespace wind {
             ~Window();
 
             void show();
-
             ivec2 size();
         };
 
@@ -25,6 +26,7 @@ namespace wind {
             ivec2 pos = {0, 0};
             bool fullscreen = true;
             bool resizable = false;
+            std::function<void()> close_event;
             
             ivec2 opengl_version = {3, 0};
         };
