@@ -32,11 +32,6 @@ namespace wind {
         }
 
         int Application::loop(std::function<void()> update) {
-            if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
-                log().error() << "Failed GLAD load gl loader";
-                return EXIT_FAILURE;
-            }
-
             log().info() << "Start application loop";
 
             while (alive()) {

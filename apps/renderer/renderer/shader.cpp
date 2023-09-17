@@ -14,9 +14,8 @@ namespace wind {
             glGetShaderiv(vs, GL_COMPILE_STATUS, &success);
             if (!success) {
                 glGetShaderInfoLog(vs, 512, NULL, msg);
-                throw std::invalid_argument(
-                    "Failed compile vertex shader:" + string(msg)
-                );
+                log().error() << "Failed compile vertex shader: " << msg;
+                return;
             }
 
             // Fragment 
@@ -27,9 +26,8 @@ namespace wind {
             glGetShaderiv(fs, GL_COMPILE_STATUS, &success);
             if (!success) {
                 glGetShaderInfoLog(fs, 512, NULL, msg);
-                throw std::invalid_argument(
-                    "Failed compile fragment shader:" + string(msg)
-                );
+                log().error() << "Failed compile fragment shader: " << msg;
+                return;
             }
 
             // Program
@@ -41,9 +39,8 @@ namespace wind {
             glGetShaderiv(m_program, GL_LINK_STATUS, &success);
             if (!success) {
                 glGetShaderInfoLog(m_program, 512, NULL, msg);
-                throw std::invalid_argument(
-                    "Failed link shader:" + string(msg)
-                );
+                log().error() << "Failed link shader: " << msg;
+                return;
             }
 
             glDeleteShader(vs);

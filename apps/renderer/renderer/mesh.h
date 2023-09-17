@@ -14,10 +14,10 @@ namespace wind {
             Mesh(vector<vec3> vertices, vector<uint> indicies, Shader* shader);
             ~Mesh();
 
-            inline uint VAO();
-            inline uint size();  
+            uint VAO() const;
+            uint size() const;  
 
-            inline Shader* shader();
+            Shader* shader() const;
         };
     }
 }

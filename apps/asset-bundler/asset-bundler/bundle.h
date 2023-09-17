@@ -7,6 +7,11 @@ namespace wind {
             std::ifstream m_file;
             map<asset_id, size_t> m_offsets;
         public:
+            Bundle() {};
+            Bundle(const string&& path) {
+                load(std::move(path));
+            }
+
             void load(const string&& path);
 
             template <typename T>

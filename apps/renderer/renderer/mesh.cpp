@@ -2,16 +2,16 @@
 
 namespace wind {
     namespace renderer {
-        Shader* Mesh::shader() {
+        Shader* Mesh::shader() const {
             return m_shader;
         }
 
-        uint Mesh::VAO() {
+        uint Mesh::VAO() const {
             return m_VAO;
         }
 
-        uint Mesh::size() {
-            return m_indices.size();
+        uint Mesh::size() const {
+            return m_indices.size(); 
         }
 
         Mesh::Mesh(vector<vec3> _vertices, vector<uint> _indicies, Shader* _shader) {

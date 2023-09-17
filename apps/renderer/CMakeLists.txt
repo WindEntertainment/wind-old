@@ -14,6 +14,7 @@ add_library(${PROJECT_NAME} STATIC
 )
 
 include_directories(../renderer/)
+
 include_directories(../logger/)
 target_link_libraries(${PROJECT_NAME} PRIVATE logger)
 
