@@ -40,7 +40,8 @@ namespace wind {
             log().info() << "Start application loop";
 
             while (alive()) {
-                update();
+                if (update)
+                    update();
                 glfwPollEvents();
             }
 

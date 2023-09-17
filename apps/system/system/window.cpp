@@ -1,5 +1,7 @@
 #include "window.h"
 
+#include "events/keyboard.h"
+
 namespace wind {
     namespace system {
         Window::Window(void (*buildConfig)(WindowConfig*)) {
@@ -20,12 +22,15 @@ namespace wind {
                 log().error() << "Fail create window: " << getGLFWError();
                 return;
             }
+
+            glfwSetWindowUserPointer(m_window, this);
+            close_event = config.close_event;
             
             glfwMakeContextCurrent(m_window);
             glfwSwapInterval(1);
 
             glfwSetWindowCloseCallback(m_window, closeCallback);
-            //glfwSetKeyCallback(m_window, _internal::KeyEventHandler::keyCallback);
+            glfwSetKeyCallback(m_window, _internal::KeyEventHandler::keyCallback);
         
             m_size = config.size;
         }
@@ -46,8 +51,10 @@ namespace wind {
             return m_size;
         }
 
-        void Window::closeCallback(GLFWwindow* window) {
-            
+        void Window::closeCallback(GLFWwindow* gl_window) {
+            auto window = (Window*)glfwGetWindowUserPointer(gl_window);
+            if (window->close_event)
+                window->close_event();
         }
     }
 }
