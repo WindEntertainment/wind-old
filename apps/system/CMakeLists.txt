@@ -1,8 +1,14 @@
 project(system)
 
 add_library(${PROJECT_NAME} STATIC
+    ./system/application.h
+    ./system/application.cpp
+
     ./system/window.h
+    ./system/window.cpp
+    
     ./system/utils.h
+    ./system/utils.cpp
 )
 
 include_directories(../renderer/)
