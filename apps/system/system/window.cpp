@@ -33,6 +33,11 @@ namespace wind {
             glfwSetKeyCallback(m_window, _internal::KeyEventHandler::keyCallback);
         
             m_size = config.size;
+
+            if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
+                log().error() << "Failed GLAD load gl loader";
+                return;
+            }
         }
 
         Window::~Window() {
