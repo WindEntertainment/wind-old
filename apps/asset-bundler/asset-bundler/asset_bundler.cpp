@@ -48,8 +48,8 @@ namespace wind {
                 for (const auto& pair : m_loaders) {
                     if (!std::regex_match(filename, pair.first))
                         continue;
-
-                    obj = pair.second->load(entry.path().c_str());
+                        
+                    obj = pair.second->load(entry.path());
                     if (!obj) {
                         log().error() << "Asset Bundler: can't load resource: " << filename;
                         break;

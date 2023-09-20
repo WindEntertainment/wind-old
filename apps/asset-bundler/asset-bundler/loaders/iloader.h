@@ -5,7 +5,8 @@ namespace wind {
     namespace assets {
         class ILoader {
         public:
-            virtual ISerializable* load(const char* path) = 0;
+            virtual ~ILoader() = default;
+            virtual ISerializable* load(fs::path path) = 0;
         };
     }
 }

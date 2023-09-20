@@ -15,21 +15,30 @@ namespace wind {
             void load(const string&& path);
 
             template <typename T>
-            T* getResource(const string&& _str_id) {
-                auto id = getAssetIdByName(_str_id);
-                if (!m_offsets.contains(id)) {
-                    log().error() 
-                        << "Bundle: can't find resource by name: '" 
-                        << _str_id << "' id:" << id;
-                    return nullptr;
-                }
-
-                m_file.seekg(m_offsets[id], std::ios_base::beg);
-            
-                T* res = new T();
-                res->deserialize(m_file);
-                return res;
-            }
+            T* getResource(const string&& _str_id);
         };
+
+        template <typename T>
+        T* Bundle::getResource(const string&& _str_id) {
+            auto id = getAssetIdByName(_str_id);
+            if (!m_offsets.contains(id)) {
+                log().error() 
+                    << "Bundle: can't find resource by name: '" 
+                    << _str_id << "' id:" << id;
+                return nullptr;
+            }
+
+            m_file.seekg(m_offsets[id], std::ios_base::beg);
+        
+            T* res = new T();
+            try {
+                res->deserialize(m_file);
+            } catch (std::exception& ex) {
+                log().error() << "Bundle: fail deserialize resource by name '" << _str_id << "': " << ex.what();
+                return nullptr;
+            }
+
+            return res;
+        }
     }
 }

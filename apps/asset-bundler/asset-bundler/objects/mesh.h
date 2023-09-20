@@ -1,3 +1,4 @@
+#pragma once
 #include "asset-bundler/objects/iserializable.h"
 #include <glm/glm.hpp>
 

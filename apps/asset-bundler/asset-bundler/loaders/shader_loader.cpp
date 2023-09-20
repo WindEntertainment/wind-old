@@ -3,11 +3,11 @@
 
 namespace wind {
     namespace assets {
-        ISerializable* ShaderLoader::load(const char* _path) {
+        ISerializable* ShaderLoader::load(fs::path _path) {
             namespace xml = tinyxml2;
             
             xml::XMLDocument doc;
-            xml::XMLError err = doc.LoadFile(_path);
+            xml::XMLError err = doc.LoadFile(_path.string().c_str());
             if (err != xml::XML_SUCCESS) {
                 log().error() << "[" << _path << "] XMLError: " << doc.ErrorIDToName(err);
                 return nullptr;

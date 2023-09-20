@@ -14,6 +14,8 @@ namespace wind {
             void deserialize(std::ifstream& is) {
                 _deserialize(is);
             }
+
+            virtual ~ISerializable() = default;
         protected:
             virtual void _serialize(std::ofstream& os) = 0;
             virtual void _deserialize(std::ifstream& is) = 0;

@@ -3,7 +3,7 @@
 
 namespace wind {
     namespace assets {
-        ISerializable* WaveFrontObjLoader::load(const char* _path) {
+        ISerializable* WaveFrontObjLoader::load(fs::path _path) {
             m_output_mesh = new Mesh();
 
             // open file

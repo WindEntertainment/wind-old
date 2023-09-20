@@ -7,7 +7,7 @@ namespace wind {
         private:
             Mesh* m_output_mesh;
         public:
-            ISerializable* load(const char* path) override;
+            ISerializable* load(fs::path path) override;
         private:
             vector<string> tokenize(string _line) const;
             bool isValidInstruction(string _instruction) const;
