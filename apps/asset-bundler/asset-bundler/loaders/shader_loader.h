@@ -6,7 +6,7 @@ namespace wind {
     namespace assets {
         class ShaderLoader : public ILoader {
         public:
-            ISerializable* load(const char* path) override;
+            ISerializable* load(fs::path path) override;
         };
     }
 }
