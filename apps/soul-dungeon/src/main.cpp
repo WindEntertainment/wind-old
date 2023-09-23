@@ -1,4 +1,3 @@
-
 #include <system/application.h>
 #include <system/window.h>
 #include <system/events/keyboard.h>
@@ -12,12 +11,15 @@
 int main(int argc, char** argv) {
     using namespace wind;
 
-    system::Application::init();
+    system::Application::init([](){
+        return true;
+    });
     
-    assets::Bundle bundle;
-    bundle.load("./assets.bundle");
+    assets::Bundle bundle("./assets.bundle");
+    if (!bundle.isOpen())
+        return system::Application::terminate();
 
-    system::Window window([](system::Window::WindowConfig* self) {
+    auto window = new system::Window([](system::Window::WindowConfig* self) {
         self->close_event = system::Application::quit;
         self->fullscreen = false;
     });
@@ -32,6 +34,13 @@ int main(int argc, char** argv) {
         asset_mesh->vertices, asset_mesh->indices, shader
     ));
 
+    delete asset_mesh;
+    delete asset_shader;
+
+    system::Application::addTerminateCallback([&](){
+        delete window;
+    });
+
     return system::Application::loop([&](){
         if (system::Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
             system::Application::quit();
@@ -41,6 +50,6 @@ int main(int argc, char** argv) {
             gl_mesh.get(), 
             {0, 0, -5}, {0, 30, 30}
         );
-        window.show();
+        window->show();
     });  
 }
