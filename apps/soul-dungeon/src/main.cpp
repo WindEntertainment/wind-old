@@ -54,23 +54,24 @@ int main(int argc, char** argv) {
     delete asset_shader;
     delete asset_image;
 
+    auto camera = new renderer::Camera();
+    camera->position = {0, 0, 5};
+    camera->front = {0, 0, 0};
+    renderer.setCamera(camera);
+
     system::Application::addTerminateCallback([&](){
         delete window;
     });
 
-    vec3 rotation = {0, 0, 0};
     return system::Application::loop([&](){
         if (system::Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
             system::Application::quit();
 
-        rotation.x += 0.1f;
-        rotation.y += 0.1f;
-        rotation.z += 0.1f;
-
         renderer.clear();
         renderer.render(
             gl_mesh.get(), 
-            {0, 0, -5}, rotation
+            {0, 0, 0}, 
+            {0, 0, 0}
         );
         window->show();
     });  
