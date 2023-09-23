@@ -11,6 +11,9 @@ namespace wind {
             glfwWindowHint(GLFW_RESIZABLE, config.resizable);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, config.opengl_version.x);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, config.opengl_version.y);
+
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
             m_window = glfwCreateWindow(
                 config.size.x, config.size.y,
                 config.title.c_str(),
@@ -38,6 +41,8 @@ namespace wind {
                 log().error() << "Failed GLAD load gl loader";
                 return;
             }
+
+            glViewport(0, 0, config.size.x, config.size.y);
         }
 
         Window::~Window() {

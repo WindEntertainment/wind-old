@@ -13,6 +13,7 @@ namespace wind {
 
             void uMat4f(const char* name, glm::mat4 mat);
             void uFloatArray(const char* name, size_t size, float* array);
+            void uInt(const char* name, int i);
         };
     }
 }
