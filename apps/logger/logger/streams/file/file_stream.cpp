@@ -14,7 +14,7 @@ namespace wind {
 
             m_file = std::ofstream(file_path);
             if (!m_file.is_open()) {
-                std::cerr << "Couldn't open file for write log:" << _path << "\n";
+                std::cerr << "Couldn't open file for write log: [" << _path << "]\n";
                 return;
             }
         } 
