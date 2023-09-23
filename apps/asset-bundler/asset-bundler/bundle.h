@@ -7,12 +7,12 @@ namespace wind {
             std::ifstream m_file;
             map<asset_id, size_t> m_offsets;
         public:
+            ~Bundle();
             Bundle() {};
-            Bundle(const string&& path) {
-                load(std::move(path));
-            }
+            Bundle(const string&& path);
 
             void load(const string&& path);
+            bool isOpen() const;
 
             template <typename T>
             T* getResource(const string&& _str_id);
