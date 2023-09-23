@@ -1,4 +1,5 @@
 #include "shader.h"
+#include "texture.h"
 
 namespace wind {
     namespace renderer {
