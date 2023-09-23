@@ -31,8 +31,16 @@ namespace wind {
                 };
 
             m_indices = _indicies;
+            
+            
+            //====================================//
+            
             m_shader = _shader;
             m_texture = _texture;
+
+            m_shader->uInt("ourTexture", 0);
+
+            //====================================//
 
             glGenVertexArrays(1, &m_VAO);
             glGenBuffers(1, &m_VBO);
@@ -43,7 +51,7 @@ namespace wind {
             glBindBuffer(GL_ARRAY_BUFFER, m_VBO);        
             glBufferData(
                 GL_ARRAY_BUFFER, m_vertices.size() * sizeof(Vertex),
-                m_vertices.data(), GL_STATIC_DRAW
+                &m_vertices[0], GL_STATIC_DRAW
             );
 
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO); 
@@ -55,10 +63,9 @@ namespace wind {
             glEnableVertexAttribArray(0);
             glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 
-            glEnableVertexAttribArray(1);
-            glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, tex_coords));
-
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
+            glEnableVertexAttribArray(2);
+            glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, tex_coords));
+            
             glBindVertexArray(0);
         }
 

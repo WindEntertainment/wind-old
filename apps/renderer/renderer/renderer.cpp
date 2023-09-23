@@ -4,11 +4,13 @@ namespace wind {
     namespace renderer {
         void Renderer::clear() {
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT);
+            glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
         }
 
         void Renderer::render(Mesh* mesh, vec3 position, vec3 rotation) {
             mesh->shader()->use();
+
+            glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, mesh->texture()->id());
 
             glBindVertexArray(mesh->VAO());

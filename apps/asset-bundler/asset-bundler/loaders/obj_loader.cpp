@@ -14,10 +14,7 @@ namespace wind {
                 // load
                 const struct aiScene * scene = importer.ReadFile(
                     _path.c_str(),
-                    aiProcess_CalcTangentSpace       |
-                    aiProcess_Triangulate            |
-                    aiProcess_JoinIdenticalVertices  |
-                    aiProcess_SortByPType
+                    aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace
                 );
 
                 // checks
@@ -51,8 +48,8 @@ namespace wind {
                         out->indices[i * 3 + j] = mesh->mFaces[i].mIndices[j];
 
 
+                out->uv.resize(mesh->mNumVertices);
                 if (mesh->mTextureCoords[0]) {
-                    out->uv.resize(mesh->mNumVertices);
                     for (uint i = 0; i < mesh->mNumVertices; ++i)
                         out->uv[i] = {
                             mesh->mTextureCoords[0][i].x,

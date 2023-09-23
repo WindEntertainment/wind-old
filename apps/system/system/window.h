@@ -28,7 +28,7 @@ namespace wind {
             bool resizable = false;
             std::function<void()> close_event;
             
-            ivec2 opengl_version = {3, 0};
+            ivec2 opengl_version = {3, 3};
         };
     }
 }

@@ -6,8 +6,8 @@ namespace wind {
             write(os, width);
             write(os, height);
             write(os, channels);
-            for (int i = 0; i < width * height; ++i)
-                write(os, data[i]);
+            
+            os.write(reinterpret_cast<char*>(data), width * height * channels + 1);
         }
 
 
@@ -16,9 +16,8 @@ namespace wind {
             height = read<int>(is);
             channels = read<int>(is);
 
-            data = new unsigned char[width * height];
-            for (int i = 0; i < width * height; ++i)
-                data[i] = read<unsigned char>(is);
+            data = new unsigned char[width * height * channels + 1];
+            is.read(reinterpret_cast<char*>(data), width * height * channels + 1);
         }
 
         Image::~Image() {

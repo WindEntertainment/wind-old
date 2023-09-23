@@ -55,6 +55,8 @@ namespace wind {
         int Application::loop(std::function<void()> update) {
             log().info() << "Start application loop";
 
+            glEnable(GL_DEPTH_TEST);
+
             while (alive()) {
                 if (update)
                     update();

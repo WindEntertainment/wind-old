@@ -32,8 +32,8 @@ namespace wind {
 
             // Program
             m_program = glCreateProgram();
-            glAttachShader(m_program, fs);
             glAttachShader(m_program, vs);
+            glAttachShader(m_program, fs);
             glLinkProgram(m_program);
 
             glGetShaderiv(m_program, GL_LINK_STATUS, &success);
@@ -63,6 +63,11 @@ namespace wind {
         void Shader::uMat4f(const char* _name, glm::mat4 _mat) {
             int loc = glGetUniformLocation(m_program, _name);
             glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(_mat));
+        }
+
+        void Shader::uInt(const char* _name, int _i) {
+            int loc = glGetUniformLocation(m_program, _name);
+            glUniform1i(loc, _i);
         }
     }
 }
