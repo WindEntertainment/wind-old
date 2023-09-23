@@ -8,8 +8,8 @@ add_library(${PROJECT_NAME} STATIC
     ./asset-bundler/asset_bundler.cpp
 
     ./asset-bundler/loaders/iloader.h
-    ./asset-bundler/loaders/wavefront_loader.h
-    ./asset-bundler/loaders/wavefront_loader.cpp
+    ./asset-bundler/loaders/obj_loader.h
+    ./asset-bundler/loaders/obj_loader.cpp
     ./asset-bundler/loaders/shader_loader.h
     ./asset-bundler/loaders/shader_loader.cpp
 
@@ -36,3 +36,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 
 find_package(tinyxml2 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE tinyxml2::tinyxml2)
+
+find_package(assimp CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE assimp::assimp)
