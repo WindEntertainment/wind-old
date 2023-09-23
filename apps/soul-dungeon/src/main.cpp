@@ -46,7 +46,8 @@ int main(int argc, char** argv) {
 
     renderer::Renderer renderer;
     std::shared_ptr<renderer::Mesh> gl_mesh(new renderer::Mesh(
-        asset_mesh->vertices, asset_mesh->indices, shader
+        asset_mesh->vertices, asset_mesh->indices,
+        asset_mesh->uv, shader
     ));
 
     delete asset_mesh;

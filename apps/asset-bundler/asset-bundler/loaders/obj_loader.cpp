@@ -49,6 +49,17 @@ namespace wind {
                 for (uint i = 0; i < mesh->mNumFaces; ++i)
                     for (uint j = 0; j < 3; ++j)
                         out->indices[i * 3 + j] = mesh->mFaces[i].mIndices[j];
+
+
+                if (mesh->mTextureCoords[0]) {
+                    out->uv.resize(mesh->mNumVertices);
+                    for (uint i = 0; i < mesh->mNumVertices; ++i)
+                        out->uv[i] = {
+                            mesh->mTextureCoords[0][i].x,
+                            mesh->mTextureCoords[0][i].y,
+                            mesh->mTextureCoords[0][i].z
+                        };
+                }
             } catch (std::exception& ex) {
                 log().error() << "WaveFrontLoader: " << ex.what() << " by path: [" << _path << "]"; 
             }

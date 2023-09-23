@@ -13,12 +13,16 @@ namespace wind {
             write(os, indices.size());
             for (auto index : indices) 
                 write(os, index);
+
+            write(os, uv.size());
+            for (auto tc : uv)
+                write(os, tc);
         }
 
         void Mesh::_deserialize(std::ifstream& is) {
             auto vsize = read<size_t>(is);
             vertices.resize(vsize);
-            for (int i = 0; i < vsize; ++i)
+            for (uint i = 0; i < vsize; ++i)
                 vertices[i] = {
                     read<float>(is),
                     read<float>(is),
@@ -27,8 +31,17 @@ namespace wind {
 
             auto isize = read<size_t>(is);
             indices.resize(isize);
-            for (int i = 0; i < isize; ++i)
+            for (uint i = 0; i < isize; ++i)
                 indices[i] = read<uint>(is);
+
+            auto uvsize = read<size_t>(is);
+            uv.resize(uvsize);
+            for (uint i = 0; i < uvsize; ++i)
+                uv[i] = {
+                    read<float>(is),
+                    read<float>(is),
+                    read<float>(is)
+                };
         }
     }
 }
