@@ -9,20 +9,17 @@
 #include <renderer/renderer.h>
 
 #include <asset-bundler/asset_bundler.h>
-#include <asset-bundler/loaders/wavefront_loader.h>
+#include <asset-bundler/loaders/obj_loader.h>
 #include <asset-bundler/loaders/shader_loader.h>
 
 int main(int argc, char** argv) {
     using namespace wind;
 
-
-    /*assets::Bundler bundler;
-    bundler.regLoader(".*(.obj)", new assets::WaveFrontObjLoader());
+    assets::Bundler bundler;
+    bundler.regLoader(".*(.obj)", new assets::ObjLoader());
     bundler.regLoader(".*(.glsl)", new assets::ShaderLoader());
 
     bundler.assembly("./asset/", "./assets.bundle");
-    return EXIT_SUCCESS;
-*/
 
     system::Application::init([](){
         return true;
