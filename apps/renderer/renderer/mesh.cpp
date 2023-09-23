@@ -14,10 +14,19 @@ namespace wind {
             return m_indices.size(); 
         }
 
-        Mesh::Mesh(vector<vec3> _vertices, vector<uint> _indicies, vector<vec3> _uv, Shader* _shader) {
-            m_vertices = _vertices;
+        Mesh::Mesh(vector<vec3> _vertices, vector<uint> _indicies, vector<vec2> _uv, Shader* _shader) {
+            assert(
+                _vertices.size() == _uv.size()
+            );
+            
+            m_vertices.resize(_vertices.size());
+            for (uint i = 0; i < m_vertices.size(); ++i)
+                m_vertices[i] = {
+                    _vertices[i],
+                    _uv[i]
+                };
+
             m_indices = _indicies;
-            m_uv = _uv;
             m_shader = _shader;
 
             glGenVertexArrays(1, &m_VAO);
@@ -28,7 +37,7 @@ namespace wind {
 
             glBindBuffer(GL_ARRAY_BUFFER, m_VBO);        
             glBufferData(
-                GL_ARRAY_BUFFER, m_vertices.size() * sizeof(float) * 3,
+                GL_ARRAY_BUFFER, m_vertices.size() * sizeof(Vertex),
                 m_vertices.data(), GL_STATIC_DRAW
             );
 
@@ -38,8 +47,11 @@ namespace wind {
                 m_indices.data(), GL_STATIC_DRAW
             );
 
-            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
             glEnableVertexAttribArray(0);
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+
+            glEnableVertexAttribArray(1);
+            glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, tex_coords));
 
             glBindBuffer(GL_ARRAY_BUFFER, 0);
             glBindVertexArray(0);

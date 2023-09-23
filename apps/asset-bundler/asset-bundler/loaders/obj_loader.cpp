@@ -56,8 +56,7 @@ namespace wind {
                     for (uint i = 0; i < mesh->mNumVertices; ++i)
                         out->uv[i] = {
                             mesh->mTextureCoords[0][i].x,
-                            mesh->mTextureCoords[0][i].y,
-                            mesh->mTextureCoords[0][i].z
+                            mesh->mTextureCoords[0][i].y
                         };
                 }
             } catch (std::exception& ex) {

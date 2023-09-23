@@ -15,8 +15,10 @@ namespace wind {
                 write(os, index);
 
             write(os, uv.size());
-            for (auto tc : uv)
-                write(os, tc);
+            for (auto tc : uv) {
+                write(os, tc.x);
+                write(os, tc.y);
+            }
         }
 
         void Mesh::_deserialize(std::ifstream& is) {
@@ -38,7 +40,6 @@ namespace wind {
             uv.resize(uvsize);
             for (uint i = 0; i < uvsize; ++i)
                 uv[i] = {
-                    read<float>(is),
                     read<float>(is),
                     read<float>(is)
                 };
