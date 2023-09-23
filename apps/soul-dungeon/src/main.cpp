@@ -16,12 +16,13 @@
 int main(int argc, char** argv) {
     using namespace wind;
 
-  /*  assets::Bundler bundler;
+    /*assets::Bundler bundler;
     bundler.regLoader(".*(.obj)", new assets::WaveFrontObjLoader());
     bundler.regLoader(".*(.glsl)", new assets::ShaderLoader());
 
     bundler.assembly("./asset/", "./assets.bundle");
-    return EXIT_SUCCESS;*/
+    return EXIT_SUCCESS;
+*/
 
     system::Application::init();
     
