@@ -14,6 +14,8 @@ add_library(${PROJECT_NAME} STATIC
     ./renderer/mesh.cpp
     
     ./renderer/utils.h
+
+    ./renderer/camera.h
 )
 
 include_directories(../renderer/)
