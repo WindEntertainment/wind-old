@@ -4,6 +4,8 @@
 namespace wind {
     namespace assets {
         struct Image : public ISerializable {
+            ~Image();
+            
             void _serialize(std::ofstream& os) override;
             void _deserialize(std::ifstream& is) override;
 

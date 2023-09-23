@@ -20,5 +20,10 @@ namespace wind {
             for (int i = 0; i < width * height; ++i)
                 data[i] = read<unsigned char>(is);
         }
+
+        Image::~Image() {
+            delete[] data;
+            width = height = 0;
+        }
     }
 }

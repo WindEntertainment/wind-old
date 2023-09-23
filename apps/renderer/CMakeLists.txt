@@ -4,6 +4,9 @@ add_library(${PROJECT_NAME} STATIC
     ./renderer/renderer.h
     ./renderer/renderer.cpp
 
+    ./renderer/texture.h
+    ./renderer/texture.cpp
+
     ./renderer/shader.h
     ./renderer/shader.cpp
 

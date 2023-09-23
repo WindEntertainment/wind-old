@@ -42,6 +42,8 @@ int main(int argc, char** argv) {
 
     auto shader = new renderer::Shader(asset_shader->vtx.c_str(), asset_shader->fgt.c_str());        
 
+    auto texture = new renderer::Texture(asset_image->data, asset_image->width, asset_image->height);
+
     renderer::Renderer renderer;
     std::shared_ptr<renderer::Mesh> gl_mesh(new renderer::Mesh(
         asset_mesh->vertices, asset_mesh->indices, shader
@@ -49,6 +51,7 @@ int main(int argc, char** argv) {
 
     delete asset_mesh;
     delete asset_shader;
+    delete asset_image;
 
     system::Application::addTerminateCallback([&](){
         delete window;
