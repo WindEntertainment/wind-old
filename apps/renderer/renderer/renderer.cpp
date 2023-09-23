@@ -9,6 +9,8 @@ namespace wind {
 
         void Renderer::render(Mesh* mesh, vec3 position, vec3 rotation) {
             mesh->shader()->use();
+            glBindTexture(GL_TEXTURE_2D, mesh->texture()->id());
+
             glBindVertexArray(mesh->VAO());
 
             glm::mat4 matrix_model = glm::mat4(1);

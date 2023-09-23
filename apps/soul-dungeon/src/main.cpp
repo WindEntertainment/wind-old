@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
     renderer::Renderer renderer;
     std::shared_ptr<renderer::Mesh> gl_mesh(new renderer::Mesh(
         asset_mesh->vertices, asset_mesh->indices,
-        asset_mesh->uv, shader
+        asset_mesh->uv, texture, shader
     ));
 
     delete asset_mesh;
@@ -58,14 +58,19 @@ int main(int argc, char** argv) {
         delete window;
     });
 
+    vec3 rotation = {0, 0, 0};
     return system::Application::loop([&](){
         if (system::Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
             system::Application::quit();
 
+        rotation.x += 0.1f;
+        rotation.y += 0.1f;
+        rotation.z += 0.1f;
+
         renderer.clear();
         renderer.render(
             gl_mesh.get(), 
-            {0, 0, -5}, {0, 30, 30}
+            {0, 0, -5}, rotation
         );
         window->show();
     });  

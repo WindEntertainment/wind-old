@@ -2,6 +2,10 @@
 
 namespace wind {
     namespace renderer {
+        Texture* Mesh::texture() const {
+            return m_texture;
+        }
+
         Shader* Mesh::shader() const {
             return m_shader;
         }
@@ -14,7 +18,7 @@ namespace wind {
             return m_indices.size(); 
         }
 
-        Mesh::Mesh(vector<vec3> _vertices, vector<uint> _indicies, vector<vec2> _uv, Shader* _shader) {
+        Mesh::Mesh(vector<vec3> _vertices, vector<uint> _indicies, vector<vec2> _uv, Texture* _texture, Shader* _shader) {
             assert(
                 _vertices.size() == _uv.size()
             );
@@ -28,6 +32,7 @@ namespace wind {
 
             m_indices = _indicies;
             m_shader = _shader;
+            m_texture = _texture;
 
             glGenVertexArrays(1, &m_VAO);
             glGenBuffers(1, &m_VBO);

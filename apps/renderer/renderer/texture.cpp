@@ -2,9 +2,13 @@
 
 namespace wind {
     namespace renderer {
+        uint Texture::id() const {
+            return m_texture_id;
+        }
+
         Texture::Texture(unsigned char* _image, int _width, int _height) {
-            glGenTextures(1, &texture_id);
-            glBindTexture(GL_TEXTURE_2D, texture_id);
+            glGenTextures(1, &m_texture_id);
+            glBindTexture(GL_TEXTURE_2D, m_texture_id);
 
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -16,7 +20,7 @@ namespace wind {
         }
 
         Texture::~Texture() {
-            glDeleteTextures(1, &texture_id);
+            glDeleteTextures(1, &m_texture_id);
         }
     }
 }
