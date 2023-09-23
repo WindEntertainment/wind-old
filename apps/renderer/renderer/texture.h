@@ -3,10 +3,12 @@
 namespace wind {
     namespace renderer {
         class Texture {
-            uint texture_id;
+            uint m_texture_id;
         public:
             Texture(unsigned char* image, int width, int height);
             ~Texture();
+
+            uint id() const;
         };
     }
 }
