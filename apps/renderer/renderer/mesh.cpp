@@ -14,9 +14,10 @@ namespace wind {
             return m_indices.size(); 
         }
 
-        Mesh::Mesh(vector<vec3> _vertices, vector<uint> _indicies, Shader* _shader) {
+        Mesh::Mesh(vector<vec3> _vertices, vector<uint> _indicies, vector<vec3> _uv, Shader* _shader) {
             m_vertices = _vertices;
             m_indices = _indicies;
+            m_uv = _uv;
             m_shader = _shader;
 
             glGenVertexArrays(1, &m_VAO);
