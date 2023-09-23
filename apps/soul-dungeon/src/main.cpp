@@ -11,6 +11,7 @@
 #include <asset-bundler/asset_bundler.h>
 #include <asset-bundler/loaders/obj_loader.h>
 #include <asset-bundler/loaders/shader_loader.h>
+#include <asset-bundler/loaders/image_loader.h>
 
 int main(int argc, char** argv) {
     using namespace wind;
@@ -18,6 +19,7 @@ int main(int argc, char** argv) {
     assets::Bundler bundler;
     bundler.regLoader(".*(.obj)", new assets::ObjLoader());
     bundler.regLoader(".*(.glsl)", new assets::ShaderLoader());
+    bundler.regLoader(".*(.png)", new assets::ImageLoader());
 
     bundler.assembly("./asset/", "./assets.bundle");
 
@@ -36,6 +38,7 @@ int main(int argc, char** argv) {
 
     auto asset_mesh = bundle.getResource<assets::Mesh>("./asset/monkey.obj");
     auto asset_shader = bundle.getResource<assets::Shader>("./asset/shader_default.glsl");
+    auto asset_image = bundle.getResource<assets::Image>("./asset/dice.png");
 
     auto shader = new renderer::Shader(asset_shader->vtx.c_str(), asset_shader->fgt.c_str());        
 
