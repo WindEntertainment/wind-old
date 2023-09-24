@@ -63,6 +63,7 @@ namespace wind {
             if (!m_window)
                 return;
             glfwSwapBuffers(m_window);
+            _internal::MouseEventHandler::clearOffset();
         }
 
         void Window::cursorDisable() {
