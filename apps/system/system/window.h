@@ -21,7 +21,7 @@ namespace wind {
             void show();
             ivec2 size();
         };
-
+ 
         struct Window::WindowConfig {
             string title = "Wind";
             ivec2 size = {800, 600};

@@ -20,18 +20,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE system)
 
 ##
 
-find_package(glfw3 CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
-
-find_package(OpenGL REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE ${OPENGL_LIBRARIES})
-target_include_directories(${PROJECT_NAME} PRIVATE ${OPENGL_INCLUDE_DIR})
-
-find_package(glad CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE glad::glad)
-
-find_package(glm CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
-
-find_package(OpenSSL REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE OpenSSL::SSL OpenSSL::Crypto)
+find_package(EnTT CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE EnTT::EnTT)

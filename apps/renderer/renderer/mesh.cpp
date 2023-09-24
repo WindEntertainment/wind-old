@@ -6,7 +6,7 @@ namespace wind {
             return m_texture;
         }
 
-        Shader* Mesh::shader() const {
+        Shader* Mesh::shader() const { 
             return m_shader;
         }
 

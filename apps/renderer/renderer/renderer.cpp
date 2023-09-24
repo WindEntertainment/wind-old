@@ -21,7 +21,7 @@ namespace wind {
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, mesh->texture()->id());
 
-            glBindVertexArray(mesh->VAO());
+            glBindVertexArray(mesh->VAO()); 
 
             glm::mat4 matrix_model = glm::mat4(1);
 

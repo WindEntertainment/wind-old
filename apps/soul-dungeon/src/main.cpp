@@ -36,6 +36,11 @@ public:
         yaw   += system::Mouse::offset().x * sensitivity;
         pitch += system::Mouse::offset().y * sensitivity;
 
+        if (pitch > 89.0f)
+            pitch = 89.0f;
+        if (pitch < -89.0f)
+            pitch = -89.0f;
+
         glm::vec3 direction;
         direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
         direction.y = sin(glm::radians(pitch));
@@ -44,7 +49,7 @@ public:
 
         // MOVEMENT
         float ds = speed * system::Application::deltaTime();
-        if (system::Keyboard::isKey(GLFW_KEY_W))
+        if (system::Keyboard::isKey(GLFW_KEY_W)) 
             camera->position += ds * camera->front;
         if (system::Keyboard::isKey(GLFW_KEY_S))
             camera->position -= ds * camera->front;
@@ -75,6 +80,7 @@ int main(int argc, char** argv) {
     auto window = new system::Window([](system::Window::WindowConfig* self) {
         self->close_event = system::Application::quit;
         self->fullscreen = false;
+        self->size = {1280, 720};
         self->cursor = false;
     });
 
