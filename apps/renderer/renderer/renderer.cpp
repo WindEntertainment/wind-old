@@ -30,6 +30,8 @@ namespace wind {
             matrix_model = glm::rotate(matrix_model, glm::radians(rotation.y), vec3{0, 1, 0});
             matrix_model = glm::rotate(matrix_model, glm::radians(rotation.z), vec3{0, 0, 1});
 
+            //log().info() << m_camera->up.x << "|" << m_camera->up.y << "|" << m_camera->up.z;
+
             glm::mat4 view;
             if (m_camera)
                 view = glm::lookAt(
