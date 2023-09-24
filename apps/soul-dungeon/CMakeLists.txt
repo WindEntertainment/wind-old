@@ -2,6 +2,14 @@ project(soul-dungeon)
 
 add_executable(${PROJECT_NAME}
     ./src/main.cpp
+    
+    ./src/camera_controll.h
+    ./src/camera_controll.cpp
+
+    ./src/game.h
+    ./src/game.cpp
+    
+    ./src/utils.h
 )
 
 ## internal
