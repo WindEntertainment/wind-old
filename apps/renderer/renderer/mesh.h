@@ -16,7 +16,6 @@ namespace wind {
             Texture* m_texture;
 
             Shader* m_shader = nullptr;
-
         public:
             Mesh(vector<vec3> vertices, vector<uint> indicies, vector<vec2> uv, Texture* texture, Shader* shader);
             ~Mesh();

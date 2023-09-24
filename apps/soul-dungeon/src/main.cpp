@@ -15,10 +15,11 @@ void bundler() {
 }
 
 #include "game.h"
+#include "level_one.h"
 
 int game() {
     auto game = new soul_dungeon::Game();
-    auto code = game->play();
+    auto code = game->play(new soul_dungeon::LevelOne());
     delete game;
     return code;
 }

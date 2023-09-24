@@ -1,15 +1,26 @@
-#include "camera_controll.h"
+#pragma once
+#include "level.h"
+
 #include <asset-bundler/bundle.h>
+#include <renderer/renderer.h>
+#include <system/window.h>
+#include <entt/entity/registry.hpp>
 
 namespace soul_dungeon {
     class Game {
     private:
-        Game* singlton;
+        static Game* singlton;
         
-        assets::Bundle m_bundle;
+        assets::Bundle* m_bundle;
+        system::Window* m_window;
+        renderer::Renderer* m_renderer;
+        entt::registry* m_registry;
     public:
-        assets::Bundle bundle() const;
+        static assets::Bundle* bundle();
+        static renderer::Renderer* renderer();
+        static system::Window* window();
+        static entt::registry* registry();
 
-        int play();
+        int play(Level*);
     };
 }

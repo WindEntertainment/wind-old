@@ -6,10 +6,17 @@ add_executable(${PROJECT_NAME}
     ./src/camera_controll.h
     ./src/camera_controll.cpp
 
+    ./src/level.h
+    ./src/level_one.h
+    ./src/level_one.cpp
+
     ./src/game.h
     ./src/game.cpp
     
     ./src/utils.h
+
+    ./src/transform.h
+    ./src/mesh.h
 )
 
 ## internal

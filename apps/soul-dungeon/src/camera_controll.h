@@ -8,12 +8,10 @@ namespace soul_dungeon {
         float m_yaw,
               m_pitch;
     public:
-        renderer::Camera* camera;
-
         float speed;
         float sensitivity;
 
-        CameraControll(renderer::Camera*);
+        CameraControll();
         void update();
     };
 }
