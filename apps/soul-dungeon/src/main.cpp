@@ -34,6 +34,7 @@ int main(int argc, char** argv) {
     auto window = new system::Window([](system::Window::WindowConfig* self) {
         self->close_event = system::Application::quit;
         self->fullscreen = false;
+        self->cursor = false;
     });
 
     auto asset_mesh = bundle.getResource<assets::Mesh>("./asset/monkey.obj");
@@ -49,14 +50,14 @@ int main(int argc, char** argv) {
         asset_mesh->vertices, asset_mesh->indices,
         asset_mesh->uv, texture, shader
     ));
-
+    
     delete asset_mesh;
     delete asset_shader;
     delete asset_image;
 
     auto camera = new renderer::Camera();
     camera->position = {0, 0, 5};
-    camera->front = {0, 0, 0};
+    camera->front = {0, 0, -1};
     renderer.setCamera(camera);
 
     system::Application::addTerminateCallback([&](){
