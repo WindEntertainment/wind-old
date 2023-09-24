@@ -1,6 +1,8 @@
 #include <system/application.h>
 #include <system/window.h>
+
 #include <system/events/keyboard.h>
+#include <system/events/mouse.h>
 
 #include <asset-bundler/bundle.h>
 #include <asset-bundler/objects/mesh.h>
@@ -13,9 +15,48 @@
 #include <asset-bundler/loaders/shader_loader.h>
 #include <asset-bundler/loaders/image_loader.h>
 
-int main(int argc, char** argv) {
-    using namespace wind;
+using namespace wind;
 
+class CameraControll {
+private:
+    float yaw = -90.f,
+          pitch = 0.f;
+public:
+    renderer::Camera* camera;
+
+    float speed = 3.0f;
+    float sensitivity = 0.5f;
+
+    CameraControll(renderer::Camera* _camera) {
+        camera = _camera;
+    }
+
+    void update() {
+        // ROTATION
+        yaw   += system::Mouse::offset().x * sensitivity;
+        pitch += system::Mouse::offset().y * sensitivity;
+
+        glm::vec3 direction;
+        direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+        direction.y = sin(glm::radians(pitch));
+        direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+        camera->front = glm::normalize(direction);
+
+        // MOVEMENT
+        float ds = speed * system::Application::deltaTime();
+        if (system::Keyboard::isKey(GLFW_KEY_W))
+            camera->position += ds * camera->front;
+        if (system::Keyboard::isKey(GLFW_KEY_S))
+            camera->position -= ds * camera->front;
+        if (system::Keyboard::isKey(GLFW_KEY_A))
+            camera->position -= glm::normalize(glm::cross(camera->front, camera->up)) * ds;
+        if (system::Keyboard::isKey(GLFW_KEY_D))
+            camera->position += glm::normalize(glm::cross(camera->front, camera->up)) * ds;
+        //
+    }
+};
+
+int main(int argc, char** argv) {
     assets::Bundler bundler;
     bundler.regLoader(".*(.obj)", new assets::ObjLoader());
     bundler.regLoader(".*(.glsl)", new assets::ShaderLoader());
@@ -56,17 +97,23 @@ int main(int argc, char** argv) {
     delete asset_image;
 
     auto camera = new renderer::Camera();
-    camera->position = {0, 0, 5};
     camera->front = {0, 0, -1};
+    camera->position = {-5, 0, 0};
     renderer.setCamera(camera);
+
+    auto controll_camera = new CameraControll(camera);
 
     system::Application::addTerminateCallback([&](){
         delete window;
+        delete controll_camera;
+        delete camera;
     });
 
     return system::Application::loop([&](){
         if (system::Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
             system::Application::quit();
+
+        controll_camera->update();
 
         renderer.clear();
         renderer.render(

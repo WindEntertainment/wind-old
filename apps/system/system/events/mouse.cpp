@@ -6,6 +6,7 @@ namespace wind {
             int MouseEventHandler::buttons_mask;
             int MouseEventHandler::click_mask;
             glm::vec2 MouseEventHandler::position;
+            glm::vec2 MouseEventHandler::offset;
 
             void MouseEventHandler::mousePressCallback(GLFWwindow*, int button, int action, int mods) {
                 switch (action) {
@@ -22,8 +23,19 @@ namespace wind {
             }
 
             void MouseEventHandler::mouseMoveCallback(GLFWwindow*, double _x, double _y) {
-                position.x = (float)_x;
-                position.y = (float)_y;
+                offset = {
+                    _x - position.x,
+                    position.y - _y
+                };
+                
+                position = {
+                    (float)_x,
+                    (float)_y
+                };
+            }
+
+            void MouseEventHandler::clearOffset() {
+                offset = {};
             }
         }
 
@@ -44,6 +56,10 @@ namespace wind {
 
         glm::vec2 Mouse::position() {
             return _internal::MouseEventHandler::position;
+        }
+
+        glm::vec2 Mouse::offset() {
+            return _internal::MouseEventHandler::offset;
         }
     }
 }
