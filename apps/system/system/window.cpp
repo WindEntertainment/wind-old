@@ -1,6 +1,7 @@
 #include "window.h"
 
 #include "events/keyboard.h"
+#include "events/mouse.h"
 
 namespace wind {
     namespace system {
@@ -34,7 +35,14 @@ namespace wind {
 
             glfwSetWindowCloseCallback(m_window, closeCallback);
             glfwSetKeyCallback(m_window, _internal::KeyEventHandler::keyCallback);
-        
+            glfwSetCursorPosCallback(m_window, _internal::MouseEventHandler::mouseMoveCallback);
+            glfwSetMouseButtonCallback(m_window, _internal::MouseEventHandler::mousePressCallback);
+
+            glfwSetInputMode(
+                m_window, GLFW_CURSOR,
+                config.cursor ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED
+            );
+
             m_size = config.size;
 
             if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
@@ -55,6 +63,10 @@ namespace wind {
             if (!m_window)
                 return;
             glfwSwapBuffers(m_window);
+        }
+
+        void Window::cursorDisable() {
+            glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         }
 
         ivec2 Window::size() {

@@ -2,21 +2,27 @@
 
 namespace wind {
     namespace system {
-        bool Application::isAlive = false;
+        bool Application::is_alive = false;
+        float Application::delta_time = 0.f;
+
         vector<std::function<void()>> Application::terminate_event;
         std::function<bool()> Application::quit_event;        
 
+        float Application::deltaTime() {
+            return delta_time;
+        }
+
         bool Application::alive() {
-            return isAlive;
+            return is_alive;
         }
 
         void Application::quit() {
             if (!quit_event) {
-                isAlive = false;
+                is_alive = false;
                 return;
             }
 
-            isAlive = !quit_event();
+            is_alive = !quit_event();
         }
 
         void Application::init(std::function<bool()> try_quiting) {
@@ -37,7 +43,7 @@ namespace wind {
         
             //============================================================//
 
-            isAlive = true;
+            is_alive = true;
         }
 
         int Application::terminate() {
@@ -57,11 +63,15 @@ namespace wind {
 
             glEnable(GL_DEPTH_TEST);
 
+            float lastTime = glfwGetTime();
             while (alive()) {
+                delta_time = glfwGetTime() - lastTime;
+                lastTime = glfwGetTime();
+
                 if (update)
                     update();
                 glfwPollEvents();
-            }
+            };
 
             terminate();
             return EXIT_SUCCESS;

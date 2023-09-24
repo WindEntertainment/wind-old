@@ -4,7 +4,9 @@ namespace wind {
     namespace system {
         class Application {
         private:
-            static bool isAlive;
+            static bool is_alive;
+            static float delta_time;
+
             static vector<std::function<void()>> terminate_event;
             static std::function<bool()> quit_event;
         public:
@@ -15,8 +17,10 @@ namespace wind {
 
             static int loop(std::function<void()> update);
             
-            static void quit();
+            static void quit(); 
+
             static bool alive();
+            static float deltaTime();
         };
     }
 }

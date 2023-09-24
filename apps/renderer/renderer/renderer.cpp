@@ -34,7 +34,7 @@ namespace wind {
             if (m_camera)
                 view = glm::lookAt(
                     m_camera->position,
-                    m_camera->front,
+                    m_camera->position + m_camera->front,
                     m_camera->up
                 );
 
