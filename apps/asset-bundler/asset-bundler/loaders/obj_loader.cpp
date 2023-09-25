@@ -13,7 +13,7 @@ namespace wind {
             try {
                 // load
                 const struct aiScene * scene = importer.ReadFile(
-                    _path.c_str(),
+                    _path.string().c_str(),
                     aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace
                 );
 

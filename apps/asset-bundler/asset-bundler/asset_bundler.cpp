@@ -33,7 +33,7 @@ namespace wind {
             }
 
             auto num_assets = numberOfFilesInDirectory(_src);
-            auto header_size = num_assets * sizeof(long) * 2 + sizeof(long);
+            auto header_size = num_assets * (sizeof(size_t) + sizeof(asset_id)) + sizeof(size_t);
             // header struct:
             // asset id (long) = asset offset (long) 
 
@@ -59,10 +59,10 @@ namespace wind {
                         obj->id = getAssetIdByName(filename);
 
                         auto save_pos = output.tellp();
-                        output.seekp(resource_ind * sizeof(long) * 2 + sizeof(long), std::ios_base::beg);
+                        output.seekp(resource_ind * (sizeof(size_t) + sizeof(asset_id)) + sizeof(size_t), std::ios_base::beg);
     
                         write(output, obj->id);
-                        write(output, (unsigned long)save_pos);
+                        write(output, (size_t)save_pos);
 
                         output.seekp(save_pos, std::ios_base::beg);
 
