@@ -9,7 +9,7 @@ namespace wind {
                 int width, height, channels;
                 
                 unsigned char* image =
-                    stbi_load(_path.c_str(), &width, &height, &channels, 0);
+                    stbi_load(_path.string().c_str(), &width, &height, &channels, 0);
                 if (image == nullptr) {
                     log().error() << "ImageLoader: " << stbi_failure_reason() << " by path: [" << _path << "]";
                     return nullptr;
