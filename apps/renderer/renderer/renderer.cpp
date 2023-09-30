@@ -2,20 +2,12 @@
 
 namespace wind {
     namespace renderer {
-        void Renderer::setCamera(Camera* _camera) {
-            m_camera = _camera;
-        }
-
-        Camera* Renderer::getCamera() const {
-            return m_camera;
-        }
-
         void Renderer::clear() {
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
         }
 
-        void Renderer::render(Mesh* mesh, vec3 position, vec3 rotation) {
+        void Renderer::render(Camera* camera, Mesh* mesh, vec3 position, vec3 rotation) {
             mesh->shader()->use();
 
             glActiveTexture(GL_TEXTURE0);
@@ -29,15 +21,14 @@ namespace wind {
             matrix_model = glm::rotate(matrix_model, glm::radians(rotation.x), vec3{1, 0, 0});
             matrix_model = glm::rotate(matrix_model, glm::radians(rotation.y), vec3{0, 1, 0});
             matrix_model = glm::rotate(matrix_model, glm::radians(rotation.z), vec3{0, 0, 1});
-
-            //log().info() << m_camera->up.x << "|" << m_camera->up.y << "|" << m_camera->up.z;
+            matrix_model = glm::scale(matrix_model, vec3(10, 10, 10));
 
             glm::mat4 view;
-            if (m_camera)
+            if (camera)
                 view = glm::lookAt(
-                    m_camera->position,
-                    m_camera->position + m_camera->front,
-                    m_camera->up
+                    camera->position,
+                    camera->position + camera->front,
+                    camera->up
                 );
 
             glm::mat4 projection;

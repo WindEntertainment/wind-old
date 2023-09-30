@@ -11,7 +11,8 @@
 
 namespace soul_dungeon {
 
-    CameraControll* camera_controll;
+    CameraControll* camera_controll = nullptr;
+    renderer::Mesh* mesh = nullptr;
 
     void LevelOne::build() {
         auto bundle = Game::bundle();
@@ -21,7 +22,7 @@ namespace soul_dungeon {
 
         auto texture = new renderer::Texture(a_texture->data, a_texture->width, a_texture->height);      
         auto shader = new renderer::Shader(a_shader->vtx.c_str(), a_shader->fgt.c_str());
-        auto mesh = new renderer::Mesh(
+        mesh = new renderer::Mesh(
             a_mesh->vertices, a_mesh->indices, a_mesh->uv,
             texture, shader
         );
@@ -37,12 +38,10 @@ namespace soul_dungeon {
         
         auto e_camera = registry->create();
         auto camera = registry->emplace<renderer::Camera>(e_camera, renderer::Camera{
-            vec3{0, 0, 0},
-            vec3{0, 0, 0},
+            vec3{0, 0, 5},
+            vec3{0, 0, -1},
             vec3{0, 1, 0}
-        });   
-
-        Game::renderer()->setCamera(&camera);
+        });
 
         camera_controll = new CameraControll();
     }
@@ -50,10 +49,11 @@ namespace soul_dungeon {
     void LevelOne::update() {
         auto registry = Game::registry();
 
-        registry->view<Transform, Mesh>().each([](auto entity, auto& transform, auto& mesh){
-            Game::renderer()->render(mesh.mesh, transform.position, transform.rotation);
-        });
-
         camera_controll->update();
+        registry->view<renderer::Camera>().each([&](auto entity, auto& camera) {
+            registry->view<Transform, Mesh>().each([&](auto entity, auto& transform, auto& mesh) {
+                Game::renderer()->render(&camera, mesh.mesh, transform.position, transform.rotation);
+            });
+        });
     }
 }
