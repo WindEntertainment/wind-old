@@ -1,7 +1,7 @@
-#include "system.h"
+#include <std-game/system.h>
 
 namespace soul_dungeon {
-    class Render : public System {
+    class Render : public stdgame::System {
     public:
         void update(entt::registry&) override;
     };

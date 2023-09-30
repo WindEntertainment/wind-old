@@ -1,7 +1,7 @@
 #pragma once
-#include "game.h"
+#include "utils.h"
 
-namespace soul_dungeon {
+namespace stdgame {
     class System {
     public:
         virtual void update(entt::registry& registry) = 0;

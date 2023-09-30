@@ -11,5 +11,6 @@ add_subdirectory(./apps/asset-bundler)
 add_subdirectory(./apps/resources)
 add_subdirectory(./apps/system)
 add_subdirectory(./apps/renderer)
+add_subdirectory(./apps/std-game)
 
 add_subdirectory(./apps/soul-dungeon)
