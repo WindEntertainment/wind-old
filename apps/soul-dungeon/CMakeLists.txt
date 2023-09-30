@@ -17,6 +17,11 @@ add_executable(${PROJECT_NAME}
 
     ./src/transform.h
     ./src/mesh.h
+
+    ./src/system.h
+    
+    ./src/render.h
+    ./src/render.cpp
 )
 
 ## internal

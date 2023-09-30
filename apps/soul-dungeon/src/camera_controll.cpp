@@ -10,8 +10,8 @@ namespace soul_dungeon {
         sensitivity = 0.5f;
     }
 
-    void CameraControll::update() {
-        Game::registry()->view<renderer::Camera>().each([&](auto entity, auto& camera) {
+    void CameraControll::update(entt::registry& registry) {
+        registry.view<renderer::Camera>().each([&](auto entity, auto& camera) {
             // ROTATION
             m_yaw   += system::Mouse::offset().x * sensitivity;
             m_pitch += system::Mouse::offset().y * sensitivity;
