@@ -1,7 +1,7 @@
 #pragma once
-#include "game.h"
+#include "utils.h"
 
-namespace soul_dungeon {
+namespace stdgame {
     struct Transform {
         vec3 position;
         vec3 rotation;

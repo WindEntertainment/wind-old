@@ -1,7 +1,7 @@
 #include "level_one.h"
 
-#include "transform.h"
-#include "mesh.h"
+#include <std-game/transform.h>
+#include <std-game/mesh.h>
 
 #include "camera_controll.h"
 #include "render.h"
@@ -12,7 +12,7 @@
 
 namespace soul_dungeon {
 
-    vector<System*> m_systems;
+    vector<stdgame::System*> m_systems;
 
     void LevelOne::build() {
         auto bundle = Game::bundle();
@@ -30,8 +30,8 @@ namespace soul_dungeon {
         auto registry = Game::registry();
 
         auto monkey = registry->create();
-        registry->emplace<Mesh>(monkey, mesh);
-        registry->emplace<Transform>(monkey, Transform{
+        registry->emplace<stdgame::Mesh>(monkey, mesh);
+        registry->emplace<stdgame::Transform>(monkey, stdgame::Transform{
             vec3{0, 0, 0},
             vec3{0, 0, 0},
             vec3(2, 2, 2)

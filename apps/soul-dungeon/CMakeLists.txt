@@ -14,11 +14,6 @@ add_executable(${PROJECT_NAME}
     ./src/game.cpp
     
     ./src/utils.h
-
-    ./src/transform.h
-    ./src/mesh.h
-
-    ./src/system.h
     
     ./src/render.h
     ./src/render.cpp
@@ -41,7 +36,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE system)
 include_directories(../resources/)
 target_link_libraries(${PROJECT_NAME} PRIVATE resources)
 
-##
+include_directories(../std-game/)
+target_link_libraries(${PROJECT_NAME} PRIVATE std-game)
 
-find_package(EnTT CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE EnTT::EnTT)
+find_package(glad CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE glad::glad)
