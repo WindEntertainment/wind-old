@@ -1,9 +1,8 @@
-#include "utils.h"
-
+#include "system.h"
 #include <renderer/renderer.h>
 
 namespace soul_dungeon {
-    class CameraControll {
+    class CameraControll : public System {
     private:
         float m_yaw,
               m_pitch;
@@ -12,6 +11,6 @@ namespace soul_dungeon {
         float sensitivity;
 
         CameraControll();
-        void update();
+        void update(entt::registry&) override;
     };
 }
