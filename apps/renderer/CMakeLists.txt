@@ -30,5 +30,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
 #target_link_libraries(${PROJECT_NAME} PRIVATE ${OPENGL_LIBRARIES})
 #target_include_directories(${PROJECT_NAME} PRIVATE ${OPENGL_INCLUDE_DIR})
 
-#find_package(glad CONFIG REQUIRED)
-#target_link_libraries(${PROJECT_NAME} PRIVATE glad::glad)
+find_package(glad CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE glad::glad)

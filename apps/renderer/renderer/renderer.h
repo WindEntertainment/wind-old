@@ -8,7 +8,7 @@ namespace wind {
         class Renderer {
         public:
             void clear();
-            void render(Camera*, Mesh*, vec3 position, vec3 rotation); 
+            void render(Camera*, Mesh*, vec3 position, vec3 rotation, vec3 scale); 
         };
     }
 }

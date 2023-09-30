@@ -3,6 +3,8 @@
 #include <asset-bundler/objects/mesh.h>
 #include <asset-bundler/objects/shader.h>
 
+#include <resources/resource_manager.h>
+
 #include <system/events/keyboard.h>
 
 namespace soul_dungeon {

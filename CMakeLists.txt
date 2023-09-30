@@ -8,6 +8,7 @@ project(main)
 
 add_subdirectory(./apps/logger)
 add_subdirectory(./apps/asset-bundler)
+add_subdirectory(./apps/resources)
 add_subdirectory(./apps/system)
 add_subdirectory(./apps/renderer)
 

@@ -33,7 +33,8 @@ namespace soul_dungeon {
         registry->emplace<Mesh>(monkey, mesh);
         registry->emplace<Transform>(monkey, Transform{
             vec3{0, 0, 0},
-            vec3{0, 0, 0}
+            vec3{0, 0, 0},
+            vec3(2, 2, 2)
         });
         
         auto e_camera = registry->create();
