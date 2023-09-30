@@ -40,7 +40,7 @@ namespace soul_dungeon {
         m_window = new system::Window([](system::Window::WindowConfig* self) {
             self->close_event = system::Application::quit;
             self->fullscreen = false;
-            self->size = {800, 600};
+            self->size = {1280, 860};
             self->cursor = false;
         });
 
