@@ -38,6 +38,9 @@ target_link_libraries(${PROJECT_NAME} PRIVATE renderer)
 include_directories(../system/)
 target_link_libraries(${PROJECT_NAME} PRIVATE system)
 
+include_directories(../resources/)
+target_link_libraries(${PROJECT_NAME} PRIVATE resources)
+
 ##
 
 find_package(EnTT CONFIG REQUIRED)

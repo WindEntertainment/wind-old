@@ -7,7 +7,7 @@ namespace wind {
             glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
         }
 
-        void Renderer::render(Camera* camera, Mesh* mesh, vec3 position, vec3 rotation) {
+        void Renderer::render(Camera* camera, Mesh* mesh, vec3 position, vec3 rotation, vec3 scale) {
             mesh->shader()->use();
 
             glActiveTexture(GL_TEXTURE0);
@@ -21,7 +21,7 @@ namespace wind {
             matrix_model = glm::rotate(matrix_model, glm::radians(rotation.x), vec3{1, 0, 0});
             matrix_model = glm::rotate(matrix_model, glm::radians(rotation.y), vec3{0, 1, 0});
             matrix_model = glm::rotate(matrix_model, glm::radians(rotation.z), vec3{0, 0, 1});
-            matrix_model = glm::scale(matrix_model, vec3(10, 10, 10));
+            matrix_model = glm::scale(matrix_model, scale);
 
             glm::mat4 view;
             if (camera)
