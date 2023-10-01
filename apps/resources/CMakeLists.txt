@@ -3,6 +3,11 @@ project(resources)
 add_library(${PROJECT_NAME} STATIC
     ./resources/resource_manager.h
     ./resources/resource_manager.cpp
+    
+    ./resources/getters/asset.h
+    
+    ./resources/getters/texture.h
+    ./resources/getters/texture.cpp
 )
 
 include_directories(../resources/)
