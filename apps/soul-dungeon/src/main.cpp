@@ -24,7 +24,17 @@ int game() {
     return code;
 }
 
+#include <resources/resource_manager.h>
+
 int main(int argc, char** argv) {
+
+    bundler();
+    auto bundle = new assets::Bundle("./assets.bundle");
+    wind::resources::addBundle(bundle);
+    auto mesh = wind::resources::get<assets::Mesh>("./asset/monkey.obj");
+    log().debug() << (mesh == nullptr);
+
+    return 0;
     bundler();
     return game();
 }
