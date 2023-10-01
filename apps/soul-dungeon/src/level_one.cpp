@@ -20,15 +20,12 @@ namespace soul_dungeon {
         auto bundle = Game::bundle();
         resources::addBundle(bundle);
 
-        auto a_mesh = bundle->getResource<assets::Mesh>("./asset/monkey.obj");
-        auto a_shader = bundle->getResource<assets::Shader>("./asset/shader_default.glsl");
-
         auto texture = resources::get<renderer::Texture>("./asset/stone.jpg");      
-        auto shader = new renderer::Shader(a_shader->vtx.c_str(), a_shader->fgt.c_str());
-        auto mesh = new renderer::Mesh(
-            a_mesh->vertices, a_mesh->indices, a_mesh->uv,
-            texture, shader
-        );
+        auto shader = resources::get<renderer::Shader>("./asset/shader_default.glsl");
+        auto mesh = resources::get<renderer::Mesh>("./asset/monkey.obj");
+
+        mesh->m_texture = texture;
+        mesh->m_shader = shader;
 
         auto registry = Game::registry();
 

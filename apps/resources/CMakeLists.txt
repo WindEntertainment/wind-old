@@ -8,6 +8,12 @@ add_library(${PROJECT_NAME} STATIC
     
     ./resources/getters/texture.h
     ./resources/getters/texture.cpp
+
+    ./resources/getters/shader.h
+    ./resources/getters/shader.cpp
+
+    ./resources/getters/mesh.h
+    ./resources/getters/mesh.cpp
 )
 
 include_directories(../resources/)

@@ -13,10 +13,10 @@ namespace wind {
             uint m_VAO, m_VBO, m_EBO;
             vector<Vertex> m_vertices;
             vector<uint> m_indices;
-            Texture* m_texture;
-
-            Shader* m_shader = nullptr;
         public:
+            Texture* m_texture;
+            Shader* m_shader = nullptr;
+
             Mesh(vector<vec3> vertices, vector<uint> indicies, vector<vec2> uv, Texture* texture, Shader* shader);
             ~Mesh();
 

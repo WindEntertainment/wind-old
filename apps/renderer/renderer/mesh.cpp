@@ -38,7 +38,7 @@ namespace wind {
             m_shader = _shader;
             m_texture = _texture;
 
-            m_shader->uInt("ourTexture", 0);
+           // m_shader->uInt("ourTexture", 0);
 
             //====================================//
 
