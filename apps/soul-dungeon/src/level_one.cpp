@@ -6,6 +6,8 @@
 #include "camera_controll.h"
 #include "render.h"
 
+#include <resources/resource_manager.h>
+
 #include <asset-bundler/objects/mesh.h>
 #include <asset-bundler/objects/image.h>
 #include <asset-bundler/objects/shader.h>
@@ -16,11 +18,12 @@ namespace soul_dungeon {
 
     void LevelOne::build() {
         auto bundle = Game::bundle();
+        resources::addBundle(bundle);
+
         auto a_mesh = bundle->getResource<assets::Mesh>("./asset/monkey.obj");
-        auto a_texture = bundle->getResource<assets::Image>("./asset/stone.jpg");
         auto a_shader = bundle->getResource<assets::Shader>("./asset/shader_default.glsl");
 
-        auto texture = new renderer::Texture(a_texture->data, a_texture->width, a_texture->height);      
+        auto texture = resources::get<renderer::Texture>("./asset/stone.jpg");      
         auto shader = new renderer::Shader(a_shader->vtx.c_str(), a_shader->fgt.c_str());
         auto mesh = new renderer::Mesh(
             a_mesh->vertices, a_mesh->indices, a_mesh->uv,
@@ -34,7 +37,7 @@ namespace soul_dungeon {
         registry->emplace<stdgame::Transform>(monkey, stdgame::Transform{
             vec3{0, 0, 0},
             vec3{0, 0, 0},
-            vec3(2, 2, 2)
+            vec3(10, 10, 10)
         });
         
         auto e_camera = registry->create();

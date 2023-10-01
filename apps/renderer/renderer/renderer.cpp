@@ -32,7 +32,7 @@ namespace wind {
                 );
 
             glm::mat4 projection;
-            projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+            projection = glm::perspective(glm::radians(45.0f), 1280.0f / 860.0f, 0.1f, 100.0f);
 
             mesh->shader()->uMat4f("model", matrix_model);
             mesh->shader()->uMat4f("view", view);
