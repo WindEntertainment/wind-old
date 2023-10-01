@@ -27,3 +27,5 @@ namespace wind {
 
 #include "getters/asset.h"
 #include "getters/texture.h"
+#include "getters/shader.h"
+#include "getters/mesh.h"
