@@ -6,7 +6,7 @@
             "shader": "./asset/shader_default.glsl"
         },
         "stdgame.transform": {
-            "position": [ -15, 0, 0 ],
+            "position": [ 0, 0, 0 ],
             "rotation": [ 0, 0, 0 ],
             "scale": [ 5, 5, 5 ]
         }

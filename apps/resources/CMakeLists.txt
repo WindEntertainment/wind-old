@@ -14,6 +14,9 @@ add_library(${PROJECT_NAME} STATIC
 
     ./resources/getters/mesh.h
     ./resources/getters/mesh.cpp
+
+    ./resources/getters/prefab.h
+    ./resources/getters/prefab.cpp
 )
 
 include_directories(../resources/)
@@ -26,6 +29,9 @@ target_link_libraries(${PROJECT_NAME} PRIVATE asset-bundler)
 
 include_directories(../renderer/)
 target_link_libraries(${PROJECT_NAME} PRIVATE renderer)
+
+include_directories(../std-game/)
+target_link_libraries(${PROJECT_NAME} PRIVATE std-game)
 
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glad::glad)

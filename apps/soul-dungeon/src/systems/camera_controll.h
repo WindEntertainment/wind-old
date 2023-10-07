@@ -2,7 +2,7 @@
 #include <renderer/renderer.h>
 
 namespace soul_dungeon {
-    class CameraControll : public stdgame::System {
+    class CameraControll : public wind::stdgame::System {
     private:
         float m_yaw,
               m_pitch;

@@ -6,7 +6,7 @@
 
 namespace soul_dungeon {
     CameraControll::CameraControll() {
-        speed = 3.f;
+        speed = 3.f; 
         sensitivity = 0.5f;
     }
 
