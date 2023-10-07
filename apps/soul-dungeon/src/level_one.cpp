@@ -13,6 +13,8 @@
 #include <asset-bundler/objects/shader.h>
 #include <asset-bundler/objects/text.h>
 
+#include <std-game/prefab.h>
+
 namespace soul_dungeon {
 
     vector<stdgame::System*> m_systems;
@@ -24,27 +26,17 @@ namespace soul_dungeon {
         auto texture = resources::get<renderer::Texture>("./asset/stone.jpg");      
         auto shader = resources::get<renderer::Shader>("./asset/shader_default.glsl");
         auto mesh = resources::get<renderer::Mesh>("./asset/monkey.obj");
+        auto prefab = resources::get<stdgame::Prefab>("./asset/monkey.prefab");
 
         mesh->m_texture = texture;
         mesh->m_shader = shader;
 
         auto registry = Game::registry();
 
-        auto monkey = registry->create();
-        registry->emplace<stdgame::Renderable>(monkey, mesh);
-        registry->emplace<stdgame::Transform>(monkey, stdgame::Transform{
-            vec3{0, 0, 0},
-            vec3{0, 0, 0},
-            vec3(5, 5, 5)
-        });
-        
-        auto monkey2 = registry->create();
-        registry->emplace<stdgame::Renderable>(monkey2, mesh);
-        registry->emplace<stdgame::Transform>(monkey2, stdgame::Transform{
-            vec3{-15, 0, 0},
-            vec3{0, 0, 0},
-            vec3(5, 5, 5)
-        });
+        auto monkey = prefab->instance(*registry);
+      //  registry->get<stdgame::Transform>(monkey).position = {-15, 0, 0};
+
+        auto monkey2 = prefab->instance(*registry);
 
         auto e_camera = registry->create();
         auto camera = registry->emplace<renderer::Camera>(e_camera, renderer::Camera{

@@ -29,3 +29,4 @@ namespace wind {
 #include "getters/texture.h"
 #include "getters/shader.h"
 #include "getters/mesh.h"
+#include "getters/prefab.h"

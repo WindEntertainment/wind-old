@@ -7,6 +7,8 @@
 
 #include <system/events/keyboard.h>
 
+#include <std-game/component_registry.h>
+
 namespace soul_dungeon {
     Game* Game::singlton = nullptr;
 
@@ -49,6 +51,8 @@ namespace soul_dungeon {
         m_renderer = new renderer::Renderer();
 
         m_registry = new entt::registry();
+
+        stdgame::ComponentRegistry::init();
 
         system::Application::addTerminateCallback([&](){
             delete _level;
