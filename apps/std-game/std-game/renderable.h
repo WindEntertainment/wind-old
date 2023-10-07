@@ -2,7 +2,7 @@
 #include "utils.h"
 
 namespace stdgame {
-    struct Mesh {
+    struct Renderable {
         renderer::Mesh* mesh;
     };
 }

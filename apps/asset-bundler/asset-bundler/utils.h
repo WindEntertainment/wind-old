@@ -17,6 +17,7 @@ namespace wind {
                 throw std::invalid_argument("end of file");
             T value;
             is.read(reinterpret_cast<char*>(&value), sizeof(value));
+            // is.fail or is.flags for get error?? 
             return value;   
         }
     }
