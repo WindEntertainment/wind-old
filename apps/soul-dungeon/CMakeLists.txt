@@ -3,8 +3,12 @@ project(soul-dungeon)
 add_executable(${PROJECT_NAME}
     ./src/main.cpp
     
-    ./src/camera_controll.h
-    ./src/camera_controll.cpp
+    ./src/systems/camera_controll.h
+    ./src/systems/camera_controll.cpp
+ 
+    ./src/systems/render.h
+    ./src/systems/render.cpp
+
 
     ./src/level.h
     ./src/level_one.h
@@ -14,9 +18,6 @@ add_executable(${PROJECT_NAME}
     ./src/game.cpp
     
     ./src/utils.h
-    
-    ./src/render.h
-    ./src/render.cpp
 )
 
 ## internal

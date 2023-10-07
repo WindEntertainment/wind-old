@@ -14,6 +14,8 @@ add_library(${PROJECT_NAME} STATIC
     ./asset-bundler/loaders/shader_loader.cpp
     ./asset-bundler/loaders/image_loader.h
     ./asset-bundler/loaders/image_loader.cpp
+    ./asset-bundler/loaders/text_loader.h
+    ./asset-bundler/loaders/text_loader.cpp
 
     ./asset-bundler/objects/iserializable.h
     ./asset-bundler/objects/mesh.h
@@ -22,6 +24,8 @@ add_library(${PROJECT_NAME} STATIC
     ./asset-bundler/objects/shader.cpp
     ./asset-bundler/objects/image.h
     ./asset-bundler/objects/image.cpp
+    ./asset-bundler/objects/text.h
+    ./asset-bundler/objects/text.cpp
 
     ./asset-bundler/bundle.h
     ./asset-bundler/bundle.cpp

@@ -4,7 +4,7 @@ add_library(${PROJECT_NAME} STATIC
     ./std-game/system.h
 
     ./std-game/transform.h
-    ./std-game/mesh.h
+    ./std-game/renderable.h
 )
 
 include_directories(../resources/)

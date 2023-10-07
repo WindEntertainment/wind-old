@@ -1,5 +1,5 @@
 #include "camera_controll.h"
-#include "game.h"
+#include "../game.h"
 
 #include <system/events/mouse.h>
 #include <system/events/keyboard.h>
