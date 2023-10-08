@@ -50,21 +50,24 @@ namespace wind {
                     Transform transform;
 
                     if (json.HasMember("position") && json["position"].IsArray()) {
-                        transform.position.x = json["position"].GetArray()[0].GetFloat();
-                        transform.position.y = json["position"].GetArray()[1].GetFloat();
-                        transform.position.z = json["position"].GetArray()[2].GetFloat();
+                        auto pos = json["position"].GetArray();
+                        if (pos.Size() > 0) transform.position.x = pos[0].GetFloat();
+                        if (pos.Size() > 1) transform.position.y = pos[1].GetFloat();
+                        if (pos.Size() > 2) transform.position.z = pos[2].GetFloat();
                     }
 
                     if (json.HasMember("rotation") && json["rotation"].IsArray()) {
-                        transform.rotation.x = json["rotation"].GetArray()[0].GetFloat();
-                        transform.rotation.y = json["rotation"].GetArray()[1].GetFloat();
-                        transform.rotation.z = json["rotation"].GetArray()[2].GetFloat();
+                        auto rot = json["rotation"].GetArray();
+                        if (rot.Size() > 0) transform.rotation.x = rot[0].GetFloat();
+                        if (rot.Size() > 1) transform.rotation.y = rot[1].GetFloat();
+                        if (rot.Size() > 2) transform.rotation.z = rot[2].GetFloat();
                     }
                     
                     if (json.HasMember("scale") && json["scale"].IsArray()) {
-                        transform.scale.x = json["scale"].GetArray()[0].GetFloat();
-                        transform.scale.y = json["scale"].GetArray()[1].GetFloat();
-                        transform.scale.z = json["scale"].GetArray()[2].GetFloat();
+                        auto scl = json["scale"].GetArray();
+                        if (scl.Size() > 0) transform.scale.x = scl[0].GetFloat();
+                        if (scl.Size() > 1) transform.scale.y = scl[1].GetFloat();
+                        if (scl.Size() > 2) transform.scale.z = scl[2].GetFloat();
                     }
 
                     registry.emplace<Transform>(entity, transform);
