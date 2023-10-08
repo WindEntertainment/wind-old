@@ -1,0 +1,11 @@
+{
+    "components": {},
+    "children": [
+        {
+            "base": "./asset/monkey.prefab"
+        },
+        {
+            "base": "./asset/monkey.prefab"
+        }
+    ]
+}
