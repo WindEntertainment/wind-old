@@ -95,10 +95,7 @@ namespace wind {
                     auto texture = resources::get<renderer::Texture>(json["texture"].GetString());
                     auto shader = resources::get<renderer::Shader>(json["shader"].GetString());
 
-                    mesh->m_texture = texture;
-                    mesh->m_shader = shader; 
-
-                    registry.emplace<Renderable>(entity, mesh);
+                    registry.emplace<Renderable>(entity, mesh, texture, shader);
                 }
             );
         }

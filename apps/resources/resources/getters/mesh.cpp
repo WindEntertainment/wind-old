@@ -10,8 +10,7 @@ namespace wind {
                 return nullptr;
             
             auto res = new renderer::Mesh(
-                source->vertices, source->indices, source->uv,
-                nullptr, nullptr
+                source->vertices, source->indices, source->uv
             );
  
             delete source;

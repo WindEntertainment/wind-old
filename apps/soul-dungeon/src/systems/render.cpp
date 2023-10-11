@@ -13,7 +13,8 @@ namespace soul_dungeon {
                 auto entity, auto& transform, auto& renderable
             ) {
                 Game::renderer()->render(
-                    &camera, renderable.mesh,
+                    &camera, 
+                    renderable.mesh, renderable.texture, renderable.shader,
                     transform.position, transform.rotation, transform.scale
                 );
             });

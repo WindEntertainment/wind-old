@@ -5,6 +5,8 @@ namespace wind {
     namespace stdgame {
         struct Renderable {
             renderer::Mesh* mesh;
+            renderer::Texture* texture;
+            renderer::Shader* shader;
         };
     }
 }

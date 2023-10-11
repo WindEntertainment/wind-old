@@ -14,17 +14,11 @@ namespace wind {
             vector<Vertex> m_vertices;
             vector<uint> m_indices;
         public:
-            Texture* m_texture;
-            Shader* m_shader = nullptr;
-
-            Mesh(vector<vec3> vertices, vector<uint> indicies, vector<vec2> uv, Texture* texture, Shader* shader);
+            Mesh(vector<vec3> vertices, vector<uint> indicies, vector<vec2> uv);
             ~Mesh();
 
             uint VAO() const;
             uint size() const;  
-
-            Texture* texture() const;
-            Shader* shader() const;
         };
     }
 }
