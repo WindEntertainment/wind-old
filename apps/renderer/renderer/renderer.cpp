@@ -7,11 +7,11 @@ namespace wind {
             glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
         }
 
-        void Renderer::render(Camera* camera, Mesh* mesh, vec3 position, vec3 rotation, vec3 scale) {
-            mesh->shader()->use();
+        void Renderer::render(Camera* camera, Mesh* mesh, Texture* texture, Shader* shader, vec3 position, vec3 rotation, vec3 scale) {
+            shader->use();
 
             glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, mesh->texture()->id());
+            glBindTexture(GL_TEXTURE_2D, texture->id());
 
             glBindVertexArray(mesh->VAO()); 
 
@@ -34,9 +34,9 @@ namespace wind {
             glm::mat4 projection;
             projection = glm::perspective(glm::radians(45.0f), 1280.0f / 860.0f, 0.1f, 100.0f);
 
-            mesh->shader()->uMat4f("model", matrix_model);
-            mesh->shader()->uMat4f("view", view);
-            mesh->shader()->uMat4f("projection", projection);
+            shader->uMat4f("model", matrix_model);
+            shader->uMat4f("view", view);
+            shader->uMat4f("projection", projection);
 
             glDrawElements(GL_TRIANGLES, mesh->size(), GL_UNSIGNED_INT, 0);
         }
