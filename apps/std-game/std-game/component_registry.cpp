@@ -70,7 +70,7 @@ namespace wind {
                         if (scl.Size() > 2) transform.scale.z = scl[2].GetFloat();
                     }
 
-                    registry.emplace<Transform>(entity, transform);
+                    registry.emplace_or_replace<Transform>(entity, transform);
                 }
             );
 
@@ -95,7 +95,7 @@ namespace wind {
                     auto texture = resources::get<renderer::Texture>(json["texture"].GetString());
                     auto shader = resources::get<renderer::Shader>(json["shader"].GetString());
 
-                    registry.emplace<Renderable>(entity, mesh, texture, shader);
+                    registry.emplace_or_replace<Renderable>(entity, mesh, texture, shader);
                 }
             );
         }
