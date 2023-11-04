@@ -1,5 +1,6 @@
 #include "prefab.h"
 #include <asset-bundler/objects/text.h>
+#include <dom/document.h>
 
 namespace wind {
     namespace resources {
