@@ -1,52 +1,4 @@
-
-/*
-    base.json:
-        {
-            "field1": "Hello, "
-        }
-    other.json:
-        {
-            "field2": "World"
-        }
-    result.json:
-        {
-            "field1": "Hello, ",
-            "field2": "World"
-        }
-*/
-
-#include <iostream>
-#include <rapidjson/rapidjson.h>
-#include <rapidjson/document.h>
-#include <rapidjson/writer.h>
-#include <rapidjson/stringbuffer.h>
-
-const char* json1 = 
-    "{\n"
-    "\"field1\": \"Hello \"\n"
-    "}\n";
-
-const char* json2 = 
-    "{\n"
-    "\"field2\": \"World!\"\n"
-    "}\n";
-
-using namespace rapidjson;
-
-Document doc1;
-Document doc2;
-
-int main() {
-    std::cout << json1;
-    std::cout << json2;
-
-    doc1.Parse(json1);
-    doc2.Parse(json2);
-
-    
-}
-
-/*#include <asset-bundler/asset_bundler.h>
+#include <asset-bundler/asset_bundler.h>
 #include <asset-bundler/loaders/obj_loader.h>
 #include <asset-bundler/loaders/shader_loader.h>
 #include <asset-bundler/loaders/image_loader.h>
@@ -74,7 +26,26 @@ int game() {
     return code;
 }
 
+#include <dom/document.h>
+
 int main(int argc, char** argv) {
-    bundler();
-    return game();
-}*/
+
+    using namespace dom;
+    
+    Document* doc = new Document(); // FromXML("path"); FromJSON("path");
+    
+    if (auto components = doc->root()->getObject("components")) {
+        if (components->getType() != TypeObject::CONTAINER)
+            return EXIT_FAILURE;
+        
+        auto container = (Container*)components;
+        for (auto obj : *container) {
+            
+        }
+    }
+
+    return EXIT_SUCCESS;
+
+    /*bundler();
+    return game();*/
+}
