@@ -18,6 +18,14 @@ namespace wind {
             inline TypeObject getType() const {
                 return m_type;
             }
+
+            inline bool isContainer() const {
+                return m_type == TypeObject::CONTAINER;
+            }
+
+            inline bool isValue() const {
+                return m_type == TypeObject::VALUE;
+            }
         };
 
         class Value final : public Object {
@@ -82,10 +90,22 @@ namespace wind {
                 ));
             }
 
-            inline Object* getObject(string key) const {
-                if (m_objs.contains(key))
-                    return m_objs.at(key);
+            inline Object* getObject(string _key) const {
+                if (m_objs.contains(_key))
+                    return m_objs.at(_key);
                 return nullptr;
+            }
+
+            inline bool hasMember(string _key) const {
+                return m_objs.contains(_key);
+            }
+
+            inline Object* operator[](string _key) const {
+                return getObject(_key);
+            }
+
+            inline size_t size() const {
+                return m_objs.size();
             }
 
             map<string, Object*>::iterator begin() {

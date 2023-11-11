@@ -5,14 +5,7 @@
 
 namespace wind {
     namespace stdgame {
-        void print(rapidjson::Value& value) {
-            rapidjson::StringBuffer buffer;
-            rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-            value.Accept(writer);
-            log().debug() << buffer.GetString();
-        }
-
-        void test(rapidjson::Document& doc) {
+       /* void test(rapidjson::Document& doc) {
             std::function<void(rapidjson::Value&, rapidjson::Value& )> inheritance =
                 [&](rapidjson::Value& _child, rapidjson::Value& _parent) {
                     if (_parent.GetType() != _child.GetType()) 
@@ -52,53 +45,38 @@ namespace wind {
 
             inheritance(doc, doc);
             print(doc);
+        }*/
+
+        Prefab::Prefab(string _name, dom::Document* _doc) {
+            m_name = _name;
+            m_source = _doc->root();
+            build();
         }
 
-        Prefab::Prefab(const char* json) {
-            doc.Parse(json);
-            if (!doc.IsObject())
-                throw std::invalid_argument("node element of prefab must be object");
+        Prefab::Prefab(string _name, dom::Container* _src) {
+            m_name = _name;
+            m_source = _src;
+            build();
+        }
+
+        void Prefab::build() {
             
-            test(doc);
-            m_value = doc.GetObject();
-        };
-
-        Prefab::Prefab(rapidjson::Value& src) {
-            m_value = src.GetObject();
-          //  build(m_value, src);
-        }
-
-        void Prefab::build(rapidjson::Value& dst, rapidjson::Value& src) {
-           /* dst.SetObject();
-            auto object = src.GetObject();
-
-            if (object.HasMember("base") && object["base"].IsString()) {
-              //  auto& child = resources::get<Prefab>(object["base"].GetString())->m_value;
-              //  build(dst, child);
-            }
-
-
-            //if (object.HasMember("components") && object["components"].IsObject())
-            //    for (auto& field : object["components"].GetObject())*/
-                    
         }
 
         entt::entity Prefab::instance(entt::registry& registry) {
-          /*  auto& object = m_value;
-
             auto entity = registry.create();
 
-            log().debug() << "instance:";
-            print(object);
-            if (object.HasMember("components") && object["components"].IsObject())
-                for (auto& component : object["components"].GetObject()) {
-                    ComponentRegistry::build(
-                        registry, entity,
-                        component.name.GetString(), component.value.GetObject()
-                    );
+            auto components = m_source->getObject("components");
+            if (components && components->isContainer())
+                for (auto& component : *(dom::Container*)components) {
+                    if (component.second->isContainer())
+                        ComponentRegistry::build(
+                            registry, entity,
+                            component.first, (dom::Container*)component.second
+                        );
                 }
             
-            if (object.HasMember("children") && object["children"].IsArray()) {
+            /*if (object.HasMember("children") && object["children"].IsArray()) {
                 for (auto& child : object["children"].GetArray()) {
                     if (!child.IsObject())
                         continue;
@@ -106,9 +84,9 @@ namespace wind {
                     Prefab temp(child);
                     temp.instance(registry);
                 }
-            }
+            }*/
 
-            return entity;*/
+            return entity;
         }
     }
 }

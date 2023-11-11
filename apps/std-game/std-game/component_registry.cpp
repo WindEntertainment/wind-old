@@ -11,7 +11,7 @@ namespace wind {
             string, std::function<
                 void(
                     entt::registry&, entt::entity,
-                    rapidjson::GenericObject<false, rapidjson::Value>
+                    dom::Container*
                 )
             >
         > ComponentRegistry::builders;
@@ -20,7 +20,7 @@ namespace wind {
             string name,
             std::function<void(
                 entt::registry&, entt::entity,
-                rapidjson::GenericObject<false, rapidjson::Value>
+                dom::Container*
             )> func
         ) {
             builders.insert(std::make_pair(
@@ -32,7 +32,7 @@ namespace wind {
             entt::registry& registry,
             entt::entity entity,
             string component,
-            rapidjson::GenericObject<false, rapidjson::Value> object
+            dom::Container* object
         ) {
             if (!builders.contains(component)) {
                 log().error() << "ComponentRegistry: failed build component: [" << component << "]";
@@ -43,31 +43,47 @@ namespace wind {
         }
 
         void ComponentRegistry::init() {
-            using JObject = rapidjson::GenericObject<false, rapidjson::Value>;
-
             addComponent("stdgame.transform",
-                [](entt::registry& registry, entt::entity entity, JObject json) {
+                [](entt::registry& registry, entt::entity entity, dom::Container* dom) {
                     Transform transform;
 
-                    if (json.HasMember("position") && json["position"].IsArray()) {
-                        auto pos = json["position"].GetArray();
-                        if (pos.Size() > 0) transform.position.x = pos[0].GetFloat();
-                        if (pos.Size() > 1) transform.position.y = pos[1].GetFloat();
-                        if (pos.Size() > 2) transform.position.z = pos[2].GetFloat();
+                    auto position = dom->getObject("position");
+                    if (position && position->isContainer()) {
+                        auto pos = (dom::Container*)position;
+                        
+                        auto x = pos->getObject("x");
+                        auto y = pos->getObject("y");
+                        auto z = pos->getObject("z");
+
+                        if (x && x->isValue()) transform.position.x = ((dom::Value*)x)->asFloat();
+                        if (y && y->isValue()) transform.position.y = ((dom::Value*)y)->asFloat();
+                        if (z && z->isValue()) transform.position.z = ((dom::Value*)z)->asFloat();
                     }
 
-                    if (json.HasMember("rotation") && json["rotation"].IsArray()) {
-                        auto rot = json["rotation"].GetArray();
-                        if (rot.Size() > 0) transform.rotation.x = rot[0].GetFloat();
-                        if (rot.Size() > 1) transform.rotation.y = rot[1].GetFloat();
-                        if (rot.Size() > 2) transform.rotation.z = rot[2].GetFloat();
+                    auto rotation = dom->getObject("rotation");
+                    if (rotation && rotation->isContainer()) {
+                        auto rot = (dom::Container*)rotation;
+                        
+                        auto x = rot->getObject("x");
+                        auto y = rot->getObject("y");
+                        auto z = rot->getObject("z");
+
+                        if (x && x->isValue()) transform.rotation.x = ((dom::Value*)x)->asFloat();
+                        if (y && y->isValue()) transform.rotation.y = ((dom::Value*)y)->asFloat();
+                        if (z && z->isValue()) transform.rotation.z = ((dom::Value*)z)->asFloat();
                     }
-                    
-                    if (json.HasMember("scale") && json["scale"].IsArray()) {
-                        auto scl = json["scale"].GetArray();
-                        if (scl.Size() > 0) transform.scale.x = scl[0].GetFloat();
-                        if (scl.Size() > 1) transform.scale.y = scl[1].GetFloat();
-                        if (scl.Size() > 2) transform.scale.z = scl[2].GetFloat();
+
+                    auto scale = dom->getObject("scale");
+                    if (rotation && rotation->isContainer()) {
+                        auto scl = (dom::Container*)scale;
+                        
+                        auto x = scl->getObject("x");
+                        auto y = scl->getObject("y");
+                        auto z = scl->getObject("z");
+
+                        if (x && x->isValue()) transform.scale.x = ((dom::Value*)x)->asFloat();
+                        if (y && y->isValue()) transform.scale.y = ((dom::Value*)y)->asFloat();
+                        if (z && z->isValue()) transform.scale.z = ((dom::Value*)z)->asFloat();
                     }
 
                     registry.emplace_or_replace<Transform>(entity, transform);
@@ -75,27 +91,30 @@ namespace wind {
             );
 
             addComponent("stdgame.renderable",
-                [](entt::registry& registry, entt::entity entity, JObject json) {
-                    if (!json.HasMember("mesh") || !json["mesh"].IsString()) {
+                [](entt::registry& registry, entt::entity entity, dom::Container* dom) {
+                    auto mesh = dom->getObject("mesh");
+                    if (!mesh || !mesh->isValue()) {
                         log().error() << "stdgame.renderable must have string mesh field";
                         return;
                     }
 
-                    if (!json.HasMember("texture") || !json["texture"].IsString()) {
+                    auto texture = dom->getObject("texture");
+                    if (!texture || !texture->isValue()) {
                         log().error() << "stdgame.renderable must have string texture field";
                         return;
                     }
 
-                    if (!json.HasMember("shader") || !json["shader"].IsString()) {
+                    auto shader = dom->getObject("shader");
+                    if (!shader || !shader->isValue()) {
                         log().error() << "stdgame.renderable must have shader texture field";
                         return;
                     }
 
-                    auto mesh = resources::get<renderer::Mesh>(json["mesh"].GetString());
-                    auto texture = resources::get<renderer::Texture>(json["texture"].GetString());
-                    auto shader = resources::get<renderer::Shader>(json["shader"].GetString());
+                    auto rmesh = resources::get<renderer::Mesh>(((dom::Value*)mesh)->asString().c_str());
+                    auto rtexture = resources::get<renderer::Texture>(((dom::Value*)texture)->asString().c_str());
+                    auto rshader = resources::get<renderer::Shader>(((dom::Value*)shader)->asString().c_str());
 
-                    registry.emplace_or_replace<Renderable>(entity, mesh, texture, shader);
+                    registry.emplace_or_replace<Renderable>(entity, rmesh, rtexture, rshader);
                 }
             );
         }

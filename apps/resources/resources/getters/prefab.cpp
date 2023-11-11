@@ -1,6 +1,6 @@
 #include "prefab.h"
 #include <asset-bundler/objects/text.h>
-#include <dom/document.h>
+#include <dom/xml.h>
 
 namespace wind {
     namespace resources {
@@ -11,7 +11,9 @@ namespace wind {
                 return nullptr;
 
             try {
-                auto res = new stdgame::Prefab(source->text.c_str());
+                dom::Document* doc = dom::XML::LoadRAW(source->text.c_str(), source->text.size());
+            
+                auto res = new stdgame::Prefab(_name, doc);
                 delete source;
 
                 return res;
