@@ -5,17 +5,14 @@ namespace wind {
     namespace stdgame {        
         class Prefab {
         private:
-
             string m_name;
-            rapidjson::Value m_value;
+            dom::Container* m_source;
 
-
-            void build(rapidjson::Value& dst, rapidjson::Value& src);
+            void build();
         public:
-            rapidjson::Document doc;
-
-            Prefab(const char* json);
-            Prefab(rapidjson::Value&);
+            Prefab(string name, dom::Document*);
+            Prefab(string name, dom::Container*);
+            ~Prefab();
 
             entt::entity instance(entt::registry& registry);
         };

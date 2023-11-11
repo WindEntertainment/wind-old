@@ -23,9 +23,9 @@ namespace soul_dungeon {
         auto bundle = Game::bundle();
         resources::addBundle(bundle);
 
-        auto prefab = resources::get<stdgame::Prefab>("./asset/scene.prefab");
+        auto prefab = resources::get<stdgame::Prefab>("./asset/monkey.prefab");
 
-       /* auto registry = Game::registry();
+        auto registry = Game::registry();
 
         auto scene = prefab->instance(*registry);
 
@@ -37,7 +37,7 @@ namespace soul_dungeon {
         });
 
         m_systems.push_back(new CameraControll());
-        m_systems.push_back(new Render());*/
+        m_systems.push_back(new Render());
     }
 
     void LevelOne::update() {

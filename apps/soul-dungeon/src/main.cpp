@@ -26,27 +26,7 @@ int game() {
     return code;
 }
 
-#include <dom/xml.h>
-
 int main(int argc, char** argv) {
-
-    using namespace dom;
-    
-    Document* doc = XML::LoadFile("./asset/test.xml");
-    
-    if (auto components = doc->root()->getObject("mmh")) {
-        if (components->getType() != TypeObject::CONTAINER)
-            return EXIT_FAILURE;
-        
-        auto container = (Container*)components;
-        for (auto obj : *container) {
-            log().debug() << obj.first;
-        }
-    }
-
-    delete doc;
-    return EXIT_SUCCESS;
-
-    /*bundler();
-    return game();*/
+    bundler();
+    return game();
 }

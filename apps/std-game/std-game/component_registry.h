@@ -9,7 +9,7 @@ namespace wind {
                 string, std::function<
                     void(
                         entt::registry&, entt::entity,
-                        rapidjson::GenericObject<false, rapidjson::Value>
+                        dom::Container*
                     )
                 >
             > builders;
@@ -18,7 +18,7 @@ namespace wind {
                 string name,
                 std::function<void(
                     entt::registry&, entt::entity,
-                    rapidjson::GenericObject<false, rapidjson::Value>
+                    dom::Container*
                 )> func
             );
 
@@ -26,7 +26,7 @@ namespace wind {
                 entt::registry& registry,
                 entt::entity entity,
                 string component,
-                rapidjson::GenericObject<false, rapidjson::Value> object
+                dom::Container* object
             );
 
             static void init();

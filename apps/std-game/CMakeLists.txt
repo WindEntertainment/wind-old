@@ -27,6 +27,9 @@ target_link_libraries(${PROJECT_NAME} PRIVATE renderer)
 include_directories(../resources/)
 target_link_libraries(${PROJECT_NAME} PRIVATE resources)
 
+include_directories(../dom/)
+target_link_libraries(${PROJECT_NAME} PRIVATE dom)
+
 ##
 
 find_package(EnTT CONFIG REQUIRED)

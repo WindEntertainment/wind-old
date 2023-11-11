@@ -1,0 +1,14 @@
+{
+    "components": {
+        "stdgame.renderable": {
+            "mesh": "./asset/monkey.obj",
+            "texture": "./asset/stone.jpg",
+            "shader": "./asset/shader_default.glsl"
+        },
+        "stdgame.transform": {
+            "position": [ 0, 0, 0 ],
+            "rotation": [ 0, 0, 0 ],
+            "scale": [ 5, 5, 5 ]
+        }
+    }
+}
