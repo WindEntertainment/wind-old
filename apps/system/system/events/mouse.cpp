@@ -24,8 +24,8 @@ namespace wind {
 
             void MouseEventHandler::mouseMoveCallback(GLFWwindow*, double _x, double _y) {
                 offset = {
-                    _x - position.x,
-                    position.y - _y
+                    static_cast<float>(_x) - position.x,
+                    position.y - static_cast<float>(_y)
                 };
                 
                 position = {
