@@ -31,7 +31,7 @@ namespace soul_dungeon {
 
         auto e_camera = registry->create();
         auto camera = registry->emplace<renderer::Camera>(e_camera, renderer::Camera{
-            vec3{0, 0, 5},
+            vec3{0, 0, 5}, 
             vec3{0, 0, -1},
             vec3{0, 1, 0}
         });

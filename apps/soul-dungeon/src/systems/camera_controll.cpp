@@ -6,6 +6,7 @@
 
 namespace soul_dungeon {
     CameraControll::CameraControll() {
+        m_pitch = m_yaw = 0.f;
         speed = 3.f; 
         sensitivity = 0.5f;
     }
