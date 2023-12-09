@@ -49,7 +49,7 @@ namespace wind {
 
                     auto position = dom->getObject("position");
                     if (position && position->isContainer()) {
-                        auto pos = (cloudy::Container*)position;
+                        auto pos = position->asContainer();
                         
                         auto x = pos->getObject("x");
                         auto y = pos->getObject("y");
@@ -62,7 +62,7 @@ namespace wind {
 
                     auto rotation = dom->getObject("rotation");
                     if (rotation && rotation->isContainer()) {
-                        auto rot = (cloudy::Container*)rotation;
+                        auto rot = rotation->asContainer();
                         
                         auto x = rot->getObject("x");
                         auto y = rot->getObject("y");
@@ -75,7 +75,7 @@ namespace wind {
 
                     auto scale = dom->getObject("scale");
                     if (scale && scale->isContainer()) {
-                        auto scl = (cloudy::Container*)scale;
+                        auto scl = scale->asContainer();
                         
                         auto x = scl->getObject("x");
                         auto y = scl->getObject("y");

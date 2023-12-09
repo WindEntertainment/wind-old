@@ -8,7 +8,8 @@ add_library(${PROJECT_NAME} STATIC
     ./cloudy/document.cpp
 
     ./cloudy/object.h
-    ./cloudy/object.cpp
+    ./cloudy/value.cpp
+    ./cloudy/container.cpp
 
     ./cloudy/utils.h
 )
