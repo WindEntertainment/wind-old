@@ -6,15 +6,14 @@ namespace wind {
         class Prefab {
         private:
             string m_name;
-            dom::Container* m_source;
+            doom::Container* m_source;
 
             void build();
         public:
-            Prefab(string name, dom::Document*);
-            Prefab(string name, dom::Container*);
+            Prefab(string name, doom::Document*);
             ~Prefab();
 
-            entt::entity instance(entt::registry& registry);
+            entt::entity instance(entt::registry& registry,  doom::Container* source=nullptr);
         };
     }
 }

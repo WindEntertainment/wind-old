@@ -9,7 +9,7 @@ namespace wind {
                 string, std::function<
                     void(
                         entt::registry&, entt::entity,
-                        dom::Container*
+                        doom::Container*
                     )
                 >
             > builders;
@@ -18,7 +18,7 @@ namespace wind {
                 string name,
                 std::function<void(
                     entt::registry&, entt::entity,
-                    dom::Container*
+                    doom::Container*
                 )> func
             );
 
@@ -26,7 +26,7 @@ namespace wind {
                 entt::registry& registry,
                 entt::entity entity,
                 string component,
-                dom::Container* object
+                doom::Container* object
             );
 
             static void init();

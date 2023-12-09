@@ -41,7 +41,7 @@
 #include "object.h"
 
 namespace wind {
-    namespace dom {
+    namespace doom {
         class Document final {
         private:
             std::list<Object*> m_pool; 

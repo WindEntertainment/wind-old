@@ -11,7 +11,7 @@ namespace wind {
                 return nullptr;
 
             try {
-                dom::Document* doc = dom::XML::LoadRAW(source->text.c_str(), source->text.size());
+                doom::Document* doc = doom::XML::LoadRAW(source->text.c_str(), source->text.size());
             
                 auto res = new stdgame::Prefab(_name, doc);
                 delete source;

@@ -1,7 +1,7 @@
 #include "object.h"
 
 namespace wind {
-    namespace dom {
+    namespace doom {
         
     }
 }
