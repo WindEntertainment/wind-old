@@ -1,6 +1,6 @@
 #include "prefab.h"
 #include <asset-bundler/objects/text.h>
-#include <dom/xml.h>
+#include <cloudy/xml.h>
 
 namespace wind {
     namespace resources {
@@ -11,7 +11,7 @@ namespace wind {
                 return nullptr;
 
             try {
-                doom::Document* doc = doom::XML::LoadRAW(source->text.c_str(), source->text.size());
+                cloudy::Document* doc = cloudy::XML::LoadRAW(source->text.c_str(), source->text.size());
             
                 auto res = new stdgame::Prefab(_name, doc);
                 delete source;

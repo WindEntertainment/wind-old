@@ -33,8 +33,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE renderer)
 include_directories(../std-game/)
 target_link_libraries(${PROJECT_NAME} PRIVATE std-game)
 
-include_directories(../dom/)
-target_link_libraries(${PROJECT_NAME} PRIVATE dom)
+include_directories(../cloudy/)
+target_link_libraries(${PROJECT_NAME} PRIVATE cloudy)
 
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glad::glad)

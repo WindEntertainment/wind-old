@@ -2,7 +2,7 @@
 #include "document.h"
 
 namespace wind {
-    namespace doom {
+    namespace cloudy {
         class XML {
         public:
             static Document* LoadFile(const char* path);

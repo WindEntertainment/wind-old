@@ -5,21 +5,21 @@
 
 namespace wind {
     namespace stdgame {
-        Prefab::Prefab(string _name, doom::Document* _doc) {
+        Prefab::Prefab(string _name, cloudy::Document* _doc) {
             m_name = _name;
             m_source = _doc->root();
             build();
         }
 
         void Prefab::build() {
-            std::function<void(doom::Object*, doom::Object*)> inheritance =
-                [&](doom::Object* _parent, doom::Object* _child) {
+            std::function<void(cloudy::Object*, cloudy::Object*)> inheritance =
+                [&](cloudy::Object* _parent, cloudy::Object* _child) {
                     if (_parent->getType() != _child->getType())
                         return;
 
                     if (_parent->isContainer()) {
-                        auto parent = (doom::Container*)_parent;
-                        auto child = (doom::Container*)_child;
+                        auto parent = (cloudy::Container*)_parent;
+                        auto child = (cloudy::Container*)_child;
 
                         for (auto& value : *parent) {
                             if (child->hasMember(value.first))
@@ -34,7 +34,7 @@ namespace wind {
 
             auto baseof = m_source->getObject("baseof");
             if (baseof && baseof->isValue()) {
-                auto base = resources::get<Prefab>(((doom::Value*)baseof)->asString().c_str());
+                auto base = resources::get<Prefab>(((cloudy::Value*)baseof)->asString().c_str());
                 inheritance(base->m_source, m_source);
             }
 
@@ -42,13 +42,13 @@ namespace wind {
             if (!children || !children->isContainer())
                 return;
 
-            for (auto& obj : *(doom::Container*)children) {
+            for (auto& obj : *(cloudy::Container*)children) {
                 if (obj.second->isContainer()) {
-                    auto child = (doom::Container*)obj.second;
+                    auto child = (cloudy::Container*)obj.second;
                     if (child->hasMember("baseof")) {
                         auto baseof = child->getObject("baseof");
                         if (baseof && baseof->isValue()) {
-                            auto base = resources::get<Prefab>(((doom::Value*)baseof)->asString().c_str());
+                            auto base = resources::get<Prefab>(((cloudy::Value*)baseof)->asString().c_str());
                             inheritance(base->m_source, obj.second);
                         }
                     }
@@ -57,7 +57,7 @@ namespace wind {
                 
         }
 
-        entt::entity Prefab::instance(entt::registry& registry, doom::Container* source) {
+        entt::entity Prefab::instance(entt::registry& registry, cloudy::Container* source) {
             if (!source)
                 source = m_source;
 
@@ -65,18 +65,18 @@ namespace wind {
 
             auto components = source->getObject("components");
             if (components && components->isContainer())
-                for (auto& component : *(doom::Container*)components)
+                for (auto& component : *(cloudy::Container*)components)
                     if (component.second->isContainer())
                         ComponentRegistry::build(
                             registry, entity,
-                            component.first, (doom::Container*)component.second
+                            component.first, (cloudy::Container*)component.second
                         );
             
             auto children = source->getObject("children");
             if (children && children->isContainer())
-                for (auto& obj : *(doom::Container*)children)
+                for (auto& obj : *(cloudy::Container*)children)
                     if (obj.second->isContainer())
-                        instance(registry, (doom::Container*)obj.second);
+                        instance(registry, (cloudy::Container*)obj.second);
 
 
             return entity;

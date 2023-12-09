@@ -2,7 +2,7 @@
 #include <tinyxml2.h>
 
 namespace wind {
-    namespace doom {
+    namespace cloudy {
         using namespace tinyxml2;
 
         void BuildDOM(Document* dst, XMLDocument& src) {
