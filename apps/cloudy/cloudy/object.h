@@ -44,13 +44,13 @@ namespace wind {
             inline Container* asContainer() const {
                 if (m_type != TypeObject::CONTAINER)
                     return nullptr;
-                return (Container*)this;
+                return reinterpret_cast<Container*>(const_cast<Object*>(this));
             }
 
             inline Value* asValue() const {
                 if (m_type != TypeObject::VALUE)
                     return nullptr;
-                return (Value*)this;
+                return reinterpret_cast<Value*>(const_cast<Object*>(this));
             }
         };  
     }
