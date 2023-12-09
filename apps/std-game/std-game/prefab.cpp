@@ -18,8 +18,8 @@ namespace wind {
                         return;
 
                     if (_parent->isContainer()) {
-                        auto parent = (cloudy::Container*)_parent;
-                        auto child = (cloudy::Container*)_child;
+                        auto parent = _parent->asContainer();
+                        auto child = _child->asContainer();
 
                         for (auto& value : *parent) {
                             if (child->hasMember(value.first))
@@ -34,7 +34,8 @@ namespace wind {
 
             auto baseof = m_source->getObject("baseof");
             if (baseof && baseof->isValue()) {
-                auto base = resources::get<Prefab>(((cloudy::Value*)baseof)->asString().c_str());
+                auto name = baseof->asValue()->asString();
+                auto base = resources::get<Prefab>(name.c_str());
                 inheritance(base->m_source, m_source);
             }
 
@@ -42,13 +43,14 @@ namespace wind {
             if (!children || !children->isContainer())
                 return;
 
-            for (auto& obj : *(cloudy::Container*)children) {
+            for (auto& obj : *children->asContainer()) {
                 if (obj.second->isContainer()) {
-                    auto child = (cloudy::Container*)obj.second;
+                    auto child = obj.second->asContainer();
                     if (child->hasMember("baseof")) {
                         auto baseof = child->getObject("baseof");
                         if (baseof && baseof->isValue()) {
-                            auto base = resources::get<Prefab>(((cloudy::Value*)baseof)->asString().c_str());
+                            auto name = baseof->asValue()->asString();
+                            auto base = resources::get<Prefab>(name.c_str()); 
                             inheritance(base->m_source, obj.second);
                         }
                     }
@@ -65,18 +67,18 @@ namespace wind {
 
             auto components = source->getObject("components");
             if (components && components->isContainer())
-                for (auto& component : *(cloudy::Container*)components)
+                for (auto& component : *components->asContainer())
                     if (component.second->isContainer())
                         ComponentRegistry::build(
                             registry, entity,
-                            component.first, (cloudy::Container*)component.second
+                            component.first, component.second->asContainer()
                         );
             
             auto children = source->getObject("children");
             if (children && children->isContainer())
-                for (auto& obj : *(cloudy::Container*)children)
+                for (auto& obj : *children->asContainer())
                     if (obj.second->isContainer())
-                        instance(registry, (cloudy::Container*)obj.second);
+                        instance(registry, obj.second->asContainer());
 
 
             return entity;
