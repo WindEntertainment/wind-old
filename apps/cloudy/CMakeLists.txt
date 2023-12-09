@@ -1,17 +1,12 @@
 project(cloudy)
 
 add_library(${PROJECT_NAME} STATIC
-    ./cloudy/xml.h
     ./cloudy/xml.cpp
 
-    ./cloudy/document.h
     ./cloudy/document.cpp
 
-    ./cloudy/object.h
     ./cloudy/value.cpp
     ./cloudy/container.cpp
-
-    ./cloudy/utils.h
 )
 
 include_directories(../logger/)

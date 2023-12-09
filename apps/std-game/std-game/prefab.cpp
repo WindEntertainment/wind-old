@@ -5,8 +5,9 @@
 
 namespace wind {
     namespace stdgame {
-        Prefab::Prefab(string _name, cloudy::Document* _doc) {
-            m_name = _name;
+        Prefab::Prefab(string _name, cloudy::Document* _doc):
+            m_name(_name) 
+        {
             m_source = _doc->root();
             build();
         }
@@ -17,7 +18,7 @@ namespace wind {
                     if (_parent->getType() != _child->getType())
                         return;
 
-                    if (_parent->isContainer()) {
+                    if (_parent->isContainer()) { 
                         auto parent = _parent->asContainer();
                         auto child = _child->asContainer();
 
@@ -32,31 +33,26 @@ namespace wind {
                     }
                 };
 
-            auto baseof = m_source->getObject("baseof");
-            if (baseof && baseof->isValue()) {
-                auto name = baseof->asValue()->asString();
-                auto base = resources::get<Prefab>(name.c_str());
-                inheritance(base->m_source, m_source);
-            }
 
-            auto children = m_source->getObject("children");
-            if (!children || !children->isContainer())
-                return;
-
-            for (auto& obj : *children->asContainer()) {
-                if (obj.second->isContainer()) {
-                    auto child = obj.second->asContainer();
-                    if (child->hasMember("baseof")) {
-                        auto baseof = child->getObject("baseof");
-                        if (baseof && baseof->isValue()) {
-                            auto name = baseof->asValue()->asString();
-                            auto base = resources::get<Prefab>(name.c_str()); 
-                            inheritance(base->m_source, obj.second);
-                        }
+            std::function<void(cloudy::Container*)> recursed = 
+                [&](cloudy::Container* _source) {
+                    auto baseof = _source->getObject("baseof");
+                    if (baseof && baseof->isValue()) {
+                        auto name = baseof->asValue()->asString();
+                        auto base = resources::get<Prefab>(name.c_str());
+                        inheritance(base->m_source, _source);
                     }
-                }
-            }
-                
+
+                    auto children = _source->getObject("children");
+                    if (!children || !children->isContainer())
+                        return;
+
+                    for (auto& obj : *children->asContainer())
+                        if (obj.second->isContainer())
+                            recursed(obj.second->asContainer());
+                };
+
+            recursed(m_source);
         }
 
         entt::entity Prefab::instance(entt::registry& registry, cloudy::Container* source) {
