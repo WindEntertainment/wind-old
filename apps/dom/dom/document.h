@@ -59,13 +59,13 @@ namespace wind {
             }
 
             Value* allocValue(string _value) {
-                auto obj = new Value(_value);
+                auto obj = new Value(_value, this);
                 m_pool.push_back(obj);
                 return obj;
             }
 
             Container* allocContainer() {
-                auto container = new Container();
+                auto container = new Container(this);
                 m_pool.push_back(container);
                 return container;
             }

@@ -8,13 +8,23 @@ namespace wind {
             CONTAINER
         };
 
+        class Document;
+
         class Object {
             friend class Document;
         private:
             TypeObject m_type = TypeObject::NIL;
+            Document* m_allocator = nullptr;
         protected:
-            Object(TypeObject type): m_type(type) {};
+            Object(TypeObject type, Document* allocator):
+                m_type(type), m_allocator(allocator) {};
         public:
+            virtual Object* copy(Document*) = 0;
+            
+            inline Document* allocator() const {
+                return m_allocator;
+            }
+
             inline TypeObject getType() const {
                 return m_type;
             }
@@ -33,10 +43,12 @@ namespace wind {
         private:
             string m_value;
 
-            Value(string value): Object(TypeObject::VALUE) {
+            Value(string value, Document* allocator): Object(TypeObject::VALUE, allocator) {
                 m_value = value;
             }
         public:
+            Object* copy(Document*) override;
+
             inline string asString() const {
                 return m_value;
             }
@@ -82,9 +94,16 @@ namespace wind {
             friend class Document;
         private:
             map<string, Object*> m_objs;
-            Container() : Object(TypeObject::CONTAINER) {}
+            Container(Document* allocator) : Object(TypeObject::CONTAINER, allocator) {}
         public:
+            Object* copy(Document*) override;
+
             void addObject(string key, Object* object) {
+                if (object->allocator() != allocator()) {
+                    log().error() << "Container::addObject(): it's not possible to add an object using another allocator. key: " << key;
+                    return;
+                }
+
                 m_objs.insert(std::make_pair(
                     key, object
                 ));

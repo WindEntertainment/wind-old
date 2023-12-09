@@ -24,8 +24,10 @@ namespace wind {
                         for (auto& value : *parent) {
                             if (child->hasMember(value.first))
                                 inheritance(value.second, child->getObject(value.first));
-                            else 
-                                child->addObject(value.first, value.second);
+                            else {
+                                auto allocator = _child->allocator();
+                                child->addObject(value.first, value.second->copy(allocator));
+                            }
                         }
                     }
                 };
