@@ -5,7 +5,7 @@ namespace wind {
     namespace doom {
         using namespace tinyxml2;
 
-        void buildDOM(Document* dst, XMLDocument& src) {
+        void BuildDOM(Document* dst, XMLDocument& src) {
             std::function<void(XMLElement*, Container*)> tree_recursion = [&](XMLElement* parent, Container* container) {
                 for (
                     auto node = parent;
@@ -36,7 +36,7 @@ namespace wind {
             }
 
             Document* doc = new Document();
-            buildDOM(doc, xdoc);
+            BuildDOM(doc, xdoc);
 
             return doc;
         }
@@ -50,7 +50,7 @@ namespace wind {
             }
 
             Document* doc = new Document();
-            buildDOM(doc, xdoc);
+            BuildDOM(doc, xdoc);
 
             return doc;
         }
