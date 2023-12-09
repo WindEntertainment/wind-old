@@ -15,4 +15,9 @@ namespace wind {
         using std::filesystem::directory_iterator;
         return std::distance(directory_iterator(_path), directory_iterator{});
     }
+
+    size_t numberOfFilesInRecursiveDirectory(fs::path _path) {
+        using std::filesystem::recursive_directory_iterator;
+        return std::distance(recursive_directory_iterator(_path), recursive_directory_iterator{});
+    }
 }

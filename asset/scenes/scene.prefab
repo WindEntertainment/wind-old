@@ -9,7 +9,7 @@
 </components>
 <children>
     <el>
-        <baseof>./asset/monkey.prefab</baseof>
+        <baseof>./asset/prefabs/monkey.prefab</baseof>
         <components>
             <stdgame.transform>
                 <position>
@@ -21,14 +21,19 @@
         </components>
     </el>
     <el2>
-        <baseof>./asset/monkey.prefab</baseof>
+        <baseof>./asset/prefabs/cube.prefab</baseof>
         <components>
             <stdgame.transform>
                 <position>
-                    <x>15</x>
-                    <y>0</y>
+                    <x>0</x>
+                    <y>-5</y>
                     <z>0</z>
                 </position>
+                <scale>
+                    <x>10</x>
+                    <y>1</y>
+                    <z>10</z>
+                </scale>
             </stdgame.transform>
         </components>
     </el2>

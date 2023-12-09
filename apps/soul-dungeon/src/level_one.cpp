@@ -23,7 +23,7 @@ namespace soul_dungeon {
         auto bundle = Game::bundle();
         resources::addBundle(bundle);
 
-        auto prefab = resources::get<stdgame::Prefab>("./asset/scene.prefab");
+        auto prefab = resources::get<stdgame::Prefab>("./asset/scenes/scene.prefab");
 
         auto registry = Game::registry();
 
