@@ -1,0 +1,35 @@
+<components>
+    <stdgame.transform>
+        <rotation>
+            <x>45</x>
+            <y>45</y>
+            <z>45</z>
+        </rotation>
+    </stdgame.transform>
+</components>
+<children>
+    <el>
+        <baseof>./asset/monkey.prefab</baseof>
+        <components>
+            <stdgame.transform>
+                <position>
+                    <x>0</x>
+                    <y>0</y>
+                    <z>0</z>
+                </position>
+            </stdgame.transform>
+        </components>
+    </el>
+    <el2>
+        <baseof>./asset/monkey.prefab</baseof>
+        <components>
+            <stdgame.transform>
+                <position>
+                    <x>15</x>
+                    <y>0</y>
+                    <z>0</z>
+                </position>
+            </stdgame.transform>
+        </components>
+    </el2>
+</children>

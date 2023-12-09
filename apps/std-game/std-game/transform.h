@@ -4,9 +4,9 @@
 namespace wind {
     namespace stdgame {
         struct Transform {
-            vec3 position;
-            vec3 rotation;
-            vec3 scale;
+            vec3 position = {0, 0, 0};
+            vec3 rotation = {0, 0, 0};
+            vec3 scale    = {0, 0, 0};
         };
     }
 }

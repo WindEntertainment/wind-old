@@ -5,86 +5,77 @@
 
 namespace wind {
     namespace stdgame {
-       /* void test(rapidjson::Document& doc) {
-            std::function<void(rapidjson::Value&, rapidjson::Value& )> inheritance =
-                [&](rapidjson::Value& _child, rapidjson::Value& _parent) {
-                    if (_parent.GetType() != _child.GetType()) 
-                        return;
-
-                    if (_parent.IsObject()) {
-                        auto parent = _parent.GetObject();
-                        auto child = _child.GetObject();
-
-                        if (parent.HasMember("base"))
-                            inheritance(parent, resources::get<Prefab>(parent["base"].GetString())->doc);
-
-                        for (auto& value : parent) {
-                            for (auto& cvalue : child) {
-                                log().debug() << cvalue.name.GetString();
-                            }
-
-                            if (child.HasMember(value.name)) {
-                                if (child.HasMember(value.name) && value.name.GetStringLength() == 8)
-                                    inheritance(child[value.name], value.value);
-                            }
-                            else
-                                child.AddMember(value.name, value.value, doc.GetAllocator());
-                        } 
-                    }
-
-                    if (_parent.IsArray()) {
-                        auto parent = _parent.GetArray();
-                        auto child = _child.GetArray();
-
-                        auto overall = std::min(parent.Size(), child.Size());
-
-                        for (auto i = 0U; i < overall; ++i)
-                            inheritance(parent[i], child[i]);
-                    }                    
-                };
-
-            inheritance(doc, doc);
-            print(doc);
-        }*/
-
-        Prefab::Prefab(string _name, dom::Document* _doc) {
+        Prefab::Prefab(string _name, doom::Document* _doc) {
             m_name = _name;
             m_source = _doc->root();
             build();
         }
 
-        Prefab::Prefab(string _name, dom::Container* _src) {
-            m_name = _name;
-            m_source = _src;
-            build();
-        }
-
         void Prefab::build() {
-            
+            std::function<void(doom::Object*, doom::Object*)> inheritance =
+                [&](doom::Object* _parent, doom::Object* _child) {
+                    if (_parent->getType() != _child->getType())
+                        return;
+
+                    if (_parent->isContainer()) {
+                        auto parent = (doom::Container*)_parent;
+                        auto child = (doom::Container*)_child;
+
+                        for (auto& value : *parent) {
+                            if (child->hasMember(value.first))
+                                inheritance(value.second, child->getObject(value.first));
+                            else 
+                                child->addObject(value.first, value.second);
+                        }
+                    }
+                };
+
+            auto baseof = m_source->getObject("baseof");
+            if (baseof && baseof->isValue()) {
+                auto base = resources::get<Prefab>(((doom::Value*)baseof)->asString().c_str());
+                inheritance(base->m_source, m_source);
+            }
+
+            auto children = m_source->getObject("children");
+            if (!children || !children->isContainer())
+                return;
+
+            for (auto& obj : *(doom::Container*)children) {
+                if (obj.second->isContainer()) {
+                    auto child = (doom::Container*)obj.second;
+                    if (child->hasMember("baseof")) {
+                        auto baseof = child->getObject("baseof");
+                        if (baseof && baseof->isValue()) {
+                            auto base = resources::get<Prefab>(((doom::Value*)baseof)->asString().c_str());
+                            inheritance(base->m_source, obj.second);
+                        }
+                    }
+                }
+            }
+                
         }
 
-        entt::entity Prefab::instance(entt::registry& registry) {
+        entt::entity Prefab::instance(entt::registry& registry, doom::Container* source) {
+            if (!source)
+                source = m_source;
+
             auto entity = registry.create();
 
-            auto components = m_source->getObject("components");
+            auto components = source->getObject("components");
             if (components && components->isContainer())
-                for (auto& component : *(dom::Container*)components) {
+                for (auto& component : *(doom::Container*)components)
                     if (component.second->isContainer())
                         ComponentRegistry::build(
                             registry, entity,
-                            component.first, (dom::Container*)component.second
+                            component.first, (doom::Container*)component.second
                         );
-                }
             
-            /*if (object.HasMember("children") && object["children"].IsArray()) {
-                for (auto& child : object["children"].GetArray()) {
-                    if (!child.IsObject())
-                        continue;
+            auto children = source->getObject("children");
+            if (children && children->isContainer())
+                for (auto& obj : *(doom::Container*)children)
+                    if (obj.second->isContainer())
+                        instance(registry, (doom::Container*)obj.second);
 
-                    Prefab temp(child);
-                    temp.instance(registry);
-                }
-            }*/
 
             return entity;
         }

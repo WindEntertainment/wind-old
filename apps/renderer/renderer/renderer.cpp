@@ -7,7 +7,10 @@ namespace wind {
             glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
         }
 
-        void Renderer::render(Camera* camera, Mesh* mesh, Texture* texture, Shader* shader, vec3 position, vec3 rotation, vec3 scale) {
+        void Renderer::render(
+            Camera* camera, Mesh* mesh, Texture* texture, Shader* shader,
+            vec3 position, vec3 rotation, vec3 scale
+        ) {
             shader->use();
 
             glActiveTexture(GL_TEXTURE0);

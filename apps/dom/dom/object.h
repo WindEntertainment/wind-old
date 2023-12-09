@@ -1,7 +1,7 @@
 #include "utils.h"
 
 namespace wind {
-    namespace dom {
+    namespace doom {
         enum class TypeObject {
             NIL,
             VALUE,

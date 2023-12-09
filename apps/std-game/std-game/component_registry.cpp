@@ -11,7 +11,7 @@ namespace wind {
             string, std::function<
                 void(
                     entt::registry&, entt::entity,
-                    dom::Container*
+                    doom::Container*
                 )
             >
         > ComponentRegistry::builders;
@@ -20,7 +20,7 @@ namespace wind {
             string name,
             std::function<void(
                 entt::registry&, entt::entity,
-                dom::Container*
+                doom::Container*
             )> func
         ) {
             builders.insert(std::make_pair(
@@ -32,7 +32,7 @@ namespace wind {
             entt::registry& registry,
             entt::entity entity,
             string component,
-            dom::Container* object
+            doom::Container* object
         ) {
             if (!builders.contains(component)) {
                 log().error() << "ComponentRegistry: failed build component: [" << component << "]";
@@ -44,46 +44,46 @@ namespace wind {
 
         void ComponentRegistry::init() {
             addComponent("stdgame.transform",
-                [](entt::registry& registry, entt::entity entity, dom::Container* dom) {
+                [](entt::registry& registry, entt::entity entity, doom::Container* dom) {
                     Transform transform;
 
                     auto position = dom->getObject("position");
                     if (position && position->isContainer()) {
-                        auto pos = (dom::Container*)position;
+                        auto pos = (doom::Container*)position;
                         
                         auto x = pos->getObject("x");
                         auto y = pos->getObject("y");
                         auto z = pos->getObject("z");
 
-                        if (x && x->isValue()) transform.position.x = ((dom::Value*)x)->asFloat();
-                        if (y && y->isValue()) transform.position.y = ((dom::Value*)y)->asFloat();
-                        if (z && z->isValue()) transform.position.z = ((dom::Value*)z)->asFloat();
+                        if (x && x->isValue()) transform.position.x = ((doom::Value*)x)->asFloat();
+                        if (y && y->isValue()) transform.position.y = ((doom::Value*)y)->asFloat();
+                        if (z && z->isValue()) transform.position.z = ((doom::Value*)z)->asFloat();
                     }
 
                     auto rotation = dom->getObject("rotation");
                     if (rotation && rotation->isContainer()) {
-                        auto rot = (dom::Container*)rotation;
+                        auto rot = (doom::Container*)rotation;
                         
                         auto x = rot->getObject("x");
                         auto y = rot->getObject("y");
                         auto z = rot->getObject("z");
 
-                        if (x && x->isValue()) transform.rotation.x = ((dom::Value*)x)->asFloat();
-                        if (y && y->isValue()) transform.rotation.y = ((dom::Value*)y)->asFloat();
-                        if (z && z->isValue()) transform.rotation.z = ((dom::Value*)z)->asFloat();
+                        if (x && x->isValue()) transform.rotation.x = ((doom::Value*)x)->asFloat();
+                        if (y && y->isValue()) transform.rotation.y = ((doom::Value*)y)->asFloat();
+                        if (z && z->isValue()) transform.rotation.z = ((doom::Value*)z)->asFloat();
                     }
 
                     auto scale = dom->getObject("scale");
-                    if (rotation && rotation->isContainer()) {
-                        auto scl = (dom::Container*)scale;
+                    if (scale && scale->isContainer()) {
+                        auto scl = (doom::Container*)scale;
                         
                         auto x = scl->getObject("x");
                         auto y = scl->getObject("y");
                         auto z = scl->getObject("z");
 
-                        if (x && x->isValue()) transform.scale.x = ((dom::Value*)x)->asFloat();
-                        if (y && y->isValue()) transform.scale.y = ((dom::Value*)y)->asFloat();
-                        if (z && z->isValue()) transform.scale.z = ((dom::Value*)z)->asFloat();
+                        if (x && x->isValue()) transform.scale.x = ((doom::Value*)x)->asFloat();
+                        if (y && y->isValue()) transform.scale.y = ((doom::Value*)y)->asFloat();
+                        if (z && z->isValue()) transform.scale.z = ((doom::Value*)z)->asFloat();
                     }
 
                     registry.emplace_or_replace<Transform>(entity, transform);
@@ -91,7 +91,7 @@ namespace wind {
             );
 
             addComponent("stdgame.renderable",
-                [](entt::registry& registry, entt::entity entity, dom::Container* dom) {
+                [](entt::registry& registry, entt::entity entity, doom::Container* dom) {
                     auto mesh = dom->getObject("mesh");
                     if (!mesh || !mesh->isValue()) {
                         log().error() << "stdgame.renderable must have string mesh field";
@@ -110,9 +110,9 @@ namespace wind {
                         return;
                     }
 
-                    auto rmesh = resources::get<renderer::Mesh>(((dom::Value*)mesh)->asString().c_str());
-                    auto rtexture = resources::get<renderer::Texture>(((dom::Value*)texture)->asString().c_str());
-                    auto rshader = resources::get<renderer::Shader>(((dom::Value*)shader)->asString().c_str());
+                    auto rmesh = resources::get<renderer::Mesh>(((doom::Value*)mesh)->asString().c_str());
+                    auto rtexture = resources::get<renderer::Texture>(((doom::Value*)texture)->asString().c_str());
+                    auto rshader = resources::get<renderer::Shader>(((doom::Value*)shader)->asString().c_str());
 
                     registry.emplace_or_replace<Renderable>(entity, rmesh, rtexture, rshader);
                 }
