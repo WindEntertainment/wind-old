@@ -92,21 +92,22 @@ namespace wind {
 
             addComponent("stdgame.renderable",
                 [](entt::registry& registry, entt::entity entity, cloudy::Container* dom) {
+
                     auto mesh = dom->getObject("mesh");
                     if (!mesh || !mesh->isValue()) {
-                        log().error() << "stdgame.renderable must have string mesh field";
+                        log().error() << "stdgame.renderable must have mesh field";
                         return;
                     }
 
                     auto texture = dom->getObject("texture");
                     if (!texture || !texture->isValue()) {
-                        log().error() << "stdgame.renderable must have string texture field";
+                        log().error() << "stdgame.renderable must have texture field";
                         return;
                     }
 
                     auto shader = dom->getObject("shader");
                     if (!shader || !shader->isValue()) {
-                        log().error() << "stdgame.renderable must have shader texture field";
+                        log().error() << "stdgame.renderable must have shader field";
                         return;
                     }
 
@@ -114,7 +115,19 @@ namespace wind {
                     auto rtexture = resources::get<renderer::Texture>(((cloudy::Value*)texture)->asString().c_str());
                     auto rshader = resources::get<renderer::Shader>(((cloudy::Value*)shader)->asString().c_str());
 
-                    registry.emplace_or_replace<Renderable>(entity, rmesh, rtexture, rshader);
+                    auto rtiling = vec2(1, 1);
+                    auto tiling = dom->getObject("tiling");
+                    if (tiling && tiling->isContainer()) {
+                        auto ctiling = tiling->asContainer();
+
+                        auto x = ctiling->getObject("x");
+                        auto y = ctiling->getObject("y");
+
+                        if (x && x->isValue()) rtiling.x = x->asValue()->asFloat();
+                        if (y && y->isValue()) rtiling.y = y->asValue()->asFloat();
+                    }
+
+                    registry.emplace_or_replace<Renderable>(entity, rmesh, rtexture, rshader, rtiling);
                 }
             );
         }

@@ -8,7 +8,7 @@ namespace wind {
         }
 
         void Renderer::render(
-            Camera* camera, Mesh* mesh, Texture* texture, Shader* shader,
+            Camera* camera, Mesh* mesh, Texture* texture, vec2 tiling, Shader* shader,
             vec3 position, vec3 rotation, vec3 scale
         ) {
             shader->use();
@@ -40,6 +40,7 @@ namespace wind {
             shader->uMat4f("model", matrix_model);
             shader->uMat4f("view", view);
             shader->uMat4f("projection", projection);
+            shader->uVec2f("tiling", tiling);
 
             glDrawElements(GL_TRIANGLES, mesh->size(), GL_UNSIGNED_INT, 0);
         }

@@ -23,8 +23,9 @@
     in vec2 TexCoord;
 
     uniform sampler2D ourTexture;
+    uniform vec2 tiling;
 
     void main() {
-        FragColor = texture(ourTexture, TexCoord);
+        FragColor = texture(ourTexture, TexCoord*tiling);
     }
 </fgt>

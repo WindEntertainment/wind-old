@@ -69,5 +69,10 @@ namespace wind {
             int loc = glGetUniformLocation(m_program, _name);
             glUniform1i(loc, _i);
         }
+
+        void Shader::uVec2f(const char* _name, vec2 _vec) {
+            int loc = glGetUniformLocation(m_program, _name);
+            glUniform2f(loc, _vec.x, _vec.y);
+        }
     }
 }
