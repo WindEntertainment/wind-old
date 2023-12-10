@@ -7,6 +7,8 @@ namespace wind {
             renderer::Mesh* mesh;
             renderer::Texture* texture;
             renderer::Shader* shader;
+            vec2 tiling;
         };
+        
     }
 }

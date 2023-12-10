@@ -14,7 +14,7 @@ namespace soul_dungeon {
             ) {
                 Game::renderer()->render(
                     &camera, 
-                    renderable.mesh, renderable.texture, renderable.shader,
+                    renderable.mesh, renderable.texture, renderable.tiling, renderable.shader,
                     transform.position, transform.rotation, transform.scale
                 );
             });
