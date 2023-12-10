@@ -13,8 +13,12 @@ namespace wind {
                     node = node->NextSiblingElement()
                 ) {
                     if (auto child = node->FirstChildElement()) {
+                        string name = node->Name();
+                        if (container->hasMember(name))
+                            name = name + std::to_string(container->size());
+
                         auto child_container = dst->allocContainer();
-                        container->addObject(node->Name(), child_container);
+                        container->addObject(name, child_container);
 
                         tree_recursion(child, child_container);
                     } else {

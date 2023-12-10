@@ -20,8 +20,8 @@
             </stdgame.transform>
         </components>
     </el>
-    <el2>
-        <baseof>./asset/prefabs/cube.prefab</baseof>
+    <el>
+        <baseof>./asset/prefabs/plane.prefab</baseof>
         <components>
             <stdgame.transform>
                 <position>
@@ -36,5 +36,17 @@
                 </scale>
             </stdgame.transform>
         </components>
-    </el2>
+    </el>
+    <el>
+        <baseof>./asset/prefabs/cube.prefab</baseof>
+        <components>
+            <stdgame.transform>
+                <position>
+                    <x>0</x>
+                    <y>-4</y>
+                    <z>-11</z>
+                </position>
+            </stdgame.transform>
+        </components>
+    </el>
 </children>
