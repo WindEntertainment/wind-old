@@ -75,8 +75,8 @@ namespace wind {
                 }
 
                 resource_ind += 1;
-
-                if (!obj) {
+                
+                if (!obj && !entry.is_directory()) {
                     log().warning() << "Asset Bundler: ignore resource: " << filename; 
                     continue;
                 }
