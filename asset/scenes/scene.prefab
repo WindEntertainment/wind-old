@@ -59,8 +59,8 @@
             <stdgame.renderable>
                 <texture>./asset/textures/floor.jpg</texture>
                 <tiling>
-                    <x>10</x>
-                    <y>10</y>
+                    <x>5</x>
+                    <y>5</y>
                 </tiling>
             </stdgame.renderable>
             <stdgame.transform>
@@ -83,8 +83,8 @@
             <stdgame.renderable>
                 <texture>./asset/textures/ceiling.jpg</texture>
                 <tiling>
-                    <x>10</x>
-                    <y>10</y>
+                    <x>5</x>
+                    <y>5</y>
                 </tiling>
             </stdgame.renderable>
             <stdgame.transform>
