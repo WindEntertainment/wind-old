@@ -1,11 +1,11 @@
 <components>
     <stdgame.renderable>
         <mesh>./asset/3d/cube.obj</mesh>
-        <texture>./asset/textures/brick.jpg</texture>
+        <texture>./asset/textures/wall.jpg</texture>
         <shader>./asset/shaders/shader_default.glsl</shader>
         <tiling>
-            <x>10</x>
-            <y>10</y>
+            <x>2</x>
+            <y>2</y>
         </tiling>
     </stdgame.renderable>
     <stdgame.transform>
@@ -15,7 +15,7 @@
             <z>1</z>
         </scale>
         <rotation>
-            <x>90</x>
+            <x>-90</x>
         </rotation>
     </stdgame.transform>
 </components>
