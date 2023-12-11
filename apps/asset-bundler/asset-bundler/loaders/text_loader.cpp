@@ -5,7 +5,7 @@ namespace wind {
         ISerializable* TextLoader::load(fs::path path) {
             std::ifstream file(path);
             if (!file.is_open()) {
-                log().error() << "TextLoader: failed open file: [" << path.c_str() << "]";
+                log().error() << "TextLoader: failed open file: [" << path.string().c_str() << "]";
                 return nullptr;
             }
 
