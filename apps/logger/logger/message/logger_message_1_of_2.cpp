@@ -18,7 +18,7 @@ namespace wind {
         }
 
         //
-        Logger::Message Logger::ERROR(const char* _file, const int _line) {
+        Logger::Message Logger::_ERROR(const char* _file, const int _line) {
             return write(_file, _line, "error");
         }
 

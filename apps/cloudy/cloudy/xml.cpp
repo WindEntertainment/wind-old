@@ -5,7 +5,7 @@ namespace wind {
     namespace cloudy {
         using namespace tinyxml2;
 
-        void BuildDOM(Document* dst, XMLDocument& src) {
+        void BuildDOM(Document* dst, tinyxml2::XMLDocument& src) {
             std::function<void(XMLElement*, Container*)> tree_recursion = [&](XMLElement* parent, Container* container) {
                 for (
                     auto node = parent;
@@ -32,7 +32,7 @@ namespace wind {
         }
 
         Document* XML::LoadFile(const char* _path) {
-            XMLDocument xdoc;
+            tinyxml2::XMLDocument xdoc;
             auto res = xdoc.LoadFile(_path);
             if (res != XMLError::XML_SUCCESS) {
                 log().error() << "XML::LoadFile by path '" << _path << "': " << xdoc.ErrorIDToName(res);
@@ -46,7 +46,7 @@ namespace wind {
         }
 
         Document* XML::LoadRAW(const char* _raw, size_t _nbytes) {
-            XMLDocument xdoc;
+            tinyxml2::XMLDocument xdoc;
             auto res = xdoc.Parse(_raw, _nbytes);
             if (res != XMLError::XML_SUCCESS) {
                 log().error() << "XML::LoadRaw error:" << xdoc.ErrorIDToName(res) << ";\n" << _raw;
