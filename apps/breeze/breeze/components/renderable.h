@@ -1,8 +1,8 @@
 #pragma once
-#include "utils.h"
+#include "../utils.h"
 
 namespace wind {
-    namespace stdgame {
+    namespace breeze {
         struct Renderable {
             renderer::Mesh* mesh;
             renderer::Texture* texture;

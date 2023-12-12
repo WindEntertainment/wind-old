@@ -1,8 +1,8 @@
 #pragma once
-#include "utils.h"
+#include "../utils.h"
 
 namespace wind {
-    namespace stdgame {        
+    namespace breeze {        
         class Prefab {
         private:
             string m_name;

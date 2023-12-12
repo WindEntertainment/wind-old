@@ -5,7 +5,7 @@
 namespace wind {
     namespace resources {
         template<>
-        stdgame::Prefab* get(const char* _name) {
+        breeze::Prefab* get(const char* _name) {
             auto source = get<assets::Text>(_name);
             if (!source)
                 return nullptr;
@@ -13,7 +13,7 @@ namespace wind {
             try {
                 cloudy::Document* doc = cloudy::XML::LoadRAW(source->text.c_str(), source->text.size());
             
-                auto res = new stdgame::Prefab(_name, doc);
+                auto res = new breeze::Prefab(_name, doc);
                 delete source;
 
                 return res;

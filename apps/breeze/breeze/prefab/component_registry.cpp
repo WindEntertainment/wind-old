@@ -1,12 +1,12 @@
 #include "component_registry.h"
 
-#include "transform.h"
-#include "renderable.h"
+#include "../components/transform.h"
+#include "../components/renderable.h"
 
 #include <resources/resource_manager.h>
 
 namespace wind {
-    namespace stdgame {
+    namespace breeze {
          map<
             string, std::function<
                 void(

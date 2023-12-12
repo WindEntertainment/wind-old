@@ -1,8 +1,8 @@
-#include <std-game/system.h>
+#include <breeze/systems/system.h>
 #include <renderer/renderer.h>
 
 namespace soul_dungeon {
-    class CameraControll : public wind::stdgame::System {
+    class CameraControll : public wind::breeze::System {
     private:
         float m_yaw,
               m_pitch;

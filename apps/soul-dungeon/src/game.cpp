@@ -7,7 +7,7 @@
 
 #include <system/events/keyboard.h>
 
-#include <std-game/component_registry.h>
+#include <breeze/prefab/component_registry.h>
 
 namespace soul_dungeon {
     Game* Game::singlton = nullptr;
@@ -52,7 +52,7 @@ namespace soul_dungeon {
 
         m_registry = new entt::registry();
 
-        stdgame::ComponentRegistry::init();
+        breeze::ComponentRegistry::init();
 
         system::Application::addTerminateCallback([&](){
             delete _level;

@@ -1,8 +1,8 @@
 #pragma once
-#include "utils.h"
+#include "../utils.h"
 
 namespace wind {
-    namespace stdgame {
+    namespace breeze {
         struct Transform {
             vec3 position = {0, 0, 0};
             vec3 rotation = {0, 0, 0};

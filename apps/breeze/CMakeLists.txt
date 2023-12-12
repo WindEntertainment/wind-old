@@ -1,19 +1,25 @@
-project(std-game)
+project(breeze)
 
 add_library(${PROJECT_NAME} STATIC
-    ./std-game/system.h
+    # systems
+    ./breeze/systems/system.h
 
-    ./std-game/prefab.h
-    ./std-game/prefab.cpp
+    ./breeze/systems/render.h
+    ./breeze/systems/render.cpp
+
+    # components
+    ./breeze/components/transform.h
+    ./breeze/components/renderable.h
+
+    # prefab
+    ./breeze/prefab/prefab.h
+    ./breeze/prefab/prefab.cpp
     
-    ./std-game/component_registry.h
-    ./std-game/component_registry.cpp
-
-    ./std-game/transform.h
-    ./std-game/renderable.h
+    ./breeze/prefab/component_registry.h
+    ./breeze/prefab/component_registry.cpp
 )
 
-include_directories(../resources/)
+include_directories(../breeze/)
 
 include_directories(../logger/)
 target_link_libraries(${PROJECT_NAME} PRIVATE logger)
