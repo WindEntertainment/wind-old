@@ -30,8 +30,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE asset-bundler)
 include_directories(../renderer/)
 target_link_libraries(${PROJECT_NAME} PRIVATE renderer)
 
-include_directories(../std-game/)
-target_link_libraries(${PROJECT_NAME} PRIVATE std-game)
+include_directories(../breeze/)
+target_link_libraries(${PROJECT_NAME} PRIVATE breeze)
 
 include_directories(../cloudy/)
 target_link_libraries(${PROJECT_NAME} PRIVATE cloudy)

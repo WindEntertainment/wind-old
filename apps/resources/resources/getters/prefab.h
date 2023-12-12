@@ -1,10 +1,10 @@
 #pragma once
 #include "../resource_manager.h"
-#include "../../../std-game/std-game/prefab.h"
+#include "../../../breeze/breeze/prefab/prefab.h"
 
 namespace wind {
     namespace resources {
         template<>
-        stdgame::Prefab* get(const char* name);
+        breeze::Prefab* get(const char* name);
     }
 }

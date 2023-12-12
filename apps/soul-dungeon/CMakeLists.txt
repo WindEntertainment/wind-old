@@ -6,10 +6,6 @@ add_executable(${PROJECT_NAME}
     ./src/systems/camera_controll.h
     ./src/systems/camera_controll.cpp
  
-    ./src/systems/render.h
-    ./src/systems/render.cpp
-
-
     ./src/level.h
     ./src/level_one.h
     ./src/level_one.cpp
@@ -37,8 +33,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE system)
 include_directories(../resources/)
 target_link_libraries(${PROJECT_NAME} PRIVATE resources)
 
-include_directories(../std-game/)
-target_link_libraries(${PROJECT_NAME} PRIVATE std-game)
+include_directories(../breeze/)
+target_link_libraries(${PROJECT_NAME} PRIVATE breeze)
 
 include_directories(../cloudy/)
 target_link_libraries(${PROJECT_NAME} PRIVATE cloudy)

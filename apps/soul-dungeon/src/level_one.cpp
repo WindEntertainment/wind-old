@@ -1,10 +1,10 @@
 #include "level_one.h"
 
-#include <std-game/transform.h>
-#include <std-game/renderable.h>
+#include <breeze/components/transform.h>
+#include <breeze/components/renderable.h>
 
 #include "systems/camera_controll.h"
-#include "systems/render.h"
+#include <breeze/systems/render.h>
 
 #include <resources/resource_manager.h>
 
@@ -13,17 +13,17 @@
 #include <asset-bundler/objects/shader.h>
 #include <asset-bundler/objects/text.h>
 
-#include <std-game/prefab.h>
+#include <breeze/prefab/prefab.h>
 
 namespace soul_dungeon {
 
-    vector<stdgame::System*> m_systems;
+    vector<breeze::System*> m_systems;
 
     void LevelOne::build() {
         auto bundle = Game::bundle();
         resources::addBundle(bundle);
 
-        auto prefab = resources::get<stdgame::Prefab>("./asset/scenes/scene.prefab");
+        auto prefab = resources::get<breeze::Prefab>("./asset/scenes/scene.prefab");
 
         auto registry = Game::registry();
 
@@ -37,7 +37,7 @@ namespace soul_dungeon {
         });
 
         m_systems.push_back(new CameraControll());
-        m_systems.push_back(new Render());
+        m_systems.push_back(new breeze::Render(Game::renderer()));
     }
 
     void LevelOne::update() {

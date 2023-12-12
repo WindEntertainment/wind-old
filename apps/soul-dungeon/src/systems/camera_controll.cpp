@@ -22,22 +22,23 @@ namespace soul_dungeon {
             if (m_pitch < -89.0f)
                 m_pitch = -89.0f;
 
-            glm::vec3 direction;
-            direction.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-            direction.y = sin(glm::radians(m_pitch));
-            direction.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-            camera.front = glm::normalize(direction);
+            glm::vec3 look;
+            look.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+            look.y = sin(glm::radians(m_pitch));
+            look.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+            camera.front = glm::normalize(look);
 
             // MOVEMENT
             float ds = speed * system::Application::deltaTime();
+            auto direction = vec3{ camera.front.x, 0, camera.front.z };
             if (system::Keyboard::isKey(GLFW_KEY_W)) 
-                camera.position += ds * camera.front;
+                camera.position += ds * direction;
             if (system::Keyboard::isKey(GLFW_KEY_S))
-                camera.position -= ds * camera.front;
+                camera.position -= ds * direction;
             if (system::Keyboard::isKey(GLFW_KEY_A))
-                camera.position -= glm::normalize(glm::cross(camera.front, camera.up)) * ds;
+                camera.position -= glm::normalize(glm::cross(direction, camera.up)) * ds;
             if (system::Keyboard::isKey(GLFW_KEY_D))
-                camera.position += glm::normalize(glm::cross(camera.front, camera.up)) * ds;
+                camera.position += glm::normalize(glm::cross(direction, camera.up)) * ds;
             //
         });
     }

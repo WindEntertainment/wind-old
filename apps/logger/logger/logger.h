@@ -1,6 +1,5 @@
 #pragma once
 #include "streams/logger_stream.h"
-#include <winstring.h>
 
 namespace wind {
     namespace logger {

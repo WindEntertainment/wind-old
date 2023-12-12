@@ -4,7 +4,7 @@
 #include <resources/resource_manager.h>
 
 namespace wind {
-    namespace stdgame {
+    namespace breeze {
         Prefab::Prefab(string _name, cloudy::Document* _doc):
             m_name(_name) 
         {
