@@ -16,6 +16,7 @@ namespace wind {
             const string&& _src, 
             const string&& _dst
         ) {
+            Stopwatch sw;
             log().info() << "Asset Bundler: assembly " << _src;
 
             std::ofstream output(_dst, std::ofstream::binary);
@@ -85,7 +86,7 @@ namespace wind {
             }
 
             output.close();
-            log().info() << "Asset Bundler: assembly success";
+            log().info() << "Asset Bundler: assembly success by " << sw.ms() << "ms";
         }
 
         Bundler::~Bundler() {
