@@ -8,8 +8,8 @@ namespace wind {
             static bool is_alive;
             static float delta_time;
 
-            static vector<std::function<void()>> terminate_event;
-            static std::function<bool()> quit_event;
+            static vector<std::function<void()>> OnTerminateEvent;
+            static std::function<bool()> OnQuitEvent;
         public:
             static void init(std::function<bool()> try_quiting);
            

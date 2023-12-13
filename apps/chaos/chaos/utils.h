@@ -1,7 +1,5 @@
 #pragma once
 #include <system/application.h>
-
-#include <list>
-using std::list;
+#include <breeze/breeze.h>
 
 using namespace wind;

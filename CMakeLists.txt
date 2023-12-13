@@ -14,4 +14,5 @@ add_subdirectory(./apps/system)
 add_subdirectory(./apps/renderer)
 add_subdirectory(./apps/breeze)
 
-add_subdirectory(./apps/soul-dungeon)
+add_subdirectory(./apps/earth)
+add_subdirectory(./apps/chaos)

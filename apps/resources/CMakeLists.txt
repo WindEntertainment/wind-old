@@ -33,6 +33,9 @@ target_link_libraries(${PROJECT_NAME} PRIVATE renderer)
 include_directories(../breeze/)
 target_link_libraries(${PROJECT_NAME} PRIVATE breeze)
 
+include_directories(../system/)
+target_link_libraries(${PROJECT_NAME} PRIVATE system)
+
 include_directories(../cloudy/)
 target_link_libraries(${PROJECT_NAME} PRIVATE cloudy)
 
