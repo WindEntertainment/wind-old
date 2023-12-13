@@ -9,7 +9,6 @@ namespace wind {
             void (*window)(system::Window::WindowConfig* self) = nullptr;
         };
 
-
         class Game {
         public:
             int main(std::function<void(GameParameters* self)> args);
