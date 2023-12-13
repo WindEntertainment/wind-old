@@ -1,19 +1,15 @@
-project(soul-dungeon)
+project(chaos)
 
 add_executable(${PROJECT_NAME}
-    ./src/main.cpp
+    ./chaos/main.cpp
     
-    ./src/systems/camera_controll.h
-    ./src/systems/camera_controll.cpp
+    ./chaos/systems/camera_controll.h
+    ./chaos/systems/camera_controll.cpp
  
-    ./src/level.h
-    ./src/level_one.h
-    ./src/level_one.cpp
-
-    ./src/game.h
-    ./src/game.cpp
+    ./chaos/game.h
+    ./chaos/game.cpp
     
-    ./src/utils.h
+    ./chaos/utils.h
 )
 
 ## internal
@@ -38,6 +34,9 @@ target_link_libraries(${PROJECT_NAME} PRIVATE breeze)
 
 include_directories(../cloudy/)
 target_link_libraries(${PROJECT_NAME} PRIVATE cloudy)
+
+include_directories(../earth/)
+target_link_libraries(${PROJECT_NAME} PRIVATE earth)
 
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glad::glad)

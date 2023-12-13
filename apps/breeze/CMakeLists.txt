@@ -1,6 +1,9 @@
 project(breeze)
 
 add_library(${PROJECT_NAME} STATIC
+    ./breeze/breeze.h
+    ./breeze/breeze.cpp
+
     # systems
     ./breeze/systems/system.h
 
@@ -35,6 +38,9 @@ target_link_libraries(${PROJECT_NAME} PRIVATE resources)
 
 include_directories(../cloudy/)
 target_link_libraries(${PROJECT_NAME} PRIVATE cloudy)
+
+include_directories(../system/)
+target_link_libraries(${PROJECT_NAME} PRIVATE system)
 
 ##
 

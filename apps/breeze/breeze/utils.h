@@ -1,12 +1,14 @@
 #pragma once
-#include <entt/entity/registry.hpp>
-#include <renderer/renderer.h>
 
+#include <system/window.h>
+#include <system/application.h>
+
+#include <system/events/keyboard.h>
+#include <system/events/mouse.h>
+
+#include <renderer/renderer.h>
 #include <cloudy/xml.h>
 
-#include <rapidjson/rapidjson.h>
-#include <rapidjson/document.h>
-#include <rapidjson/writer.h>
-#include <rapidjson/stringbuffer.h>
+#include <entt/entity/registry.hpp>
 
 #include <functional>

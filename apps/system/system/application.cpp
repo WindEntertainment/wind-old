@@ -5,8 +5,8 @@ namespace wind {
         bool Application::is_alive = false;
         float Application::delta_time = 0.f;
 
-        vector<std::function<void()>> Application::terminate_event;
-        std::function<bool()> Application::quit_event;        
+        vector<std::function<void()>> Application::OnTerminateEvent;
+        std::function<bool()> Application::OnQuitEvent;        
 
         float Application::deltaTime() {
             return delta_time;
@@ -17,18 +17,18 @@ namespace wind {
         }
 
         void Application::quit() {
-            if (!quit_event) {
+            if (!OnQuitEvent) {
                 is_alive = false;
                 return;
             }
 
-            is_alive = !quit_event();
+            is_alive = !OnQuitEvent();
         }
 
         void Application::init(std::function<bool()> try_quiting) {
             log().info() << "Application initilization...";
 
-            quit_event = try_quiting;
+            OnQuitEvent = try_quiting;
 
             //============================================================//
 
@@ -47,7 +47,7 @@ namespace wind {
         }
 
         int Application::terminate() {
-            for (auto callback : terminate_event) 
+            for (auto callback : OnTerminateEvent) 
                 callback();
             // glfwTerminate() // segmentation fault
             return EXIT_FAILURE;
@@ -55,7 +55,7 @@ namespace wind {
 
         void Application::addTerminateCallback(std::function<void()> callback) {
             assert(callback != nullptr);
-            terminate_event.push_back(callback);   
+            OnTerminateEvent.push_back(callback);   
         }
 
         int Application::loop(std::function<void()> update) {
@@ -70,6 +70,7 @@ namespace wind {
 
                 if (update)
                     update();
+                    
                 glfwPollEvents();
             };
 
