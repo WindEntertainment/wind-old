@@ -24,5 +24,6 @@ namespace fs = std::filesystem;
 
 namespace wind {
     fs::directory_entry getOldestFileInDirectory(fs::path directory);
+    size_t numberOfFilesInRecursiveDirectory(fs::path path);
     size_t numberOfFilesInDirectory(fs::path path);
 }
