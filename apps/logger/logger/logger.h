@@ -68,7 +68,7 @@ namespace wind {
             Message INFO   (const char* file, const int line);
             Message DEBUG  (const char* file, const int line);
             Message WARNING(const char* file, const int line);
-            Message ERROR  (const char* file, const int line);
+            Message _ERROR (const char* file, const int line);
         };
     }
 }
@@ -78,4 +78,4 @@ namespace wind {
 #define info() INFO(__FILENAME__, __LINE__)
 #define debug() DEBUG(__FILENAME__, __LINE__)
 #define warning() WARNING(__FILENAME__, __LINE__)
-#define error() ERROR(__FILENAME__, __LINE__)
+#define error() _ERROR(__FILENAME__, __LINE__)

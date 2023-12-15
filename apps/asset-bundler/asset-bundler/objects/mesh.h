@@ -9,6 +9,7 @@ namespace wind {
             void _serialize(std::ofstream& os) override;
             void _deserialize(std::ifstream& is) override;
 
+            vector<glm::vec2> uv;
             vector<glm::vec3> vertices;
             vector<uint> indices;
         };

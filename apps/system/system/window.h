@@ -1,3 +1,4 @@
+#pragma once
 #include "utils.h"
 
 namespace wind {
@@ -16,19 +17,22 @@ namespace wind {
             Window(void (*)(WindowConfig* self));
             ~Window();
 
+            void cursorDisable();
+
             void show();
             ivec2 size();
         };
-
+ 
         struct Window::WindowConfig {
             string title = "Wind";
             ivec2 size = {800, 600};
             ivec2 pos = {0, 0};
             bool fullscreen = true;
             bool resizable = false;
+            bool cursor = true;
             std::function<void()> close_event;
             
-            ivec2 opengl_version = {3, 0};
+            ivec2 opengl_version = {3, 3};
         };
     }
 }

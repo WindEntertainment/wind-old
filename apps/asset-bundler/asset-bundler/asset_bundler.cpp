@@ -16,6 +16,7 @@ namespace wind {
             const string&& _src, 
             const string&& _dst
         ) {
+            Stopwatch sw;
             log().info() << "Asset Bundler: assembly " << _src;
 
             std::ofstream output(_dst, std::ofstream::binary);
@@ -24,16 +25,16 @@ namespace wind {
                 return;
             }
 
-            fs::directory_iterator it;
+            fs::recursive_directory_iterator it;
             try {
-                it = fs::directory_iterator(_src);
+                it = fs::recursive_directory_iterator(_src);
             } catch (fs::filesystem_error& ex) {
                 log().error() << "Asset Bundler: can't open source directory: " << ex.what();
                 return;
             }
 
-            auto num_assets = numberOfFilesInDirectory(_src);
-            auto header_size = num_assets * sizeof(long) * 2 + sizeof(long);
+            auto num_assets = numberOfFilesInRecursiveDirectory(_src);
+            auto header_size = num_assets * (sizeof(size_t) + sizeof(asset_id)) + sizeof(size_t);
             // header struct:
             // asset id (long) = asset offset (long) 
 
@@ -44,7 +45,7 @@ namespace wind {
             for (const auto& entry : it) {
                 ISerializable* obj = nullptr;
                 auto filename = entry.path().relative_path().string();
-
+                
                 for (const auto& pair : m_loaders) {
                     if (!std::regex_match(filename, pair.first))
                         continue;
@@ -59,10 +60,10 @@ namespace wind {
                         obj->id = getAssetIdByName(filename);
 
                         auto save_pos = output.tellp();
-                        output.seekp(resource_ind * sizeof(long) * 2 + sizeof(long), std::ios_base::beg);
+                        output.seekp(resource_ind * (sizeof(size_t) + sizeof(asset_id)) + sizeof(size_t), std::ios_base::beg);
     
                         write(output, obj->id);
-                        write(output, (unsigned long)save_pos);
+                        write(output, (size_t)save_pos);
 
                         output.seekp(save_pos, std::ios_base::beg);
 
@@ -75,8 +76,8 @@ namespace wind {
                 }
 
                 resource_ind += 1;
-
-                if (!obj) {
+                
+                if (!obj && !entry.is_directory()) {
                     log().warning() << "Asset Bundler: ignore resource: " << filename; 
                     continue;
                 }
@@ -85,7 +86,7 @@ namespace wind {
             }
 
             output.close();
-            log().info() << "Asset Bundler: assembly success";
+            log().info() << "Asset Bundler: assembly success by " << sw.ms() << "ms";
         }
 
         Bundler::~Bundler() {

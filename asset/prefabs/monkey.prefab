@@ -1,0 +1,14 @@
+<components>
+    <stdgame.renderable>
+        <mesh>./asset/3d/monkey.obj</mesh>
+        <texture>./asset/textures/light.jpg</texture>
+        <shader>./asset/shaders/shader_default.glsl</shader>
+    </stdgame.renderable>
+    <stdgame.transform>
+        <scale>
+            <x>1</x>
+            <y>1</y>
+            <z>1</z>
+        </scale>
+    </stdgame.transform>
+</components>

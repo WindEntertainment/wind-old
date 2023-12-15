@@ -1,12 +1,15 @@
+#pragma once
 #include "utils.h"
 
 namespace wind {
     namespace system {
         class Application {
         private:
-            static bool isAlive;
-            static vector<std::function<void()>> terminate_event;
-            static std::function<bool()> quit_event;
+            static bool is_alive;
+            static float delta_time;
+
+            static vector<std::function<void()>> OnTerminateEvent;
+            static std::function<bool()> OnQuitEvent;
         public:
             static void init(std::function<bool()> try_quiting);
            
@@ -15,8 +18,10 @@ namespace wind {
 
             static int loop(std::function<void()> update);
             
-            static void quit();
+            static void quit(); 
+
             static bool alive();
+            static float deltaTime();
         };
     }
 }
