@@ -1,12 +1,7 @@
-<components>
-    <stdgame.transform>
-        <rotation>
-            <x>45</x>
-            <y>45</y>
-            <z>45</z>
-        </rotation>
-    </stdgame.transform>
-</components>
+<dependencies>
+    <render></render>
+    <camera-controll></camera-controll>
+</dependencies>
 <children>
     <el>
         <baseof>./asset/prefabs/monkey.prefab</baseof>

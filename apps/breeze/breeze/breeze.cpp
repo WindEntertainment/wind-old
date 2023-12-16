@@ -1,6 +1,7 @@
 #include "breeze.h"
 
 #include <asset-bundler/bundle.h>
+#include <resources/resource_manager.h>
 
 namespace wind {
     namespace breeze {
@@ -18,6 +19,7 @@ namespace wind {
             auto bundle = new assets::Bundle(std::move(args->bundle));
             if (!bundle->isOpen())
                 return system::Application::terminate();
+            resources::addBundle(bundle);
 
             // create window
             auto window = new system::Window(args->window);
@@ -26,6 +28,15 @@ namespace wind {
             auto registry = new entt::registry();
 
             breeze::ComponentRegistry::init();
+
+            auto scene = resources::get<breeze::Prefab>(args->scene.c_str());
+            if (!scene) {
+                log().error() << "Failed loading first scene: '" << args->scene << "'";
+                return 1;
+            }
+
+            scene->instance(*registry); // instancnig scene
+            delete scene; // unload prefab
 
             return system::Application::loop([&](){
                 if (system::Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
