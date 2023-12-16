@@ -4,6 +4,7 @@ namespace chaos {
     int Game::main() {
         return breeze::Game().main([&](breeze::GameParameters* self){
             self->bundle = "./assets.bundle";
+            self->scene = "./asset/scenes/scene.prefab";
             self->window = [](system::Window::WindowConfig* self) {
                 self->close_event = system::Application::quit;
                 self->fullscreen = false;

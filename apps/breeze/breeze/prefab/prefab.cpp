@@ -12,6 +12,11 @@ namespace wind {
             build();
         }
 
+        Prefab::~Prefab() {
+            if (m_source && m_source->allocator())
+                delete m_source->allocator();
+        }
+
         void Prefab::build() {
             std::function<void(cloudy::Object*, cloudy::Object*)> inheritance =
                 [&](cloudy::Object* _parent, cloudy::Object* _child) {
