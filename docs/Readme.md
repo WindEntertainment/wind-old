@@ -1,5 +1,7 @@
 # Wind Engine
 
+![](/docs/images/01.gif)
+
 Data-driven game engine.
 
 * Entity-Component-System (EnTT ECS)
