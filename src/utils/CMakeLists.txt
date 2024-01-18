@@ -1,0 +1,17 @@
+project(wind-utils)
+
+set(HEADERS
+    ./include/utils/ext_filesystem.h
+    ./include/utils/ext_string.h
+    ./include/utils/includes.h
+)
+
+set(SOURCES
+    ./src/ext_filesystem.cpp
+)
+
+add_library(${PROJECT_NAME} STATIC
+    ${HEADERS} ${SOURCES}
+)
+
+include_directories(./include/)
