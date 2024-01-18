@@ -1,9 +1,12 @@
-#include "logger/logger.h"
+#include <logger.h>
 
-namespace wind {
-    namespace logger {
-        // 
-        Logger::Message::Message(const Message& org) {
+namespace wind
+{
+    namespace logger
+    {
+        //
+        Logger::Message::Message(const Message &org)
+        {
             this->m_last = true;
             this->m_message << org.m_message.str();
             this->m_tag = org.m_tag;
@@ -12,8 +15,9 @@ namespace wind {
             this->m_line = org.m_line;
         }
 
-        // 
-        Logger::Message::Message(const char* _file, const int _line, const string _tag, Logger* _parent) {
+        //
+        Logger::Message::Message(const char *_file, const int _line, const string _tag, Logger *_parent)
+        {
             m_tag = _tag;
             m_last = true;
             m_logger = _parent;
@@ -21,8 +25,9 @@ namespace wind {
             m_line = _line;
         }
 
-        // print in output streams when destruct message 
-        Logger::Message::~Message() {
+        // print in output streams when destruct message
+        Logger::Message::~Message()
+        {
             if (!m_last)
                 return;
 
