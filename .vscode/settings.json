@@ -1,7 +1,7 @@
 {
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "files.associations": {
-        "*.txt": "properties",
+        "*.txt": "cmake",
         "any": "cpp",
         "array": "cpp",
         "atomic": "cpp",
