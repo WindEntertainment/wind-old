@@ -2,6 +2,7 @@
 
 int main()
 {
-    wind::log().debug() << "Hi!";
+    string s = "Hello, World!";
+    std::cout << s << "\n";
     return 0;
 }
