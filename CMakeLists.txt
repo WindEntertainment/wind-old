@@ -1,17 +1,18 @@
 cmake_minimum_required(VERSION 3.22)
 
-SET (CMAKE_C_COMPILER_WORKS 1)
-SET (CMAKE_CXX_COMPILER_WORKS 1)
-SET (CMAKE_CXX_FLAGS "-std=c++20")
+set(CMAKE_CXX_FLAGS "-std=c++20")
+project(wind)
 
-project(main)
+include_directories(./include/)
 
-add_subdirectory(./src/logger)
-add_subdirectory(./src/cloudy)
-add_subdirectory(./src/asset-bundler)
-add_subdirectory(./src/resources)
-add_subdirectory(./src/system)
-add_subdirectory(./src/renderer)
-add_subdirectory(./src/breeze)
+# modules 
+add_subdirectory(./src/logger/)
 
-add_subdirectory(./examples/scenes)
+# examples 
+add_subdirectory(./examples/logger/)
+
+# linking wind
+add_library(${PROJECT_NAME} STATIC ./src/wind.cpp)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ./src/logger/include/)
+target_link_libraries(${PROJECT_NAME} PRIVATE logger)
