@@ -1,6 +1,5 @@
-/out/
-/vcpkg_installed/
 /build/
+/install/
 /logs/
 
 *.bundle

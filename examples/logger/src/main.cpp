@@ -2,7 +2,6 @@
 
 int main()
 {
-    string s = "Hello, World!";
-    std::cout << s << "\n";
+    spdlog::info("Hi");
     return 0;
 }
