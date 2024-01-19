@@ -3,3 +3,4 @@
 /logs/
 
 *.bundle
+CMakeUserPresets.json
