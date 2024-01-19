@@ -1,4 +1,7 @@
 {
+    "files.exclude": {
+        "**/.cache/": true,
+    },
     "clangd.checkUpdates": false,
     "editor.codeActionsOnSave": {
         "source.fixAll": "explicit"
