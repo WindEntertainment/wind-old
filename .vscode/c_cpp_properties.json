@@ -4,7 +4,6 @@
             "name": "Windows",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:\\vcpkg\\vcpkg\\installed\\x64-windows\\include"
             ],
             "defines": [],
             "configurationProvider": "ms-vscode.cmake-tools"
@@ -13,7 +12,6 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/home/neutrinozh/vcpkg/installed/x64-linux/include"
             ],
             "defines": [],
             "configurationProvider": "ms-vscode.cmake-tools"

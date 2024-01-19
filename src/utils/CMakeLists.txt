@@ -15,3 +15,7 @@ add_library(${PROJECT_NAME} STATIC
 )
 
 include_directories(./include/)
+
+# external
+find_package(spdlog REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
