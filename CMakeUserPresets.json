@@ -4,6 +4,6 @@
         "conan": {}
     },
     "include": [
-        "./build/CMakePresets.json"
+        "D:\\tmp\\PathTest\\obj\\Debug\\chaos\\build\\CMakePresets.json"
     ]
 }
