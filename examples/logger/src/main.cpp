@@ -1,10 +1,10 @@
 #include <wind.h>
 
-class class_invalid_case {};
+class ClassInvalidCase {};
 
 int main() {
-    int testVar = 3; 
-    
-    spdlog::info("Hi"); 
+    int testVar = 3;
+
+    spdlog::info("Hi, World! {}", testVar);
     return 0;
 }

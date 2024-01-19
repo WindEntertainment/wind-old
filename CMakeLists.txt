@@ -4,6 +4,7 @@ project(wind)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 message("Building with CMake version: ${CMAKE_VERSION}")
 
@@ -16,7 +17,7 @@ add_subdirectory(./src/utils/)
 add_subdirectory(./examples/logger/)
 
 # wind
-add_library(${PROJECT_NAME} STATIC ./src/wind.cpp)
+add_library(${PROJECT_NAME} STATIC ./include/wind.h ./src/wind.cpp)
 
 # internal 
 target_include_directories(${PROJECT_NAME} PUBLIC ./src/utils/include/)

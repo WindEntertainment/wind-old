@@ -1,9 +1,6 @@
 [requires]
 spdlog/1.13.0
 
-[tool_requires]
-cmake/3.22.6
-
 [generators]
 CMakeDeps 
-CMakeToolchain 
+CMakeToolchain

@@ -1,6 +1,7 @@
 /build/
 /install/
 /logs/
+/.cache/
 
 *.bundle
 CMakeUserPresets.json
