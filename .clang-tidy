@@ -1,9 +1,9 @@
-Checks: '-*,readability-identifier-naming'
+Checks: "-*,readability-identifier-naming"
 CheckOptions:
   - key: readability-identifier-naming.NamespaceCase
-    value: CamelCase
+    value: snake_case
   - key: readability-identifier-naming.FunctionCase
-    value: CamelCase
+    value: camelBack
   - key: readability-identifier-naming.VariableCase
     value: snake_case
   - key: readability-identifier-naming.ClassCase
