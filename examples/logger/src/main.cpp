@@ -1,10 +1,8 @@
+#include <asset-pipeline/asset_pipeline.h>
 #include <wind.h>
 
-class ClassInvalidCase {};
-
-int main() {
-    int testVar = 3;
-
-    spdlog::info("Hi, World! {}", testVar);
+int main(int argc, char** argv) {
+    wind::asset_pipeline::AssetPipeline pipeline;
+    pipeline.load("./asset/.import-config");
     return 0;
 }

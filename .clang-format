@@ -1,7 +1,16 @@
-Language:        Cpp
-BasedOnStyle:  Google
-IndentWidth:     4
-UseTab:          Never
-ColumnLimit:     80
-AlignOperands:   true
-BreakBeforeBraces: Attach 
+Language: Cpp
+BasedOnStyle: Google
+
+IndentWidth: 4
+UseTab: Never
+ColumnLimit: 100
+
+AlignOperands: true
+BreakBeforeBraces: Attach
+
+AccessModifierOffset: -4
+IndentAccessModifiers: false
+
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortBlocksOnASingleLine: Never

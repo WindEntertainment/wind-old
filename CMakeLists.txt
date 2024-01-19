@@ -6,12 +6,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+
 message("Building with CMake version: ${CMAKE_VERSION}")
 
 include_directories(./include/)
 
 # modules 
 add_subdirectory(./src/utils/)
+add_subdirectory(./src/asset-pipeline/)
 
 # examples 
 add_subdirectory(./examples/logger/)
@@ -23,6 +25,12 @@ add_library(${PROJECT_NAME} STATIC ./include/wind.h ./src/wind.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC ./src/utils/include/)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-utils)
 
+target_include_directories(${PROJECT_NAME} PUBLIC ./src/asset-pipeline/include/)
+target_link_libraries(${PROJECT_NAME} PRIVATE asset-pipeline)
+
 # external
 find_package(spdlog REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
+
+find_package(yaml-cpp REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE yaml-cpp::yaml-cpp)
