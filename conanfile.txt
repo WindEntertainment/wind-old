@@ -5,5 +5,5 @@ spdlog/1.13.0
 cmake/3.22.6
 
 [generators]
-CMakeDeps
-CMakeToolchain
+CMakeDeps 
+CMakeToolchain 

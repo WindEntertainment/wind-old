@@ -1,7 +1,10 @@
 #include <wind.h>
 
-int main()
-{
-    spdlog::info("Hi");
+class class_invalid_case {};
+
+int main() {
+    int testVar = 3; 
+    
+    spdlog::info("Hi"); 
     return 0;
 }

@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.22)
 
-set(CMAKE_CXX_FLAGS "-std=c++17")
 project(wind)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 message("Building with CMake version: ${CMAKE_VERSION}")
 
