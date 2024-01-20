@@ -1,4 +1,4 @@
-#include "asset-pipeline/asset_pipeline.h"
+#include "asset-pipeline/asset-pipeline.h"
 
 #include <spdlog/spdlog.h>
 #include <yaml-cpp/exceptions.h>
@@ -20,7 +20,7 @@ void AssetPipeline::load(const char* _importConfigPath) {
     } catch (YAML::ParserException& ex) {
         spdlog::error("{} {}", _importConfigPath, ex.what());
         return;
-    } catch (YAML::BadFile& ex) {
+    } catch (std::exception& ex) {
         spdlog::error("{}", ex.what());
         return;
     }

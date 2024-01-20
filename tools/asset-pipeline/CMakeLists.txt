@@ -1,20 +1,20 @@
 project(asset-pipeline)
 
 set(SOURCES
-    ./src/asset_pipeline.cpp
+    ./src/main.cpp
+    ./src/asset-pipeline.cpp
 )
 
 set(HEADERS
-    ./include/asset-pipeline/asset_pipeline.h
+    ./include/asset-pipeline/asset-pipeline.h
 )
 
-add_library(${PROJECT_NAME} STATIC ${HEADERS} ${SOURCES})
+add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
 
-include_directories(./include/)
+target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
 
-# internal 
-target_include_directories(${PROJECT_NAME} PUBLIC ../utils/include/)
-target_link_libraries(${PROJECT_NAME} PRIVATE wind-utils)
+# internal
+target_link_libraries(${PROJECT_NAME} PRIVATE wind)
 
 # external
 find_package(spdlog REQUIRED)
