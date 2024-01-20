@@ -13,10 +13,12 @@ include_directories(./include/)
 
 # modules 
 add_subdirectory(./src/utils/)
-add_subdirectory(./src/asset-pipeline/)
 
 # examples 
 add_subdirectory(./examples/logger/)
+
+# tools
+add_subdirectory(./tools/asset-pipeline/)
 
 # wind
 add_library(${PROJECT_NAME} STATIC ./include/wind.h ./src/wind.cpp)
@@ -24,9 +26,6 @@ add_library(${PROJECT_NAME} STATIC ./include/wind.h ./src/wind.cpp)
 # internal 
 target_include_directories(${PROJECT_NAME} PUBLIC ./src/utils/include/)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-utils)
-
-target_include_directories(${PROJECT_NAME} PUBLIC ./src/asset-pipeline/include/)
-target_link_libraries(${PROJECT_NAME} PRIVATE asset-pipeline)
 
 # external
 find_package(spdlog REQUIRED)
