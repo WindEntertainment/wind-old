@@ -20,7 +20,7 @@ void AssetPipeline::load(fs::path _importConfigPath) {
     YAML::Node importConfig;
 
     try {
-        importConfig = YAML::LoadFile(_importConfigPath);
+        importConfig = YAML::LoadFile(_importConfigPath.string().c_str());
     } catch (YAML::ParserException& ex) {
         spdlog::error("{} {}", _importConfigPath.string(), ex.what());
         return;
