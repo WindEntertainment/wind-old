@@ -8,7 +8,7 @@ using asset_id = unsigned long;
 
 class AssetPipeline {
 public:
-    void load(const char* importConfigPath);
+    void load(fs::path importConfigPath);
 };
 
 }  // namespace asset_pipeline
