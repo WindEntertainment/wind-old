@@ -1,54 +1,32 @@
-#include "asset-pipeline/asset-pipeline.h"
-
 #include <spdlog/spdlog.h>
 #include <yaml-cpp/exceptions.h>
 #include <yaml-cpp/node/parse.h>
 #include <yaml-cpp/yaml.h>
 
-#include <cstddef>
-#include <exception>
 #include <filesystem>
-#include <stdexcept>
+
+#include "asset-pipeline/pipes-register.h"
 
 namespace wind {
 namespace asset_pipeline {
 
-void AssetPipeline::load(fs::path _importConfigPath) {
-    if (fs::is_directory((_importConfigPath)))
-        _importConfigPath /= ".import-config";
-
-    YAML::Node importConfig;
-
-    try {
-        importConfig = YAML::LoadFile(_importConfigPath);
-    } catch (YAML::ParserException& ex) {
-        spdlog::error("{} {}", _importConfigPath.string(), ex.what());
-        return;
-    } catch (std::exception& ex) {
-        spdlog::error("{}", ex.what());
+void AssetPipeline::compileFile(const fs::path& _path, const fs::path& _destination) {
+    if (fs::is_directory(_path)) {
+        spdlog::error(
+            "Can't load file by path {} because it's directory. Use AssetPipeline::loadDirectory "
+            "for load all file in directory",
+            _path.string());
         return;
     }
 
-    auto loaders = importConfig["loaders"];
-    if (!loaders || !loaders.IsSequence()) {
-        spdlog::error("{} should have 'loaders' sequence", _importConfigPath.string());
+    Pipe pipe;
+
+    if (!PipeRegister::tryGetPipe(_path, pipe)) {
+        spdlog::error("Can't find pipe for compile asset by path {}", _path.string());
         return;
     }
 
-    try {
-        for (size_t i = 0; i < loaders.size(); ++i) {
-            auto line = loaders[i];
-            if (!line.IsMap())
-                throw std::invalid_argument("field of loaders should be map");
-
-            for (YAML::const_iterator it = line.begin(); it != line.end(); ++it) {
-                spdlog::info("{}", it->second.as<string>());
-            }
-        }
-    } catch (std::exception& ex) {
-        spdlog::error("({}) incorrect data format: {}", _importConfigPath.string(), ex.what());
-        return;
-    }
+    pipe.compile(_path, _destination);
 }
 
 }  // namespace asset_pipeline

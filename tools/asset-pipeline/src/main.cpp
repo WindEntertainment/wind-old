@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
     spdlog::info("work directory: {}", path.string());
 
     wind::asset_pipeline::AssetPipeline pipeline;
-    pipeline.load(path);
+    pipeline.compileFile(path);
 
     return EXIT_SUCCESS;
 }
