@@ -7,18 +7,22 @@
 
 #include <cstddef>
 #include <exception>
+#include <filesystem>
 #include <stdexcept>
 
 namespace wind {
 namespace asset_pipeline {
 
-void AssetPipeline::load(const char* _importConfigPath) {
+void AssetPipeline::load(fs::path _importConfigPath) {
+    if (fs::is_directory((_importConfigPath)))
+        _importConfigPath /= ".import-config";
+
     YAML::Node importConfig;
 
     try {
         importConfig = YAML::LoadFile(_importConfigPath);
     } catch (YAML::ParserException& ex) {
-        spdlog::error("{} {}", _importConfigPath, ex.what());
+        spdlog::error("{} {}", _importConfigPath.string(), ex.what());
         return;
     } catch (std::exception& ex) {
         spdlog::error("{}", ex.what());
@@ -27,7 +31,7 @@ void AssetPipeline::load(const char* _importConfigPath) {
 
     auto loaders = importConfig["loaders"];
     if (!loaders || !loaders.IsSequence()) {
-        spdlog::error("{} should have 'loaders' sequence", _importConfigPath);
+        spdlog::error("{} should have 'loaders' sequence", _importConfigPath.string());
         return;
     }
 
@@ -42,7 +46,7 @@ void AssetPipeline::load(const char* _importConfigPath) {
             }
         }
     } catch (std::exception& ex) {
-        spdlog::error("({}) incorrect data format: {}", _importConfigPath, ex.what());
+        spdlog::error("({}) incorrect data format: {}", _importConfigPath.string(), ex.what());
         return;
     }
 }
