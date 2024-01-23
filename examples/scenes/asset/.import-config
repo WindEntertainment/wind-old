@@ -1,5 +1,0 @@
-loaders:
-  - { regexp: "*.(png|jpg)", loader: stbi_loader }
-  - { regexp: "*.(glsl)", loader: glslang }
-  - { regexp: "*.(prefab)", loader: default }
-  - { regexp: "*.(obj|fbx)", loader: assimp }

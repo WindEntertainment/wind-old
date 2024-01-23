@@ -1,5 +1,7 @@
+#pragma once
 #include "ext_filesystem.h"
 #include "ext_string.h"
+#include "includes.h"
 
 namespace wind {
 
