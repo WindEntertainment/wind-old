@@ -15,7 +15,7 @@ private:
     static bool tryGetPipe(fs::path _path, Pipe* _out);
 
 public:
-    static void regPipe(const std::regex& _regex, Pipe* _pipe);
+    static void regPipe(const char* _regex, Pipe* _pipe);
 };
 
 }  // namespace asset_pipeline

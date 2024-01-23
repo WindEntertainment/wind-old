@@ -1,4 +1,5 @@
 #include <asset-pipeline/pipes-register.h>
+#include <spdlog/spdlog.h>
 
 #include <regex>
 
@@ -21,9 +22,14 @@ bool PipeRegister::tryGetPipe(fs::path _path, Pipe* _out) {
     return false;
 }
 
-void PipeRegister::regPipe(const std::regex& _regex, Pipe* _pipe) {
-    m_pipes.push_back(_pipe);
-    m_regexs.push_back(_regex);
+void PipeRegister::regPipe(const char* _regex, Pipe* _pipe) {
+    try {
+        auto regex = std::regex(_regex);
+        m_pipes.push_back(_pipe);
+        m_regexs.push_back(regex);
+    } catch (std::regex_error& ex) {
+        spdlog::error("PipeRegister regex error {}: {}", _regex, ex.what());
+    }
 }
 
 }  // namespace asset_pipeline
