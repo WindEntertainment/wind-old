@@ -1,6 +1,7 @@
 [requires]
 spdlog/1.13.0
 yaml-cpp/0.8.0
+zlib/1.2.11
 
 [generators]
 CMakeDeps 
