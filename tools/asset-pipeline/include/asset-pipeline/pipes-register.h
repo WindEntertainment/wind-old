@@ -12,7 +12,7 @@ private:
     static std::vector<std::regex> m_regexs;
     static std::vector<Pipe*> m_pipes;
 
-    static bool tryGetPipe(fs::path _path, Pipe* _out);
+    static Pipe* getPipe(fs::path _path);
 
 public:
     static void regPipe(const char* _regex, Pipe* _pipe);

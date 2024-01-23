@@ -37,7 +37,7 @@ public:
         auto result = compress(reinterpret_cast<Bytef*>(buffer), &bufferSize,
                                reinterpret_cast<const Bytef*>(fileContent), fileSize);
         if (result != Z_OK) {
-            spdlog::error("Can't compress data");
+            spdlog::error("Cannot compress data");
             return;
         }
 
@@ -50,9 +50,9 @@ int main(int argc, char** argv) {
     const fs::path destination = argc > 2 ? argv[2] : source.parent_path() / "default.bundle";
     const fs::path cache = argc > 3 ? argv[3] : source.parent_path() / ".cache/";
 
-    spdlog::info("source directory: {}", source.string());
-    spdlog::info("destination bunle path: {}", destination.string());
-    spdlog::info("cache directory: {}", cache.string());
+    spdlog::info("Source directory: {}", source.string());
+    spdlog::info("Destination bundle path: {}", destination.string());
+    spdlog::info("Cache directory: {}", cache.string());
 
     asset_pipeline::PipeRegister::regPipe(".*\\.txt", new TxtPipe());
 
