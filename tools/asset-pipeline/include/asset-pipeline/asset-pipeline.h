@@ -7,7 +7,9 @@ using asset_id = unsigned long;
 
 class AssetPipeline {
 public:
-    void loadDirectory(const fs::path& source, const fs::path& destination);
+    void compileDirectory(const fs::path& source, const fs::path& destination,
+                          const fs::path& cache);
+
     void compileFile(const fs::path& source, const fs::path& destination);
 };
 

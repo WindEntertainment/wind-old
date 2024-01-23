@@ -3,10 +3,13 @@ project(asset-pipeline)
 set(SOURCES
     ./src/main.cpp
     ./src/asset-pipeline.cpp
+    ./src/pipes-register.cpp
 )
 
 set(HEADERS
     ./include/asset-pipeline/asset-pipeline.h
+    ./include/asset-pipeline/pipes-register.h
+    ./include/asset-pipeline/pipe.h
 )
 
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
