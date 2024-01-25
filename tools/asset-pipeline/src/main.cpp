@@ -1,4 +1,5 @@
 #include <asset-pipeline/pipes-register.h>
+#include <spdlog/spdlog.h>
 #include <zlib.h>
 
 #include <cstring>
@@ -15,8 +16,21 @@ private:
 
 public:
     void compile(const fs::path& _source, const fs::path& _destination) override {
+        if (!fs::exists(_destination))
+            fs::create_directory(_destination.parent_path());
+
         std::ifstream input(_source, std::ios_base::in);
         std::ofstream output(_destination, std::ios_base::binary);
+
+        if (!input.is_open()) {
+            spdlog::error("Cannot open source file: {}", _source.string());
+            return;
+        }
+
+        if (!output.is_open()) {
+            spdlog::error("Cannot open destination file: {}", _destination.string());
+            return;
+        }
 
         auto name = _source.relative_path().c_str();
 
@@ -47,8 +61,8 @@ public:
 
 int main(int argc, char** argv) {
     const fs::path source = argc > 1 ? argv[1] : fs::current_path() / "asset/";
-    const fs::path destination = argc > 2 ? argv[2] : source.parent_path() / "default.bundle";
-    const fs::path cache = argc > 3 ? argv[3] : source.parent_path() / ".cache/";
+    const fs::path destination = argc > 2 ? argv[2] : fs::current_path() / "default.bundle";
+    const fs::path cache = argc > 3 ? argv[3] : fs::current_path() / ".cache/";
 
     spdlog::info("Source directory: {}", source.string());
     spdlog::info("Destination bundle path: {}", destination.string());

@@ -4,6 +4,7 @@
 #include <yaml-cpp/node/parse.h>
 #include <yaml-cpp/yaml.h>
 
+#include <exception>
 #include <filesystem>
 
 #include "asset-pipeline/pipes-register.h"
@@ -30,11 +31,16 @@ void AssetPipeline::compileFile(const fs::path& _source, const fs::path& _destin
 
     Pipe* pipe = PipeRegister::getPipe(_source);
     if (!pipe) {
-        spdlog::error("Can't find pipe for compile asset by path {}", _source.string());
+        spdlog::error("Cannot find pipe for compile asset by path {}", _source.string());
         return;
     }
 
-    pipe->compile(_source, _destination);
+    try {
+        pipe->compile(_source, _destination);
+    } catch (std::exception& ex) {
+        spdlog::error("Failed compile file by path {}: {}", _source.string(), ex.what());
+        return;
+    }
 }
 
 void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _destination,
