@@ -45,9 +45,15 @@ void AssetPipeline::compileFile(const fs::path& _source, const fs::path& _destin
 
 void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _destination,
                                      const fs::path& _cache) {
+    if (!fs::exists(_source)) {
+        spdlog::error("Cannot compile directory by specified path {} as it's a non exists location",
+                      _source.string());
+        return;
+    }
+
     if (!fs::is_directory(_source)) {
         spdlog::error(
-            "Cannot compile file by specified path {} as it's a file. Use "
+            "Cannot compile directory by specified path {} as it's a file. Use "
             "AssetPipeline::compileFile to compile separate file.",
             _source.string());
         return;
