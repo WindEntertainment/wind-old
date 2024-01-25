@@ -36,6 +36,14 @@ void AssetPipeline::compileFile(const fs::path& _source, const fs::path& _destin
     }
 
     try {
+        auto parent_path = _destination.parent_path();
+        if (!fs::exists(parent_path))
+            fs::create_directory(parent_path);
+
+        if (fs::exists(_destination) &&
+            fs::last_write_time(_source) <= fs::last_write_time(_destination))
+            return;
+
         pipe->compile(_source, _destination);
     } catch (std::exception& ex) {
         spdlog::error("Failed compile file by path {}: {}", _source.string(), ex.what());

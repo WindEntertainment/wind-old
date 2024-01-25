@@ -16,9 +16,6 @@ private:
 
 public:
     void compile(const fs::path& _source, const fs::path& _destination) override {
-        if (!fs::exists(_destination))
-            fs::create_directory(_destination.parent_path());
-
         std::ifstream input(_source, std::ios_base::in);
         std::ofstream output(_destination, std::ios_base::binary);
 
