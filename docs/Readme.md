@@ -38,6 +38,7 @@ To get started with the Data-Driven Game Engine, follow these steps:
     cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     cmake --build .
     ```
+4. See [Documentation](./Documentation.md)
 
 ## License
 
