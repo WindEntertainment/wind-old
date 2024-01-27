@@ -1,4 +1,6 @@
+#pragma once
 #include <utils/utils.h>
+#include <zlib.h>
 
 namespace wind {
 namespace asset_pipeline {

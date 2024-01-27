@@ -79,8 +79,6 @@ void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _d
 }
 
 void AssetPipeline::clearUnusedCache(const fs::path& _source, const fs::path& _cache) {
-    // clear unused cache
-
     fs::recursive_directory_iterator cache_it;
     try {
         cache_it = createRecursiveIterator(_cache);
@@ -97,7 +95,6 @@ void AssetPipeline::clearUnusedCache(const fs::path& _source, const fs::path& _c
         fs::path sourceFile = _source / entry.path().filename();
         sourceFile.replace_extension();
 
-        spdlog::info(sourceFile.string());
         if (fs::exists(sourceFile))
             continue;
 

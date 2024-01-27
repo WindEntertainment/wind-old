@@ -1,6 +1,7 @@
 #include <regex>
 
 #include "asset-pipeline.h"
+#include "pipe.h"
 
 namespace wind {
 namespace asset_pipeline {
