@@ -50,6 +50,7 @@ void AssetPipeline::compileFile(const fs::path& _source, const fs::path& _destin
             fs::last_write_time(_source) <= fs::last_write_time(destination))
             return;
 
+        pipe->config(findConfigForPath(destination.string()));
         pipe->compile(_source, destination);
     } catch (std::exception& ex) {
         spdlog::error("Failed compile file by path {}: {}", _source.string(), ex.what());
@@ -181,6 +182,14 @@ fs::recursive_directory_iterator AssetPipeline::createRecursiveIterator(const fs
     }
 
     return it;
+}
+
+YAML::Node AssetPipeline::findConfigForPath(const fs::path& path) {
+    for (auto config : m_importConfig) {
+        spdlog::info("{}, {}", config.first.as<string>(), config.second.as<string>());
+    }
+
+    return m_importConfig["file"];
 }
 
 }  // namespace asset_pipeline

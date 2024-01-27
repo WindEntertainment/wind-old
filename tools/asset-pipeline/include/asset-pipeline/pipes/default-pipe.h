@@ -1,3 +1,4 @@
+#pragma once
 #include <asset-pipeline/pipe.h>
 
 namespace wind {
