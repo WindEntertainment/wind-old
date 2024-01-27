@@ -2,3 +2,5 @@ import-config:
   - file: "./asset/cube.obj"
     flags:
       [aiProcess_Triangulate, aiProcess_FlipUVs, aiProcess_CalcTangentSpace]
+  - file: "./asset/test.txt"
+    flags: [default]
