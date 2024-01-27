@@ -1,7 +1,7 @@
+#pragma once
 #include <utils/utils.h>
 #include <yaml-cpp/node/node.h>
-
-#include <filesystem>
+#include <yaml-cpp/yaml.h>
 
 namespace wind {
 namespace asset_pipeline {
@@ -18,6 +18,7 @@ public:
 
 private:
     fs::recursive_directory_iterator createRecursiveIterator(const fs::path& path);
+    YAML::Node findConfigForPath(const fs::path& path);
 
     YAML::Node m_importConfig;
 };

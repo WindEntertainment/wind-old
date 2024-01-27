@@ -6,19 +6,19 @@ set(SOURCES
     ./src/pipes-register.cpp
 
     # pipes 
-    ./src/pipe.cpp
     ./src/pipes/default-pipe.cpp
+    ./src/pipes/content-3d-pipe.cpp
 )
 
 set(HEADERS
     ./include/asset-pipeline/asset-pipeline.h
     ./include/asset-pipeline/pipes-register.h
 
-    ./include/asset-pipeline/raw-pipe.h
     ./include/asset-pipeline/pipe.h
 
     # pipes 
     ./include/asset-pipeline/pipes/default-pipe.h
+    ./include/asset-pipeline/pipes/content-3d-pipe.h
 
 
     )
