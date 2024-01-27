@@ -16,6 +16,7 @@ int main(int argc, char** argv) {
     asset_pipeline::PipeRegister::regPipe(".*\\.*", new asset_pipeline::DefaultPipe());
 
     wind::asset_pipeline::AssetPipeline pipeline;
+    pipeline.setConfig(source / ".import-config");
     pipeline.compileDirectory(source, cache);
     pipeline.clearUnusedCache(source, cache);
     pipeline.linkDirectory(cache, destination);
