@@ -1,6 +1,7 @@
 #include <asset-pipeline/pipes/default-pipe.h>
 
 namespace wind {
+namespace asset_pipeline {
 
 void DefaultPipe::compile(const fs::path& _source, const fs::path& _destination) {
     std::ifstream input(_source, std::ios_base::in);
@@ -19,7 +20,7 @@ void DefaultPipe::compile(const fs::path& _source, const fs::path& _destination)
     auto name = _source.relative_path().c_str();
 
     output.write(name, strlen(name) + 1);
-    output.write(c_id, strlen(c_id) + 1);
+    output.write(m_id, strlen(m_id) + 1);
 
     const char* fileContent;
     {
@@ -41,4 +42,6 @@ void DefaultPipe::compile(const fs::path& _source, const fs::path& _destination)
 
     output.write(buffer, bufferSize);
 }
+
+}  // namespace asset_pipeline
 }  // namespace wind

@@ -6,17 +6,22 @@ set(SOURCES
     ./src/pipes-register.cpp
 
     # pipes 
+    ./src/pipe.cpp
     ./src/pipes/default-pipe.cpp
 )
 
 set(HEADERS
     ./include/asset-pipeline/asset-pipeline.h
     ./include/asset-pipeline/pipes-register.h
+
+    ./include/asset-pipeline/raw-pipe.h
     ./include/asset-pipeline/pipe.h
 
     # pipes 
     ./include/asset-pipeline/pipes/default-pipe.h
-)
+
+
+    )
 
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
 
@@ -32,6 +37,9 @@ target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
 find_package(yaml-cpp REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE yaml-cpp::yaml-cpp)
 
+find_package(assimp CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE assimp::assimp)
+
 
 # find_package(glm CONFIG REQUIRED)
 # target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
@@ -41,9 +49,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE yaml-cpp::yaml-cpp)
 
 # find_package(tinyxml2 CONFIG REQUIRED)
 # target_link_libraries(${PROJECT_NAME} PRIVATE tinyxml2::tinyxml2)
-
-# find_package(assimp CONFIG REQUIRED)
-# target_link_libraries(${PROJECT_NAME} PRIVATE assimp::assimp)
 
 # find_package(Stb REQUIRED)
 # target_include_directories(${PROJECT_NAME} PRIVATE ${Stb_INCLUDE_DIR})

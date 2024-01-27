@@ -135,6 +135,28 @@ void AssetPipeline::linkDirectory(const fs::path& _source, const fs::path& _dest
     }
 }
 
+void AssetPipeline::setConfig(const fs::path& _importConfigPath) {
+    YAML::Node importConfigRoot;
+
+    try {
+        importConfigRoot = YAML::LoadFile(_importConfigPath);
+    } catch (YAML::ParserException& ex) {
+        spdlog::error("{}, {}", _importConfigPath.string(), ex.what());
+        return;
+    } catch (std::exception& ex) {
+        spdlog::error("{}", ex.what());
+        return;
+    }
+
+    auto config = importConfigRoot["import-config"];
+    if (!config || !config.IsSequence()) {
+        spdlog::error("{} should have 'import-config' sequence", _importConfigPath.string());
+        return;
+    }
+
+    m_importConfig = config;
+}
+
 fs::recursive_directory_iterator AssetPipeline::createRecursiveIterator(const fs::path& _path) {
     if (!fs::exists(_path))
         throw std::invalid_argument(
