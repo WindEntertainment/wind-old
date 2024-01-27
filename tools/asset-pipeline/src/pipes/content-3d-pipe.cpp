@@ -20,6 +20,12 @@ void Content3DPipe::compile(const fs::path& _source, const fs::path& _destinatio
         return;
     }
 
+    auto name = _source.relative_path().c_str();
+
+    output.write(name, strlen(name) + 1);
+    output.write(m_id, strlen(m_id) + 1);
+
+    std::stringstream buffer;
     try {
         const struct aiScene* obj = importer.ReadFile(_source.string().c_str(), m_config.flags);
 
@@ -35,26 +41,43 @@ void Content3DPipe::compile(const fs::path& _source, const fs::path& _destinatio
             if (mesh->mFaces[i].mNumIndices != 3)
                 throw std::invalid_argument("Invalid format (face should be only with 3 vertex)");
 
-        output << mesh->mNumVertices;
+        buffer << mesh->mNumVertices;
         for (uint i = 0; i < mesh->mNumVertices; ++i)
-            output << mesh->mVertices[i].x << mesh->mVertices[i].y << mesh->mVertices[i].z;
+            buffer << mesh->mVertices[i].x << mesh->mVertices[i].y << mesh->mVertices[i].z;
 
-        output << (mesh->mNumFaces * 3);
+        buffer << (mesh->mNumFaces * 3);
         for (uint i = 0; i < mesh->mNumFaces; ++i)
             for (uint j = 0; j < 3; ++j) {
-                output << mesh->mFaces[i].mIndices[j];
+                buffer << mesh->mFaces[i].mIndices[j];
             }
 
-        output << (bool)mesh->mTextureCoords[0];
+        buffer << (bool)mesh->mTextureCoords[0];
         if (mesh->mTextureCoords[0]) {
             for (uint i = 0; i < mesh->mNumVertices; ++i) {
-                output << mesh->mTextureCoords[0][i].x << mesh->mTextureCoords[0][i].y;
+                buffer << mesh->mTextureCoords[0][i].x << mesh->mTextureCoords[0][i].y;
             }
         }
     } catch (std::exception& ex) {
         spdlog::error(ex.what());
         return;
     }
+
+    auto fileContentStr = buffer.str();
+    const char* fileContent = fileContentStr.c_str();
+
+    const size_t fileSize = strlen(fileContent) + 1;
+
+    size_t zippedSize = compressBound(fileSize);
+    char zipped[zippedSize];
+
+    auto result = compress(reinterpret_cast<Bytef*>(zipped), &zippedSize,
+                           reinterpret_cast<const Bytef*>(fileContent), fileSize);
+    if (result != Z_OK) {
+        spdlog::error("Cannot compress data");
+        return;
+    }
+
+    output.write(zipped, zippedSize);
 }
 
 static std::map<string, int> c_aiFlags = {
