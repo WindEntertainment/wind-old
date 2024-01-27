@@ -72,7 +72,7 @@ void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _d
 
     Stopwatch sw("Compiled");
     for (const auto& entry : it) {
-        if (entry.is_directory())
+        if (entry.is_directory() || entry.path().filename() == ".import-config")
             continue;
 
         compileFile(entry, _destination / entry.path().filename());
