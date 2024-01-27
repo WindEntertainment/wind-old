@@ -31,8 +31,8 @@ public:
 
         auto name = _source.relative_path().c_str();
 
-        output.write(c_id, strlen(c_id) + 1);
         output.write(name, strlen(name) + 1);
+        output.write(c_id, strlen(c_id) + 1);
 
         const char* fileContent;
         {
@@ -68,7 +68,8 @@ int main(int argc, char** argv) {
     asset_pipeline::PipeRegister::regPipe(".*\\.txt", new TxtPipe());
 
     wind::asset_pipeline::AssetPipeline pipeline;
-    pipeline.compileDirectory(source, destination);
+    pipeline.compileDirectory(source, cache);
+    pipeline.linkDirectory(cache, destination);
 
     return EXIT_SUCCESS;
 }
