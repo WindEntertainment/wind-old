@@ -8,5 +8,5 @@
         "source.fixAll": "explicit"
     },
     "editor.formatOnSave": true,
-    "editor.formatOnType": true
+    "editor.formatOnType": false
 }
