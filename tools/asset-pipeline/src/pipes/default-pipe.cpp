@@ -30,17 +30,17 @@ void DefaultPipe::compile(const fs::path& _source, const fs::path& _destination)
     }
     const size_t fileSize = strlen(fileContent) + 1;
 
-    size_t bufferSize = compressBound(fileSize);
-    char buffer[bufferSize];
+    size_t zippedSize = compressBound(fileSize);
+    char zipped[zippedSize];
 
-    auto result = compress(reinterpret_cast<Bytef*>(buffer), &bufferSize,
+    auto result = compress(reinterpret_cast<Bytef*>(zipped), &zippedSize,
                            reinterpret_cast<const Bytef*>(fileContent), fileSize);
     if (result != Z_OK) {
         spdlog::error("Cannot compress data");
         return;
     }
 
-    output.write(buffer, bufferSize);
+    output.write(zipped, zippedSize);
 }
 
 }  // namespace asset_pipeline
