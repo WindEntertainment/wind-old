@@ -16,7 +16,6 @@ protected:
     void config(YAML::Node&& config) override;
 
 private:
-    const char* m_id = "Content3DPipe";
     Assimp::Importer importer;
 
     struct Config {
