@@ -68,7 +68,7 @@ int main(int argc, char** argv) {
     asset_pipeline::PipeRegister::regPipe(".*\\.txt", new TxtPipe());
 
     wind::asset_pipeline::AssetPipeline pipeline;
-    pipeline.compileDirectory(source, source, cache);
+    pipeline.compileDirectory(source, destination);
 
     return EXIT_SUCCESS;
 }
