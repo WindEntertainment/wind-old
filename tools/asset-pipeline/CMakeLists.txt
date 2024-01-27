@@ -8,6 +8,7 @@ set(SOURCES
     # pipes 
     ./src/pipes/default-pipe.cpp
     ./src/pipes/content-3d-pipe.cpp
+    ./src/pipes/img-pipe.cpp
 )
 
 set(HEADERS
@@ -19,9 +20,9 @@ set(HEADERS
     # pipes 
     ./include/asset-pipeline/pipes/default-pipe.h
     ./include/asset-pipeline/pipes/content-3d-pipe.h
+    ./include/asset-pipeline/pipes/img-pipe.h
 
-
-    )
+)
 
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
 
@@ -37,9 +38,11 @@ target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
 find_package(yaml-cpp REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE yaml-cpp::yaml-cpp)
 
-find_package(assimp CONFIG REQUIRED)
+find_package(assimp REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE assimp::assimp)
 
+find_package(stb REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE stb::stb)
 
 # find_package(glm CONFIG REQUIRED)
 # target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)

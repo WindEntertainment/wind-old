@@ -20,7 +20,7 @@ void Content3DPipe::compile(const fs::path& _source, const fs::path& _destinatio
         return;
     }
 
-    auto name = _source.relative_path().c_str();
+    auto name = _source.c_str();
 
     output.write(name, strlen(name) + 1);
     output.write(m_id, strlen(m_id) + 1);
