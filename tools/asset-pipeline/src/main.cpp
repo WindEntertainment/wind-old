@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
     spdlog::info("Destination bundle path: {}", destination.string());
     spdlog::info("Cache directory: {}", cache.string());
 
-    asset_pipeline::PipeRegister::regPipe(".*\\.txt", new DefaultPipe());
+    asset_pipeline::PipeRegister::regPipe(".*\\.*", new asset_pipeline::DefaultPipe());
 
     wind::asset_pipeline::AssetPipeline pipeline;
     pipeline.compileDirectory(source, cache);
