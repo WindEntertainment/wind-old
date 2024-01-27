@@ -69,6 +69,7 @@ int main(int argc, char** argv) {
 
     wind::asset_pipeline::AssetPipeline pipeline;
     pipeline.compileDirectory(source, cache);
+    pipeline.clearUnusedCache(source, cache);
     pipeline.linkDirectory(cache, destination);
 
     return EXIT_SUCCESS;

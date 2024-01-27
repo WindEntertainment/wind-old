@@ -38,16 +38,19 @@ void AssetPipeline::compileFile(const fs::path& _source, const fs::path& _destin
         return;
     }
 
+    fs::path destination = _destination;
+    destination += ".obj";
+
     try {
-        auto parent_path = _destination.parent_path();
+        auto parent_path = destination.parent_path();
         if (!fs::exists(parent_path))
             fs::create_directory(parent_path);
 
-        if (fs::exists(_destination) &&
-            fs::last_write_time(_source) <= fs::last_write_time(_destination))
+        if (fs::exists(destination) &&
+            fs::last_write_time(_source) <= fs::last_write_time(destination))
             return;
 
-        pipe->compile(_source, _destination);
+        pipe->compile(_source, destination);
     } catch (std::exception& ex) {
         spdlog::error("Failed compile file by path {}: {}", _source.string(), ex.what());
         return;
@@ -72,6 +75,33 @@ void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _d
             continue;
 
         compileFile(entry, _destination / entry.path().filename());
+    }
+}
+
+void AssetPipeline::clearUnusedCache(const fs::path& _source, const fs::path& _cache) {
+    // clear unused cache
+
+    fs::recursive_directory_iterator cache_it;
+    try {
+        cache_it = createRecursiveIterator(_cache);
+    } catch (std::invalid_argument& ex) {
+        spdlog::error(ex.what());
+        return;
+    }
+
+    Stopwatch sw("Clear unused cache");
+    for (const auto& entry : cache_it) {
+        if (entry.is_directory())
+            continue;
+
+        fs::path sourceFile = _source / entry.path().filename();
+        sourceFile.replace_extension();
+
+        spdlog::info(sourceFile.string());
+        if (fs::exists(sourceFile))
+            continue;
+
+        fs::remove(entry);
     }
 }
 
