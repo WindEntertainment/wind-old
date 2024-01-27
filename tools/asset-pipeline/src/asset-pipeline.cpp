@@ -6,6 +6,7 @@
 
 #include <exception>
 #include <filesystem>
+#include <stdexcept>
 
 #include "asset-pipeline/pipes-register.h"
 
@@ -51,40 +52,49 @@ void AssetPipeline::compileFile(const fs::path& _source, const fs::path& _destin
     }
 }
 
-void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _destination,
-                                     const fs::path& _cache) {
-    if (!fs::exists(_source)) {
-        spdlog::error("Cannot compile directory by specified path {} as it's a non exists location",
-                      _source.string());
-        return;
-    }
-
-    if (!fs::is_directory(_source)) {
-        spdlog::error(
-            "Cannot compile directory by specified path {} as it's a file. Use "
-            "AssetPipeline::compileFile to compile separate file.",
-            _source.string());
-        return;
-    }
+void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _destination) {
+    spdlog::info("===========================");
+    spdlog::info("Start compiling directory {}", _source.string());
 
     fs::recursive_directory_iterator it;
     try {
-        it = fs::recursive_directory_iterator(_source);
-    } catch (fs::filesystem_error& ex) {
-        spdlog::error("Can't create recursive directory iterator for {}", _source.string());
+        it = createRecursiveIterator(_source);
+    } catch (std::invalid_argument& ex) {
+        spdlog::error(ex.what());
         return;
     }
-
-    spdlog::info("===========================");
-    spdlog::info("Start compiling directory {}", _source.string());
 
     Stopwatch sw("Compiled");
     for (const auto& entry : it) {
         if (entry.is_directory())
             continue;
 
-        compileFile(entry, _cache / entry.path().filename());
+        compileFile(entry, _destination / entry.path().filename());
     }
+}
+
+fs::recursive_directory_iterator AssetPipeline::createRecursiveIterator(const fs::path& _path) {
+    if (!fs::exists(_path))
+        throw std::invalid_argument(fmt::format(
+            "Cannot create recursive directory iterator by specified path {} as it's a non exists "
+            "location",
+            _path.string()));
+
+    if (!fs::is_directory(_path))
+        throw std::invalid_argument(fmt::format(
+            "Cannot create recursive directory iterator by specified path {} as it's a file. Use "
+            "AssetPipeline::compileFile to compile separate file.",
+            _path.string()));
+
+    fs::recursive_directory_iterator it;
+    try {
+        it = fs::recursive_directory_iterator(_path);
+    } catch (fs::filesystem_error& ex) {
+        throw std::invalid_argument(
+            fmt::format("Cannot create recursive directory iterator for {}", _path.string()));
+    }
+
+    return it;
 }
 
 }  // namespace asset_pipeline

@@ -1,3 +1,5 @@
+#include <filesystem>
+
 #include "pipe.h"
 
 namespace wind {
@@ -7,10 +9,12 @@ using asset_id = unsigned long;
 
 class AssetPipeline {
 public:
-    void compileDirectory(const fs::path& source, const fs::path& destination,
-                          const fs::path& cache);
-
+    void linkDirectory(const fs::path& source, const fs::path& destination);
+    void compileDirectory(const fs::path& source, const fs::path& destination);
     void compileFile(const fs::path& source, const fs::path& destination);
+
+private:
+    fs::recursive_directory_iterator createRecursiveIterator(const fs::path& path);
 };
 
 }  // namespace asset_pipeline
