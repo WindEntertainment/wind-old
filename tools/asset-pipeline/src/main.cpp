@@ -1,4 +1,5 @@
 #include <asset-pipeline/pipes-register.h>
+#include <asset-pipeline/pipes/content-3d-pipe.h>
 #include <asset-pipeline/pipes/default-pipe.h>
 #include <spdlog/spdlog.h>
 
@@ -13,9 +14,10 @@ int main(int argc, char** argv) {
     spdlog::info("Destination bundle path: {}", destination.string());
     spdlog::info("Cache directory: {}", cache.string());
 
+    asset_pipeline::PipeRegister::regPipe(".*\\.obj", new asset_pipeline::Content3DPipe());
     asset_pipeline::PipeRegister::regPipe(".*\\.*", new asset_pipeline::DefaultPipe());
 
-    wind::asset_pipeline::AssetPipeline pipeline;
+    asset_pipeline::AssetPipeline pipeline;
     pipeline.setConfig(source / ".import-config");
     pipeline.compileDirectory(source, cache);
     pipeline.clearUnusedCache(source, cache);

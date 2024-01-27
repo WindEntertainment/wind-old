@@ -51,7 +51,7 @@ void AssetPipeline::compileFile(const fs::path& _source, const fs::path& _destin
             fs::last_write_time(_source) <= fs::last_write_time(destination))
             return;
 
-        pipe->config(findConfigForPath(_source.string()));
+        pipe->config(findConfigForPath(_source.relative_path()));
         pipe->compile(_source, destination);
     } catch (std::exception& ex) {
         spdlog::error("Failed compile file by path {}: {}", _source.string(), ex.what());
@@ -62,6 +62,8 @@ void AssetPipeline::compileFile(const fs::path& _source, const fs::path& _destin
 void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _destination) {
     spdlog::info("===========================");
     spdlog::info("Start compiling directory {}", _source.string());
+
+    const fs::path parentPath = _source.parent_path().parent_path();
 
     fs::recursive_directory_iterator it;
     try {
@@ -76,7 +78,7 @@ void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _d
         if (entry.is_directory() || entry.path().filename() == ".import-config")
             continue;
 
-        compileFile(entry, _destination / entry.path().filename());
+        compileFile(fs::relative(entry, parentPath), _destination / entry.path().filename());
     }
 }
 
@@ -190,7 +192,7 @@ YAML::Node AssetPipeline::findConfigForPath(const fs::path& path) {
         return YAML::Node();
 
     for (auto map : m_importConfig)
-        if (map["file"].as<string>() == path.string())
+        if (fs::path(map["file"].as<string>()).compare(path))
             return map;
 
     return YAML::Node();
