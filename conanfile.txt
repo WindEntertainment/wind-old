@@ -4,6 +4,7 @@ yaml-cpp/0.8.0
 zlib/1.2.11
 assimp/5.2.2
 stb/cci.20220909
+pugixml/1.13
 
 [generators]
 CMakeDeps 
