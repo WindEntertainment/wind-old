@@ -27,6 +27,9 @@ add_library(${PROJECT_NAME} STATIC ./include/wind.h ./src/wind.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC ./src/utils/include/)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-utils)
 
+target_include_directories(${PROJECT_NAME} PUBLIC ./src/system/include/)
+target_link_libraries(${PROJECT_NAME} PRIVATE system)
+
 # external
 find_package(spdlog REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
