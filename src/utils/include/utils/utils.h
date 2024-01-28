@@ -1,7 +1,8 @@
 #pragma once
-#include "ext_filesystem.h"
-#include "ext_string.h"
-#include "includes.h"
+
+#include "ext_filesystem.h" // IWYU pragma: export
+#include "ext_string.h"     // IWYU pragma: export
+#include "includes.h"       // IWYU pragma: export
 
 namespace wind {
 
@@ -20,14 +21,14 @@ bool contains(C _container, T _value) {
 
 class Stopwatch {
 public:
-    Stopwatch(const std::string& message) : message(message) {
+    Stopwatch(const std::string &message) : message(message) {
         start_time = std::chrono::high_resolution_clock::now();
     }
 
     ~Stopwatch() {
         auto end_time = std::chrono::high_resolution_clock::now();
-        auto duration =
-            std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(
+            end_time - start_time);
         spdlog::info("{} took {} milliseconds", message, duration.count());
     }
 
@@ -36,4 +37,4 @@ private:
     std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
 };
 
-}  // namespace wind
+} // namespace wind

@@ -6,16 +6,16 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-
 message("Building with CMake version: ${CMAKE_VERSION}")
 
 include_directories(./include/)
 
 # modules 
 add_subdirectory(./src/utils/)
+add_subdirectory(./src/system/)
 
 # examples 
-add_subdirectory(./examples/logger/)
+add_subdirectory(./examples/window/)
 
 # tools
 add_subdirectory(./tools/asset-pipeline/)

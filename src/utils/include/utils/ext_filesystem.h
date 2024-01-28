@@ -1,4 +1,4 @@
 #pragma once
-#include <filesystem>
+#include <filesystem> // IWYU pragma: export
 
 namespace fs = std::filesystem;
