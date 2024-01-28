@@ -1,24 +1,26 @@
 project(system)
 
 set(SOURCES
-    ./system/application.cpp
-    ./system/window.cpp
+    ./src/application.cpp
+    ./src/window.cpp
     
-    ./system/events/mouse.cpp
-    ./system/events/keyboard.cpp
+    ./src/events/mouse.cpp
+    ./src/events/keyboard.cpp
     
-    ./system/utils.cpp
+    ./src/utils.cpp
 )
 
-add_library(${PROJECT_NAME} STATIC
-    ./system/application.h
-    ./system/window.h
+set(HEADERS
+    ./include/application.h
+    ./include/window.h
 
-    ./system/events/mouse.h
-    ./system/events/keyboard.h    
-    
-    ./system/utils.h
+    ./include/events/mouse.h
+    ./include/events/keyboard.h    
+
+    ./include/utils.h
 )
+
+add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
 
 include_directories(./include)
 
