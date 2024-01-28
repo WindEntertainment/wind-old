@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <system/application.h>
 #include <utils/utils.h>
 
 int main() {
