@@ -1,21 +1,26 @@
 project(system)
 
-add_library(${PROJECT_NAME} STATIC
-    ./system/application.h
+set(SOURCES
     ./system/application.cpp
-
-    ./system/window.h
     ./system/window.cpp
-
-    ./system/events/mouse.h
-    ./system/events/mouse.cpp
     
-    ./system/events/keyboard.h
+    ./system/events/mouse.cpp
     ./system/events/keyboard.cpp
     
-    ./system/utils.h
     ./system/utils.cpp
 )
+
+add_library(${PROJECT_NAME} STATIC
+    ./system/application.h
+    ./system/window.h
+
+    ./system/events/mouse.h
+    ./system/events/keyboard.h    
+    
+    ./system/utils.h
+)
+
+include_directories(./include)
 
 #include_directories(../renderer/)
 #target_link_libraries(${PROJECT_NAME} PRIVATE renderer)
