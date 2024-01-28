@@ -1,18 +1,41 @@
 cmake_minimum_required(VERSION 3.22)
 
-SET (CMAKE_C_COMPILER_WORKS 1)
-SET (CMAKE_CXX_COMPILER_WORKS 1)
-SET (CMAKE_CXX_FLAGS "-std=c++20")
+project(wind)
 
-project(main)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_subdirectory(./apps/logger)
-add_subdirectory(./apps/cloudy)
-add_subdirectory(./apps/asset-bundler)
-add_subdirectory(./apps/resources)
-add_subdirectory(./apps/system)
-add_subdirectory(./apps/renderer)
-add_subdirectory(./apps/breeze)
+message("Building with CMake version: ${CMAKE_VERSION}")
 
-add_subdirectory(./apps/earth)
-add_subdirectory(./apps/chaos)
+include_directories(./include/)
+
+# modules 
+add_subdirectory(./src/utils/)
+add_subdirectory(./src/system/)
+
+# examples 
+add_subdirectory(./examples/window/)
+
+# tools
+add_subdirectory(./tools/asset-pipeline/)
+
+# wind
+add_library(${PROJECT_NAME} STATIC ./include/wind.h ./src/wind.cpp)
+
+# internal 
+target_include_directories(${PROJECT_NAME} PUBLIC ./src/utils/include/)
+target_link_libraries(${PROJECT_NAME} PRIVATE wind-utils)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ./src/system/include/)
+target_link_libraries(${PROJECT_NAME} PRIVATE system)
+
+# external
+find_package(spdlog REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
+
+find_package(yaml-cpp REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE yaml-cpp::yaml-cpp)
+
+find_package(ZLIB REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE ZLIB::ZLIB)

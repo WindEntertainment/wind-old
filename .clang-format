@@ -1,0 +1,15 @@
+Language: Cpp
+BasedOnStyle: LLVM
+
+IndentWidth: 4
+UseTab: Never
+
+AlignOperands: true
+BreakBeforeBraces: Attach
+
+AccessModifierOffset: -4
+IndentAccessModifiers: false
+
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortBlocksOnASingleLine: Never
