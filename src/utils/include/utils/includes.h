@@ -3,4 +3,5 @@
 #include <spdlog/spdlog.h>
 #include <zlib.h>
 
-#include <fstream>
+#include <fstream>  // IWYU pragma: export
+#include <iostream> // IWYU pragma: export
