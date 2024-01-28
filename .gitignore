@@ -1,6 +1,8 @@
-/out/
-/vcpkg_installed/
 /build/
+/install/
 /logs/
+/.cache/
+/**/*/.cache/
 
 *.bundle
+CMakeUserPresets.json
