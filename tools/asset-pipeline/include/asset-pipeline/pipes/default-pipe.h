@@ -8,7 +8,7 @@ class DefaultPipe : public Pipe {
 public:
     virtual void compile(const fs::path& source, const fs::path& destination) override;
 
-    DefaultPipe() : Pipe("DefaultPipe"){};
+    DefaultPipe() : Pipe("deflt"){};
 };
 
 }  // namespace asset_pipeline

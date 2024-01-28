@@ -27,7 +27,9 @@ void ImgPipe::compile(const fs::path& _source, const fs::path& _destination) {
     output.write(name, strlen(name) + 1);
     output.write(m_id, strlen(m_id) + 1);
 
-    output << width << height << channels;
+    output.write(reinterpret_cast<char*>(&width), sizeof(int));
+    output.write(reinterpret_cast<char*>(&height), sizeof(int));
+    output.write(reinterpret_cast<char*>(&channels), sizeof(int));
 
     const size_t fileSize = width * height * channels + 1;
 

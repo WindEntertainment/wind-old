@@ -10,7 +10,7 @@ class Content3DPipe : public Pipe {
 public:
     void compile(const fs::path& _source, const fs::path& _destination) override;
 
-    Content3DPipe() : Pipe("Content3DPipe"){};
+    Content3DPipe() : Pipe("3d"){};
 
 protected:
     void config(YAML::Node&& config) override;
