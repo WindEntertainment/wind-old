@@ -2,6 +2,7 @@
 #include <asset-pipeline/pipes/content-3d-pipe.h>
 #include <asset-pipeline/pipes/default-pipe.h>
 #include <asset-pipeline/pipes/img-pipe.h>
+#include <asset-pipeline/pipes/shader-pipe.h>
 #include <spdlog/spdlog.h>
 
 int main(int argc, char** argv) {
@@ -17,6 +18,7 @@ int main(int argc, char** argv) {
 
     asset_pipeline::PipeRegister::regPipe(".*\\.jpg", new asset_pipeline::ImgPipe());
     asset_pipeline::PipeRegister::regPipe(".*\\.obj", new asset_pipeline::Content3DPipe());
+    asset_pipeline::PipeRegister::regPipe(".*\\.glsl", new asset_pipeline::ShaderPipe());
     asset_pipeline::PipeRegister::regPipe(".*\\.*", new asset_pipeline::DefaultPipe());
 
     asset_pipeline::AssetPipeline pipeline;

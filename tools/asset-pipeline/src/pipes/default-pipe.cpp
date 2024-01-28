@@ -22,19 +22,18 @@ void DefaultPipe::compile(const fs::path& _source, const fs::path& _destination)
     output.write(name, strlen(name) + 1);
     output.write(m_id, strlen(m_id) + 1);
 
-    const char* fileContent;
+    string fileContent;
     {
         std::stringstream buffer;
         buffer << input.rdbuf();
-        fileContent = buffer.str().c_str();
+        fileContent = buffer.str();
     }
-    const size_t fileSize = strlen(fileContent) + 1;
 
-    size_t zippedSize = compressBound(fileSize);
+    size_t zippedSize = compressBound(fileContent.size());
     char zipped[zippedSize];
 
     auto result = compress(reinterpret_cast<Bytef*>(zipped), &zippedSize,
-                           reinterpret_cast<const Bytef*>(fileContent), fileSize);
+                           reinterpret_cast<const Bytef*>(fileContent.c_str()), fileContent.size());
     if (result != Z_OK) {
         spdlog::error("Cannot compress data");
         return;

@@ -9,6 +9,7 @@ set(SOURCES
     ./src/pipes/default-pipe.cpp
     ./src/pipes/content-3d-pipe.cpp
     ./src/pipes/img-pipe.cpp
+    ./src/pipes/shader-pipe.cpp
 )
 
 set(HEADERS
@@ -21,6 +22,7 @@ set(HEADERS
     ./include/asset-pipeline/pipes/default-pipe.h
     ./include/asset-pipeline/pipes/content-3d-pipe.h
     ./include/asset-pipeline/pipes/img-pipe.h
+    ./include/asset-pipeline/pipes/shader-pipe.h
 
 )
 
@@ -43,6 +45,9 @@ target_link_libraries(${PROJECT_NAME} PRIVATE assimp::assimp)
 
 find_package(stb REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE stb::stb)
+
+find_package(pugixml REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE pugixml::pugixml)
 
 # find_package(glm CONFIG REQUIRED)
 # target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
