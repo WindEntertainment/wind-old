@@ -1,4 +1,4 @@
-project(asset-pipeline)
+project(windasset)
 
 set(SOURCES
     ./src/main.cpp
@@ -27,6 +27,9 @@ set(HEADERS
 )
 
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
+install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
+
+# includes
 
 target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
 
@@ -48,6 +51,9 @@ target_link_libraries(${PROJECT_NAME} PRIVATE stb::stb)
 
 find_package(pugixml REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE pugixml::pugixml)
+
+find_package(cxxopts REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE cxxopts::cxxopts)
 
 # find_package(glm CONFIG REQUIRED)
 # target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
