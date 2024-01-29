@@ -1,38 +1,43 @@
 #pragma once
-#include "utils.h"
+#include <GLFW/glfw3.h>
+#include <utils/utils.h>
 
 namespace wind {
-    namespace system {
-        class Window {
-        public:
-            struct WindowConfig;
-        private:
-            ivec2 m_size;
 
-            std::function<void()> close_event;
+class Window {
+public:
+    struct WindowConfig;
 
-            GLFWwindow* m_window;
-            static void closeCallback(GLFWwindow* window);
-        public:
-            Window(void (*)(WindowConfig* self));
-            ~Window();
+private:
+    ivec2 m_size;
 
-            void cursorDisable();
+    std::function<void()> onCloseEvent;
 
-            void show();
-            ivec2 size();
-        };
- 
-        struct Window::WindowConfig {
-            string title = "Wind";
-            ivec2 size = {800, 600};
-            ivec2 pos = {0, 0};
-            bool fullscreen = true;
-            bool resizable = false;
-            bool cursor = true;
-            std::function<void()> close_event;
-            
-            ivec2 opengl_version = {3, 3};
-        };
-    }
-}
+    GLFWwindow *m_window;
+    static void closeCallback(GLFWwindow *window);
+
+    const char *getGLFWError();
+
+public:
+    Window(void (*)(WindowConfig *self));
+    ~Window();
+
+    void cursorDisable();
+
+    void show();
+    ivec2 size();
+};
+
+struct Window::WindowConfig {
+    string title = "Wind";
+    ivec2 size = {800, 600};
+    ivec2 pos = {0, 0};
+    bool fullscreen = true;
+    bool resizable = false;
+    bool cursor = true;
+    std::function<void()> onCloseEvent;
+
+    ivec2 openglVersion{3, 3};
+};
+
+} // namespace wind
