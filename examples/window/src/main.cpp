@@ -1,6 +1,6 @@
 #include <cstdlib>
 #include <utils/utils.h>
-#include <window/application.h>
+#include <window/window.h>
 
 int main() {
     using namespace wind::math;

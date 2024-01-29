@@ -1,23 +1,27 @@
 #pragma once
-#include "../utils.h"
+#include <GLFW/glfw3.h>
+#include <utils/utils.h>
 
 namespace wind {
-    namespace system {
-        class Keyboard final {
-        public:
-            static bool isKey(int key);
-            static bool isKeyDown(int key);
-        };
-        
-        namespace _internal {
-            class KeyEventHandler final {
-                friend class wind::system::Keyboard;
-            public:
-                static void keyCallback(GLFWwindow*, int, int, int, int);
-            private:
-                static int keys_mask;
-                static int click_mask;
-            };
-        }
-    }
-}
+
+class Keyboard final {
+public:
+    static bool isKey(int key);
+    static bool isKeyDown(int key);
+};
+
+namespace _internal {
+
+class KeyEventHandler final {
+    friend class wind::Keyboard;
+
+public:
+    static void keyCallback(GLFWwindow *, int, int, int, int);
+
+private:
+    static int s_keysMask;
+    static int s_clickMask;
+};
+
+} // namespace _internal
+} // namespace wind

@@ -1,39 +1,42 @@
-#include "keyboard.h"
+#include "window/events/keyboard.h"
 
 namespace wind {
-    namespace system {
-        namespace _internal {
-            int KeyEventHandler::keys_mask;
-            int KeyEventHandler::click_mask;
 
-            void KeyEventHandler::keyCallback(GLFWwindow*, int key, int scancode, int action, int mods) {
-                switch (action) {
-                    case GLFW_PRESS:
-                        keys_mask ^= (1 << key);
-                        click_mask &= ~(1 << key);
-                        break;
-                    case GLFW_RELEASE:
-                        keys_mask ^= (1 << key);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+namespace _internal {
 
-        bool Keyboard::isKey(int _key) {
-            auto mask = _internal::KeyEventHandler::keys_mask;
-            return mask & (1 << _key);
-        } 
+int KeyEventHandler::s_keysMask;
+int KeyEventHandler::s_clickMask;
 
-        bool Keyboard::isKeyDown(int _key) {
-            auto& mask = _internal::KeyEventHandler::click_mask;
-            if (isKey(_key) && !(mask & (1 << _key))) {
-                mask ^= (1 << _key);
-                return true;
-            }
-
-            return false;
-        }
+void KeyEventHandler::keyCallback(GLFWwindow *, int _key, int _scancode,
+                                  int _action, int _mods) {
+    switch (_action) {
+    case GLFW_PRESS:
+        s_keysMask ^= (1 << _key);
+        s_clickMask &= ~(1 << _key);
+        break;
+    case GLFW_RELEASE:
+        s_keysMask ^= (1 << _key);
+        break;
+    default:
+        break;
     }
 }
+
+} // namespace _internal
+
+bool Keyboard::isKey(int _key) {
+    auto mask = _internal::KeyEventHandler::s_keysMask;
+    return mask & (1 << _key);
+}
+
+bool Keyboard::isKeyDown(int _key) {
+    auto &mask = _internal::KeyEventHandler::s_clickMask;
+    if (isKey(_key) && !(mask & (1 << _key))) {
+        mask ^= (1 << _key);
+        return true;
+    }
+
+    return false;
+}
+
+} // namespace wind
