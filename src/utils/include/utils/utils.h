@@ -3,6 +3,7 @@
 #include "ext_filesystem.h" // IWYU pragma: export
 #include "ext_string.h"     // IWYU pragma: export
 #include "includes.h"       // IWYU pragma: export
+#include "math.h"           // IWYU pragma: export
 
 namespace wind {
 

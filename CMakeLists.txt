@@ -12,7 +12,7 @@ include_directories(./include/)
 
 # modules 
 add_subdirectory(./src/utils/)
-add_subdirectory(./src/system/)
+add_subdirectory(./src/window/)
 
 # examples 
 add_subdirectory(./examples/window/)
@@ -27,8 +27,8 @@ add_library(${PROJECT_NAME} STATIC ./include/wind.h ./src/wind.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC ./src/utils/include/)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-utils)
 
-target_include_directories(${PROJECT_NAME} PUBLIC ./src/system/include/)
-target_link_libraries(${PROJECT_NAME} PRIVATE system)
+#target_include_directories(${PROJECT_NAME} PUBLIC ./src/window/include/)
+#target_link_libraries(${PROJECT_NAME} PRIVATE window)
 
 # external
 find_package(spdlog REQUIRED)
@@ -39,3 +39,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE yaml-cpp::yaml-cpp)
 
 find_package(ZLIB REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE ZLIB::ZLIB)
+
+find_package(glm CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
