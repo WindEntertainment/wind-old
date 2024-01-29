@@ -1,10 +1,9 @@
 #include <cstdlib>
 #include <utils/utils.h>
+#include <window/application.h>
 
 int main() {
     using namespace wind::math;
-
-    ivec2 vec{2, 2};
 
     spdlog::info("Hello, World!");
 

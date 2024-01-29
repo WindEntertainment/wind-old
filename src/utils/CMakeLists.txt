@@ -16,11 +16,11 @@ add_library(${PROJECT_NAME} STATIC
     ${HEADERS} ${SOURCES}
 )
 
-include_directories(./include/)
+target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
 
 # external
 find_package(spdlog REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
+target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog)
 
 find_package(glm CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
+target_link_libraries(${PROJECT_NAME} PUBLIC glm::glm)
