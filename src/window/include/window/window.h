@@ -6,12 +6,11 @@ namespace wind {
 
 class Window {
 public:
-    struct WindowConfig;
+    struct Config;
 
 private:
+    bool m_alive;
     ivec2 m_size;
-
-    std::function<void()> onCloseEvent;
 
     GLFWwindow *m_window;
     static void closeCallback(GLFWwindow *window);
@@ -19,23 +18,24 @@ private:
     const char *getGLFWError();
 
 public:
-    Window(void (*)(WindowConfig *self));
+    Window(void (*)(Config *self));
     ~Window();
 
     void cursorDisable();
 
+    bool update();
     void show();
+
     ivec2 size();
 };
 
-struct Window::WindowConfig {
+struct Window::Config {
     string title = "Wind";
     ivec2 size = {800, 600};
     ivec2 pos = {0, 0};
     bool fullscreen = true;
     bool resizable = false;
     bool cursor = true;
-    std::function<void()> onCloseEvent;
 
     ivec2 openglVersion{3, 3};
 };
