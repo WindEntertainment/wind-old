@@ -5,7 +5,14 @@
 int main() {
     using namespace wind::math;
 
-    spdlog::info("Hello, World!");
+    wind::Window w([](wind::Window::Config *self) {
+        self->title = "Hello, World!";
+        self->fullscreen = false;
+    });
+
+    while (w.update()) {
+        w.show();
+    }
 
     return EXIT_SUCCESS;
 }

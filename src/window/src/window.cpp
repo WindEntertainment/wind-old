@@ -11,9 +11,14 @@
 
 namespace wind {
 
-Window::Window(void (*buildConfig)(WindowConfig *)) {
-    WindowConfig config;
+Window::Window(void (*buildConfig)(Config *)) {
+    Config config;
     buildConfig(&config);
+
+    if (!glfwInit()) {
+        spdlog::error("Cannot glfw init: {}", getGLFWError());
+        return;
+    }
 
     glfwWindowHint(GLFW_RESIZABLE, config.resizable);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, config.openglVersion.x);
@@ -29,7 +34,7 @@ Window::Window(void (*buildConfig)(WindowConfig *)) {
         return;
     }
 
-    onCloseEvent = config.onCloseEvent;
+    m_alive = true;
 
     glfwSetWindowUserPointer(m_window, this);
 
@@ -77,10 +82,14 @@ ivec2 Window::size() {
     return m_size;
 }
 
+bool Window::update() {
+    glfwPollEvents();
+    return m_alive;
+}
+
 void Window::closeCallback(GLFWwindow *gl_window) {
     auto window = (Window *)glfwGetWindowUserPointer(gl_window);
-    if (window->onCloseEvent)
-        window->onCloseEvent();
+    window->m_alive = false;
 }
 
 const char *Window::getGLFWError() {
