@@ -6,7 +6,7 @@ int main() {
 
     ivec2 vec{2, 2};
 
-    spdlog::info("({}, {})", vec.x, vec.y);
+    spdlog::info("Hello, World!");
 
     return EXIT_SUCCESS;
 }

@@ -4,6 +4,10 @@
         "CMakeUserPresets.json": true,
     },
     "clangd.checkUpdates": false,
+    "clangd.arguments": [
+        "--compile-commands-dir",
+        "${workspaceFolder}/build/Release/"
+    ],
     "editor.codeActionsOnSave": {
         "source.fixAll": "explicit"
     },
