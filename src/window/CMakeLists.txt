@@ -11,30 +11,33 @@ set(SOURCES
 )
 
 set(HEADERS
-    ./include/application.h
-    ./include/window.h
+    ./include/window/application.h
+    ./include/window/window.h
 
-    ./include/events/mouse.h
-    ./include/events/keyboard.h    
+    ./include/window/events/mouse.h
+    ./include/window/events/keyboard.h    
 
-    ./include/utils.h
+    ./include/window/utils.h
 )
 
 add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
 
-include_directories(./include)
+target_include_directories(${PROJECT_NAME} PUBLIC ./include)
+
+# internal 
+
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-utils)
+
+# external 
 
 find_package(glad CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE glad::glad)
+target_link_libraries(${PROJECT_NAME} PUBLIC glad::glad)
 
-#find_package(glfw3 CONFIG REQUIRED)
-#target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
+find_package(glfw3 CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
 
 find_package(spdlog REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
-
-find_package(glm CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
+target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog)
 
 #include_directories(../renderer/)
 #target_link_libraries(${PROJECT_NAME} PRIVATE renderer)

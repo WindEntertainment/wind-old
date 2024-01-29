@@ -25,20 +25,7 @@ add_library(${PROJECT_NAME} STATIC ./include/wind.h ./src/wind.cpp)
 
 # internal 
 target_include_directories(${PROJECT_NAME} PUBLIC ./src/utils/include/)
-target_link_libraries(${PROJECT_NAME} PRIVATE wind-utils)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-utils)
 
-#target_include_directories(${PROJECT_NAME} PUBLIC ./src/window/include/)
-#target_link_libraries(${PROJECT_NAME} PRIVATE window)
-
-# external
-find_package(spdlog REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
-
-find_package(yaml-cpp REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE yaml-cpp::yaml-cpp)
-
-find_package(ZLIB REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE ZLIB::ZLIB)
-
-find_package(glm CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
+target_include_directories(${PROJECT_NAME} PUBLIC ./src/window/include/)
+target_link_libraries(${PROJECT_NAME} PUBLIC window)
