@@ -3,11 +3,9 @@
 #include <asset-pipeline/pipes/default-pipe.h>
 #include <asset-pipeline/pipes/img-pipe.h>
 #include <asset-pipeline/pipes/shader-pipe.h>
-#include <iostream>
 #include <spdlog/spdlog.h>
 
 #include <cxxopts.hpp>
-#include <string>
 
 #include "asset-pipeline/asset-pipeline.h"
 #include "utils/ext_string.h"

@@ -1,4 +1,4 @@
-project(system)
+project(window)
 
 set(SOURCES
     ./src/application.cpp
@@ -32,6 +32,9 @@ target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
 
 find_package(spdlog REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
+
+find_package(glm CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
 
 #include_directories(../renderer/)
 #target_link_libraries(${PROJECT_NAME} PRIVATE renderer)
