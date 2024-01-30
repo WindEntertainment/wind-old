@@ -1,5 +1,4 @@
 #include <utils/utils.h>
-#include <window/events/keyboard.h>
 #include <window/window.h>
 
 int main() {

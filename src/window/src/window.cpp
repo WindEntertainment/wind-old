@@ -1,10 +1,7 @@
-// clang-format off
-#include <chrono>
-#include <ctime>
-#include <glad/glad.h>
-// clang-format on
 
 #include "window/window.h"
+#include <chrono>
+#include <ctime>
 
 #include "window/events/keyboard.h"
 #include "window/events/mouse.h"

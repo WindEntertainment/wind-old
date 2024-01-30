@@ -1,5 +1,13 @@
 #pragma once
+
+// clang-format off
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
+// clang-formaton
+
+#include <window/events/keyboard.h>
+#include <window/events/mouse.h>
+
 #include <chrono>
 #include <utils/utils.h>
 
