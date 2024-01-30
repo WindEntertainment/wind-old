@@ -1,5 +1,4 @@
 // clang-format off
-#include <GLFW/glfw3.h>
 #include <glad/glad.h>
 // clang-format on
 
@@ -88,64 +87,64 @@ void Window::close() {
 //===========================================//
 // Setters
 
-inline void Window::setTitle(const char *_title) {
+void Window::setTitle(const char *_title) {
     glfwSetWindowTitle(m_window, _title);
     m_title = _title;
 }
 
-inline void Window::setSize(ivec2 _size) {
+void Window::setSize(ivec2 _size) {
     glfwSetWindowSize(m_window, _size.x, _size.y);
 }
 
-inline void Window::setPosition(ivec2 _position) {
+void Window::setPosition(ivec2 _position) {
     glfwSetWindowPos(m_window, _position.x, _position.y);
 }
 
-inline void Window::setResizable(bool _resizable) {
+void Window::setResizable(bool _resizable) {
     glfwWindowHint(GLFW_RESIZABLE, _resizable);
 }
 
-inline void Window::setVisiableCursor(bool _visable) {
+void Window::setVisiableCursor(bool _visable) {
     glfwSetInputMode(m_window, GLFW_CURSOR,
                      _visable ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
 }
 
-inline void Window::setTargetFPS(int _fps) {
+void Window::setTargetFPS(int _fps) {
     m_targetFps = _fps;
 }
 
 //===========================================//
 // Getters
 
-inline const char *Window::title() const {
+const char *Window::title() const {
     return m_title;
 }
 
-inline ivec2 Window::size() const {
+ivec2 Window::size() const {
     int w, h;
     glfwGetWindowPos(m_window, &w, &h);
     return {w, h};
 }
 
-inline ivec2 Window::position() const {
+ivec2 Window::position() const {
     int x, y;
     glfwGetWindowPos(m_window, &x, &y);
     return {x, y};
 }
 
-inline bool Window::isFullscreen() const {
+bool Window::isFullscreen() const {
     return glfwGetWindowMonitor(m_window);
 }
 
-inline bool Window::isResizable() const {
+bool Window::isResizable() const {
     return glfwGetWindowAttrib(m_window, GLFW_RESIZABLE);
 }
 
-inline bool Window::isVisiableCursor() const {
+bool Window::isVisiableCursor() const {
     return glfwGetInputMode(m_window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL;
 }
 
-inline int Window::getTargetFPS() const {
+int Window::getTargetFPS() const {
     return m_targetFps;
 }
 

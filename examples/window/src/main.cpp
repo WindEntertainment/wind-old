@@ -1,7 +1,5 @@
-#include "window/events/keyboard.h"
-#include <GLFW/glfw3.h>
-#include <cstdlib>
 #include <utils/utils.h>
+#include <window/events/keyboard.h>
 #include <window/window.h>
 
 int main() {
@@ -11,6 +9,8 @@ int main() {
         self->title = "Hello, World!";
         self->fullscreen = false;
     });
+
+    w.setResizable(true);
 
     while (w.update()) {
         if (wind::Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
