@@ -26,6 +26,10 @@ Window::Window(void (*buildConfig)(Config *)) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, config.openglVersion.x);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, config.openglVersion.y);
 
+#if __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
+
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     m_window = glfwCreateWindow(
