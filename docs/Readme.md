@@ -30,7 +30,7 @@ To get started with the Data-Driven Game Engine, follow these steps:
 2. Install dependencies:
     ```bash
     cd chaos
-    conan install . --output-folder=build --build=missing
+    conan install . --build=missing
     ```
 3. Build project:
     ```bash
