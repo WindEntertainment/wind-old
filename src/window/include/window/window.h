@@ -1,5 +1,6 @@
 #pragma once
 #include <GLFW/glfw3.h>
+#include <chrono>
 #include <utils/utils.h>
 
 namespace wind {
@@ -10,10 +11,16 @@ public:
 
 private:
     bool m_alive;
-    int m_targetFps;
     const char *m_title;
+    bool m_vsync;
 
     GLFWwindow *m_window;
+
+    int m_fps;
+
+    using timepoint = chrono::time_point<chrono::high_resolution_clock>;
+    timepoint m_perSecond;
+
     static void closeCallback(GLFWwindow *window);
 
     const char *getGLFWError();
@@ -28,7 +35,8 @@ public:
     void setPosition(ivec2 position);
     void setResizable(bool resizable = true);
     void setVisiableCursor(bool visiableCursor = true);
-    void setTargetFPS(int fps);
+    // void setTargetFPS(int fps);
+    void setVsync(bool enable);
 
     // getters
     const char *title() const;
@@ -37,7 +45,9 @@ public:
     bool isFullscreen() const;
     bool isResizable() const;
     bool isVisiableCursor() const;
-    int getTargetFPS() const;
+    bool isVsync() const;
+    // int getTargetFPS() const;
+    int getFPS() const;
 
     // lifecycle
     void close();
@@ -52,7 +62,7 @@ struct Window::Config {
     bool fullscreen = true;
     bool resizable = false;
     bool visableCursor = true;
-    int targetFPS = 120;
+    bool vsync = true;
 
     ivec2 openglVersion{3, 3};
 };

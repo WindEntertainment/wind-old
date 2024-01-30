@@ -1,4 +1,6 @@
 // clang-format off
+#include <chrono>
+#include <ctime>
 #include <glad/glad.h>
 // clang-format on
 
@@ -38,12 +40,13 @@ Window::Window(void (*buildConfig)(Config *)) {
     }
 
     m_alive = true;
+    m_vsync = config.vsync;
     m_title = config.title.c_str();
 
     glfwSetWindowUserPointer(m_window, this);
 
     glfwMakeContextCurrent(m_window);
-    glfwSwapInterval(1);
+    setVsync(m_vsync);
 
     glfwSetWindowCloseCallback(m_window, closeCallback);
     glfwSetKeyCallback(m_window, _internal::KeyEventHandler::keyCallback);
@@ -69,14 +72,24 @@ Window::~Window() {
 }
 
 void Window::show() {
-    if (!m_window)
-        return;
+    static const auto oneSecond = std::chrono::duration_cast<
+        std::chrono::high_resolution_clock::duration>(std::chrono::seconds(1));
+    static int numFrames = 0;
+
     glfwSwapBuffers(m_window);
-    _internal::MouseEventHandler::clearOffset();
+
+    numFrames += 1;
+    if (chrono::high_resolution_clock::now() > m_perSecond) {
+        m_fps = numFrames;
+        numFrames = 0;
+
+        m_perSecond = chrono::high_resolution_clock::now() + oneSecond;
+    }
 }
 
 bool Window::update() {
     glfwPollEvents();
+    _internal::MouseEventHandler::clearOffset();
     return m_alive;
 }
 
@@ -94,6 +107,7 @@ void Window::setTitle(const char *_title) {
 
 void Window::setSize(ivec2 _size) {
     glfwSetWindowSize(m_window, _size.x, _size.y);
+    glViewport(0, 0, _size.x, _size.y);
 }
 
 void Window::setPosition(ivec2 _position) {
@@ -109,8 +123,8 @@ void Window::setVisiableCursor(bool _visable) {
                      _visable ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
 }
 
-void Window::setTargetFPS(int _fps) {
-    m_targetFps = _fps;
+void Window::setVsync(bool _enable) {
+    glfwSwapInterval(_enable);
 }
 
 //===========================================//
@@ -144,8 +158,8 @@ bool Window::isVisiableCursor() const {
     return glfwGetInputMode(m_window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL;
 }
 
-int Window::getTargetFPS() const {
-    return m_targetFps;
+int Window::getFPS() const {
+    return m_fps;
 }
 
 //===========================================//
