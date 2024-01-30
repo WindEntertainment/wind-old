@@ -10,13 +10,12 @@ int main() {
         self->fullscreen = false;
     });
 
-    w.setResizable(true);
-
     while (w.update()) {
         if (wind::Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
             w.close();
 
         w.show();
+        std::cout << w.getFPS() << "\n";
     }
 
     return EXIT_SUCCESS;
