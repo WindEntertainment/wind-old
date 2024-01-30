@@ -23,21 +23,21 @@ public:
     ~Window();
 
     // setters
-    inline void setTitle(const char *title);
-    inline void setSize(ivec2 size);
-    inline void setPosition(ivec2 position);
-    inline void setResizable(bool resizable = true);
-    inline void setVisiableCursor(bool visiableCursor = true);
-    inline void setTargetFPS(int fps);
+    void setTitle(const char *title);
+    void setSize(ivec2 size);
+    void setPosition(ivec2 position);
+    void setResizable(bool resizable = true);
+    void setVisiableCursor(bool visiableCursor = true);
+    void setTargetFPS(int fps);
 
     // getters
-    inline const char *title() const;
-    inline ivec2 size() const;
-    inline ivec2 position() const;
-    inline bool isFullscreen() const;
-    inline bool isResizable() const;
-    inline bool isVisiableCursor() const;
-    inline int getTargetFPS() const;
+    const char *title() const;
+    ivec2 size() const;
+    ivec2 position() const;
+    bool isFullscreen() const;
+    bool isResizable() const;
+    bool isVisiableCursor() const;
+    int getTargetFPS() const;
 
     // lifecycle
     void close();
