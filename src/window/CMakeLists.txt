@@ -1,4 +1,4 @@
-project(window)
+project(wind-window)
 
 set(SOURCES
     ./src/window.cpp

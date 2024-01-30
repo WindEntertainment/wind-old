@@ -13,6 +13,7 @@ include_directories(./include/)
 # modules 
 add_subdirectory(./src/utils/)
 add_subdirectory(./src/window/)
+add_subdirectory(./src/renderer/)
 
 # examples 
 add_subdirectory(./examples/window/)
@@ -28,4 +29,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC ./src/utils/include/)
 target_link_libraries(${PROJECT_NAME} PUBLIC wind-utils)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ./src/window/include/)
-target_link_libraries(${PROJECT_NAME} PUBLIC window)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-window)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ./src/utils/include/)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-renderer)

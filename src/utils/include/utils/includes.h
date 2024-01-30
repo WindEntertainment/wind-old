@@ -5,3 +5,11 @@
 
 #include <fstream>  // IWYU pragma: export
 #include <iostream> // IWYU pragma: export
+
+#include <vector>
+
+namespace wind {
+
+using std::vector;
+
+}
