@@ -3,13 +3,12 @@
 // clang-format off
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-// clang-formaton
 
-#include <window/events/keyboard.h>
-#include <window/events/mouse.h>
-
-#include <chrono>
 #include <utils/utils.h>
+
+#include "window/events/keyboard.h" // IWYU pragma: export
+#include "window/events/mouse.h"    // IWYU pragma: export
+// clang-format on
 
 namespace wind {
 
@@ -18,59 +17,45 @@ public:
     struct Config;
 
 private:
-    bool m_alive;
-    const char *m_title;
-    bool m_vsync;
-
-    GLFWwindow *m_window;
-
-    int m_fps;
-
-    using timepoint = chrono::time_point<chrono::high_resolution_clock>;
-    timepoint m_perSecond;
-
-    static void closeCallback(GLFWwindow *window);
-
-    const char *getGLFWError();
+    static void closeCallback(GLFWwindow* window);
+    static const char* getGLFWError();
 
 public:
-    Window(void (*)(Config *self));
-    ~Window();
+    static void init(void (*)(Config* self));
+    static void destroy();
 
     // setters
-    void setTitle(const char *title);
-    void setSize(ivec2 size);
-    void setPosition(ivec2 position);
-    void setResizable(bool resizable = true);
-    void setVisiableCursor(bool visiableCursor = true);
-    // void setTargetFPS(int fps);
-    void setVsync(bool enable);
+    static void setTitle(const char* title);
+    static void setSize(ivec2 size);
+    static void setPosition(ivec2 position);
+    static void setResizable(bool resizable = true);
+    static void setVisiableCursor(bool visiableCursor = true);
+    static void setVsync(bool enable);
 
     // getters
-    const char *title() const;
-    ivec2 size() const;
-    ivec2 position() const;
-    bool isFullscreen() const;
-    bool isResizable() const;
-    bool isVisiableCursor() const;
-    bool isVsync() const;
-    // int getTargetFPS() const;
-    int getFPS() const;
+    static const char* title();
+    static ivec2 size();
+    static ivec2 position();
+    static bool isFullscreen();
+    static bool isResizable();
+    static bool isVisiableCursor();
+    static bool isVsync();
+    static int getFPS();
 
     // lifecycle
-    void close();
-    bool update();
-    void show();
+    static void close();
+    static bool update();
+    static void show();
 };
 
 struct Window::Config {
     string title = "Wind";
     ivec2 size = {800, 600};
     ivec2 position = {0, 0};
-    bool fullscreen = true;
+    bool fullScreen = true;
     bool resizable = false;
-    bool visableCursor = true;
-    bool vsync = true;
+    bool visibleCursor = true;
+    bool vSync = true;
 
     ivec2 openglVersion{3, 3};
 };

@@ -5,22 +5,22 @@
 // clang-format on
 
 int main() {
-    using namespace wind::math;
+    using namespace wind;
 
-    wind::Window w([](wind::Window::Config* self) {
+    Window::init([](Window::Config* self) {
         self->title = "Hello, World!";
-        self->fullscreen = false;
+        self->fullScreen = false;
     });
 
-    wind::renderer::Renderer* renderer = new wind::renderer::Renderer();
-    wind::renderer::Camera camera{{0, 0, 0}, {1, 0, 0}, {0, 1, 0}};
+    renderer::Renderer* renderer = new renderer::Renderer();
+    renderer::Camera camera{{0, 0, 0}, {1, 0, 0}, {0, 1, 0}};
 
-    while (w.update()) {
-        if (wind::Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
-            w.close();
+    while (Window::update()) {
+        if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
+            Window::close();
 
         renderer->clear();
-        w.show();
+        Window::show();
     }
 
     return EXIT_SUCCESS;
