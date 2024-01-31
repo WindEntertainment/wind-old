@@ -13,7 +13,7 @@ namespace wind {
 //===========================================//
 // Lifecycle
 
-Window::Window(void (*buildConfig)(Config *)) {
+Window::Window(void (*buildConfig)(Config*)) {
     Config config;
     buildConfig(&config);
 
@@ -101,7 +101,7 @@ void Window::close() {
 //===========================================//
 // Setters
 
-void Window::setTitle(const char *_title) {
+void Window::setTitle(const char* _title) {
     glfwSetWindowTitle(m_window, _title);
     m_title = _title;
 }
@@ -131,7 +131,7 @@ void Window::setVsync(bool _enable) {
 //===========================================//
 // Getters
 
-const char *Window::title() const {
+const char* Window::title() const {
     return m_title;
 }
 
@@ -166,13 +166,13 @@ int Window::getFPS() const {
 //===========================================//
 // internal
 
-void Window::closeCallback(GLFWwindow *gl_window) {
-    auto window = (Window *)glfwGetWindowUserPointer(gl_window);
+void Window::closeCallback(GLFWwindow* gl_window) {
+    auto window = (Window*)glfwGetWindowUserPointer(gl_window);
     window->m_alive = false;
 }
 
-const char *Window::getGLFWError() {
-    const char *description;
+const char* Window::getGLFWError() {
+    const char* description;
     glfwGetError(&description);
     return description;
 }
