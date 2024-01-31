@@ -8,7 +8,6 @@
 
 
 namespace wind {
-namespace renderer {
 
 Shader::Shader(const char *_vsh, const char *_fsh) {
     int success;
@@ -83,5 +82,4 @@ void Shader::uVec2f(const char *_name, vec2 _vec) {
     glUniform2f(loc, _vec.x, _vec.y);
 }
 
-} // namespace renderer
 } // namespace wind

@@ -23,7 +23,6 @@ _image = new unsigned char[11*3]{
 // clang-formaton
 
 namespace wind {
-namespace renderer {
 
 uint Texture::id() const {
     return m_texture_id;
@@ -47,5 +46,4 @@ Texture::~Texture() {
     glDeleteTextures(1, &m_texture_id);
 }
 
-} // namespace renderer
 } // namespace wind

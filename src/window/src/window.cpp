@@ -5,6 +5,8 @@
 #include <chrono>
 #include <ctime>
 
+#include <resources/default.h>
+
 #include "window/window.h"
 #include "window/events/keyboard.h"
 #include "window/events/mouse.h"
@@ -81,11 +83,14 @@ void Window::init(void (*buildConfig)(Config*)) {
     }
 
     glViewport(0, 0, config.size.x, config.size.y);
+    DefaultRes::load();
 }
 
 void Window::destroy() {
     if (!m_window)
         return;
+
+    DefaultRes::free();
     glfwDestroyWindow(m_window);
 }
 
