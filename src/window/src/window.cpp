@@ -1,19 +1,36 @@
+// clang-format off
+#include <cstdlib>
+#include <spdlog/spdlog.h>
 
-#include "window/window.h"
 #include <chrono>
 #include <ctime>
 
+#include "window/window.h"
 #include "window/events/keyboard.h"
 #include "window/events/mouse.h"
-
-#include <spdlog/spdlog.h>
+// clang-format on
 
 namespace wind {
+
+namespace {
+
+static bool m_alive;
+static const char* m_title;
+static bool m_vsync;
+
+static GLFWwindow* m_window;
+
+static int m_fps;
+
+using timepoint = chrono::time_point<chrono::high_resolution_clock>;
+static timepoint m_perSecond;
+
+} // namespace
 
 //===========================================//
 // Lifecycle
 
-Window::Window(void (*buildConfig)(Config*)) {
+void Window::init(void (*buildConfig)(Config*)) {
     Config config;
     buildConfig(&config);
 
@@ -34,17 +51,17 @@ Window::Window(void (*buildConfig)(Config*)) {
 
     m_window = glfwCreateWindow(
         config.size.x, config.size.y, config.title.c_str(),
-        config.fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
+        config.fullScreen ? glfwGetPrimaryMonitor() : NULL, NULL);
     if (!m_window) {
         spdlog::error("Cannot create window {}", getGLFWError());
         return;
     }
 
     m_alive = true;
-    m_vsync = config.vsync;
+    m_vsync = config.vSync;
     m_title = config.title.c_str();
 
-    glfwSetWindowUserPointer(m_window, this);
+    atexit(destroy);
 
     glfwMakeContextCurrent(m_window);
     setVsync(m_vsync);
@@ -56,7 +73,7 @@ Window::Window(void (*buildConfig)(Config*)) {
     glfwSetMouseButtonCallback(
         m_window, _internal::MouseEventHandler::mousePressCallback);
 
-    setVisiableCursor(config.visableCursor);
+    setVisiableCursor(config.visibleCursor);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         spdlog::error("Cannot GLAD load GLLoader");
@@ -66,7 +83,7 @@ Window::Window(void (*buildConfig)(Config*)) {
     glViewport(0, 0, config.size.x, config.size.y);
 }
 
-Window::~Window() {
+void Window::destroy() {
     if (!m_window)
         return;
     glfwDestroyWindow(m_window);
@@ -131,35 +148,35 @@ void Window::setVsync(bool _enable) {
 //===========================================//
 // Getters
 
-const char* Window::title() const {
+const char* Window::title() {
     return m_title;
 }
 
-ivec2 Window::size() const {
+ivec2 Window::size() {
     int w, h;
     glfwGetWindowPos(m_window, &w, &h);
     return {w, h};
 }
 
-ivec2 Window::position() const {
+ivec2 Window::position() {
     int x, y;
     glfwGetWindowPos(m_window, &x, &y);
     return {x, y};
 }
 
-bool Window::isFullscreen() const {
+bool Window::isFullscreen() {
     return glfwGetWindowMonitor(m_window);
 }
 
-bool Window::isResizable() const {
+bool Window::isResizable() {
     return glfwGetWindowAttrib(m_window, GLFW_RESIZABLE);
 }
 
-bool Window::isVisiableCursor() const {
+bool Window::isVisiableCursor() {
     return glfwGetInputMode(m_window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL;
 }
 
-int Window::getFPS() const {
+int Window::getFPS() {
     return m_fps;
 }
 
@@ -167,8 +184,7 @@ int Window::getFPS() const {
 // internal
 
 void Window::closeCallback(GLFWwindow* gl_window) {
-    auto window = (Window*)glfwGetWindowUserPointer(gl_window);
-    window->m_alive = false;
+    m_alive = false;
 }
 
 const char* Window::getGLFWError() {
