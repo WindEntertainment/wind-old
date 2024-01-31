@@ -6,7 +6,6 @@
 // clang-formaton
 
 namespace wind {
-namespace renderer {
 
 uint Mesh::vao() const {
     return m_VAO;
@@ -57,5 +56,4 @@ Mesh::~Mesh() {
     glDeleteBuffers(1, &m_EBO);
 }
 
-} // namespace renderer
 } // namespace wind

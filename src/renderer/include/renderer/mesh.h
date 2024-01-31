@@ -1,8 +1,7 @@
-#include "shader.h"
-#include "texture.h"
+#pragma once
+#include <utils/utils.h>
 
 namespace wind {
-namespace renderer {
 
 struct Mesh {
 private:
@@ -24,5 +23,4 @@ public:
     uint size() const;
 };
 
-} // namespace renderer
 } // namespace wind

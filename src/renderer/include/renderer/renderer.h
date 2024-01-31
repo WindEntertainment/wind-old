@@ -1,16 +1,10 @@
 #pragma once
-#include "camera.h"
-#include "mesh.h"
+#include <utils/utils.h>
 
 namespace wind {
-namespace renderer {
-
 class Renderer {
 public:
-    void clear();
-    void render(Camera *, Mesh *, Texture *, vec2 tiling, Shader *,
-                vec3 position, vec3 rotation, vec3 scale);
+    static void drawRectangle(ivec4 rect, ivec3 color);
 };
 
-} // namespace renderer
 } // namespace wind
