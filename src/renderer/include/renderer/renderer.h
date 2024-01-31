@@ -4,7 +4,7 @@
 namespace wind {
 class Renderer {
 public:
-    static void drawRectangle(ivec4 rect, ivec3 color);
+    static void drawRectangle(ivec4 rect, vec4 color);
 };
 
 } // namespace wind

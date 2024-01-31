@@ -16,7 +16,7 @@ int main() {
         if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
             Window::close();
 
-        Renderer::drawRectangle({0, 0, 0.1f, 0.1f}, {0, 1, 0});
+        Renderer::drawRectangle({0, 0, 0.5f, 0.5f}, {0, 1, 0, 1});
         Window::show();
     }
 
