@@ -6,6 +6,7 @@
 #include <ctime>
 
 #include <resources/default.h>
+#include <renderer/renderer.h>
 
 #include "window/window.h"
 #include "window/events/keyboard.h"
@@ -83,7 +84,9 @@ void Window::init(void (*buildConfig)(Config*)) {
     }
 
     glViewport(0, 0, config.size.x, config.size.y);
+
     DefaultRes::load();
+    Renderer::setOrtho(config.size);
 }
 
 void Window::destroy() {

@@ -4,6 +4,7 @@
 namespace wind {
 class Renderer {
 public:
+    static void setOrtho(ivec2 size);
     static void clear(ivec4 color);
     static void drawRectangle(vec4 rect, vec4 color);
 };
