@@ -19,6 +19,7 @@ int main() {
         Renderer::clear({0, 0, 0, 1});
         Renderer::drawRectangle({-1.f, 0, 0.5f, 2.f}, {0.8f, 0.8f, 0.8f, 1});
         Renderer::drawRectangle({1.f, 0, 0.5f, 2.f}, {0.8f, 0.8f, 0.8f, 1});
+        Renderer::drawRectangle({0.5f, 0, 2.f, 0.5f}, {0.8f, 0.8f, 0.8f, 1});
         Window::show();
     }
 

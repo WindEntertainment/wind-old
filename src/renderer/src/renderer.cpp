@@ -4,11 +4,19 @@
 
 #include "renderer/renderer.h"
 
+#include <glm/ext/matrix_clip_space.hpp>
+#include <glm/ext/matrix_float4x4.hpp>
 #include <resources/default.h>
 
 // clang-format on
 
 namespace wind {
+
+namespace {
+
+glm::mat4 orthoMatrix;
+
+}
 
 void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
     static const Mesh* rectangle = DefaultRes::getReactangle();
@@ -24,6 +32,7 @@ void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
     shader->use();
     shader->uVec4f("color", _color);
     shader->uMat4f("model", model);
+    shader->uMat4f("projection", orthoMatrix);
 
     glDrawElements(GL_TRIANGLES, rectangle->size(), GL_UNSIGNED_INT, 0);
 }
@@ -31,6 +40,10 @@ void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
 void Renderer::clear(ivec4 color) {
     glClearColor(color.r, color.g, color.b, color.a);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void Renderer::setOrtho(ivec2 _size) {
+    orthoMatrix = glm::ortho(-10.f, 10.f, -10.f, 10.f, -1.f, 1.f);
 }
 
 } // namespace wind
