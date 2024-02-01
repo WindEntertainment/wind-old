@@ -62,7 +62,12 @@ void Renderer::clear(ivec4 color) {
 }
 
 void Renderer::setOrtho(ivec2 _size) {
-    orthoMatrix = glm::ortho(-10.f, 10.f, -10.f, 10.f, -1.f, 1.f);
+    // clang-format off
+    orthoMatrix = glm::ortho(
+        0.f, static_cast<float>(_size.x),
+        0.f, static_cast<float>(_size.y),
+        -1.f, 1.f);
+    // clang-format on
 }
 
 } // namespace wind
