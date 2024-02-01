@@ -11,6 +11,7 @@ public:
 
     static Shader* get2DShader();
     static Mesh* getReactangle();
+    static Mesh* getCircle();
 };
 
 } // namespace wind
