@@ -56,7 +56,7 @@ void Renderer::drawCircle(vec2 _center, float _radius, vec4 _color) {
     glDrawElements(GL_TRIANGLES, circle->size(), GL_UNSIGNED_INT, 0);
 }
 
-void Renderer::clear(ivec4 color) {
+void Renderer::clear(vec4 color) {
     glClearColor(color.r, color.g, color.b, color.a);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
