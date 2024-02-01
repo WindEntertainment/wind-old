@@ -14,9 +14,10 @@ namespace wind {
 
 namespace {
 
-glm::mat4 orthoMatrix;
+glm::mat4 orthoMatrix = glm::mat4(1);
+glm::mat4 viewMatrix = glm::mat4(1);
 
-}
+} // namespace
 
 void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
     static const Mesh* rectangle = DefaultRes::getReactangle();
@@ -33,6 +34,7 @@ void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
     shader->uVec4f("color", _color);
     shader->uMat4f("model", model);
     shader->uMat4f("projection", orthoMatrix);
+    shader->uMat4f("view", viewMatrix);
 
     glDrawElements(GL_TRIANGLES, rectangle->size(), GL_UNSIGNED_INT, 0);
 }
@@ -52,6 +54,7 @@ void Renderer::drawCircle(vec2 _center, float _radius, vec4 _color) {
     shader->uVec4f("color", _color);
     shader->uMat4f("model", model);
     shader->uMat4f("projection", orthoMatrix);
+    shader->uMat4f("view", viewMatrix);
 
     glDrawElements(GL_TRIANGLES, circle->size(), GL_UNSIGNED_INT, 0);
 }
@@ -68,6 +71,11 @@ void Renderer::setOrtho(ivec2 _size) {
         0.f, static_cast<float>(_size.y),
         -1.f, 1.f);
     // clang-format on
+}
+
+void Renderer::updateCamera(vec2 _position) {
+    viewMatrix = glm::mat4(1);
+    viewMatrix = glm::translate(viewMatrix, vec3(_position, 0));
 }
 
 } // namespace wind

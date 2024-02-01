@@ -93,17 +93,31 @@ int main() {
 
     PhysicsSimulation simulation;
 
+    vec2 camera = {};
+    const float c_cameraSpeed = 4.f;
+
     // ParticleRegister::spawnParticle({1250.f, 600.f}, 10.f);
-    ParticleRegister::spawnParticle({550.f, 650.f}, {1.0f, 0.5f}, 10.f);
+    ParticleRegister::spawnParticle({550.f, 650.f}, {0.0f, 1.0f}, 10.f);
     ParticleRegister::spawnParticle({800.f, 900.f}, {0, 0}, 50.f);
 
     while (Window::update()) {
         if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
             Window::close();
 
+        if (Keyboard::isKey(GLFW_KEY_W))
+            camera.y -= c_cameraSpeed;
+        if (Keyboard::isKey(GLFW_KEY_S))
+            camera.y += c_cameraSpeed;
+        if (Keyboard::isKey(GLFW_KEY_A))
+            camera.x += c_cameraSpeed;
+        if (Keyboard::isKey(GLFW_KEY_D))
+            camera.x -= c_cameraSpeed;
+
         simulation.update();
 
         Renderer::clear({0.8f, 0.8f, 0.8f, 1});
+        Renderer::updateCamera(camera);
+
         for (auto& particle : ParticleRegister::singlton())
             Renderer::drawCircle(particle.position, particle.weight * 1,
                                  {0.f, 0.5f, 0.f, 1});
