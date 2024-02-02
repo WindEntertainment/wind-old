@@ -14,8 +14,10 @@ namespace wind {
 
 namespace {
 
-glm::mat4 orthoMatrix = glm::mat4(1);
-glm::mat4 viewMatrix = glm::mat4(1);
+static float m_scope = 1.f;
+static ivec2 m_projectionPortSize = vec2();
+static glm::mat4 m_orthoMatrix = glm::mat4(1);
+static glm::mat4 m_viewMatrix = glm::mat4(1);
 
 } // namespace
 
@@ -33,8 +35,8 @@ void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
     shader->use();
     shader->uVec4f("color", _color);
     shader->uMat4f("model", model);
-    shader->uMat4f("projection", orthoMatrix);
-    shader->uMat4f("view", viewMatrix);
+    shader->uMat4f("projection", m_orthoMatrix);
+    shader->uMat4f("view", m_viewMatrix);
 
     glDrawElements(GL_TRIANGLES, rectangle->size(), GL_UNSIGNED_INT, 0);
 }
@@ -53,8 +55,8 @@ void Renderer::drawCircle(vec2 _center, float _radius, vec4 _color) {
     shader->use();
     shader->uVec4f("color", _color);
     shader->uMat4f("model", model);
-    shader->uMat4f("projection", orthoMatrix);
-    shader->uMat4f("view", viewMatrix);
+    shader->uMat4f("projection", m_orthoMatrix);
+    shader->uMat4f("view", m_viewMatrix);
 
     glDrawElements(GL_TRIANGLES, circle->size(), GL_UNSIGNED_INT, 0);
 }
@@ -64,18 +66,25 @@ void Renderer::clear(vec4 color) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Renderer::setOrtho(ivec2 _size) {
+void Renderer::setOrtho(ivec2 _size, float _scope) {
+    m_projectionPortSize = _size;
+    m_scope = _scope;
+
     // clang-format off
-    orthoMatrix = glm::ortho(
-        0.f, static_cast<float>(_size.x),
-        0.f, static_cast<float>(_size.y),
+    m_orthoMatrix = glm::ortho(
+        0.f, static_cast<float>(_size.x * _scope),
+        0.f, static_cast<float>(_size.y * _scope),
         -1.f, 1.f);
     // clang-format on
 }
 
+void Renderer::setScope(float _scope) {
+    setOrtho(m_projectionPortSize, _scope);
+}
+
 void Renderer::updateCamera(vec2 _position) {
-    viewMatrix = glm::mat4(1);
-    viewMatrix = glm::translate(viewMatrix, vec3(_position, 0));
+    m_viewMatrix = glm::mat4(1);
+    m_viewMatrix = glm::translate(m_viewMatrix, vec3(_position, 0));
 }
 
 } // namespace wind
