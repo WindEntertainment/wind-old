@@ -6,6 +6,7 @@ set(HEADERS
     ./include/renderer/renderer.h
     ./include/renderer/shader.h
     ./include/renderer/texture.h
+    ./include/renderer/particle.h
 )
 
 set(SOURCES
@@ -13,6 +14,7 @@ set(SOURCES
     ./src/renderer.cpp 
     ./src/shader.cpp
     ./src/texture.cpp
+    ./src/particle.cpp
 )
 
 add_library(${PROJECT_NAME} STATIC ${HEADERS} ${SOURCES})

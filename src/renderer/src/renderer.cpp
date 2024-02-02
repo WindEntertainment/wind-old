@@ -12,14 +12,7 @@
 
 namespace wind {
 
-namespace {
-
-static float m_scope = 1.f;
-static ivec2 m_projectionPortSize = vec2();
-static glm::mat4 m_orthoMatrix = glm::mat4(1);
-static glm::mat4 m_viewMatrix = glm::mat4(1);
-
-} // namespace
+namespace {} // namespace
 
 void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
     static const Mesh* rectangle = DefaultRes::getReactangle();
@@ -42,7 +35,7 @@ void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
 }
 
 void Renderer::drawCircle(vec2 _center, float _radius, vec4 _color) {
-    static const Mesh* circle = nullptr;
+    static const Mesh* circle = DefaultRes::getCircle();
     static Shader* shader = DefaultRes::get2DShader();
 
     glm::mat4 model = glm::mat4(1);
@@ -50,12 +43,9 @@ void Renderer::drawCircle(vec2 _center, float _radius, vec4 _color) {
     model = glm::translate(model, {_center.x, _center.y, 0});
     model = glm::scale(model, {_radius, _radius, 1});
 
-    if (!circle) {
-        circle = DefaultRes::getCircle();
-        glBindVertexArray(circle->vao());
-        shader->use();
-    }
+    glBindVertexArray(circle->vao());
 
+    shader->use();
     shader->uVec4f("color", _color);
     shader->uMat4f("model", model);
     shader->uMat4f("projection", m_orthoMatrix);
@@ -88,6 +78,10 @@ void Renderer::setScope(float _scope) {
 void Renderer::updateCamera(vec2 _position) {
     m_viewMatrix = glm::mat4(1);
     m_viewMatrix = glm::translate(m_viewMatrix, vec3(_position, 0));
+}
+
+void Renderer::drawParticles(ParticleSystem* particles) {
+    particles->draw(m_orthoMatrix, m_viewMatrix);
 }
 
 } // namespace wind
