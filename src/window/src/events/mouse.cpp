@@ -8,7 +8,7 @@ int MouseEventHandler::s_clickMask;
 glm::vec2 MouseEventHandler::s_position;
 glm::vec2 MouseEventHandler::s_offset;
 
-void MouseEventHandler::mousePressCallback(GLFWwindow *, int _button,
+void MouseEventHandler::mousePressCallback(GLFWwindow*, int _button,
                                            int _action, int _mods) {
     switch (_action) {
 
@@ -26,7 +26,11 @@ void MouseEventHandler::mousePressCallback(GLFWwindow *, int _button,
     }
 }
 
-void MouseEventHandler::mouseMoveCallback(GLFWwindow *, double _x, double _y) {
+void MouseEventHandler::mouseScrollCallback(GLFWwindow*, double _x, double _y) {
+    s_scroll = {static_cast<float>(_x), static_cast<float>(_y)};
+}
+
+void MouseEventHandler::mouseMoveCallback(GLFWwindow*, double _x, double _y) {
     s_offset = {static_cast<float>(_x) - s_position.x,
                 s_position.y - static_cast<float>(_y)};
 
@@ -45,7 +49,7 @@ bool Mouse::isButton(int _button) {
 }
 
 bool Mouse::isButtonDown(int _button) {
-    auto &mask = _internal::MouseEventHandler::s_clickMask;
+    auto& mask = _internal::MouseEventHandler::s_clickMask;
     if (isButton(_button) && !(mask & (1 << _button))) {
         mask ^= (1 << _button);
         return true;
@@ -54,12 +58,24 @@ bool Mouse::isButtonDown(int _button) {
     return false;
 }
 
-glm::vec2 Mouse::position() {
+vec2 Mouse::position() {
     return _internal::MouseEventHandler::s_position;
 }
 
-glm::vec2 Mouse::offset() {
+vec2 Mouse::offset() {
     return _internal::MouseEventHandler::s_offset;
+}
+
+vec2 Mouse::scroll() {
+    return _internal::MouseEventHandler::s_scroll;
+}
+
+float Mouse::yScroll() {
+    return _internal::MouseEventHandler::s_scroll.y;
+}
+
+float Mouse::xScroll() {
+    return _internal::MouseEventHandler::s_scroll.x;
 }
 
 } // namespace wind

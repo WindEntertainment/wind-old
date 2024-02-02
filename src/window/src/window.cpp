@@ -1,4 +1,5 @@
 // clang-format off
+#include <GLFW/glfw3.h>
 #include <cstdlib>
 #include <spdlog/spdlog.h>
 
@@ -71,10 +72,13 @@ void Window::init(void (*buildConfig)(Config*)) {
 
     glfwSetWindowCloseCallback(m_window, closeCallback);
     glfwSetKeyCallback(m_window, _internal::KeyEventHandler::keyCallback);
+
     glfwSetCursorPosCallback(m_window,
                              _internal::MouseEventHandler::mouseMoveCallback);
     glfwSetMouseButtonCallback(
         m_window, _internal::MouseEventHandler::mousePressCallback);
+    glfwSetScrollCallback(m_window,
+                          _internal::MouseEventHandler::mouseScrollCallback);
 
     setVisiableCursor(config.visibleCursor);
 
