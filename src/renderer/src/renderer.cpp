@@ -32,7 +32,7 @@ void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
 
     glBindVertexArray(rectangle->vao());
 
-    shader->use();
+    // shader->use();
     shader->uVec4f("color", _color);
     shader->uMat4f("model", model);
     shader->uMat4f("projection", m_orthoMatrix);
@@ -42,7 +42,7 @@ void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
 }
 
 void Renderer::drawCircle(vec2 _center, float _radius, vec4 _color) {
-    static const Mesh* circle = DefaultRes::getCircle();
+    static const Mesh* circle = nullptr;
     static Shader* shader = DefaultRes::get2DShader();
 
     glm::mat4 model = glm::mat4(1);
@@ -50,9 +50,12 @@ void Renderer::drawCircle(vec2 _center, float _radius, vec4 _color) {
     model = glm::translate(model, {_center.x, _center.y, 0});
     model = glm::scale(model, {_radius, _radius, 1});
 
-    glBindVertexArray(circle->vao());
+    if (!circle) {
+        circle = DefaultRes::getCircle();
+        glBindVertexArray(circle->vao());
+        shader->use();
+    }
 
-    shader->use();
     shader->uVec4f("color", _color);
     shader->uMat4f("model", model);
     shader->uMat4f("projection", m_orthoMatrix);
@@ -72,8 +75,8 @@ void Renderer::setOrtho(ivec2 _size, float _scope) {
 
     // clang-format off
     m_orthoMatrix = glm::ortho(
-        0.f, static_cast<float>(_size.x * _scope),
-        0.f, static_cast<float>(_size.y * _scope),
+        -static_cast<float>(_size.x / 2  * _scope), static_cast<float>(_size.x / 2  * _scope),
+        -static_cast<float>(_size.y / 2  * _scope), static_cast<float>(_size.y / 2 * _scope),
         -1.f, 1.f);
     // clang-format on
 }

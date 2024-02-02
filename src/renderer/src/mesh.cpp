@@ -11,6 +11,10 @@ uint Mesh::vao() const {
     return m_VAO;
 }
 
+uint Mesh::ebo() const {
+    return m_EBO;
+}
+
 uint Mesh::size() const {
     return m_indices.size();
 }
