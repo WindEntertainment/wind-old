@@ -7,6 +7,7 @@ int MouseEventHandler::s_buttonsMask;
 int MouseEventHandler::s_clickMask;
 glm::vec2 MouseEventHandler::s_position;
 glm::vec2 MouseEventHandler::s_offset;
+glm::vec2 MouseEventHandler::s_scroll;
 
 void MouseEventHandler::mousePressCallback(GLFWwindow*, int _button,
                                            int _action, int _mods) {

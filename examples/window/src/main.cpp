@@ -1,5 +1,4 @@
 // clang-format off
-#include <cstdlib>
 #include <glm/common.hpp>
 #include <glm/ext/quaternion_geometric.hpp>
 #include <glm/ext/vector_double2.hpp>
@@ -109,7 +108,12 @@ int main() {
 
     PhysicsSimulation simulation;
 
+    float scope = 1.f;
     vec2 camera = {};
+
+    vec2 mouseDownPosition = {};
+    vec2 mouseDownCamera = {};
+
     const float c_cameraSpeed = 4.f;
 
     const int numParticles = 2000;
@@ -126,14 +130,23 @@ int main() {
         if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
             Window::close();
 
-        if (Keyboard::isKey(GLFW_KEY_W))
-            camera.y -= c_cameraSpeed;
-        if (Keyboard::isKey(GLFW_KEY_S))
-            camera.y += c_cameraSpeed;
-        if (Keyboard::isKey(GLFW_KEY_A))
-            camera.x += c_cameraSpeed;
-        if (Keyboard::isKey(GLFW_KEY_D))
-            camera.x -= c_cameraSpeed;
+        if (Mouse::isButtonDown(GLFW_MOUSE_BUTTON_LEFT)) {
+            mouseDownPosition = Mouse::position();
+            mouseDownCamera = camera;
+        }
+
+        // clang-format off
+        if (Mouse::isButton(GLFW_MOUSE_BUTTON_LEFT))
+            camera = {
+                mouseDownCamera.x + (Mouse::position().x - mouseDownPosition.x),
+                mouseDownCamera.y - (Mouse::position().y - mouseDownPosition.y)
+            };
+        // clang-format on
+
+        if (Mouse::yScroll() > 0.5f)
+            scope += 0.1f;
+        if (Mouse::yScroll() < 0.5f)
+            scope -= 0.1f;
 
         simulation.update();
 
