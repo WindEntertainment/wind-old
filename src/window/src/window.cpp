@@ -1,6 +1,4 @@
 // clang-format off
-#include <GLFW/glfw3.h>
-#include <cstdlib>
 #include <spdlog/spdlog.h>
 
 #include <chrono>
