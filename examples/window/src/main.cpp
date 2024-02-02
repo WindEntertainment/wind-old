@@ -4,7 +4,9 @@
 #include <glm/ext/vector_double2.hpp>
 #include <glm/ext/vector_float2.hpp>
 #include <glm/geometric.hpp>
+
 #include <renderer/renderer.h>
+#include <renderer/particle.h>
 #include <window/window.h>
 #include <utils/utils.h>
 // clang-format on
@@ -111,7 +113,40 @@ int main() {
         self->title = "Space";
         self->fullScreen = false;
         self->size = {1920, 1080};
+        self->vSync = false;
     });
+
+    // clang-format off
+    vector<vec3> vertices;
+    vector<unsigned int> indices;
+    vector<vec2> uv;
+
+    const int numSegments = 12;
+    const float segmentAngle = 2.f * PI / numSegments;
+
+    vertices.push_back({0, 0, 0});
+    uv.push_back({0.5f, 0.5f});
+
+    for (int i = 0; i < numSegments; ++i) {
+        float angle = i * segmentAngle;
+        float c = cosf(angle),
+                s = sinf(angle);
+
+        vertices.push_back({ c, s, 0.f });
+        uv.push_back({
+            0.5f + 0.5f * c,
+            0.5f + 0.5f * s
+        });
+    }
+
+    for (int i = 1; i <= numSegments; ++i) {
+        indices.push_back(0);
+        indices.push_back(i);
+        indices.push_back((i % numSegments) + 1);
+    }
+
+    ParticleSystem pSystem{vertices, indices, uv, 2500};
+    // clang-format on
 
     PhysicsSimulation simulation;
 
@@ -121,7 +156,7 @@ int main() {
     vec2 mouseDownPosition = {};
     vec2 mouseDownCamera = {};
 
-    const int numParticles = 2000;
+    const int numParticles = 2500;
 
     ParticleRegister::setCapacity(numParticles);
     for (int i = 0; i < numParticles; ++i) {
@@ -157,9 +192,16 @@ int main() {
         Renderer::updateCamera(camera);
         Renderer::setScope(scope);
 
+        // for (auto& particle : ParticleRegister::singlton())
+        //     Renderer::drawCircle(particle.position, particle.size,
+        //                          {0.8f, 0.8f, 0.8f, 1});
+
+        uint i = 0;
         for (auto& particle : ParticleRegister::singlton())
-            Renderer::drawCircle(particle.position, particle.size,
-                                 {0.8f, 0.8f, 0.8f, 1});
+            pSystem.setPosition(i++, particle.position);
+
+        Renderer::drawParticles(&pSystem);
+
         Window::show();
     }
 

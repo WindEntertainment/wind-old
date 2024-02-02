@@ -9,6 +9,7 @@ public:
     static void load();
     static void free();
 
+    static Shader* getParticleShader();
     static Shader* get2DShader();
     static Mesh* getReactangle();
     static Mesh* getCircle();
