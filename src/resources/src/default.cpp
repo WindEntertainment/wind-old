@@ -64,7 +64,7 @@ void DefaultRes::load() {
         vector<unsigned int> indices;
         vector<vec2> uv;
 
-        const int numSegments = 32;
+        const int numSegments = 3;
         const float segmentAngle = 2.f * PI / numSegments;
 
         vertices.push_back({0, 0, 0});
