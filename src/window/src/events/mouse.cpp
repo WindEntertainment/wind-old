@@ -40,6 +40,7 @@ void MouseEventHandler::mouseMoveCallback(GLFWwindow*, double _x, double _y) {
 
 void MouseEventHandler::clearOffset() {
     s_offset = {};
+    s_scroll = {};
 }
 
 } // namespace _internal

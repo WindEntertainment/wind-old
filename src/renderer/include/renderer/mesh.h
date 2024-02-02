@@ -20,6 +20,7 @@ public:
     ~Mesh();
 
     uint vao() const;
+    uint ebo() const;
     uint size() const;
 };
 

@@ -3,6 +3,7 @@
 
 namespace wind {
 
+static Shader* m_defaultParticleShader = nullptr;
 static Shader* m_default2DShader = nullptr;
 static Mesh* m_defaultReactangle = nullptr;
 static Mesh* m_defaultCircle = nullptr;
@@ -17,6 +18,38 @@ void DefaultRes::load() {
             layout (location = 1) in vec2 aTexCoord;
 
             uniform mat4 model;
+            uniform mat4 view;
+            uniform mat4 projection;
+
+            out vec2 TexCoord;
+
+            void main() {
+                gl_Position = projection * view * model * vec4(aPos, 1.0);
+                TexCoord = aTexCoord;
+            }
+        )",
+        R"(
+            #version 330 core
+            
+            out vec4 FragColor;
+            in vec2 TexCoord;
+
+            uniform sampler2D tex0;
+            uniform vec4 color;
+
+            void main() {
+                FragColor = color; 
+            }
+        )"
+    );
+
+    m_defaultParticleShader = new Shader(
+        R"(
+            #version 330 core
+            layout (location = 0) in vec3 aPos;
+            layout (location = 1) in vec2 aTexCoords;
+            layout (location = 3) in mat4 model;
+
             uniform mat4 view;
             uniform mat4 projection;
 
@@ -64,7 +97,7 @@ void DefaultRes::load() {
         vector<unsigned int> indices;
         vector<vec2> uv;
 
-        const int numSegments = 3;
+        const int numSegments = 12;
         const float segmentAngle = 2.f * PI / numSegments;
 
         vertices.push_back({0, 0, 0});

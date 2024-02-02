@@ -54,7 +54,7 @@ ParticleRegister ParticleRegister::s_Instance;
 
 class PhysicsSimulation {
 private:
-    const double G = 0.1f;
+    const double G = 1.f;
 
 public:
     void update() {
@@ -68,20 +68,27 @@ public:
                 glm::dvec2 diff = j.position - i.position;
                 glm::dvec2 normal = glm::normalize(diff);
 
-                double epsilon = 1e-5;
-                double distanceSquared = glm::dot(diff, diff) + epsilon;
-                double force = G * j.weight / distanceSquared;
-
-                i.acceleration += force * normal;
+                double distanceSquared = glm::dot(diff, diff);
 
                 if (distanceSquared < pow(i.size + j.size, 2)) {
                     if (j.weight > i.weight) {
-                        j.velocity += i.velocity * (i.weight / j.weight);
-                        i.velocity = glm::reflect(i.velocity, normal);
+                        // clang-format off
+                        i.velocity =
+                            (i.weight - j.weight) / (i.weight + j.weight) * i.velocity +
+                            (2 * j.weight)        / (i.weight + j.weight) * j.velocity;
 
-                        j.weight += i.weight * 0.1f;
-                        i.weight *= 0.9f;
+                        j.velocity =
+                            (2 * i.weight)        / (i.weight + j.weight) * i.velocity +
+                            (j.weight - i.weight) / (i.weight + j.weight) * j.velocity;
+
+                        // clang-format on
+
+                        // j.weight += i.weight * 0.1f;
+                        // i.weight *= 0.9f;
                     }
+                } else {
+                    double force = G * j.weight / distanceSquared;
+                    i.acceleration += force * normal;
                 }
             }
         }
@@ -90,7 +97,7 @@ public:
             i.velocity += i.acceleration;
             i.position += i.velocity;
 
-            i.size = glm::clamp(i.weight * 0.3, 1.0, 100.0);
+            i.size = glm::clamp(i.weight * 0.5, 1.0, 500.0);
         }
     }
 };
@@ -114,8 +121,6 @@ int main() {
     vec2 mouseDownPosition = {};
     vec2 mouseDownCamera = {};
 
-    const float c_cameraSpeed = 4.f;
-
     const int numParticles = 2000;
 
     ParticleRegister::setCapacity(numParticles);
@@ -138,24 +143,23 @@ int main() {
         // clang-format off
         if (Mouse::isButton(GLFW_MOUSE_BUTTON_LEFT))
             camera = {
-                mouseDownCamera.x + (Mouse::position().x - mouseDownPosition.x),
-                mouseDownCamera.y - (Mouse::position().y - mouseDownPosition.y)
+                mouseDownCamera.x + (Mouse::position().x - mouseDownPosition.x) * scope,
+                mouseDownCamera.y - (Mouse::position().y - mouseDownPosition.y) * scope
             };
         // clang-format on
 
-        if (Mouse::yScroll() > 0.5f)
-            scope += 0.1f;
-        if (Mouse::yScroll() < 0.5f)
-            scope -= 0.1f;
+        scope -= scope * 0.05f * Mouse::yScroll();
 
         simulation.update();
 
-        Renderer::clear({0.8f, 0.8f, 0.8f, 1});
+        Renderer::clear({0.1f, 0.1f, 0.1f, 1});
+
         Renderer::updateCamera(camera);
+        Renderer::setScope(scope);
 
         for (auto& particle : ParticleRegister::singlton())
-            Renderer::drawCircle(particle.position, particle.weight,
-                                 {0.f, 0.5f, 0.f, 1});
+            Renderer::drawCircle(particle.position, particle.size,
+                                 {0.8f, 0.8f, 0.8f, 1});
         Window::show();
     }
 
