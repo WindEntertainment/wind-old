@@ -1,5 +1,5 @@
 #pragma once
-#include <regex.h>
+#include <regex>
 #include <spdlog/spdlog.h>
 #include <zlib.h>
 
