@@ -6,4 +6,4 @@ set(SOURCES
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE wind)
+target_link_libraries(${PROJECT_NAME} PRIVATE wind-core)
