@@ -38,7 +38,7 @@ void DefaultRes::load() {
             uniform vec4 color;
 
             void main() {
-                FragColor = vec4(1, 0, 0, 0);
+                FragColor = texture(tex0, TexCoord);
             }
         )"
     );

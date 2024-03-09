@@ -12,8 +12,6 @@
 
 namespace wind {
 
-namespace {} // namespace
-
 void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
   static const Mesh* rectangle = DefaultRes::getRectangle();
   static Shader* shader = DefaultRes::get2DShader();
@@ -25,7 +23,7 @@ void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
 
   glBindVertexArray(rectangle->vao());
 
-  // shader->use();
+  shader->use();
   shader->uVec4f("color", _color);
   shader->uMat4f("model", model);
   shader->uMat4f("projection", m_orthoMatrix);
@@ -39,26 +37,21 @@ void Renderer::drawTexture(Texture* texture, vec2 tiling, vec3 position,
   static const Mesh* mesh = DefaultRes::getRectangle();
   static Shader* shader = DefaultRes::get2DShader();
 
+  glm::mat4 model = glm::mat4(1);
+
+  model = glm::translate(model, position);
+  model = glm::scale(model, scale);
+
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, texture->id());
 
   glBindVertexArray(mesh->vao());
 
-  glm::mat4 matrix_model = glm::mat4(1);
-
-  matrix_model = glm::translate(matrix_model, position);
-  matrix_model =
-      glm::rotate(matrix_model, glm::radians(rotation.x), vec3{1, 0, 0});
-  matrix_model =
-      glm::rotate(matrix_model, glm::radians(rotation.y), vec3{0, 1, 0});
-  matrix_model =
-      glm::rotate(matrix_model, glm::radians(rotation.z), vec3{0, 0, 1});
-  matrix_model = glm::scale(matrix_model, scale);
-
-  shader->uMat4f("model", matrix_model);
-  shader->uMat4f("view", m_viewMatrix);
+  shader->use();
+  shader->uVec4f("color", {1, 1, 1, 1});
+  shader->uMat4f("model", model);
   shader->uMat4f("projection", m_orthoMatrix);
-  shader->uVec2f("tiling", tiling);
+  shader->uMat4f("view", m_viewMatrix);
 
   glDrawElements(GL_TRIANGLES, mesh->size(), GL_UNSIGNED_INT, 0);
 }

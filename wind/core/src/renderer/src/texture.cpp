@@ -20,6 +20,7 @@ _image = new unsigned char[11*3]{
 // clang-format off
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/ext/scalar_uint_sized.hpp>
 // clang-formaton
 
 namespace wind {
@@ -28,17 +29,22 @@ uint Texture::id() const {
     return m_texture_id;
 }
 
-Texture::Texture(unsigned char *_image, int _width, int _height) {
-    glGenTextures(1, &m_texture_id);
-    glBindTexture(GL_TEXTURE_2D, m_texture_id);
+Texture::Texture(unsigned char* _pixels, int _width, int _height) {
+    static bool is_created = false;
+    if (!is_created) {
+        glGenTextures(1, &m_texture_id);
+        glBindTexture(GL_TEXTURE_2D, m_texture_id);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        
+        is_created = true;
+    }
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, _width, _height, 0, GL_RGB,
-                 GL_UNSIGNED_BYTE, _image);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_RGBA,
+                 GL_UNSIGNED_BYTE, _pixels);
     glGenerateMipmap(GL_TEXTURE_2D);
 }
 
