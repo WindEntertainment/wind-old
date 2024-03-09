@@ -39,7 +39,3 @@ To get started with the Data-Driven Game Engine, follow these steps:
     cmake --build .
     ```
 4. See [Documentation](./Documentation.md)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](../LICENSE.txt) file for details.
