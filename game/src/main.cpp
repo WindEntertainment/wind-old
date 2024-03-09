@@ -26,7 +26,7 @@ int main() {
     if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
       Window::close();
 
-    Renderer::clear({0.1f, 0.1f, 0.1f, 1});
+    Renderer::clear({0.f, 0.f, 0.f, 1});
 
     Ultralight::updateLogic();
     Ultralight::renderOneFrame();
