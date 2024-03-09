@@ -1,8 +1,40 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Dreich</title>
-  </head>
-  <body></body>
+
+<head>
+  <style type="text/css">
+    /* The animation code */
+    @keyframes example {
+      0% {
+        background-color: red;
+        left: 0px;
+      }
+
+      50% {
+        background-color: yellow;
+        left: 400px;
+      }
+
+      100% {
+        background-color: red;
+        left: 0px;
+      }
+    }
+
+    div {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      background-color: red;
+      animation-name: example;
+      animation-duration: 4s;
+      animation-iteration-count: infinite;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+  </div>
+</body>
+
 </html>

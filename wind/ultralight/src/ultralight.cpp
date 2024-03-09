@@ -4,7 +4,15 @@
 #include "renderer/texture.h"
 #include "utils/ext_string.h"
 #include <algorithm>
+#include <exception>
+#include <glm/ext/scalar_uint_sized.hpp>
 #include <wind-ultralight/ultralight.h>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
 
 namespace UL = ultralight;
 
@@ -70,40 +78,31 @@ void Ultralight::updateLogic() {
 }
 
 // SDL_Texture* texture;
+UL::RefPtr<UL::View> globalView;
+Texture* texture;
 
 void Ultralight::renderOneFrame() {
 
   ULRenderer->Render();
-  std::for_each(
-      UltralightViewManager::views.begin(),
-      UltralightViewManager::views.end(),
-      [](auto pair) {
-        UL::BitmapSurface* surface =
-            (UL::BitmapSurface*)(pair.second->surface());
 
-        if (!surface->dirty_bounds().IsEmpty()) {
+  UL::BitmapSurface* surface = (UL::BitmapSurface*)(globalView->surface());
 
-          UL::RefPtr<UL::Bitmap> bitmap = surface->bitmap();
+  if (!surface->dirty_bounds().IsEmpty()) {
 
-          const auto bitmapPixels =
-              static_cast<unsigned char*>(bitmap->LockPixels());
+    UL::RefPtr<UL::Bitmap> bitmap = surface->bitmap();
 
-          UltralightViewManager::setTexture(
-              pair.second,
-              new Texture(bitmapPixels, bitmap->width(), bitmap->height()));
+    const auto bitmapPixels = (unsigned char*)bitmap->LockPixels();
 
-          bitmap->UnlockPixels();
+    if (texture)
+      delete texture;
+    texture = new Texture(bitmapPixels, bitmap->width(), bitmap->height());
 
-          surface->ClearDirtyBounds();
-        }
-      });
+    bitmap->UnlockPixels();
 
-  std::for_each(UltralightViewManager::textures.begin(),
-                UltralightViewManager::textures.end(),
-                [](auto pair) {
-                  Renderer::drawTexture(
-                      pair.second, {1, 1}, {0, 0, 0}, {0, 0, 0}, {1, 1, 1});
-                });
+    surface->ClearDirtyBounds();
+  }
+
+  Renderer::drawTexture(texture, {10, 10}, {0, 0, 0}, {0, 0, 0}, {800, 600, 1});
 }
 
 std::map<const char*, UL::RefPtr<UL::View>> UltralightViewManager::views;
@@ -123,14 +122,15 @@ void UltralightViewManager::loadView(const char* path) {
   view_config.is_accelerated = false;
 
   UL::RefPtr<UL::View> view =
-      ULRenderer->CreateView(500, 500, view_config, nullptr);
+      ULRenderer->CreateView(800, 600, view_config, nullptr);
 
   string a = "file:///";
   a += path;
 
-  view->LoadHTML("<p>Hyi</p>");
-  // view->LoadHTML(a.c_str());
+  // view->LoadHTML("<p>Hyi</p>");
+  view->LoadURL("http:///google.com");
 
-  views.insert(std::make_pair(path, view));
+  globalView = view;
+  // views.insert(std::make_pair(path, view));
 };
 }; // namespace wind
