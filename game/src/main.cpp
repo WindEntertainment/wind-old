@@ -10,7 +10,7 @@ int main() {
   Ultralight::init();
   Ultralight::initPlatform();
   Ultralight::createRenderer();
-  UltralightViewManager::loadView("index.html");
+  UltralightViewManager::loadView("UI/dist/index.html");
 
   Window::init([](Window::Config* self) {
     self->title = "Game";

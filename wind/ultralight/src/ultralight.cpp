@@ -128,7 +128,7 @@ void UltralightViewManager::loadView(const char* path) {
   a += path;
 
   // view->LoadHTML("<p>Hyi</p>");
-  view->LoadURL("http:///google.com");
+  view->LoadURL(a.c_str());
 
   globalView = view;
   // views.insert(std::make_pair(path, view));
