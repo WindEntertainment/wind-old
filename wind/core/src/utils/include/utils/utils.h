@@ -1,9 +1,5 @@
 #pragma once
-
-#include "ext_filesystem.h" // IWYU pragma: export
-#include "ext_string.h"     // IWYU pragma: export
-#include "includes.h"       // IWYU pragma: export
-#include "math.h"           // IWYU pragma: export
+#include "includes.h"
 
 namespace wind {
 
@@ -24,7 +20,7 @@ bool contains(C _container, T _value) {
 
 class Stopwatch {
 public:
-    Stopwatch(const std::string &message) : message(message) {
+    Stopwatch(const std::string& message) : message(message) {
         start_time = std::chrono::high_resolution_clock::now();
     }
 

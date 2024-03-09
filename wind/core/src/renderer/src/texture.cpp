@@ -28,7 +28,7 @@ uint Texture::id() const {
     return m_texture_id;
 }
 
-Texture::Texture(unsigned char *_image, int _width, int _height) {
+Texture::Texture(unsigned char *_pixels, int _width, int _height) {
     glGenTextures(1, &m_texture_id);
     glBindTexture(GL_TEXTURE_2D, m_texture_id);
 
@@ -38,7 +38,7 @@ Texture::Texture(unsigned char *_image, int _width, int _height) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, _width, _height, 0, GL_RGB,
-                 GL_UNSIGNED_BYTE, _image);
+                 GL_UNSIGNED_BYTE, _pixels);
     glGenerateMipmap(GL_TEXTURE_2D);
 }
 
