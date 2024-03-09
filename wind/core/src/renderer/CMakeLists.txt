@@ -11,7 +11,7 @@ set(HEADERS
 
 set(SOURCES
     ./src/mesh.cpp
-    ./src/renderer.cpp 
+    ./src/renderer.cpp
     ./src/shader.cpp
     ./src/texture.cpp
     ./src/particle.cpp

@@ -5,11 +5,11 @@ namespace wind {
 
 static Shader* m_defaultParticleShader = nullptr;
 static Shader* m_default2DShader = nullptr;
-static Mesh* m_defaultReactangle = nullptr;
+static Mesh* m_defaultRectangle = nullptr;
 static Mesh* m_defaultCircle = nullptr;
 
 void DefaultRes::load() {
-    // clang-format off
+  // clang-format off
 
     m_default2DShader = new Shader(
         R"(
@@ -30,7 +30,7 @@ void DefaultRes::load() {
         )",
         R"(
             #version 330 core
-            
+
             out vec4 FragColor;
             in vec2 TexCoord;
 
@@ -38,7 +38,7 @@ void DefaultRes::load() {
             uniform vec4 color;
 
             void main() {
-                FragColor = color; 
+                FragColor = vec4(1, 0, 0, 0);
             }
         )"
     );
@@ -62,7 +62,7 @@ void DefaultRes::load() {
         )",
         R"(
             #version 330 core
-            
+
             out vec4 FragColor;
             in vec2 TexCoord;
 
@@ -70,16 +70,16 @@ void DefaultRes::load() {
             uniform vec4 color;
 
             void main() {
-                FragColor = color; 
+                FragColor = color;
             }
         )"
     );
 
-    m_defaultReactangle = new Mesh( 
+    m_defaultRectangle = new Mesh(
         {
-            { 0.5f,  0.5f, 0.0f   }, 
+            { 0.5f,  0.5f, 0.0f   },
             { 0.5f, -0.5f, 0.0f,  },
-            { -0.5f,  0.5f, 0.0f, },    
+            { -0.5f,  0.5f, 0.0f, },
             { -0.5f, -0.5f, 0.0f  }
         },
         {0, 1, 2, 1, 3, 2},
@@ -124,28 +124,28 @@ void DefaultRes::load() {
         m_defaultCircle = new Mesh(vertices, indices, uv);
     }
 
-    // clang-format on
+  // clang-format on
 }
 
 void DefaultRes::free() {
-    delete m_default2DShader;
-    delete m_defaultReactangle;
+  delete m_default2DShader;
+  delete m_defaultRectangle;
 }
 
-Mesh* DefaultRes::getReactangle() {
-    return m_defaultReactangle;
+Mesh* DefaultRes::getRectangle() {
+  return m_defaultRectangle;
 }
 
 Mesh* DefaultRes::getCircle() {
-    return m_defaultCircle;
+  return m_defaultCircle;
 }
 
 Shader* DefaultRes::getParticleShader() {
-    return m_defaultParticleShader;
+  return m_defaultParticleShader;
 }
 
 Shader* DefaultRes::get2DShader() {
-    return m_default2DShader;
+  return m_default2DShader;
 }
 
 } // namespace wind

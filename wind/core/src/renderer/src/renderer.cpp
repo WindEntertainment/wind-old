@@ -15,73 +15,102 @@ namespace wind {
 namespace {} // namespace
 
 void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
-    static const Mesh* rectangle = DefaultRes::getReactangle();
-    static Shader* shader = DefaultRes::get2DShader();
+  static const Mesh* rectangle = DefaultRes::getRectangle();
+  static Shader* shader = DefaultRes::get2DShader();
 
-    glm::mat4 model = glm::mat4(1);
+  glm::mat4 model = glm::mat4(1);
 
-    model = glm::translate(model, {_rect.x, _rect.y, 0});
-    model = glm::scale(model, {_rect.z, _rect.w, 1});
+  model = glm::translate(model, {_rect.x, _rect.y, 0});
+  model = glm::scale(model, {_rect.z, _rect.w, 1});
 
-    glBindVertexArray(rectangle->vao());
+  glBindVertexArray(rectangle->vao());
 
-    // shader->use();
-    shader->uVec4f("color", _color);
-    shader->uMat4f("model", model);
-    shader->uMat4f("projection", m_orthoMatrix);
-    shader->uMat4f("view", m_viewMatrix);
+  // shader->use();
+  shader->uVec4f("color", _color);
+  shader->uMat4f("model", model);
+  shader->uMat4f("projection", m_orthoMatrix);
+  shader->uMat4f("view", m_viewMatrix);
 
-    glDrawElements(GL_TRIANGLES, rectangle->size(), GL_UNSIGNED_INT, 0);
+  glDrawElements(GL_TRIANGLES, rectangle->size(), GL_UNSIGNED_INT, 0);
+}
+
+void Renderer::drawTexture(Texture* texture, vec2 tiling, vec3 position,
+                           vec3 rotation, vec3 scale) {
+  static const Mesh* mesh = DefaultRes::getRectangle();
+  static Shader* shader = DefaultRes::get2DShader();
+
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, texture->id());
+
+  glBindVertexArray(mesh->vao());
+
+  glm::mat4 matrix_model = glm::mat4(1);
+
+  matrix_model = glm::translate(matrix_model, position);
+  matrix_model =
+      glm::rotate(matrix_model, glm::radians(rotation.x), vec3{1, 0, 0});
+  matrix_model =
+      glm::rotate(matrix_model, glm::radians(rotation.y), vec3{0, 1, 0});
+  matrix_model =
+      glm::rotate(matrix_model, glm::radians(rotation.z), vec3{0, 0, 1});
+  matrix_model = glm::scale(matrix_model, scale);
+
+  shader->uMat4f("model", matrix_model);
+  shader->uMat4f("view", m_viewMatrix);
+  shader->uMat4f("projection", m_orthoMatrix);
+  shader->uVec2f("tiling", tiling);
+
+  glDrawElements(GL_TRIANGLES, mesh->size(), GL_UNSIGNED_INT, 0);
 }
 
 void Renderer::drawCircle(vec2 _center, float _radius, vec4 _color) {
-    static const Mesh* circle = DefaultRes::getCircle();
-    static Shader* shader = DefaultRes::get2DShader();
+  static const Mesh* circle = DefaultRes::getCircle();
+  static Shader* shader = DefaultRes::get2DShader();
 
-    glm::mat4 model = glm::mat4(1);
+  glm::mat4 model = glm::mat4(1);
 
-    model = glm::translate(model, {_center.x, _center.y, 0});
-    model = glm::scale(model, {_radius, _radius, 1});
+  model = glm::translate(model, {_center.x, _center.y, 0});
+  model = glm::scale(model, {_radius, _radius, 1});
 
-    glBindVertexArray(circle->vao());
+  glBindVertexArray(circle->vao());
 
-    shader->use();
-    shader->uVec4f("color", _color);
-    shader->uMat4f("model", model);
-    shader->uMat4f("projection", m_orthoMatrix);
-    shader->uMat4f("view", m_viewMatrix);
+  shader->use();
+  shader->uVec4f("color", _color);
+  shader->uMat4f("model", model);
+  shader->uMat4f("projection", m_orthoMatrix);
+  shader->uMat4f("view", m_viewMatrix);
 
-    glDrawElements(GL_TRIANGLES, circle->size(), GL_UNSIGNED_INT, 0);
+  glDrawElements(GL_TRIANGLES, circle->size(), GL_UNSIGNED_INT, 0);
 }
 
 void Renderer::clear(vec4 color) {
-    glClearColor(color.r, color.g, color.b, color.a);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glClearColor(color.r, color.g, color.b, color.a);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Renderer::setOrtho(ivec2 _size, float _scope) {
-    m_projectionPortSize = _size;
-    m_scope = _scope;
+  m_projectionPortSize = _size;
+  m_scope = _scope;
 
-    // clang-format off
+  // clang-format off
     m_orthoMatrix = glm::ortho(
         -static_cast<float>(_size.x / 2  * _scope), static_cast<float>(_size.x / 2  * _scope),
         -static_cast<float>(_size.y / 2  * _scope), static_cast<float>(_size.y / 2 * _scope),
         -1.f, 1.f);
-    // clang-format on
+  // clang-format on
 }
 
 void Renderer::setScope(float _scope) {
-    setOrtho(m_projectionPortSize, _scope);
+  setOrtho(m_projectionPortSize, _scope);
 }
 
 void Renderer::updateCamera(vec2 _position) {
-    m_viewMatrix = glm::mat4(1);
-    m_viewMatrix = glm::translate(m_viewMatrix, vec3(_position, 0));
+  m_viewMatrix = glm::mat4(1);
+  m_viewMatrix = glm::translate(m_viewMatrix, vec3(_position, 0));
 }
 
 void Renderer::drawParticles(ParticleSystem* particles) {
-    particles->draw(m_orthoMatrix, m_viewMatrix);
+  particles->draw(m_orthoMatrix, m_viewMatrix);
 }
 
 } // namespace wind
