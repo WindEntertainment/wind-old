@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 
+include(CMakeEnv.txt)
+
 project(myproject)
 
 set(CMAKE_CXX_STANDARD 23)
