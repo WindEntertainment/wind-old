@@ -90,7 +90,7 @@ void Renderer::setOrtho(ivec2 _size, float _scope) {
         -static_cast<float>(_size.x / 2  * _scope), static_cast<float>(_size.x / 2  * _scope),
         -static_cast<float>(_size.y / 2  * _scope), static_cast<float>(_size.y / 2 * _scope),
         -1.f, 1.f);
-  // clang-format on
+  // clang-format on 
 }
 
 void Renderer::setScope(float _scope) {
