@@ -11,7 +11,7 @@ int main() {
     Window::init([](Window::Config* self) {
         self->title = "Game";
         self->fullScreen = false;
-        self->size = {800, 600};
+        self->size = {1920, 1080};
         self->vSync = false;
     });
 

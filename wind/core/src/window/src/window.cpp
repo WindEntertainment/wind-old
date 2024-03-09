@@ -19,9 +19,7 @@ namespace {
 static bool m_alive;
 static const char* m_title;
 static bool m_vsync;
-
 static GLFWwindow* m_window;
-
 static int m_fps;
 
 using timepoint = chrono::time_point<chrono::high_resolution_clock>;
@@ -110,8 +108,6 @@ void Window::show() {
     if (chrono::high_resolution_clock::now() > m_perSecond) {
         m_fps = numFrames;
         numFrames = 0;
-
-        spdlog::info("{}", m_fps);
 
         m_perSecond = chrono::high_resolution_clock::now() + oneSecond;
     }
