@@ -13,3 +13,5 @@ IndentAccessModifiers: false
 AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortBlocksOnASingleLine: Never
+
+PointerAlignment: Left
