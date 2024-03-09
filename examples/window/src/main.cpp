@@ -9,9 +9,9 @@ int main() {
     using namespace wind;
 
     Window::init([](Window::Config* self) {
-        self->title = "Space";
+        self->title = "Game";
         self->fullScreen = false;
-        self->size = {400, 200};
+        self->size = {800, 600};
         self->vSync = false;
     });
 
