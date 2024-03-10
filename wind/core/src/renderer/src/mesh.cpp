@@ -19,7 +19,7 @@ uint Mesh::size() const {
     return m_indices.size();
 }
 
-Mesh::Mesh(vector<vec3> _vertices, vector<uint> _indicies, vector<vec2> _uv) {
+Mesh::Mesh(std::vector<glm::vec3> _vertices, std::vector<uint> _indicies, std::vector<glm::vec2> _uv) {
     assert(_vertices.size() == _uv.size());
 
     m_vertices.resize(_vertices.size());

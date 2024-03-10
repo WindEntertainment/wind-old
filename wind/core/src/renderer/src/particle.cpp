@@ -11,8 +11,8 @@
 
 namespace wind {
 
-ParticleSystem::ParticleSystem(vector<vec3> _vertices, vector<uint> _indicies,
-                               vector<vec2> _uv, size_t _count) {
+ParticleSystem::ParticleSystem(std::vector<glm::vec3> _vertices, std::vector<uint> _indicies,
+                               std::vector<glm::vec2> _uv, size_t _count) {
   assert(_vertices.size() == _uv.size());
 
   m_vertices.resize(_vertices.size());
@@ -96,7 +96,7 @@ uint ParticleSystem::size() const {
   return m_indices.size();
 }
 
-void ParticleSystem::setPosition(uint _i, vec2 _position) {
+void ParticleSystem::setPosition(uint _i, glm::vec2 _position) {
   m_models[_i] = glm::mat4(1);
   m_models[_i] = glm::translate(m_models[_i], {_position, 0.f});
 
@@ -106,7 +106,7 @@ void ParticleSystem::setPosition(uint _i, vec2 _position) {
 
 void ParticleSystem::draw(glm::mat4 _orthoMatrix, glm::mat4 _viewMatrix) {
   static Shader* shader = DefaultRes::getParticleShader();
-  static vec4 color = {0.8f, 0.8f, 0.8f, 1.f};
+  static glm::vec4 color = {0.8f, 0.8f, 0.8f, 1.f};
 
   shader->use();
   shader->uVec4f("color", color);

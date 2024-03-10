@@ -6,13 +6,14 @@
 
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_float4x4.hpp>
+#include <glm/ext/matrix_transform.hpp>
 #include <resources/default.h>
 
 // clang-format on
 
 namespace wind {
 
-void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
+void Renderer::drawRectangle(glm::vec4 _rect, glm::vec4 _color) {
   static const Mesh* rectangle = DefaultRes::getRectangle();
   static Shader* shader = DefaultRes::get2DShader();
 
@@ -32,8 +33,8 @@ void Renderer::drawRectangle(vec4 _rect, vec4 _color) {
   glDrawElements(GL_TRIANGLES, rectangle->size(), GL_UNSIGNED_INT, 0);
 }
 
-void Renderer::drawTexture(Texture* texture, vec2 tiling, vec3 position,
-                           vec3 rotation, vec3 scale) {
+void Renderer::drawTexture(Texture* texture, glm::vec2 tiling, glm::vec3 position,
+                           glm::vec3 rotation, glm::vec3 scale) {
   static const Mesh* mesh = DefaultRes::getRectangle();
   static Shader* shader = DefaultRes::get2DShader();
 
@@ -56,7 +57,7 @@ void Renderer::drawTexture(Texture* texture, vec2 tiling, vec3 position,
   glDrawElements(GL_TRIANGLES, mesh->size(), GL_UNSIGNED_INT, 0);
 }
 
-void Renderer::drawCircle(vec2 _center, float _radius, vec4 _color) {
+void Renderer::drawCircle(glm::vec2 _center, float _radius, glm::vec4 _color) {
   static const Mesh* circle = DefaultRes::getCircle();
   static Shader* shader = DefaultRes::get2DShader();
 
@@ -76,12 +77,12 @@ void Renderer::drawCircle(vec2 _center, float _radius, vec4 _color) {
   glDrawElements(GL_TRIANGLES, circle->size(), GL_UNSIGNED_INT, 0);
 }
 
-void Renderer::clear(vec4 color) {
+void Renderer::clear(glm::vec4 color) {
   glClearColor(color.r, color.g, color.b, color.a);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Renderer::setOrtho(ivec2 _size, float _scope) {
+void Renderer::setOrtho(glm::ivec2 _size, float _scope) {
   m_projectionPortSize = _size;
   m_scope = _scope;
 
@@ -97,9 +98,9 @@ void Renderer::setScope(float _scope) {
   setOrtho(m_projectionPortSize, _scope);
 }
 
-void Renderer::updateCamera(vec2 _position) {
+void Renderer::updateCamera(glm::vec2 _position) {
   m_viewMatrix = glm::mat4(1);
-  m_viewMatrix = glm::translate(m_viewMatrix, vec3(_position, 0));
+  m_viewMatrix = glm::translate(m_viewMatrix, glm::vec3(_position, 0));
 }
 
 void Renderer::drawParticles(ParticleSystem* particles) {

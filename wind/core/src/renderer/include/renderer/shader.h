@@ -18,8 +18,8 @@ public:
   void uFloatArray(const char* name, size_t size, float* array);
   void uInt(const char* name, int i);
 
-  void uVec4f(const char* name, vec4 vec);
-  void uVec2f(const char* name, vec2 vec);
+  void uVec4f(const char* name, glm::vec4 vec);
+  void uVec2f(const char* name, glm::vec2 vec);
 };
 
 } // namespace wind

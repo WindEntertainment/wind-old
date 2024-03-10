@@ -26,16 +26,16 @@ public:
 
   // setters
   static void setTitle(const char* title);
-  static void setSize(ivec2 size);
-  static void setPosition(ivec2 position);
+  static void setSize(glm::ivec2 size);
+  static void setPosition(glm::ivec2 position);
   static void setResizable(bool resizable = true);
   static void setVisiableCursor(bool visiableCursor = true);
   static void setVsync(bool enable);
 
   // getters
   static const char* title();
-  static ivec2 size();
-  static ivec2 position();
+  static glm::ivec2 size();
+  static glm::ivec2 position();
   static bool isFullscreen();
   static bool isResizable();
   static bool isVisiableCursor();
@@ -49,15 +49,15 @@ public:
 };
 
 struct Window::Config {
-  string title = "Wind";
-  ivec2 size = {800, 600};
-  ivec2 position = {0, 0};
+  std::string title = "Wind";
+  glm::ivec2 size = {800, 600};
+  glm::ivec2 position = {0, 0};
   bool fullScreen = true;
   bool resizable = false;
   bool visibleCursor = true;
   bool vSync = true;
 
-  ivec2 openglVersion{3, 3};
+  glm::ivec2 openglVersion{3, 3};
 };
 
 } // namespace wind

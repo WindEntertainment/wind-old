@@ -18,7 +18,7 @@ int main() {
   const auto uiTexture = Ultralight::loadView("UI/dist/index.html", {800, 600});
 
   float scope = 1.f;
-  vec2 camera = {};
+  glm::vec2 camera = {};
 
   while (Window::update()) {
     if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
