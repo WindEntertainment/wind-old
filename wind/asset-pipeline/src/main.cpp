@@ -11,11 +11,12 @@
 
 void setting() {
   using namespace wind;
+  using namespace wind::asset_pipeline;
 
-  asset_pipeline::PipeRegister::regPipe(".*\\.jpg", new asset_pipeline::ImgPipe());
-  asset_pipeline::PipeRegister::regPipe(".*\\.obj", new asset_pipeline::Content3DPipe());
-  asset_pipeline::PipeRegister::regPipe(".*\\.glsl", new asset_pipeline::ShaderPipe());
-  asset_pipeline::PipeRegister::regPipe(".*\\.*", new asset_pipeline::DefaultPipe());
+  PipeRegister::regPipe(".*\\.jpg", new ImgPipe());
+  PipeRegister::regPipe(".*\\.obj", new Content3DPipe());
+  PipeRegister::regPipe(".*\\.glsl", new ShaderPipe());
+  PipeRegister::regPipe(".*\\.*", new DefaultPipe());
 }
 
 int main(int argc, char** argv) {

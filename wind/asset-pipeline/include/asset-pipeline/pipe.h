@@ -20,6 +20,10 @@ protected:
 public:
   virtual void compile(const fs::path& _source, const fs::path& _destination) = 0;
 
+  const char* id() const {
+    return m_id;
+  }
+
   Pipe(const char* id)
       : m_id(id){};
 };
