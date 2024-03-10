@@ -1,5 +1,6 @@
 #include "resources/default.h"
 #include <cmath>
+#include <glm/ext/scalar_constants.hpp>
 
 namespace wind {
 
@@ -14,6 +15,7 @@ void DefaultRes::load() {
     m_default2DShader = new Shader(
         R"(
             #version 330 core
+
             layout (location = 0) in vec3 aPos;
             layout (location = 1) in vec2 aTexCoords;
 
@@ -46,6 +48,7 @@ void DefaultRes::load() {
     m_defaultParticleShader = new Shader(
         R"(
             #version 330 core
+
             layout (location = 0) in vec3 aPos;
             layout (location = 1) in vec2 aTexCoords;
             layout (location = 3) in mat4 model;
@@ -93,12 +96,12 @@ void DefaultRes::load() {
     );
 
     {
-        vector<vec3> vertices;
-        vector<unsigned int> indices;
-        vector<vec2> uv;
+        std::vector<glm::vec3> vertices;
+        std::vector<unsigned int> indices;
+        std::vector<glm::vec2> uv;
 
         const int numSegments = 12;
-        const float segmentAngle = 2.f * PI / numSegments;
+        const float segmentAngle = 2.f * glm::pi<float>() / numSegments;
 
         vertices.push_back({0, 0, 0});
         uv.push_back({0.5f, 0.5f});
