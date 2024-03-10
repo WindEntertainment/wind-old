@@ -31,6 +31,7 @@ int main(int argc, char** argv) {
   // clang-format off
     conf_options.add_options()
         ("h, help", "Print usage")
+        ("b, build", "Build directory to bundle", cxxopts::value<std::string>())
         ("s, source", "Source file/folder", cxxopts::value<std::string>())
         ("o, output", "Output file", cxxopts::value<std::string>())
         ("f, folder", "Set compile target as folder")
@@ -41,7 +42,7 @@ int main(int argc, char** argv) {
 
   auto options = conf_options.parse(argc, argv);
 
-  bool printHelp = options.count("help") || !options.count("source") || !options.count("output");
+  bool printHelp = options.count("help") || !options.count("build") && (!options.count("source") || !options.count("output"));
   if (printHelp) {
     std::cout << conf_options.help() << std::endl;
     return EXIT_SUCCESS;
@@ -53,30 +54,36 @@ int main(int argc, char** argv) {
   AssetPipeline pipeline;
   setting();
 
-  fs::path source = options["source"].as<std::string>();
-  fs::path output = options["output"].as<std::string>();
-
-  bool useFolder = options.count("folder");
-  bool useConfig = options.count("config");
-  bool useCache = options.count("cache");
-  bool useLink = options.count("link");
-
-  if (useFolder) {
-    if (useConfig)
-      pipeline.setConfig(source / ".import-config");
-
-    fs::path destination =
-        useCache ? fs::path(options["cache"].as<std::string>()) : output;
-
-    if (useCache)
-      pipeline.clearUnusedCache(source, destination);
-
-    pipeline.compileDirectory(source, destination);
-
-    if (useLink)
-      pipeline.linkDirectory(destination, output);
+  bool useBuild = options.count("build");
+  if (useBuild) {
+    fs::path source = options["build"].as<std::string>();
+    pipeline.build(source);
   } else {
-    pipeline.compileFile(source, output);
+    fs::path source = options["source"].as<std::string>();
+    fs::path output = options["output"].as<std::string>();
+
+    bool useFolder = options.count("folder");
+    bool useConfig = options.count("config");
+    bool useCache = options.count("cache");
+    bool useLink = options.count("link");
+
+    if (useFolder) {
+      if (useConfig)
+        pipeline.setConfig(source / ".import-config");
+
+      fs::path destination =
+          useCache ? fs::path(options["cache"].as<std::string>()) : output;
+
+      if (useCache)
+        pipeline.clearUnusedCache(source, destination);
+
+      pipeline.compileDirectory(source, destination);
+
+      if (useLink)
+        pipeline.linkDirectory(destination, output);
+    } else {
+      pipeline.compileFile(source, output);
+    }
   }
 
   return EXIT_SUCCESS;

@@ -1,5 +1,4 @@
 #include <asset-pipeline/pipes/default-pipe.h>
-#include <exception>
 
 namespace wind {
 namespace asset_pipeline {

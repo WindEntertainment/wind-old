@@ -1,4 +1,5 @@
 #pragma once
+#include <filesystem>
 #include <utils/utils.h>
 #include <yaml-cpp/node/node.h>
 #include <yaml-cpp/yaml.h>
@@ -16,7 +17,10 @@ public:
   void clearUnusedCache(const fs::path& source, const fs::path& cache);
   void setConfig(const fs::path& config);
 
+  void build(const fs::path& source);
+
 private:
+  void preprocessing(const fs::path& path, YAML::Node& options);
   fs::recursive_directory_iterator createRecursiveIterator(const fs::path& path);
   YAML::Node findConfigForPath(const fs::path& path);
 
