@@ -1,12 +1,8 @@
 #pragma once
-#include "Ultralight/RefPtr.h"
-#include "Ultralight/Renderer.h"
-#include <AppCore/Platform.h>
-#include <Ultralight/Bitmap.h>
-#include <Ultralight/Ultralight.h>
-#include <map>
-
 #include <renderer/texture.h>
+
+#include <Ultralight/RefPtr.h>
+#include <Ultralight/Renderer.h>
 
 namespace wind {
 
@@ -20,11 +16,15 @@ public:
   static void update();
   static void render();
 
-  static Texture* loadView(const std::string& path);
+  static Texture* loadView(const std::string& path, const glm::ivec2 size);
 
 private:
-  static std::map<const char*, ul::RefPtr<ul::View>> m_views;
-  static std::map<const char*, Texture*> m_textures;
+  // forced to use two vectors, because if you
+  // make a map with ul::RefPtr<View> as a key
+  // there will be a segmentation fault
+  static std::vector<ul::RefPtr<ul::View>> m_views;
+  static std::vector<Texture*> m_textures;
+
   static ul::RefPtr<ul::Renderer> m_renderer;
 };
 

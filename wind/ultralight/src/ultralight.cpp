@@ -1,14 +1,14 @@
-#include "AppCore/Platform.h"
-#include "Ultralight/Bitmap.h"
-#include "renderer/texture.h"
-#include "utils/ext_string.h"
-#include <glm/ext/scalar_uint_sized.hpp>
+#include <renderer/texture.h>
 #include <wind-ultralight/ultralight.h>
+
+#include <AppCore/Platform.h>
+#include <Ultralight/Bitmap.h>
+#include <Ultralight/Ultralight.h>
 
 namespace wind {
 
-std::map<const char*, ul::RefPtr<ul::View>> Ultralight::m_views;
-std::map<const char*, Texture*> Ultralight::m_textures;
+std::vector<ul::RefPtr<ul::View>> Ultralight::m_views;
+std::vector<Texture*> Ultralight::m_textures;
 ul::RefPtr<ul::Renderer> Ultralight::m_renderer;
 
 void Ultralight::init() {
@@ -32,37 +32,35 @@ void Ultralight::update() {
 void Ultralight::render() {
   m_renderer->Render();
 
-  std::for_each(m_views.begin(), m_views.end(), [](auto view) {
-    ul::BitmapSurface* surface = (ul::BitmapSurface*)(view.second->surface());
+  for (size_t i = 0; i < m_views.size(); ++i) {
+    ul::BitmapSurface* surface = (ul::BitmapSurface*)(m_views[i]->surface());
 
     if (!surface->dirty_bounds().IsEmpty()) {
       ul::RefPtr<ul::Bitmap> bitmap = surface->bitmap();
       const auto pixels = (unsigned char*)bitmap->LockPixels();
       const auto size = glm::ivec2{bitmap->width(), bitmap->height()};
 
-      if (m_textures.contains(view.first))
-        m_textures[view.first]->setPixels(pixels, size);
-      else
-        m_textures[view.first] = new Texture(pixels, size);
+      m_textures[i]->setPixels(pixels, size);
 
       bitmap->UnlockPixels();
       surface->ClearDirtyBounds();
     }
-  });
+  }
 }
 
-Texture* Ultralight::loadView(const std::string& _path) {
+Texture* Ultralight::loadView(const std::string& _path, const glm::ivec2 _size) {
   ul::ViewConfig view_config;
   view_config.is_accelerated = false;
 
-  ul::RefPtr<ul::View> view = m_renderer->CreateView(800, 600, view_config, nullptr);
-
+  ul::RefPtr<ul::View> view = m_renderer->CreateView(_size.x, _size.y, view_config, nullptr);
   view->LoadURL(("file:///" + _path).c_str());
+  m_views.push_back(view);
 
-  m_views.insert(std::make_pair(_path.c_str(), view));
+  Texture* texture = new Texture(nullptr, _size);
+  m_textures.push_back(texture);
 
-  render();
-  return m_textures[_path.c_str()];
+  assert(m_views.size() == m_textures.size());
+  return texture;
 };
 
 }; // namespace wind
