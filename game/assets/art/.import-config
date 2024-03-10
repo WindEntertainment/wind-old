@@ -1,0 +1,3 @@
+pipes:
+  - path: "./**/*.(png|jpg|bmp|jpeg)"
+    pipe: image
