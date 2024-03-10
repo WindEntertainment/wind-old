@@ -115,8 +115,6 @@ void Window::show() {
     m_fps = numFrames;
     numFrames = 0;
 
-    spdlog::info("{}", m_fps);
-
     m_perSecond = chrono::high_resolution_clock::now() + oneSecond;
   }
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include "logger.h"
 #include <renderer/texture.h>
 
 #include <Ultralight/RefPtr.h>
@@ -26,6 +27,7 @@ private:
   static std::vector<Texture*> m_textures;
 
   static ul::RefPtr<ul::Renderer> m_renderer;
+  static ULLogger m_logger;
 };
 
 } // namespace wind
