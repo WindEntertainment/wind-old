@@ -10,7 +10,7 @@ export const AccordionTrigger = forwardRef<ElementRef<typeof Trigger>, Component
     <Header className="flex">
       <Trigger
         className={tw(
-          "flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
+          "text-sm flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
           className,
         )}
         ref={ref}

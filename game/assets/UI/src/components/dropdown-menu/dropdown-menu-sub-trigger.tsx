@@ -12,7 +12,7 @@ export const DropdownMenuSubTrigger = forwardRef<
 >(({ children, className, inset, ...props }, ref) => (
   <SubTrigger
     className={tw(
-      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-stone-100 data-[state=open]:bg-stone-100 dark:focus:bg-stone-800 dark:data-[state=open]:bg-stone-800",
+      "text-sm flex cursor-default select-none items-center rounded-sm px-2 py-1.5 outline-none focus:bg-stone-100 data-[state=open]:bg-stone-100 dark:focus:bg-stone-800 dark:data-[state=open]:bg-stone-800",
       inset && "pl-8",
       className,
     )}

@@ -1,7 +1,8 @@
-import { AppThemeColors, FontSizes } from "./src/tailwind";
 import type { Config } from "tailwindcss";
 
 import plugin from "tailwindcss/plugin";
+
+import { AppThemeColors, FontSizes } from "./src/tailwind";
 
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}", "./assets/**/*.svg"],

@@ -17,7 +17,6 @@ export const FormSelect = <
   TPath extends FieldPathByValue<TFieldValues, boolean | number | string>,
 >({
   children,
-  containerClassName,
   control,
   defaultValue,
   name,
