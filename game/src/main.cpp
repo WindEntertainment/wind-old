@@ -7,17 +7,15 @@
 int main() {
   using namespace wind;
 
-  Ultralight::init();
-  Ultralight::initPlatform();
-  Ultralight::createRenderer();
-  UltralightViewManager::loadView("UI/dist/index.html");
-
   Window::init([](Window::Config* self) {
     self->title = "Game";
     self->fullScreen = false;
     self->size = {800, 600};
     self->vSync = false;
   });
+
+  Ultralight::init();
+  const auto uiTexture = Ultralight::loadView("UI/dist/index.html");
 
   float scope = 1.f;
   vec2 camera = {};
@@ -26,12 +24,12 @@ int main() {
     if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
       Window::close();
 
-    Renderer::clear({0.f, 0.f, 0.f, 1});
+    Renderer::clear({1.f, 0.f, 0.f, 1});
 
-    Ultralight::updateLogic();
-    Ultralight::renderOneFrame();
+    Ultralight::update();
+    Ultralight::render();
 
-    // Renderer::drawRectangle({0, 0, 100, 100}, {0.f, 1.f, 0.f, 1.f});
+    Renderer::drawTexture(uiTexture, {1, 1}, {0, 0, 0}, {0, 0, 0}, {800, 600, 1});
 
     Renderer::updateCamera(camera);
     Renderer::setScope(scope);
