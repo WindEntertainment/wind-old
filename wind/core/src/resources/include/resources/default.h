@@ -6,13 +6,13 @@ namespace wind {
 
 class DefaultRes {
 public:
-    static void load();
-    static void free();
+  static void load();
+  static void free();
 
-    static Shader* getParticleShader();
-    static Shader* get2DShader();
-    static Mesh* getReactangle();
-    static Mesh* getCircle();
+  static Shader* getParticleShader();
+  static Shader* get2DShader();
+  static Mesh* getRectangle();
+  static Mesh* getCircle();
 };
 
 } // namespace wind

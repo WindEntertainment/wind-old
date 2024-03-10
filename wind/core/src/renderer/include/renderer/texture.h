@@ -3,12 +3,15 @@
 
 namespace wind {
 class Texture {
-    uint m_texture_id;
-
 public:
-    Texture(unsigned char* pixels, int width, int height);
-    ~Texture();
+  Texture(const unsigned char* pixels, const glm::ivec2 size);
+  ~Texture();
 
-    uint id() const;
+  void setPixels(const unsigned char* pixels, const glm::ivec2 size);
+  uint id() const;
+
+private:
+  uint m_texture_id = 0;
 };
+
 } // namespace wind
