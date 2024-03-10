@@ -13,7 +13,7 @@ export const CommandInput = forwardRef<
     <MagnifyingGlassIcon className="mr-2 h-4 w-4 shrink-0 opacity-50" />
     <CommandPrimitive.Input
       className={tw(
-        "flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-stone-500 disabled:cursor-not-allowed disabled:opacity-50 dark:placeholder:text-stone-400",
+        "text-sm flex h-10 w-full rounded-md bg-transparent py-3 outline-none placeholder:text-stone-500 disabled:cursor-not-allowed disabled:opacity-50 dark:placeholder:text-stone-400",
         className,
       )}
       ref={ref}

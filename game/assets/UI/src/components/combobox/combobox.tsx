@@ -1,7 +1,7 @@
 "use client";
 
-import { ArrayElement } from "@/types";
 import { tw } from "@/tailwind";
+import { ArrayElement } from "@/types";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 

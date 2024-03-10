@@ -16,7 +16,6 @@ export const FormCheckbox = <
   TFieldValues extends FieldValues,
   TPath extends FieldPathByValue<TFieldValues, boolean | number | string>,
 >({
-  containerClassName,
   control,
   defaultValue,
   name,

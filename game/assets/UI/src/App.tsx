@@ -2,8 +2,9 @@ import { Button } from "@/components/button";
 import { Card } from "@/components/card";
 import { PageWrapper } from "@/components/page-wrapper";
 import "@/i18n";
-import "./global.css";
 import { useTranslation } from "react-i18next";
+
+import "./global.css";
 
 function App() {
   const { t } = useTranslation();
