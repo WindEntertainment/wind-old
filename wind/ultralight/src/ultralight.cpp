@@ -9,7 +9,9 @@ namespace wind {
 
 std::vector<ul::RefPtr<ul::View>> Ultralight::m_views;
 std::vector<Texture*> Ultralight::m_textures;
+
 ul::RefPtr<ul::Renderer> Ultralight::m_renderer;
+ULLogger Ultralight::m_logger;
 
 void Ultralight::init() {
   // Init config
@@ -19,7 +21,7 @@ void Ultralight::init() {
   // Init platform
   ul::Platform::instance().set_font_loader(ul::GetPlatformFontLoader());
   ul::Platform::instance().set_file_system(ul::GetPlatformFileSystem("./assets"));
-  ul::Platform::instance().set_logger(ul::GetDefaultLogger("ultralight.log"));
+  ul::Platform::instance().set_logger(&m_logger);
 
   // Create Renderer
   m_renderer = ul::Renderer::Create();
