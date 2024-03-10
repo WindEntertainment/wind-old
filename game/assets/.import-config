@@ -1,0 +1,16 @@
+preprocessing:
+  - path: "./ui/"
+    execute: "pnpm build"
+
+  - path: "./scripts/"
+    execute: "dotnet build"
+
+pipes:
+  - path: "./art/*/*"
+    pipe: image
+
+  - path: "./ui/dist/*/*"
+    pipe: default
+
+  - path: "./scripts/build/*/*"
+    pipe: mono

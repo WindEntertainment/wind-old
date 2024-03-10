@@ -1,0 +1,6 @@
+pipe: spritesheet
+sprites:
+  - name: "grass"
+    rect: [0, 0, 32, 32]
+  - name: "dirt"
+    rect: [64, 64, 32, 32]
