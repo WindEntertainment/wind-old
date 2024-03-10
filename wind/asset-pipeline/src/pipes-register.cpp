@@ -25,6 +25,8 @@ void PipeRegister::regPipe(const char* _regex, Pipe* _pipe) {
     auto regex = std::regex(_regex);
     m_pipes.push_back(_pipe);
     m_regexs.push_back(regex);
+
+    spdlog::info("PipeRegister: registered pipe: {} for '{}'", _pipe->id(), _regex);
   } catch (std::regex_error& ex) {
     spdlog::error("PipeRegister: cannot create regex '{}': {}", _regex, ex.what());
   }

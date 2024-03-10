@@ -1,4 +1,5 @@
 #include <asset-pipeline/pipes/default-pipe.h>
+#include <exception>
 
 namespace wind {
 namespace asset_pipeline {
@@ -30,7 +31,7 @@ void DefaultPipe::compile(const fs::path& _source, const fs::path& _destination)
   }
 
   size_t zippedSize = compressBound(fileContent.size());
-  char zipped[zippedSize];
+  char* zipped = new char[zippedSize];
 
   auto result = compress(reinterpret_cast<Bytef*>(zipped), &zippedSize, reinterpret_cast<const Bytef*>(fileContent.c_str()), fileContent.size());
   if (result != Z_OK) {
@@ -39,6 +40,11 @@ void DefaultPipe::compile(const fs::path& _source, const fs::path& _destination)
   }
 
   output.write(zipped, zippedSize);
+
+  input.close();
+  output.close();
+
+  delete[] zipped;
 }
 
 } // namespace asset_pipeline

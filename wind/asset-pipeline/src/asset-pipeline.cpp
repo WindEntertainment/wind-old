@@ -22,17 +22,14 @@ void AssetPipeline::compileFile(const fs::path& _source,
 
   if (!fs::exists(_source)) {
     spdlog::error(
-        "Cannot compile file by specified path {} as it's a non exists "
-        "location",
+        "Cannot compile file by specified path {} as it's a non exists location",
         _source.string());
     return;
   }
 
   if (fs::is_directory(_source)) {
     spdlog::error(
-        "Cannot compile file by specified path {} as it's a directory. Use "
-        "AssetPipeline::compileDirectory to compile all files in the "
-        "directory.",
+        "Cannot compile file by specified path {} as it's a directory. Use --folder flag to compile all files in the directory.",
         _source.string());
     return;
   }
@@ -153,6 +150,8 @@ void AssetPipeline::linkDirectory(const fs::path& _source,
 }
 
 void AssetPipeline::setConfig(const fs::path& _importConfigPath) {
+  spdlog::info("Load config: {}", _importConfigPath.string());
+
   YAML::Node importConfigRoot;
 
   try {
@@ -175,22 +174,15 @@ void AssetPipeline::setConfig(const fs::path& _importConfigPath) {
   m_importConfig = config;
 }
 
-fs::recursive_directory_iterator
-AssetPipeline::createRecursiveIterator(const fs::path& _path) {
+fs::recursive_directory_iterator AssetPipeline::createRecursiveIterator(const fs::path& _path) {
   if (!fs::exists(_path))
     throw std::invalid_argument(fmt::format(
-        "Cannot create recursive directory iterator by specified path {} "
-        "as "
-        "it's a non exists "
-        "location",
+        "Cannot create recursive directory iterator by specified path {} as it's a non exists location",
         _path.string()));
 
   if (!fs::is_directory(_path))
     throw std::invalid_argument(fmt::format(
-        "Cannot create recursive directory iterator by specified path {} "
-        "as "
-        "it's a file. Use "
-        "AssetPipeline::compileFile to compile separate file.",
+        "Cannot create recursive directory iterator by specified path {} as it's a file. Don't use --folder flag to compile separate file.",
         _path.string()));
 
   fs::recursive_directory_iterator it;
