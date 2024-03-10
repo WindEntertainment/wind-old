@@ -5,10 +5,11 @@ namespace asset_pipeline {
 
 class ImgPipe : public Pipe {
 public:
-    void compile(const fs::path &_source,
-                 const fs::path &_destination) override;
+  void compile(const fs::path& _source,
+               const fs::path& _destination) override;
 
-    ImgPipe() : Pipe("img"){};
+  ImgPipe()
+      : Pipe("img"){};
 };
 
 } // namespace asset_pipeline

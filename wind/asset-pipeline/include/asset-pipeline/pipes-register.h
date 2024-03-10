@@ -11,8 +11,8 @@ class PipeRegister {
   friend class AssetPipeline;
 
 private:
-  static std:: ::vector<std::regex> m_regexs;
-  static std:: ::vector<Pipe*> m_pipes;
+  static std::vector<std::regex> m_regexs;
+  static std::vector<Pipe*> m_pipes;
 
   static Pipe* getPipe(fs::path _path);
 

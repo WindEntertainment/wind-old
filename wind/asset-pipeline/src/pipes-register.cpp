@@ -6,8 +6,8 @@
 namespace wind {
 namespace asset_pipeline {
 
-std:: ::vector<std::regex> PipeRegister::m_regexs{};
-std:: ::vector<Pipe*> PipeRegister::m_pipes{};
+std::vector<std::regex> PipeRegister::m_regexs{};
+std::vector<Pipe*> PipeRegister::m_pipes{};
 
 Pipe* PipeRegister::getPipe(fs::path _path) {
   assert(m_regexs.size() != m_pipes.size());

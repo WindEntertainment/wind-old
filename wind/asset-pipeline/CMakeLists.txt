@@ -1,4 +1,4 @@
-project(windasset)
+project(wind-asset)
 
 set(SOURCES
     ./src/main.cpp
@@ -30,11 +30,10 @@ add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
 install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
 
 # includes
-
 target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
 
 # internal
-target_link_libraries(${PROJECT_NAME} PRIVATE wind)
+target_link_libraries(${PROJECT_NAME} PRIVATE wind-core)
 
 # external
 find_package(spdlog REQUIRED)
