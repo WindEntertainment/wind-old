@@ -1,136 +1,68 @@
 #include "AppCore/Platform.h"
 #include "Ultralight/Bitmap.h"
-#include "renderer/renderer.h"
 #include "renderer/texture.h"
 #include "utils/ext_string.h"
-#include <algorithm>
-#include <exception>
 #include <glm/ext/scalar_uint_sized.hpp>
 #include <wind-ultralight/ultralight.h>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
-
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "stb_image_write.h"
-
-namespace UL = ultralight;
-
 namespace wind {
 
-UL::RefPtr<UL::Renderer> ULRenderer;
-
-void Ultralight::createRenderer() {
-  ULRenderer = UL::Renderer::Create();
-}
-
-void Ultralight::initPlatform() {
-  UL::Platform::instance().set_font_loader(UL::GetPlatformFontLoader());
-
-  UL::Platform::instance().set_file_system(
-      UL::GetPlatformFileSystem("./assets"));
-
-  UL::Platform::instance().set_logger(UL::GetDefaultLogger("ultralight.log"));
-}
+std::map<const char*, ul::RefPtr<ul::View>> Ultralight::m_views;
+std::map<const char*, Texture*> Ultralight::m_textures;
+ul::RefPtr<ul::Renderer> Ultralight::m_renderer;
 
 void Ultralight::init() {
-  UL::Config config;
-  UL::Platform::instance().set_config(config);
+  // Init config
+  ul::Config config;
+  ul::Platform::instance().set_config(config);
+
+  // Init platform
+  ul::Platform::instance().set_font_loader(ul::GetPlatformFontLoader());
+  ul::Platform::instance().set_file_system(ul::GetPlatformFileSystem("./assets"));
+  ul::Platform::instance().set_logger(ul::GetDefaultLogger("ultralight.log"));
+
+  // Create Renderer
+  m_renderer = ul::Renderer::Create();
 }
 
-// SDL_Texture* CopyBitmapToTexture(UL::RefPtr<UL::Bitmap> bitmap) {
-
-// Uint32 sdlPixelFormat;
-// if (bitmap->format() == UL::BitmapFormat::BGRA8_UNORM_SRGB) {
-//     sdlPixelFormat = SDL_PIXELFORMAT_BGRA32;
-// } else {
-
-//     return nullptr;
-// }
-
-// SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(
-//     0, bitmap->width(), bitmap->height(), 32, sdlPixelFormat);
-// if (!surface) {
-
-//     return nullptr;
-// }
-
-// Uint8* pixels = static_cast<Uint8*>(surface->pixels);
-// const uint8_t* bitmapPixels = (uint8_t*)bitmap->LockPixels();
-// const size_t rowBytes = bitmap->row_bytes();
-// for (int y = 0; y < bitmap->height(); ++y) {
-//     std::memcpy(pixels, bitmapPixels, rowBytes);
-//     pixels += surface->pitch;
-//     bitmapPixels += rowBytes;
-// }
-// bitmap->UnlockPixels();
-
-// SDL_Texture* texture =
-//     SDL_CreateTextureFromSurface(renderer->renderer, surface);
-
-// SDL_FreeSurface(surface);
-
-// return texture;
-// }
-
-void Ultralight::updateLogic() {
-  ULRenderer->Update();
+void Ultralight::update() {
+  m_renderer->Update();
 }
 
-// SDL_Texture* texture;
-UL::RefPtr<UL::View> globalView;
-Texture* texture;
+void Ultralight::render() {
+  m_renderer->Render();
 
-void Ultralight::renderOneFrame() {
+  std::for_each(m_views.begin(), m_views.end(), [](auto view) {
+    ul::BitmapSurface* surface = (ul::BitmapSurface*)(view.second->surface());
 
-  ULRenderer->Render();
+    if (!surface->dirty_bounds().IsEmpty()) {
+      ul::RefPtr<ul::Bitmap> bitmap = surface->bitmap();
+      const auto pixels = (unsigned char*)bitmap->LockPixels();
+      const auto size = glm::ivec2{bitmap->width(), bitmap->height()};
 
-  UL::BitmapSurface* surface = (UL::BitmapSurface*)(globalView->surface());
+      if (m_textures.contains(view.first))
+        m_textures[view.first]->setPixels(pixels, size);
+      else
+        m_textures[view.first] = new Texture(pixels, size);
 
-  if (!surface->dirty_bounds().IsEmpty()) {
-
-    UL::RefPtr<UL::Bitmap> bitmap = surface->bitmap();
-
-    const auto bitmapPixels = (unsigned char*)bitmap->LockPixels();
-
-    if (texture)
-      delete texture;
-    texture = new Texture(bitmapPixels, bitmap->width(), bitmap->height());
-
-    bitmap->UnlockPixels();
-
-    surface->ClearDirtyBounds();
-  }
-
-  Renderer::drawTexture(texture, {10, 10}, {0, 0, 0}, {0, 0, 0}, {800, 600, 1});
+      bitmap->UnlockPixels();
+      surface->ClearDirtyBounds();
+    }
+  });
 }
 
-std::map<const char*, UL::RefPtr<UL::View>> UltralightViewManager::views;
-std::map<UL::RefPtr<UL::View>, Texture*> UltralightViewManager::textures;
-
-void UltralightViewManager::setTexture(UL::RefPtr<UL::View> view,
-                                       Texture* texture) {
-  if (textures.contains(view)) {
-    delete textures[view];
-  }
-
-  textures.insert(std::make_pair(view, texture));
-}
-
-void UltralightViewManager::loadView(const char* path) {
-  UL::ViewConfig view_config;
+Texture* Ultralight::loadView(const std::string& _path) {
+  ul::ViewConfig view_config;
   view_config.is_accelerated = false;
 
-  UL::RefPtr<UL::View> view =
-      ULRenderer->CreateView(800, 600, view_config, nullptr);
+  ul::RefPtr<ul::View> view = m_renderer->CreateView(800, 600, view_config, nullptr);
 
-  string a = "file:///";
-  a += path;
+  view->LoadURL(("file:///" + _path).c_str());
 
-  // view->LoadHTML("<p>Hyi</p>");
-  view->LoadURL(a.c_str());
+  m_views.insert(std::make_pair(_path.c_str(), view));
 
-  globalView = view;
-  // views.insert(std::make_pair(path, view));
+  render();
+  return m_textures[_path.c_str()];
 };
+
 }; // namespace wind

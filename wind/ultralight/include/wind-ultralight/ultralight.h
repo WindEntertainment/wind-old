@@ -1,38 +1,31 @@
 #pragma once
-#include "renderer/texture.h"
+#include "Ultralight/RefPtr.h"
+#include "Ultralight/Renderer.h"
 #include <AppCore/Platform.h>
 #include <Ultralight/Bitmap.h>
 #include <Ultralight/Ultralight.h>
 #include <map>
 
-namespace UL = ultralight;
+#include <renderer/texture.h>
 
 namespace wind {
 
+namespace ul = ultralight;
+
 class Ultralight {
-    friend class UltralightViewManager;
-
 public:
-    static void init();
+  static void init();
+  static void dispose();
 
-    static void initPlatform();
+  static void update();
+  static void render();
 
-    static void createRenderer();
+  static Texture* loadView(const std::string& path);
 
-    static void updateLogic();
-
-    static void renderOneFrame();
-};
-
-class UltralightViewManager {
-
-public:
-    static void loadView(const char* path);
-    static void setTexture(UL::RefPtr<UL::View> view, Texture* texture);
-
-    // private:
-    static std::map<const char*, UL::RefPtr<UL::View>> views;
-    static std::map<UL::RefPtr<UL::View>, Texture*> textures;
+private:
+  static std::map<const char*, ul::RefPtr<ul::View>> m_views;
+  static std::map<const char*, Texture*> m_textures;
+  static ul::RefPtr<ul::Renderer> m_renderer;
 };
 
 } // namespace wind

@@ -29,27 +29,27 @@ uint Texture::id() const {
     return m_texture_id;
 }
 
-Texture::Texture(unsigned char* _pixels, int _width, int _height) {
-    static bool is_created = false;
-    if (!is_created) {
-        glGenTextures(1, &m_texture_id);
-        glBindTexture(GL_TEXTURE_2D, m_texture_id);
+Texture::Texture(const unsigned char* _pixels, const glm::ivec2 _size) { 
+    glGenTextures(1, &m_texture_id);
+    glBindTexture(GL_TEXTURE_2D, m_texture_id);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        
-        is_created = true;
-    }
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_BGRA,
-                 GL_UNSIGNED_BYTE, _pixels);
-    glGenerateMipmap(GL_TEXTURE_2D);
+    setPixels(_pixels, {_size.x, _size.y});
 }
 
 Texture::~Texture() {
     glDeleteTextures(1, &m_texture_id);
+}
+
+void Texture::setPixels(const unsigned char* _pixels, const glm::ivec2 _size) {
+    glBindTexture(GL_TEXTURE_2D, m_texture_id);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _size.x, _size.y, 0, GL_BGRA,
+                 GL_UNSIGNED_BYTE, _pixels);
+    glGenerateMipmap(GL_TEXTURE_2D);
 }
 
 } // namespace wind
