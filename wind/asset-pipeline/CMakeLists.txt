@@ -4,6 +4,7 @@ set(SOURCES
     ./src/main.cpp
     ./src/asset-pipeline.cpp
     ./src/pipes-register.cpp
+    ./src/preprocessing.cpp
 
     # pipes 
     ./src/pipes/default-pipe.cpp
