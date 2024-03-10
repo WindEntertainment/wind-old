@@ -6,10 +6,11 @@ namespace asset_pipeline {
 
 class DefaultPipe : public Pipe {
 public:
-    virtual void compile(const fs::path& source, const fs::path& destination) override;
+  virtual void compile(const fs::path& source, const fs::path& destination) override;
 
-    DefaultPipe() : Pipe("deflt"){};
+  DefaultPipe()
+      : Pipe("deflt"){};
 };
 
-}  // namespace asset_pipeline
-}  // namespace wind
+} // namespace asset_pipeline
+} // namespace wind
