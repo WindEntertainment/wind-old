@@ -11,7 +11,7 @@ set(HEADERS
 
 set(SOURCES
     ./src/mesh.cpp
-    ./src/renderer.cpp 
+    ./src/renderer.cpp
     ./src/shader.cpp
     ./src/texture.cpp
     ./src/particle.cpp
@@ -33,6 +33,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
 find_package(glad CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glad::glad)
 
-#find_package(OpenGL REQUIRED)
-#target_link_libraries(${PROJECT_NAME} PRIVATE ${OPENGL_LIBRARIES})
-#target_include_directories(${PROJECT_NAME} PRIVATE ${OPENGL_INCLUDE_DIR})
+find_package(OpenGL REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${OPENGL_LIBRARIES})
+target_include_directories(${PROJECT_NAME} PRIVATE ${OPENGL_INCLUDE_DIR})
