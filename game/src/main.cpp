@@ -15,7 +15,7 @@ int main() {
   });
 
   Ultralight::init();
-  const auto uiTexture = Ultralight::loadView("UI/dist/index.html");
+  const auto uiTexture = Ultralight::loadView("UI/dist/index.html", {800, 600});
 
   float scope = 1.f;
   vec2 camera = {};

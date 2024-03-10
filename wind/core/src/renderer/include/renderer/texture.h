@@ -11,7 +11,7 @@ public:
   uint id() const;
 
 private:
-  uint m_texture_id = NULL;
+  uint m_texture_id = 0;
 };
 
 } // namespace wind
