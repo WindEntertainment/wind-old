@@ -1,16 +1,20 @@
 {
-    "files.exclude": {
-        "**/.cache/": true,
-        "CMakeUserPresets.json": true,
-    },
-    "clangd.checkUpdates": false,
-    "clangd.arguments": [
-        "--compile-commands-dir",
-        "${workspaceFolder}/build/Release/"
-    ],
-    "editor.codeActionsOnSave": {
-        "source.fixAll": "explicit"
-    },
-    "editor.formatOnSave": true,
-    "editor.formatOnType": false
+  "files.exclude": {
+    "**/.cache/": true,
+    "CMakeUserPresets.json": true
+  },
+  "clangd.checkUpdates": false,
+  "clangd.arguments": [
+    "--compile-commands-dir",
+    "${workspaceFolder}/build/Release/"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "editor.formatOnType": false,
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.enabledFrameworks": ["i18next"],
+  "i18n-ally.localesPaths": ["./game/assets/UI/public/translations"],
+  "i18n-ally.sourceLanguage": "en"
 }
