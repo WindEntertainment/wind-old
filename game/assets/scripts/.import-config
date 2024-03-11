@@ -1,6 +1,7 @@
 preprocessing:
-  - execute: "dotnet build"
+  execute: "dotnet build"
 
 pipes:
-  - path: "./build/*/*"
-    pipe: mono
+  pipe:
+    path: "./build/*/*"
+    type: mono

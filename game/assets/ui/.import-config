@@ -1,6 +1,7 @@
 preprocessing:
-  - execute: "pnpm build"
+  execute: "pnpm build"
 
 pipes:
-  - path: "./dist/*/*"
-    pipe: default
+  pipe:
+    path: "./dist/*/*"
+    type: default
