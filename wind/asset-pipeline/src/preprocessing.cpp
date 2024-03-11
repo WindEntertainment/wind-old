@@ -1,10 +1,4 @@
 #include "asset-pipeline/asset-pipeline.h"
-#include <cstdlib>
-#include <exception>
-#include <filesystem>
-#include <sstream>
-#include <yaml-cpp/node/node.h>
-#include <yaml-cpp/node/parse.h>
 
 namespace wind {
 namespace asset_pipeline {
@@ -24,9 +18,9 @@ void AssetPipeline::build(const fs::path& _path) {
   for (const auto& entry : it) {
     if (entry.is_directory())
       continue;
-    spdlog::info("{}, {}, {}", entry.path().filename().string(), entry.path().filename().extension().string(), entry.path().filename().extension().compare("import-config"));
 
-    if (entry.path().filename().extension().string().compare(".import-config") != 0)
+    if (entry.path().filename().string().compare(".import-config") != 0 &&
+        entry.path().filename().extension().string().compare(".import-config") != 0)
       continue;
 
     try {
@@ -34,24 +28,40 @@ void AssetPipeline::build(const fs::path& _path) {
       if (auto options = config["preprocessing"])
         preprocessing(entry.path(), options);
     } catch (std::exception& ex) {
-      spdlog::error("Failed preprocessing with import-config: {}. Why: {}", entry.path().string(), ex.what());
+      spdlog::error("Failed preprocessing with import-config: {}: {}", entry.path().string(), ex.what());
       return;
     }
   }
 }
 
 void AssetPipeline::preprocessing(const fs::path& _path, YAML::Node& _options) {
-  for (auto option : _options)
-    if (option.first.as<std::string>().compare("execute")) {
+  if (!_options.IsMap()) {
+    yamlError("Failed parsing '{}': preprocessing options must be map.", _options, _path.string());
+    return;
+  }
+
+  for (auto option : _options) {
+    if (!option.first.IsScalar() || !option.second.IsScalar()) {
+      yamlError("Failed parsing '{}': preprocessing option must be scalar type.", _options, _path.string());
+      continue;
+    }
+
+    auto preprocessing_step = option.first.as<std::string>();
+    if (preprocessing_step.compare("execute")) {
       std::stringstream ss;
       ss << _path << "/" << option.second.as<std::string>();
       try {
-        system(ss.str().c_str());
+        auto command = ss.str();
+        spdlog::info("Execute: {}", command);
+        system(command.c_str());
       } catch (std::exception& ex) {
-        spdlog::error("Failed execute shell command '{}' for preprocessing: {}", ss.str().c_str(), ex.what());
+        yamlError("Failed execute shell command '{}' for preprocessing: {}", _options, ss.str().c_str(), ex.what());
         return;
       }
+    } else {
+      yamlWarn("When parsing '{}' ignoring unknown option: '{}'", option, _path.string(), preprocessing_step);
     }
+  }
 }
 
 } // namespace asset_pipeline
