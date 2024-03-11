@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "naumovs.color-highlight",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "Gruntfuggly.todo-tree",
+    "SimonSiefke.svg-preview",
+    "dbaeumer.vscode-eslint",
+    "streetsidesoftware.code-spell-checker",
+    "lokalise.i18n-ally"
+  ]
+}
