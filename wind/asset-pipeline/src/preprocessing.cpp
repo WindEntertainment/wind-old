@@ -50,12 +50,14 @@ void AssetPipeline::preprocessing(const fs::path& _path, YAML::Node& _options) {
     if (preprocessing_step.compare("execute")) {
       std::stringstream ss;
       ss << _path << "/" << option.second.as<std::string>();
+
+      auto command = ss.str();
+      spdlog::info("Execute: {}", command);
+
       try {
-        auto command = ss.str();
-        spdlog::info("Execute: {}", command);
         system(command.c_str());
       } catch (std::exception& ex) {
-        yamlError("Failed execute shell command '{}' for preprocessing: {}", _options, ss.str().c_str(), ex.what());
+        yamlError("Failed execute shell command '{}' for preprocessing: {}", _options, command.c_str(), ex.what());
         return;
       }
     } else {
