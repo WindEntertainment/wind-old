@@ -68,17 +68,29 @@ void AssetPipeline::compileDirectory(const fs::path& _source,
 
   const fs::path sourceParentPath = _source.parent_path().parent_path();
 
-  fs::recursive_directory_iterator it;
+  fs::directory_iterator it;
   try {
-    it = createRecursiveIterator(_source);
-  } catch (std::invalid_argument& ex) {
-    spdlog::error(ex.what());
+    it = fs::directory_iterator(_source);
+  } catch (std::exception& ex) {
+    spdlog::error("Cannot create directory iterator: {}", ex.what());
     return;
   }
 
   Stopwatch sw("Compiled");
+
+  auto importConfig = _source / ".import-config";
+  if (fs::exists(importConfig))
+    try {
+      auto config = YAML::LoadFile(importConfig);
+      if (auto options = config["preprocessing"])
+        preprocessing(importConfig, options);
+    } catch (std::exception& ex) {
+      spdlog::error("Failed preprocessing with import-config: {}: {}", importConfig.string(), ex.what());
+      return;
+    }
+
   for (const auto& entry : it) {
-    if (entry.is_directory() || entry.path().filename() == ".import-config")
+    if (entry.is_directory() || entry.path().filename() == ".import-config" || entry.path().filename().extension() == ".import-config")
       continue;
 
     compileFile(fs::relative(entry, sourceParentPath),
