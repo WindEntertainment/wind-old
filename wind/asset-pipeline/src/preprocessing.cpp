@@ -47,9 +47,9 @@ void AssetPipeline::preprocessing(const fs::path& _path, YAML::Node& _options) {
     }
 
     auto preprocessing_step = option.first.as<std::string>();
-    if (preprocessing_step.compare("execute")) {
+    if (preprocessing_step.compare("execute") == 0) {
       std::stringstream ss;
-      ss << _path << "/" << option.second.as<std::string>();
+      ss << "cd " << _path.parent_path() << " && " << option.second.as<std::string>();
 
       auto command = ss.str();
       spdlog::info("Execute: {}", command);
@@ -57,11 +57,11 @@ void AssetPipeline::preprocessing(const fs::path& _path, YAML::Node& _options) {
       try {
         system(command.c_str());
       } catch (std::exception& ex) {
-        yamlError("Failed execute shell command '{}' for preprocessing: {}", _options, command.c_str(), ex.what());
+        yamlError("Failed execute shell command '{}' for preprocessing: {}", option.second, command.c_str(), ex.what());
         return;
       }
     } else {
-      yamlWarn("When parsing '{}' ignoring unknown option: '{}'", option, _path.string(), preprocessing_step);
+      yamlWarn("When parsing '{}' ignoring unknown option: '{}'", option.first, _path.string(), preprocessing_step);
     }
   }
 }
