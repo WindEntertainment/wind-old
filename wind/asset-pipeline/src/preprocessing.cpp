@@ -6,32 +6,7 @@ namespace asset_pipeline {
 void AssetPipeline::build(const fs::path& _path) {
   spdlog::info("===========================");
   spdlog::info("Start build directory {}", _path.string());
-
-  fs::recursive_directory_iterator it;
-  try {
-    it = createRecursiveIterator(_path);
-  } catch (std::invalid_argument& ex) {
-    spdlog::error(ex.what());
-    return;
-  }
-
-  for (const auto& entry : it) {
-    if (entry.is_directory())
-      continue;
-
-    if (entry.path().filename().string().compare(".import-config") != 0 &&
-        entry.path().filename().extension().string().compare(".import-config") != 0)
-      continue;
-
-    try {
-      auto config = YAML::LoadFile(entry.path());
-      if (auto options = config["preprocessing"])
-        preprocessing(entry.path(), options);
-    } catch (std::exception& ex) {
-      spdlog::error("Failed preprocessing with import-config: {}: {}", entry.path().string(), ex.what());
-      return;
-    }
-  }
+  compileDirectory(".", _path);
 }
 
 void AssetPipeline::preprocessing(const fs::path& _path, YAML::Node& _options) {
