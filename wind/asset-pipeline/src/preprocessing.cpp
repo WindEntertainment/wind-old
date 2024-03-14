@@ -1,4 +1,5 @@
 #include "asset-pipeline/asset-pipeline.h"
+#include <filesystem>
 
 namespace wind {
 namespace asset_pipeline {
@@ -6,7 +7,7 @@ namespace asset_pipeline {
 void AssetPipeline::build(const fs::path& _path) {
   spdlog::info("===========================");
   spdlog::info("Start build directory {}", _path.string());
-  compileDirectory(".", _path);
+  compileDirectory(fs::current_path(), _path);
 }
 
 void AssetPipeline::preprocessing(const fs::path& _path, YAML::Node& _options) {

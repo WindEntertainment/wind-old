@@ -14,6 +14,7 @@ int main() {
     self->vSync = false;
   });
 
+
   Ultralight::init();
   const auto uiTexture = Ultralight::loadView("UI/dist/index.html", {800, 600});
 
