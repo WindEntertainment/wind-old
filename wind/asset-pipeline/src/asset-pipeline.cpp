@@ -1,4 +1,6 @@
 #include <fmt/core.h>
+#include <functional>
+#include <regex>
 #include <spdlog/spdlog.h>
 #include <yaml-cpp/exceptions.h>
 #include <yaml-cpp/node/node.h>
@@ -68,34 +70,86 @@ void AssetPipeline::compileDirectory(const fs::path& _source,
 
   const fs::path sourceParentPath = _source.parent_path().parent_path();
 
-  fs::directory_iterator it;
-  try {
-    it = fs::directory_iterator(_source);
-  } catch (std::exception& ex) {
-    spdlog::error("Cannot create directory iterator: {}", ex.what());
-    return;
-  }
+  std::function<void(const fs::path&)> processDirectory = [&](const fs::path& _path) {
+    auto configPath = _path / ".export-config";
+    if (!fs::exists(configPath))
+      return;
 
-  Stopwatch sw("Compiled");
-
-  auto importConfig = _source / ".import-config";
-  if (fs::exists(importConfig))
+    YAML::Node config;
     try {
-      auto config = YAML::LoadFile(importConfig);
-      if (auto options = config["preprocessing"])
-        preprocessing(importConfig, options);
+      config = YAML::LoadFile(configPath);
+      spdlog::info("Start processing directory: '{}'", _path.string());
     } catch (std::exception& ex) {
-      spdlog::error("Failed preprocessing with import-config: {}: {}", importConfig.string(), ex.what());
+      spdlog::error("Failed open export config: {}", _path.string());
       return;
     }
 
-  for (const auto& entry : it) {
-    if (entry.is_directory() || entry.path().filename() == ".import-config" || entry.path().filename().extension() == ".import-config")
-      continue;
+    fs::directory_iterator it;
+    try {
+      it = fs::directory_iterator(_path);
+    } catch (std::exception& ex) {
+      spdlog::error("Cannot create directory iterator: {}", ex.what());
+      return;
+    }
 
-    compileFile(fs::relative(entry, sourceParentPath),
-                _destination / fs::relative(entry, sourceParentPath));
-  }
+    try {
+      spdlog::info("Run preprocessing commands...");
+      if (auto options = config["preprocessing"])
+        preprocessing(configPath, options);
+    } catch (std::exception& ex) {
+      spdlog::error("Failed preprocessing with export-config: {}: {}", configPath.string(), ex.what());
+      return;
+    }
+
+    try {
+      spdlog::info("Run compiling process...");
+      if (auto options = config["exports"])
+        for (const auto& entry : it) {
+          if (entry.is_directory() || entry.path().filename() == ".export-config" || entry.path().filename().extension() == ".export-config")
+            continue;
+
+          bool isMatch = false;
+          for (const auto option : config["exports"]) {
+            if (std::regex_match(entry.path().lexically_relative(_path).string(), std::regex(option.as<std::string>()))) {
+              isMatch = true;
+              break;
+            }
+          }
+
+          if (isMatch)
+            compileFile(fs::relative(entry, sourceParentPath),
+                        _destination / fs::relative(entry, sourceParentPath));
+        }
+    } catch (std::exception& ex) {
+      spdlog::error("Failed compiling directory: {}", ex.what());
+      return;
+    }
+
+    try {
+      it = fs::directory_iterator(_path);
+    } catch (std::exception& ex) {
+      spdlog::error("Cannot create directory iterator: {}", ex.what());
+      return;
+    }
+
+    try {
+      spdlog::info("Run compiling child directories...");
+      if (auto options = config["exports"]) {
+        for (const auto& entry : it) {
+          if (!entry.is_directory())
+            continue;
+
+          processDirectory(entry.path());
+        }
+      }
+    } catch (std::exception& ex) {
+      spdlog::error("Failed compiling child directories: {}", ex.what());
+      return;
+    }
+  };
+
+  Stopwatch sw("Compiled");
+  processDirectory(_source);
 }
 
 void AssetPipeline::clearUnusedCache(const fs::path& _source,
