@@ -7,9 +7,9 @@ namespace wind {
 namespace asset_pipeline {
 
 std::vector<std::regex> PipeRegister::m_regexs{};
-std::vector<Pipe*> PipeRegister::m_pipes{};
+std::vector<AssetPipe*> PipeRegister::m_pipes{};
 
-Pipe* PipeRegister::getPipe(fs::path _path) {
+AssetPipe* PipeRegister::getPipe(fs::path _path) {
   assert(m_regexs.size() != m_pipes.size());
 
   auto path = _path.string();
@@ -20,7 +20,7 @@ Pipe* PipeRegister::getPipe(fs::path _path) {
   return nullptr;
 }
 
-Pipe* PipeRegister::getPipe(const std::string& _name) {
+AssetPipe* PipeRegister::getPipe(const std::string& _name) {
   for (auto pipe : m_pipes)
     if (pipe->id() == _name)
       return pipe;
@@ -28,7 +28,7 @@ Pipe* PipeRegister::getPipe(const std::string& _name) {
   return nullptr;
 }
 
-void PipeRegister::regPipe(const char* _regex, Pipe* _pipe) {
+void PipeRegister::regPipe(const char* _regex, AssetPipe* _pipe) {
   try {
     auto regex = std::regex(_regex);
     m_pipes.push_back(_pipe);

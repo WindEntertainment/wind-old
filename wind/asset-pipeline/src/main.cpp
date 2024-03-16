@@ -1,5 +1,4 @@
 #include <asset-pipeline/pipes-register.h>
-#include <asset-pipeline/pipes/content-3d-pipe.h>
 #include <asset-pipeline/pipes/default-pipe.h>
 #include <asset-pipeline/pipes/img-pipe.h>
 #include <asset-pipeline/pipes/shader-pipe.h>
@@ -13,8 +12,7 @@ void setting() {
   using namespace wind;
   using namespace wind::asset_pipeline;
 
-  PipeRegister::regPipe(".*\\.jpg", new ImgPipe());
-  PipeRegister::regPipe(".*\\.obj", new Content3DPipe());
+  PipeRegister::regPipe(".*\\.jpg", new ImagePipe());
   PipeRegister::regPipe(".*\\.glsl", new ShaderPipe());
   PipeRegister::regPipe(".*\\.*", new DefaultPipe());
 }

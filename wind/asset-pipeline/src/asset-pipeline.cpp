@@ -1,18 +1,3 @@
-#include <fmt/core.h>
-#include <functional>
-#include <regex>
-#include <spdlog/spdlog.h>
-#include <string>
-#include <yaml-cpp/mark.h>
-#include <yaml-cpp/node/node.h>
-#include <yaml-cpp/yaml.h>
-
-#include <exception>
-#include <filesystem>
-#include <fstream>
-#include <ios>
-#include <stdexcept>
-
 #include "asset-pipeline/pipe.h"
 #include "asset-pipeline/pipes-register.h"
 
@@ -21,7 +6,7 @@ namespace asset_pipeline {
 
 void AssetPipeline::compileFile(const fs::path& _source,
                                 const fs::path& _destination,
-                                Pipe* _pipe) {
+                                AssetPipe* _pipe) {
   spdlog::info("Compile file: {}", _source.string());
 
   if (!fs::exists(_source)) {
@@ -142,7 +127,7 @@ void AssetPipeline::compileDirectory(const fs::path& _source,
           if (exportNode.IsNull())
             continue;
 
-          Pipe* pipe = nullptr;
+          AssetPipe* pipe = nullptr;
           if (exportNode["pipe"]) {
             pipe = PipeRegister::getPipe(exportNode["pipe"].as<std::string>());
             pipe->config(exportNode);
