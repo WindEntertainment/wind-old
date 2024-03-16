@@ -1,0 +1,6 @@
+preprocessing:
+  execute: "pnpm build"
+
+exports:
+  - path: "(dist).*"
+    pipe: default

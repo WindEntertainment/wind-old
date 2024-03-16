@@ -88,9 +88,9 @@ void AssetPipeline::compileDirectory(const fs::path& _source,
       return;
     }
 
-    fs::directory_iterator it;
+    fs::recursive_directory_iterator it;
     try {
-      it = fs::directory_iterator(_path);
+      it = fs::recursive_directory_iterator(_path);
     } catch (std::exception& ex) {
       spdlog::error("Cannot create directory iterator: {}", ex.what());
       return;
@@ -158,7 +158,7 @@ void AssetPipeline::compileDirectory(const fs::path& _source,
     }
 
     try {
-      it = fs::directory_iterator(_path);
+      it = fs::recursive_directory_iterator(_path);
     } catch (std::exception& ex) {
       spdlog::error("Cannot create directory iterator: {}", ex.what());
       return;
