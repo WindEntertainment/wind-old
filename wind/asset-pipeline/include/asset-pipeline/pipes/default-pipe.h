@@ -1,15 +1,15 @@
 #pragma once
-#include <asset-pipeline/pipe.h>
+#include "pipe.h"
 
 namespace wind {
 namespace asset_pipeline {
 
-class DefaultPipe : public Pipe {
+class DefaultPipe : public AssetPipe {
 public:
   virtual void compile(const fs::path& source, const fs::path& destination) override;
 
   DefaultPipe()
-      : Pipe("default"){};
+      : AssetPipe("default"){};
 };
 
 } // namespace asset_pipeline

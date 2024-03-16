@@ -8,7 +8,7 @@
 namespace wind {
 namespace asset_pipeline {
 
-void ImgPipe::compile(const fs::path& _source, const fs::path& _destination) {
+void ImagePipe::compile(const fs::path& _source, const fs::path& _destination) {
   int width, height, channels;
 
   unsigned char* image =

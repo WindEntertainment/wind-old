@@ -1,15 +1,17 @@
-#include <asset-pipeline/pipe.h>
+#pragma once
+#include "asset-pipeline/pipes/pipe.h"
+#include "pipe.h"
 
 namespace wind {
 namespace asset_pipeline {
 
-class ImgPipe : public Pipe {
+class ImagePipe : public AssetPipe {
 public:
   void compile(const fs::path& _source,
                const fs::path& _destination) override;
 
-  ImgPipe()
-      : Pipe("image"){};
+  ImagePipe()
+      : AssetPipe("image"){};
 };
 
 } // namespace asset_pipeline
