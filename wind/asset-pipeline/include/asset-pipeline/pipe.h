@@ -15,7 +15,7 @@ private:
 protected:
   const char* m_id;
 
-  virtual void config(YAML::Node&& config){};
+  virtual void config(YAML::Node& config){};
 
 public:
   virtual void compile(const fs::path& _source, const fs::path& _destination) = 0;

@@ -20,6 +20,14 @@ Pipe* PipeRegister::getPipe(fs::path _path) {
   return nullptr;
 }
 
+Pipe* PipeRegister::getPipe(const std::string& _name) {
+  for (auto pipe : m_pipes)
+    if (pipe->id() == _name)
+      return pipe;
+
+  return nullptr;
+}
+
 void PipeRegister::regPipe(const char* _regex, Pipe* _pipe) {
   try {
     auto regex = std::regex(_regex);

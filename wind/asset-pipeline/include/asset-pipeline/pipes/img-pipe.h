@@ -9,7 +9,7 @@ public:
                const fs::path& _destination) override;
 
   ImgPipe()
-      : Pipe("img"){};
+      : Pipe("image"){};
 };
 
 } // namespace asset_pipeline

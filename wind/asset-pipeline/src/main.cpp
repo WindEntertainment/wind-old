@@ -82,7 +82,7 @@ int main(int argc, char** argv) {
       if (useLink)
         pipeline.linkDirectory(destination, output);
     } else {
-      pipeline.compileFile(source, output);
+      pipeline.compileFile(source, output, nullptr);
     }
   }
 

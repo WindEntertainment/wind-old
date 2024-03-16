@@ -14,7 +14,7 @@ public:
       : Pipe("3d"){};
 
 protected:
-  void config(YAML::Node&& config) override;
+  void config(YAML::Node& config) override;
 
 private:
   Assimp::Importer importer;
