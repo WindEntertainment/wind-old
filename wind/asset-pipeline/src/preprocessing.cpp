@@ -7,7 +7,10 @@ namespace asset_pipeline {
 void AssetPipeline::build(const fs::path& _path) {
   spdlog::info("===========================");
   spdlog::info("Start build directory {}", _path.string());
+
+  clearUnusedCache(fs::current_path(), _path);
   compileDirectory(fs::current_path(), _path);
+  linkDirectory(_path, "../assets.bundle");
 }
 
 void AssetPipeline::preprocessing(const fs::path& _path, YAML::Node& _options) {
