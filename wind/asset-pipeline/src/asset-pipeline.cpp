@@ -88,20 +88,20 @@ void AssetPipeline::compileDirectory(const fs::path& _source,
       return;
     }
 
-    fs::recursive_directory_iterator it;
-    try {
-      it = fs::recursive_directory_iterator(_path);
-    } catch (std::exception& ex) {
-      spdlog::error("Cannot create directory iterator: {}", ex.what());
-      return;
-    }
-
     try {
       spdlog::info("Run preprocessing commands...");
       if (auto options = config["preprocessing"])
         preprocessing(configPath, options);
     } catch (std::exception& ex) {
       spdlog::error("Failed preprocessing with export-config: {}: {}", configPath.string(), ex.what());
+      return;
+    }
+
+    fs::recursive_directory_iterator it;
+    try {
+      it = fs::recursive_directory_iterator(_path);
+    } catch (std::exception& ex) {
+      spdlog::error("Cannot create directory iterator: {}", ex.what());
       return;
     }
 
