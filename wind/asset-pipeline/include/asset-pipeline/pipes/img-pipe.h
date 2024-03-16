@@ -9,6 +9,7 @@ class ImagePipe : public AssetPipe {
 public:
   void compile(const fs::path& _source,
                const fs::path& _destination) override;
+  Asset* load(const uint* bytes) override;
 
   ImagePipe()
       : AssetPipe("image"){};

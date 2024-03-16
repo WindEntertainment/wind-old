@@ -13,11 +13,12 @@ class AssetPipe {
 protected:
   const char* m_id;
 
+public:
   virtual void config(YAML::Node& config){};
+
   virtual void compile(const fs::path& _source, const fs::path& _destination) = 0;
   virtual Asset* load(const uint* bytes) = 0;
 
-public:
   const char* id() const {
     return m_id;
   }
