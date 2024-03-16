@@ -8,7 +8,6 @@ set(SOURCES
 
     # pipes 
     ./src/pipes/default-pipe.cpp
-    ./src/pipes/content-3d-pipe.cpp
     ./src/pipes/img-pipe.cpp
     ./src/pipes/shader-pipe.cpp
 )
@@ -17,13 +16,15 @@ set(HEADERS
     ./include/asset-pipeline/asset-pipeline.h
     ./include/asset-pipeline/pipes-register.h
 
-    ./include/asset-pipeline/pipe.h
-
     # pipes 
+    ./include/asset-pipeline/pipes/pipe.h
     ./include/asset-pipeline/pipes/default-pipe.h
-    ./include/asset-pipeline/pipes/content-3d-pipe.h
     ./include/asset-pipeline/pipes/img-pipe.h
     ./include/asset-pipeline/pipes/shader-pipe.h
+
+    # assets
+    ./include/asset-pipeline/assets/asset.h
+    ./include/asset-pipeline/assets/default.h
 
 )
 

@@ -1,5 +1,5 @@
-#include "asset-pipeline/pipe.h"
 #include "asset-pipeline/pipes-register.h"
+#include "asset-pipeline/pipes/pipe.h"
 
 namespace wind {
 namespace asset_pipeline {
