@@ -84,7 +84,7 @@ static std::map<std::string, int> c_aiFlags = {
     {"aiProcess_FlipUVs", aiProcess_FlipUVs},
     {"aiProcess_CalcTangentSpace", aiProcess_CalcTangentSpace}};
 
-void Content3DPipe::config(YAML::Node&& _config) {
+void Content3DPipe::config(YAML::Node& _config) {
   auto flags = _config["flags"];
 
   if (!flags || !flags.IsSequence())

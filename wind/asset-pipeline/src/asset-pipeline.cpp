@@ -2,9 +2,9 @@
 #include <functional>
 #include <regex>
 #include <spdlog/spdlog.h>
-#include <yaml-cpp/exceptions.h>
+#include <string>
+#include <yaml-cpp/mark.h>
 #include <yaml-cpp/node/node.h>
-#include <yaml-cpp/node/parse.h>
 #include <yaml-cpp/yaml.h>
 
 #include <exception>
@@ -13,13 +13,15 @@
 #include <ios>
 #include <stdexcept>
 
+#include "asset-pipeline/pipe.h"
 #include "asset-pipeline/pipes-register.h"
 
 namespace wind {
 namespace asset_pipeline {
 
 void AssetPipeline::compileFile(const fs::path& _source,
-                                const fs::path& _destination) {
+                                const fs::path& _destination,
+                                Pipe* _pipe) {
   spdlog::info("Compile file: {}", _source.string());
 
   if (!fs::exists(_source)) {
@@ -36,8 +38,11 @@ void AssetPipeline::compileFile(const fs::path& _source,
     return;
   }
 
-  Pipe* pipe = PipeRegister::getPipe(_source);
-  if (!pipe) {
+  if (!_pipe) {
+    _pipe = PipeRegister::getPipe(_source);
+    //_pipe->config(std::move(findConfigForPath(_source.relative_path())));
+  }
+  if (!_pipe) {
     spdlog::error("Cannot find pipe for compile asset by path {}",
                   _source.string());
     return;
@@ -55,8 +60,7 @@ void AssetPipeline::compileFile(const fs::path& _source,
         fs::last_write_time(_source) <= fs::last_write_time(destination))
       return;
 
-    pipe->config(findConfigForPath(_source.relative_path()));
-    pipe->compile(_source, destination);
+    _pipe->compile(_source, destination);
   } catch (std::exception& ex) {
     spdlog::error("Failed compile file by path {}: {}", _source.string(), ex.what());
     return;
@@ -68,7 +72,7 @@ void AssetPipeline::compileDirectory(const fs::path& _source,
   spdlog::info("===========================");
   spdlog::info("Start compiling directory {}", _source.string());
 
-  const fs::path sourceParentPath = _source.parent_path().parent_path();
+  const fs::path sourceParentPath = _source.parent_path();
 
   std::function<void(const fs::path&)> processDirectory = [&](const fs::path& _path) {
     auto configPath = _path / ".export-config";
@@ -108,20 +112,48 @@ void AssetPipeline::compileDirectory(const fs::path& _source,
           if (entry.is_directory() || entry.path().filename() == ".export-config" || entry.path().filename().extension() == ".export-config")
             continue;
 
-          bool isMatch = false;
-          for (const auto option : config["exports"]) {
-            if (std::regex_match(entry.path().lexically_relative(_path).string(), std::regex(option.as<std::string>()))) {
-              isMatch = true;
+          YAML::Node exportNode;
+          for (auto option : config["exports"]) {
+            auto exportPath = option["path"];
+            if (!exportPath) {
+              spdlog::error("Export elements must have path option: {}", _path.string());
+              continue;
+            }
+
+            if (!exportPath.IsScalar()) {
+              spdlog::error("Export path must be string type: {}", _path.string());
+              continue;
+            }
+
+            std::regex regex;
+            try {
+              regex = std::regex(exportPath.as<std::string>());
+            } catch (std::regex_error& ex) {
+              spdlog::error("Invalid regex expression in path option {}:\n {}", _path.string(), ex.what());
+              continue;
+            }
+
+            if (std::regex_match(entry.path().lexically_relative(_path).string(), regex)) {
+              exportNode = option.as<YAML::Node>();
               break;
             }
           }
 
-          if (isMatch)
-            compileFile(fs::relative(entry, sourceParentPath),
-                        _destination / fs::relative(entry, sourceParentPath));
+          if (exportNode.IsNull())
+            continue;
+
+          Pipe* pipe = nullptr;
+          if (exportNode["pipe"]) {
+            pipe = PipeRegister::getPipe(exportNode["pipe"].as<std::string>());
+            pipe->config(exportNode);
+          }
+
+          compileFile(fs::relative(entry, _source),
+                      _destination / fs::relative(entry, sourceParentPath),
+                      pipe);
         }
     } catch (std::exception& ex) {
-      spdlog::error("Failed compiling directory: {}", ex.what());
+      spdlog::error("Failed compiling directory {}: {}", _path.string(), ex.what());
       return;
     }
 
@@ -139,7 +171,35 @@ void AssetPipeline::compileDirectory(const fs::path& _source,
           if (!entry.is_directory())
             continue;
 
-          processDirectory(entry.path());
+          bool isMatch = false;
+          for (auto option : config["exports"]) {
+            auto exportPath = option["path"];
+            if (!exportPath) {
+              spdlog::error("Export elements must have path option: {}", _path.string());
+              continue;
+            }
+
+            if (!exportPath.IsScalar()) {
+              spdlog::error("Export path must be string type: {}", _path.string());
+              continue;
+            }
+
+            std::regex regex;
+            try {
+              regex = std::regex(exportPath.as<std::string>());
+            } catch (std::regex_error& ex) {
+              spdlog::error("Invalid regex expression in path option {}:\n {}", _path.string(), ex.what());
+              continue;
+            }
+
+            if (std::regex_match(entry.path().lexically_relative(_path).string(), regex)) {
+              isMatch = true;
+              break;
+            }
+          }
+
+          if (isMatch)
+            processDirectory(entry.path());
         }
       }
     } catch (std::exception& ex) {
@@ -152,8 +212,7 @@ void AssetPipeline::compileDirectory(const fs::path& _source,
   processDirectory(_source);
 }
 
-void AssetPipeline::clearUnusedCache(const fs::path& _source,
-                                     const fs::path& _cache) {
+void AssetPipeline::clearUnusedCache(const fs::path& _source, const fs::path& _cache) {
   fs::recursive_directory_iterator cache_it;
   try {
     cache_it = createRecursiveIterator(_cache);

@@ -9,7 +9,7 @@ public:
   virtual void compile(const fs::path& source, const fs::path& destination) override;
 
   DefaultPipe()
-      : Pipe("deflt"){};
+      : Pipe("default"){};
 };
 
 } // namespace asset_pipeline

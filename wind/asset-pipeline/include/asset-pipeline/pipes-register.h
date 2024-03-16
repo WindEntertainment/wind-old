@@ -14,10 +14,11 @@ private:
   static std::vector<std::regex> m_regexs;
   static std::vector<Pipe*> m_pipes;
 
-  static Pipe* getPipe(fs::path _path);
+  static Pipe* getPipe(fs::path path);
+  static Pipe* getPipe(const std::string& name);
 
 public:
-  static void regPipe(const char* _regex, Pipe* _pipe);
+  static void regPipe(const char* regex, Pipe* pipe);
 };
 
 } // namespace asset_pipeline
