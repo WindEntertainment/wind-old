@@ -12,7 +12,7 @@
 namespace wind {
 namespace asset_pipeline {
 
-using asset_id = unsigned long;
+using asset_id = unsigned int;
 
 class AssetPipeline {
 public:
