@@ -12,8 +12,6 @@
 namespace wind {
 namespace asset_pipeline {
 
-using asset_id = unsigned int;
-
 class AssetPipeline {
 public:
   void linkDirectory(const fs::path& source, const fs::path& destination);
