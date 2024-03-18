@@ -1,3 +1,4 @@
+#include <asset-pipeline/asset-manager.h>
 #include <renderer/particle.h>
 #include <renderer/renderer.h>
 #include <utils/utils.h>
@@ -5,7 +6,13 @@
 #include <window/window.h>
 
 int main() {
+#ifndef NDEBUG
+  spdlog::info("----Debug configuration!----");
+#endif
+
   using namespace wind;
+
+  AssetManager::loadBundle("assets.bundle");
 
   Window::init([](Window::Config* self) {
     self->title = "Game";
@@ -13,7 +20,6 @@ int main() {
     self->size = {800, 600};
     self->vSync = false;
   });
-
 
   Ultralight::init();
   const auto uiTexture = Ultralight::loadView("UI/dist/index.html", {800, 600});

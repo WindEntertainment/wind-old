@@ -1,6 +1,6 @@
 project(wind-asset)
 
-set(SOURCES
+set(SOURCES_PIPELINE
     ./src/main.cpp
     ./src/asset-pipeline.cpp
     ./src/pipes-register.cpp
@@ -10,11 +10,9 @@ set(SOURCES
     ./src/pipes/default-pipe.cpp
     ./src/pipes/img-pipe.cpp
     ./src/pipes/shader-pipe.cpp
-
-    ./src/asset-manager.cpp
 )
 
-set(HEADERS
+set(HEADERS_PIPELINE
     ./include/asset-pipeline/asset-pipeline.h
     ./include/asset-pipeline/pipes-register.h
 
@@ -31,8 +29,23 @@ set(HEADERS
 
 )
 
-add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
+add_executable(${PROJECT_NAME} ${HEADERS_PIPELINE} ${SOURCES_PIPELINE})
 install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
+
+set(SOURCES_MANAGER
+    ./src/asset-manager.cpp
+)
+
+set(HEADERS_MANAGER
+    ./include/asset-pipeline/asset-manager.h
+)
+
+add_library(wind-asset-manager ${SOURCES_MANAGER} ${HEADERS_MANAGER})
+target_include_directories(wind-asset-manager PUBLIC ./include/)
+
+find_package(spdlog REQUIRED)
+target_link_libraries(wind-asset-manager PUBLIC spdlog::spdlog)
+target_link_libraries(wind-asset-manager PUBLIC wind-core)
 
 # includes
 target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
