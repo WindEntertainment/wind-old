@@ -12,5 +12,13 @@
         "source.fixAll": "explicit"
     },
     "editor.formatOnSave": true,
-    "editor.formatOnType": false
+    "editor.formatOnType": false,
+    "files.associations": {
+        "*.prefab": "xml",
+        "*.uss": "scss",
+        ".import-config": "yaml",
+        "*.import": "yaml",
+        "*.import-config": "yaml",
+        "*.tcc": "cpp"
+    }
 }

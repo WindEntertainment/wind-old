@@ -18,7 +18,19 @@ class AssetManager {
       m_file.seekg(0, std::ios::beg);
 
       asset_id header_size;
-      header_size = m_file.read(header_size, sizeof(asset_id));
+      m_file.read(reinterpret_cast<char*>(&header_size), sizeof(asset_id));
+
+      asset_id count = (header_size - sizeof(asset_id)) / (2 * sizeof(asset_id));
+
+      for (asset_id i = 0; i < count; ++i) {
+        asset_id id;
+        asset_id offset;
+
+        m_file.read(reinterpret_cast<char*>(&id), sizeof(asset_id));
+        m_file.read(reinterpret_cast<char*>(&offset), sizeof(asset_id));
+
+        m_assets.insert(std::make_pair(id, offset));
+      }
     }
 
     ~Bundle() {

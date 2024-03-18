@@ -218,6 +218,9 @@ void AssetPipeline::clearUnusedCache(const fs::path& _source, const fs::path& _c
       continue;
 
     fs::path sourceFile = "./" / fs::relative(entry, _cache);
+    if (!sourceFile.has_extension("obj"))
+      return;
+
     sourceFile.replace_extension();
 
     if (fs::exists(sourceFile))
