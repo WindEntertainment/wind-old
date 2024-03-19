@@ -47,6 +47,9 @@ find_package(spdlog REQUIRED)
 target_link_libraries(wind-asset-manager PUBLIC spdlog::spdlog)
 target_link_libraries(wind-asset-manager PUBLIC wind-core)
 
+find_package(yaml-cpp REQUIRED)
+target_link_libraries(wind-asset-manager PUBLIC yaml-cpp::yaml-cpp)
+
 # includes
 target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
 

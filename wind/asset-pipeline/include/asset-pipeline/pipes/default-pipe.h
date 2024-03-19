@@ -8,7 +8,7 @@ namespace asset_pipeline {
 class DefaultPipe : public AssetPipe {
 public:
   virtual void compile(const fs::path& source, const fs::path& destination) override;
-  virtual Asset* load(const uint* bytes) override;
+  virtual Asset* load(unsigned char* bytes) override;
 
   DefaultPipe()
       : AssetPipe("default"){};

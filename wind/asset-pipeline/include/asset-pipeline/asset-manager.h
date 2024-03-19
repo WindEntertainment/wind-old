@@ -1,4 +1,5 @@
 #include "asset-pipeline/assets/asset.h"
+#include "pipes-register.h"
 #include <fstream>
 #include <spdlog/spdlog.h>
 #include <utils/utils.h>
@@ -10,11 +11,14 @@ class AssetManager {
   private:
     std::ifstream m_file;
     std::map<asset_id, asset_id> m_assets;
+    asset_id m_fileSize;
 
   public:
     Bundle(std::ifstream&& _file)
         : m_file(std::move(_file)) {
 
+      m_file.seekg(0, std::ios::end);
+      m_fileSize = m_file.tellg();
       m_file.seekg(0, std::ios::beg);
 
       asset_id header_size;
@@ -36,12 +40,59 @@ class AssetManager {
     ~Bundle() {
       m_file.close();
     }
+
+    bool tryGetOffsetById(asset_id _id, asset_id& _offset, asset_id& _end) {
+      if (!m_assets.contains(_id))
+        return false;
+
+      _offset = m_assets[_id];
+
+      if (_id + 1 < m_assets.size())
+        _end = m_assets[_id + 1];
+      else
+        _end = m_fileSize;
+
+      return true;
+    }
+
+    unsigned char* readBytes(asset_id offset, asset_id size) {
+      if (size > m_fileSize)
+        return nullptr;
+
+      try {
+        unsigned char* bytes = new unsigned char[size];
+
+        m_file.seekg(offset);
+        m_file.read(reinterpret_cast<char*>(&bytes), size);
+
+        return bytes;
+      } catch (std::exception& ex) {
+        spdlog::error("Fail readBytes from bundle. Offest: {}, Size: {}", offset, size);
+        return nullptr;
+      }
+    }
   };
 
 private:
   static std::map<const char*, Bundle*> m_bundles;
+  static std::hash<std::string> hasher;
 
   static Asset* loadAsset(const char* _name, Bundle* _bundle) {
+    asset_id id = hasher(_name);
+    asset_id begin, end;
+
+    if (!_bundle->tryGetOffsetById(id, begin, end))
+      return nullptr;
+
+    Asset* asset = nullptr;
+    if (auto bytes = _bundle->readBytes(begin, end - begin)) {
+      AssetPipe* pipe = asset_pipeline::PipeRegister::getPipe(std::string(_name));
+      asset = pipe->load(bytes);
+
+      delete[] bytes;
+    }
+
+    return asset;
   }
 
 public:
