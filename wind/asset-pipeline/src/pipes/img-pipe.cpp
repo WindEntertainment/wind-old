@@ -46,7 +46,7 @@ void ImagePipe::compile(const fs::path& _source, const fs::path& _destination) {
   output.close();
 }
 
-Asset* ImagePipe::load(const uint* bytes) {
+Asset* ImagePipe::load(unsigned char* bytes) {
   return nullptr;
 }
 

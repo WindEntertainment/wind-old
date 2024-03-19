@@ -17,7 +17,7 @@ public:
   virtual void config(YAML::Node& config){};
 
   virtual void compile(const fs::path& _source, const fs::path& _destination) = 0;
-  virtual Asset* load(const uint* bytes) = 0;
+  virtual Asset* load(unsigned char* bytes) = 0;
 
   const char* id() const {
     return m_id;
