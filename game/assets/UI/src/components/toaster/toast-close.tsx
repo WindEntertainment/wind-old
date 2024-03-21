@@ -1,6 +1,6 @@
 "use client";
 
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Close } from "@radix-ui/react-toast";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";

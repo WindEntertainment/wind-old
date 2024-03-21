@@ -1,6 +1,6 @@
 "use client";
-import { tw } from "@/tailwind";
 import { Overlay } from "@radix-ui/react-dialog";
+import { tw } from "@/tw";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
 export const DialogOverlay = forwardRef<ElementRef<typeof Overlay>, ComponentPropsWithoutRef<typeof Overlay>>(

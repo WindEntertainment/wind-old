@@ -1,4 +1,4 @@
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { type VariantProps, cva } from "class-variance-authority";
 import { FC, HTMLAttributes } from "react";
 

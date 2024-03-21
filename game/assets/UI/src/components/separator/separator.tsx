@@ -1,6 +1,6 @@
 "use client";
 
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { Root } from "@radix-ui/react-separator";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 

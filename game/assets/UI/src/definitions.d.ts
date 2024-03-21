@@ -16,3 +16,9 @@ declare module "react" {
     render: ForwardRefRenderFunction<T, Readonly<React.ComponentProps<C>>>,
   ): ForwardRefExoticComponent<PropsWithoutRef<C> & RefAttributes<T>>;
 }
+
+// declare module "@tanstack/react-router" {
+//   interface Register {
+//     router: typeof router;
+//   }
+// }
