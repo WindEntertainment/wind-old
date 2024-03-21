@@ -37,3 +37,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# C#
+bin
+obj
