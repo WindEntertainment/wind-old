@@ -6,7 +6,7 @@
   "clangd.checkUpdates": false,
   "clangd.arguments": [
     "--compile-commands-dir",
-    "${workspaceFolder}/build/Release/"
+    "${workspaceFolder}/build/Debug/"
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
@@ -17,5 +17,13 @@
   "i18n-ally.enabledFrameworks": ["i18next"],
   "i18n-ally.localesPaths": ["./game/assets/UI/public/translations"],
   "i18n-ally.sourceLanguage": "en",
-  "cSpell.words": ["glfw", "KEYCODES", "opengl", "spdlog", "timepoint", "vsync"]
+  "cSpell.words": [
+    "glfw",
+    "KEYCODES",
+    "opengl",
+    "spdlog",
+    "timepoint",
+    "vsync",
+    "hostfxr"
+  ]
 }

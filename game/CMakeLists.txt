@@ -10,6 +10,11 @@ target_link_libraries(${PROJECT_NAME} PRIVATE stb::stb)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-core)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-ultralight)
 target_link_libraries(${PROJECT_NAME} PUBLIC wind-input-system)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-script-system)
+
+
+include_directories("$ENV{DOTNET_INCLUDES}")
+target_link_libraries(${PROJECT_NAME} PUBLIC "$ENV{DOTNET_INCLUDES}/libnethost.a")
 
 #  Ultralight staff
 # if (APPLE)
