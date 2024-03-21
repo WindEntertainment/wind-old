@@ -1,4 +1,4 @@
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { FC, ReactNode } from "react";
 
 import { Footer, FooterProps } from "./footer/footer";

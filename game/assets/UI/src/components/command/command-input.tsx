@@ -1,7 +1,7 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { tw } from "@/tw";
 import { Command as CommandPrimitive } from "cmdk";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 

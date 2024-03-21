@@ -1,4 +1,4 @@
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { ComponentProps, FC } from "react";
 

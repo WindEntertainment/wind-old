@@ -1,6 +1,6 @@
 "use client";
-import { tw } from "@/tailwind";
 import { Content, Portal } from "@radix-ui/react-context-menu";
+import { tw } from "@/tw";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
 export const ContextMenuContent = forwardRef<ElementRef<typeof Content>, ComponentPropsWithoutRef<typeof Content>>(

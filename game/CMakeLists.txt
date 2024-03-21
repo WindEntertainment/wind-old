@@ -9,6 +9,7 @@ find_package(stb REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE stb::stb)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-core)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-ultralight)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-input-system)
 
 
 include_directories("$ENV{DOTNET_INCLUDES}")
