@@ -1,5 +1,5 @@
 "use client";
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { ScrollAreaScrollbar, ScrollAreaThumb } from "@radix-ui/react-scroll-area";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 

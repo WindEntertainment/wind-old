@@ -1,6 +1,4 @@
 // clang-format off
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
 #include "renderer/renderer.h"
 
@@ -91,7 +89,7 @@ void Renderer::setOrtho(glm::ivec2 _size, float _scope) {
         -static_cast<float>(_size.x / 2  * _scope), static_cast<float>(_size.x / 2  * _scope),
         -static_cast<float>(_size.y / 2  * _scope), static_cast<float>(_size.y / 2 * _scope),
         -1.f, 1.f);
-  // clang-format on 
+  // clang-format on
 }
 
 void Renderer::setScope(float _scope) {

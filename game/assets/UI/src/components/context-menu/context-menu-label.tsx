@@ -1,6 +1,6 @@
 "use client";
-import { tw } from "@/tailwind";
 import { Label } from "@radix-ui/react-context-menu";
+import { tw } from "@/tw";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
 export const ContextMenuLabel = forwardRef<

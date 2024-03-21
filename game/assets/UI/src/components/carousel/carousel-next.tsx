@@ -1,5 +1,5 @@
 "use client";
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { ComponentProps, forwardRef } from "react";
 

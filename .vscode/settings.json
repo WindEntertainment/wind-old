@@ -17,6 +17,13 @@
   "i18n-ally.enabledFrameworks": ["i18next"],
   "i18n-ally.localesPaths": ["./game/assets/UI/public/translations"],
   "i18n-ally.sourceLanguage": "en",
-  "C_Cpp.errorSquiggles": "disabled",
-  "cSpell.words": ["hostfxr"]
+  "cSpell.words": [
+    "glfw",
+    "KEYCODES",
+    "opengl",
+    "spdlog",
+    "timepoint",
+    "vsync",
+    "hostfxr"
+  ]
 }

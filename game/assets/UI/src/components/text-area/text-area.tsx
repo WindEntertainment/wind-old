@@ -1,4 +1,4 @@
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { TextareaHTMLAttributes, forwardRef } from "react";
 
 import { FormError } from "../form-error";

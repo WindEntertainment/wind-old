@@ -1,4 +1,4 @@
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { Image } from "@radix-ui/react-avatar";
 import { forwardRef } from "react";
 

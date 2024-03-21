@@ -1,8 +1,6 @@
 #include "renderer/shader.h"
 
 // clang-format off
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <spdlog/spdlog.h>
 // clang-formaton

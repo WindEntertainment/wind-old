@@ -1,6 +1,6 @@
 "use client";
 
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { Overlay } from "@radix-ui/react-alert-dialog";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
