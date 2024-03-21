@@ -3,8 +3,6 @@
 #include "resources/default.h"
 
 // clang-format off
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <glm/ext/matrix_float4x4.hpp>
 #include <glm/ext/matrix_transform.hpp>
 // clang-format on

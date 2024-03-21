@@ -1,4 +1,4 @@
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { ComponentProps, FC } from "react";
 
 import { ButtonProps, buttonVariants } from "../button";

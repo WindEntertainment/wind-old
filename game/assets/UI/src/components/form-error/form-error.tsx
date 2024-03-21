@@ -1,4 +1,4 @@
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { FC } from "react";
 
 export type FormErrorType = false | null | string;

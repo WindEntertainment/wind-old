@@ -1,0 +1,4 @@
+- Input system
+1. mods(shift/alt) support
+2. joystick/gamepad support
+3. keys combination support

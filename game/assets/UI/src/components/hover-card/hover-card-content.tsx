@@ -1,5 +1,5 @@
 "use client";
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { Content } from "@radix-ui/react-hover-card";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 

@@ -1,6 +1,5 @@
 #pragma once
-#include <GLFW/glfw3.h>
-#include <utils/utils.h>
+#include "utils/includes.h"
 
 namespace wind {
 

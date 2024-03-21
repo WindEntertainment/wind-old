@@ -10,6 +10,8 @@
 #include "window/window.h"
 #include "window/events/keyboard.h"
 #include "window/events/mouse.h"
+
+#include "input-system/input-system.h"
 // clang-format on
 
 namespace wind {
@@ -50,11 +52,11 @@ void Window::init(void (*buildConfig)(Config*)) {
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   m_window =
-      glfwCreateWindow(config.size.x,
-                       config.size.y,
-                       config.title.c_str(),
-                       config.fullScreen ? glfwGetPrimaryMonitor() : NULL,
-                       NULL);
+    glfwCreateWindow(config.size.x,
+      config.size.y,
+      config.title.c_str(),
+      config.fullScreen ? glfwGetPrimaryMonitor() : NULL,
+      NULL);
   if (!m_window) {
     spdlog::error("Cannot create window {}", getGLFWError());
     return;
@@ -70,14 +72,8 @@ void Window::init(void (*buildConfig)(Config*)) {
   setVsync(m_vsync);
 
   glfwSetWindowCloseCallback(m_window, closeCallback);
-  glfwSetKeyCallback(m_window, _internal::KeyEventHandler::keyCallback);
 
-  glfwSetCursorPosCallback(m_window,
-                           _internal::MouseEventHandler::mouseMoveCallback);
-  glfwSetMouseButtonCallback(m_window,
-                             _internal::MouseEventHandler::mousePressCallback);
-  glfwSetScrollCallback(m_window,
-                        _internal::MouseEventHandler::mouseScrollCallback);
+  InputSystem::init(m_window);
 
   setVisiableCursor(config.visibleCursor);
 
@@ -102,8 +98,8 @@ void Window::destroy() {
 
 void Window::show() {
   static const auto oneSecond =
-      std::chrono::duration_cast<std::chrono::high_resolution_clock::duration>(
-          std::chrono::seconds(1));
+    std::chrono::duration_cast<std::chrono::high_resolution_clock::duration>(
+      std::chrono::seconds(1));
   static int numFrames = 0;
 
   glfwSwapBuffers(m_window);
@@ -150,8 +146,8 @@ void Window::setResizable(bool _resizable) {
 
 void Window::setVisiableCursor(bool _visable) {
   glfwSetInputMode(m_window,
-                   GLFW_CURSOR,
-                   _visable ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
+    GLFW_CURSOR,
+    _visable ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
 }
 
 void Window::setVsync(bool _enable) {
