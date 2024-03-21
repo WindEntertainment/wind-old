@@ -18,8 +18,6 @@ _image = new unsigned char[11*3]{
 #include "renderer/texture.h"
 
 // clang-format off
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <glm/ext/scalar_uint_sized.hpp>
 // clang-formaton
 
@@ -29,7 +27,7 @@ uint Texture::id() const {
     return m_texture_id;
 }
 
-Texture::Texture(const unsigned char* _pixels, const glm::ivec2 _size) { 
+Texture::Texture(const unsigned char* _pixels, const glm::ivec2 _size) {
     glGenTextures(1, &m_texture_id);
     glBindTexture(GL_TEXTURE_2D, m_texture_id);
 
