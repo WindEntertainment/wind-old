@@ -21,3 +21,9 @@ target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog)
 
 find_package(glm CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PUBLIC glm::glm)
+
+find_package(glad CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC glad::glad)
+
+find_package(glfw3 CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC glfw)

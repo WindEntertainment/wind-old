@@ -1,5 +1,7 @@
 #pragma once
 // clang-format off
+#include <glad/glad.h>     // IWYU pragma: export
+#include <GLFW/glfw3.h>    // IWYU pragma: export
 #include <chrono>          // IWYU pragma: export
 #include <iostream>        // IWYU pragma: export
 #include <string>          // IWYU pragma: export
