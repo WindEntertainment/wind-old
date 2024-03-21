@@ -20,6 +20,9 @@ add_library(${PROJECT_NAME} STATIC
 target_include_directories(${PROJECT_NAME} PUBLIC ./src/renderer/include/)
 target_link_libraries(${PROJECT_NAME} PUBLIC wind-renderer)
 
+target_include_directories(${PROJECT_NAME} PUBLIC ./src/input-system/include/)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-input-system)
+
 target_include_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_INCLUDE_DIR}")
 target_link_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_BINARY_DIR}")
 target_link_libraries(${PROJECT_NAME} PUBLIC UltralightCore AppCore Ultralight WebCore)

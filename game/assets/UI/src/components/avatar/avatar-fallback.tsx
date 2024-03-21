@@ -1,6 +1,6 @@
 "use client";
 
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { Fallback } from "@radix-ui/react-avatar";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
