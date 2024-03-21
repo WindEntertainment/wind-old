@@ -1,5 +1,5 @@
 "use client";
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { HTMLAttributes, forwardRef } from "react";
 
 import { useCarousel } from "./use-carousel";

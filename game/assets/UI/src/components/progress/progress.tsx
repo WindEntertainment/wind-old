@@ -1,6 +1,6 @@
 "use client";
 
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { Indicator, Root } from "@radix-ui/react-progress";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 

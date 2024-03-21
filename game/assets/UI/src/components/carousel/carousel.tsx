@@ -1,6 +1,6 @@
 "use client";
 
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { HTMLAttributes, KeyboardEvent, forwardRef, useCallback, useEffect, useState } from "react";
 

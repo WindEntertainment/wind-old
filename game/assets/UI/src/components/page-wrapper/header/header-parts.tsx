@@ -1,4 +1,4 @@
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { ReactElement, ReactNode, memo } from "react";
 
 export type HeaderLeftProps = {

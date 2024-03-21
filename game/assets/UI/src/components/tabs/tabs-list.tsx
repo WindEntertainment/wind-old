@@ -1,5 +1,5 @@
 "use client";
-import { tw } from "@/tailwind";
+import { tw } from "@/tw";
 import { List } from "@radix-ui/react-tabs";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
