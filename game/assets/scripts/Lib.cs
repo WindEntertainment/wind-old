@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Scripts
 {
-  public static class Lib2
+  public static class Lib
   {
     private static int s_CallCount = 1;
 
@@ -22,7 +22,7 @@ namespace Scripts
       }
 
       LibArgs libArgs = Marshal.PtrToStructure<LibArgs>(arg);
-      Console.WriteLine($"Hello, world! from {nameof(Lib2)} [count: {s_CallCount++}]");
+      Console.WriteLine($"Hello, world! from {nameof(Lib)} [count: {s_CallCount++}]");
       PrintLibArgs(libArgs);
       return 0;
     }
@@ -35,7 +35,7 @@ namespace Scripts
       }
 
       LibArgs libArgs = Marshal.PtrToStructure<LibArgs>(arg);
-      Console.WriteLine($"Hello again, world! from {nameof(Lib2)} [count: {s_CallCount++}]");
+      Console.WriteLine($"Hello again, world! from {nameof(Lib)} [count: {s_CallCount++}]");
       PrintLibArgs(libArgs);
       return 0;
     }
@@ -43,14 +43,14 @@ namespace Scripts
     public delegate void CustomEntryPointDelegate(LibArgs libArgs);
     public static void CustomEntryPoint(LibArgs libArgs)
     {
-      Console.WriteLine($"Hello, world! from {nameof(CustomEntryPoint)} in {nameof(Lib2)}");
+      Console.WriteLine($"Hello, world! from {nameof(CustomEntryPoint)} in {nameof(Lib)}");
       PrintLibArgs(libArgs);
     }
 
     [UnmanagedCallersOnly]
     public static void CustomEntryPointUnmanagedCallersOnly(LibArgs libArgs)
     {
-      Console.WriteLine($"Hello, world! from {nameof(CustomEntryPointUnmanagedCallersOnly)} in {nameof(Lib2)}");
+      Console.WriteLine($"Hello, world! from {nameof(CustomEntryPointUnmanagedCallersOnly)} in {nameof(Lib)}");
       PrintLibArgs(libArgs);
     }
 
