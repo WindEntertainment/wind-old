@@ -1,5 +1,7 @@
 #include "input-system/context.h"
 #include "input-system/keys.h"
+#include "script-system/hostfxr.h"
+#include "script-system/script-system.h"
 #include "utils/includes.h"
 #include <GLFW/glfw3.h>
 
@@ -8,13 +10,14 @@
 #include <ostream>
 #include <renderer/particle.h>
 #include <renderer/renderer.h>
+#include <spdlog/spdlog.h>
 #include <utils/utils.h>
 #include <wind-ultralight/ultralight.h>
 #include <window/window.h>
 
 using namespace wind;
 
-int main() {
+int main(int argc, char* argv[]) {
 
   Window::init([](Window::Config* self) {
     self->title = "Game";
@@ -37,6 +40,17 @@ int main() {
   InputSystem::addTrigger("ultralightKeyHold", {Key{KEYCODES::ALL_KEYBOARD_KEYS, KEY_ACTIONS::HELD}}, &Ultralight::triggerKeyHoldEvent);
   InputSystem::addTrigger("ultralightKeyRelease", {Key{KEYCODES::ALL_KEYBOARD_KEYS, KEY_ACTIONS::RELEASED}}, &Ultralight::triggerKeyReleaseEvent);
   InputSystem::addTrigger("ultralightChars", {Key{KEYCODES::ALL_KEYBOARD_CHARS, KEY_ACTIONS::UNKNOWN}}, &Ultralight::triggerCharEvent);
+
+  auto hostfxr = new ScriptSystemHostfxr();
+
+  auto hostPath = fs::absolute(argv[0]).parent_path() / "assets/scripts/bin/Release/";
+
+  hostfxr->init(hostPath / "Scripts.runtimeconfig.json");
+
+  ScriptSystem* scriptSystem = hostfxr->createScriptSystem(hostPath, hostPath / "Scripts.dll");
+
+  scriptSystem->run("Scripts.Lib, Scripts", "HelloAgain", "from host!", 1);
+  scriptSystem->run("Scripts.Lib, Scripts", "Hello", "from host!", 1);
 
   while (Window::update()) {
     if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
