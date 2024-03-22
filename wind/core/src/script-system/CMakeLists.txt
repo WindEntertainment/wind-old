@@ -3,7 +3,7 @@ project(wind-script-system)
 set(HEADERS
   ./include/script-system/script-system.h
   ./include/script-system/hostfxr.h
-  ./include/script-system/all.h
+  ./include/script-system/init.h
 )
 
 set(SOURCES
