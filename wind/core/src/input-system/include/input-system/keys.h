@@ -249,6 +249,9 @@ struct KeyHash {
 
 using Keys = std::unordered_set<Key, KeyHash>;
 
+KEY_ACTIONS mapStringToKeyAction(std::string action);
+KEYCODES mapStringToKeycode(std::string action);
+
 Key mapGlfwMouseCodeToKey(int glfwKey, int action);
 Key mapGlfwJoystickCodeToKey(int glfwKey, int action);
 Key mapGlfwGamepadButtonCodeToKey(int glfwKey);
