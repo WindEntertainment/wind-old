@@ -1,6 +1,6 @@
 #pragma once
 
-#include "all.h"
+#include "init.h"
 #include "utils/utils.h"
 #include <string.h>
 

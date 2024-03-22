@@ -1,7 +1,7 @@
 #pragma once
 
-#include "all.h"
 #include "hostfxr.h"
+#include "init.h"
 #include "utils/utils.h"
 #include <chrono>
 #include <spdlog/spdlog.h>
