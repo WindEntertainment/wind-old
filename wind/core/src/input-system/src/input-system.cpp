@@ -6,7 +6,10 @@
 #include "utils/includes.h"
 #include <GLFW/glfw3.h>
 #include <algorithm>
+#include <fstream>
+#include <iostream>
 #include <spdlog/spdlog.h>
+#include <yaml-cpp/yaml.h>
 
 namespace wind {
 std::unordered_map<Key, Callbacks, KeyHash> InputSystem::keycodeTriggers;
@@ -123,6 +126,42 @@ void InputSystem::init(GLFWwindow* window) {
 
 //
 
+void InputSystem::createTriggersFromFile(std::filesystem::path path) {
+  std::ifstream file(path);
+
+  if (!file.is_open()) {
+    spdlog::error("Failed to open the file {}", path.string());
+    return;
+  }
+
+  YAML::Node config = YAML::Load(file);
+
+  file.close();
+
+  if (!config["triggers"] || !config["triggers"].IsSequence()) {
+    spdlog::error("Can not load actions from file {}. The 'actions' key is either missing or not a sequence.", path.string());
+    return;
+  }
+
+  for (const auto& triggerNode : config["triggers"]) {
+    std::string name = triggerNode["name"].as<std::string>();
+    Keys bindings;
+
+    for (const auto& bindingNode : triggerNode["bindings"]) {
+      auto key = mapStringToKeycode(bindingNode["key"].as<std::string>());
+      auto actionType = mapStringToKeyAction(bindingNode["action"].as<std::string>());
+
+      bindings.insert(Key{key, actionType});
+    }
+
+    addTrigger(name, bindings);
+
+    spdlog::info("Loaded action {}", name);
+  }
+}
+
+//
+
 void InputSystem::addTrigger(std::string groupName, Keys bindings, Callbacks callbacks) {
   addGroupedTrigger(groupName, bindings, callbacks);
   addKeycodeTrigger(bindings, callbacks);
@@ -141,6 +180,20 @@ void InputSystem::addTrigger(std::string groupName, Key binding, Callbacks callb
 void InputSystem::addTrigger(std::string groupName, Key binding, Callback* callback) {
   addGroupedTrigger(groupName, binding, callback);
   addKeycodeTrigger(binding, callback);
+}
+
+void InputSystem::addTrigger(std::string groupName, Keys bindings) {
+  addGroupedTrigger(groupName, bindings, {});
+  addKeycodeTrigger(bindings, {});
+}
+
+void InputSystem::addTrigger(std::string groupName, Key binding) {
+  addGroupedTrigger(groupName, binding, {});
+  addKeycodeTrigger(binding, {});
+}
+
+void InputSystem::addTrigger(std::string groupName) {
+  addGroupedTrigger(groupName);
 }
 
 //
@@ -178,6 +231,12 @@ void InputSystem::addGroupedTrigger(std::string groupName, Key binding, Callback
     groupedTriggers[groupName]->bindings.insert(binding);
   } else {
     groupedTriggers.insert(std::make_pair(groupName, new Trigger(groupName, {binding}, {callback})));
+  }
+}
+
+void InputSystem::addGroupedTrigger(std::string groupName) {
+  if (!groupedTriggers.contains(groupName)) {
+    groupedTriggers.insert(std::make_pair(groupName, new Trigger(groupName, {}, {})));
   }
 }
 
