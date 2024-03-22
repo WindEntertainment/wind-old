@@ -19,6 +19,11 @@ using namespace wind;
 
 int main(int argc, char* argv[]) {
 
+  auto rootPath = fs::absolute(argv[0]).parent_path();
+  auto scriptsPath = rootPath / "assets/scripts/bin/Release/";
+
+  InputSystem::createTriggersFromFile(rootPath / "assets/configs/triggers.yml");
+
   Window::init([](Window::Config* self) {
     self->title = "Game";
     self->fullScreen = false;
@@ -43,11 +48,9 @@ int main(int argc, char* argv[]) {
 
   auto hostfxr = new ScriptSystemHostfxr();
 
-  auto hostPath = fs::absolute(argv[0]).parent_path() / "assets/scripts/bin/Release/";
+  hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
 
-  hostfxr->init(hostPath / "Scripts.runtimeconfig.json");
-
-  ScriptSystem* scriptSystem = hostfxr->createScriptSystem(hostPath, hostPath / "Scripts.dll");
+  ScriptSystem* scriptSystem = hostfxr->createScriptSystem(scriptsPath, scriptsPath / "Scripts.dll");
 
   scriptSystem->run("Scripts.Lib, Scripts", "HelloAgain", "from host!", 1);
   scriptSystem->run("Scripts.Lib, Scripts", "Hello", "from host!", 1);
