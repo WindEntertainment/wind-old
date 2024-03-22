@@ -38,8 +38,6 @@ public:
     return EXIT_SUCCESS;
   };
 
-  void stop();
-
   ScriptSystem(std::string rootPath, std::string dllPath, ScriptSystemHostfxr hostfxr);
 
 private:
