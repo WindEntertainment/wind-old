@@ -11,7 +11,7 @@ class AssetPipe {
   friend class AssetPipeline;
 
 protected:
-  const char* m_id;
+  asset_id m_id;
 
 public:
   virtual void config(YAML::Node& config){};
@@ -19,12 +19,14 @@ public:
   virtual void compile(const fs::path& _source, const fs::path& _destination) = 0;
   virtual Asset* load(unsigned char* bytes) = 0;
 
-  const char* id() const {
+  asset_id id() const {
     return m_id;
   }
 
-  AssetPipe(const char* id)
-      : m_id(id){};
+  AssetPipe(const char* _id) {
+    std::hash<const char*> hasher;
+    m_id = hasher(_id);
+  }
 };
 
 } // namespace wind

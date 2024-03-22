@@ -8,14 +8,11 @@ namespace asset_pipeline {
 
 class PipeRegister {
 private:
-  static std::vector<std::regex> m_regexs;
   static std::vector<AssetPipe*> m_pipes;
 
 public:
-  static AssetPipe* getPipe(fs::path path);
-  static AssetPipe* getPipe(const std::string& name);
-
-  static void regPipe(const char* regex, AssetPipe* pipe);
+  static AssetPipe* getPipe(asset_id id);
+  static void regPipe(AssetPipe* pipe);
 };
 
 } // namespace asset_pipeline

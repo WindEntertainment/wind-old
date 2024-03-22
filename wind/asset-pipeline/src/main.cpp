@@ -12,9 +12,9 @@ void setting() {
   using namespace wind;
   using namespace wind::asset_pipeline;
 
-  PipeRegister::regPipe(".*\\.jpg", new ImagePipe());
-  PipeRegister::regPipe(".*\\.glsl", new ShaderPipe());
-  PipeRegister::regPipe(".*\\.*", new DefaultPipe());
+  PipeRegister::regPipe(new ImagePipe());
+  PipeRegister::regPipe(new ShaderPipe());
+  PipeRegister::regPipe(new DefaultPipe());
 }
 
 int main(int argc, char** argv) {

@@ -55,15 +55,19 @@ class AssetManager {
       return true;
     }
 
-    unsigned char* readBytes(asset_id offset, asset_id size) {
+    unsigned char* readBytes(asset_id offset, asset_id size, asset_id& pipe) {
       if (size > m_fileSize)
         return nullptr;
 
       try {
         unsigned char* bytes = new unsigned char[size];
+        asset_id id = 0;
 
         m_file.seekg(offset);
+        m_file.read(reinterpret_cast<char*>(&id), sizeof(asset_id));
         m_file.read(reinterpret_cast<char*>(&bytes), size);
+
+        pipe = id;
 
         return bytes;
       } catch (std::exception& ex) {
@@ -85,8 +89,15 @@ private:
       return nullptr;
 
     Asset* asset = nullptr;
-    if (auto bytes = _bundle->readBytes(begin, end - begin)) {
-      AssetPipe* pipe = asset_pipeline::PipeRegister::getPipe(std::string(_name));
+    asset_id pipe_id = 0;
+
+    if (auto bytes = _bundle->readBytes(begin, end - begin, pipe_id)) {
+      AssetPipe* pipe = asset_pipeline::PipeRegister::getPipe(pipe_id);
+      if (!pipe) {
+        spdlog::error("[Asset-Manager:loadAsset] Unknow pipe:  {}", pipe_id);
+        delete[] bytes;
+      }
+
       asset = pipe->load(bytes);
 
       delete[] bytes;
