@@ -28,6 +28,9 @@ target_link_libraries(${PROJECT_NAME} PUBLIC wind-utils)
 
 # extrenal depencencies
 
+find_package(yaml-cpp REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE yaml-cpp::yaml-cpp)
+
 find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
 
