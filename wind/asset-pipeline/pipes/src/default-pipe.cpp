@@ -33,6 +33,9 @@ void DefaultPipe::compile(const fs::path& _source, const fs::path& _destination)
   if (result != Z_OK) {
     spdlog::error("Cannot compress data");
     return;
+
+    // pipe -> unsigned char*
+    // pipe ->
   }
 
   output.write(reinterpret_cast<char*>((asset_id)fileContent.size()), sizeof(asset_id));
@@ -45,7 +48,7 @@ void DefaultPipe::compile(const fs::path& _source, const fs::path& _destination)
 }
 
 Asset* DefaultPipe::load(unsigned char* bytes) {
-  //   auto result = uncompress(reinterpret_cast<Bytef*>(zipped), &zippedSize, reinterpret_cast<const Bytef*>(fileContent.c_str()), fileContent.size());
+  // auto result = uncompress(reinterpret_cast<Bytef*>(zipped), &zippedSize, reinterpret_cast<const Bytef*>(fileContent.c_str()), fileContent.size());
   // if (result != Z_OK) {
   //   spdlog::error("Cannot compress data");
   //   return;
