@@ -6,10 +6,10 @@ namespace wind {
 
 struct DefaultAsset : public Asset {
 private:
-  const uint* m_bytes;
+  const unsigned char* m_bytes;
 
 public:
-  DefaultAsset(const uint* bytes)
+  DefaultAsset(const unsigned char* bytes)
       : m_bytes(bytes) {
   }
 
@@ -17,7 +17,7 @@ public:
     delete[] m_bytes;
   }
 
-  const uint* bytes() const {
+  const unsigned char* bytes() const {
     return m_bytes;
   }
 };

@@ -80,7 +80,7 @@ void ShaderPipe::compile(const fs::path& _source, const fs::path& _destination) 
   // =====================================================//
   // Writing
 
-  output.write(m_id, strlen(m_id) + 1);
+  output.write(m_id, sizeof(asset_id));
 
   output << (uint)vtxZippedSize;
   output.write(vtxZipped, vtxZippedSize);

@@ -17,7 +17,7 @@ void DefaultPipe::compile(const fs::path& _source, const fs::path& _destination)
     return;
   }
 
-  output.write(m_id, strlen(m_id) + 1);
+  output.write(reinterpret_cast<char*>(m_id), sizeof(asset_id));
 
   std::string fileContent;
   {
@@ -35,6 +35,7 @@ void DefaultPipe::compile(const fs::path& _source, const fs::path& _destination)
     return;
   }
 
+  output.write(reinterpret_cast<char*>((asset_id)fileContent.size()), sizeof(asset_id));
   output.write(zipped, zippedSize);
 
   input.close();
@@ -44,7 +45,11 @@ void DefaultPipe::compile(const fs::path& _source, const fs::path& _destination)
 }
 
 Asset* DefaultPipe::load(unsigned char* bytes) {
-  return nullptr;
+  //   auto result = uncompress(reinterpret_cast<Bytef*>(zipped), &zippedSize, reinterpret_cast<const Bytef*>(fileContent.c_str()), fileContent.size());
+  // if (result != Z_OK) {
+  //   spdlog::error("Cannot compress data");
+  //   return;
+  // }
 }
 
 } // namespace asset_pipeline

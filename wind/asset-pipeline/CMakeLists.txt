@@ -34,10 +34,27 @@ install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
 
 set(SOURCES_MANAGER
     ./src/asset-manager.cpp
+    ./src/pipes-register.cpp
+    
+    # pipes 
+    ./src/pipes/default-pipe.cpp
+    ./src/pipes/img-pipe.cpp
+    ./src/pipes/shader-pipe.cpp
 )
 
 set(HEADERS_MANAGER
     ./include/asset-pipeline/asset-manager.h
+
+    # pipes 
+    ./include/asset-pipeline/pipes/pipe.h
+    ./include/asset-pipeline/pipes/default-pipe.h
+    ./include/asset-pipeline/pipes/img-pipe.h
+    ./include/asset-pipeline/pipes/shader-pipe.h
+
+    # assets
+    ./include/asset-pipeline/asset-manager.h
+    ./include/asset-pipeline/assets/asset.h
+    ./include/asset-pipeline/assets/default.h
 )
 
 add_library(wind-asset-manager ${SOURCES_MANAGER} ${HEADERS_MANAGER})
