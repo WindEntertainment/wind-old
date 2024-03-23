@@ -10,7 +10,7 @@ void AssetPipeline::build(const fs::path& _path) {
 
   clearUnusedCache(fs::current_path(), _path);
   compileDirectory(fs::current_path(), _path);
-  linkDirectory(_path, "../assets.bundle");
+  linkDirectory(_path / "assets", "../assets.bundle");
 }
 
 void AssetPipeline::preprocessing(const fs::path& _path, YAML::Node& _options) {

@@ -15,7 +15,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
 
-target_include_directories(${PROJECT_NAME} PUBLIC ../pipes/include/)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-asset-pipes)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-core)
 
 find_package(stb REQUIRED)

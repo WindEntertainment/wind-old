@@ -24,8 +24,9 @@ int main() {
 
   AssetManager::loadBundle("assets.bundle");
 
-  auto html = AssetManager::getAsset<unsigned char*>("UI/dist/index.html");
-  spdlog::debug("html == nullptr: {}", html == nullptr);
+  auto html = AssetManager::getAsset<unsigned char>("ui/dist/index.html");
+  if (html != nullptr)
+    std::cout << html;
 
   Window::init([](Window::Config* self) {
     self->title = "Game";
@@ -35,7 +36,7 @@ int main() {
   });
 
   Ultralight::init();
-  const auto uiTexture = Ultralight::loadView("UI/dist/index.html", {800, 600});
+  const auto uiTexture = Ultralight::loadView("ui/dist/index.html", {800, 600});
 
   float scope = 1.f;
   glm::vec2 camera = {};
