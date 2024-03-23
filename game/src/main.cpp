@@ -7,6 +7,8 @@
 
 int main() {
 #ifndef NDEBUG
+#define SPDLOG
+  spdlog::set_level(spdlog::level::debug);
   spdlog::info("----Debug configuration!----");
 #endif
 
@@ -20,8 +22,8 @@ int main() {
 
   AssetManager::loadBundle("assets.bundle");
 
-  auto html = AssetManager::getAsset<unsigned char*>("ui/dist/index.html");
-  spdlog::info("html == nullptr: {}", html == nullptr);
+  auto html = AssetManager::getAsset<unsigned char*>("UI/dist/index.html");
+  spdlog::debug("html == nullptr: {}", html == nullptr);
 
   Window::init([](Window::Config* self) {
     self->title = "Game";

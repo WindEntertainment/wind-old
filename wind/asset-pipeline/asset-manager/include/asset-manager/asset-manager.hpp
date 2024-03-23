@@ -34,6 +34,7 @@ class AssetManager {
         m_file.read(reinterpret_cast<char*>(&id), sizeof(asset_id));
         m_file.read(reinterpret_cast<char*>(&offset), sizeof(asset_id));
 
+        spdlog::debug("Load meta-resource. id: {}, offset: {}", id, offset);
         m_assets.insert(std::make_pair(id, offset));
       }
     }
@@ -87,8 +88,10 @@ private:
   static T* loadAsset(asset_id _id, Bundle* _bundle) {
     asset_id begin, end;
 
-    if (!_bundle->tryGetOffsetById(_id, begin, end))
+    if (!_bundle->tryGetOffsetById(_id, begin, end)) {
+      spdlog::debug("Failed get asset by id: {}", _id);
       return nullptr;
+    }
 
     void* asset = nullptr;
     asset_id pipe_id = 0;
@@ -100,7 +103,7 @@ private:
         delete[] bytes;
       }
 
-      asset = pipe->load(bytes);
+      asset = pipe->load(bytes, end - begin);
 
       delete[] bytes;
     }
