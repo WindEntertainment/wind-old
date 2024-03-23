@@ -12,6 +12,7 @@ std::vector<Texture*> Ultralight::m_textures;
 
 ul::RefPtr<ul::Renderer> Ultralight::m_renderer;
 ULLogger Ultralight::m_logger;
+ULFileSystem m_fileSystem;
 
 void Ultralight::init() {
   // Init config
@@ -20,7 +21,7 @@ void Ultralight::init() {
 
   // Init platform
   ul::Platform::instance().set_font_loader(ul::GetPlatformFontLoader());
-  ul::Platform::instance().set_file_system(ul::GetPlatformFileSystem("./assets"));
+  ul::Platform::instance().set_file_system(&m_fileSystem);
   ul::Platform::instance().set_logger(&m_logger);
 
   // Create Renderer

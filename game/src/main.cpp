@@ -24,10 +24,6 @@ int main() {
 
   AssetManager::loadBundle("assets.bundle");
 
-  auto html = AssetManager::getAsset<unsigned char>("ui/dist/index.html");
-  if (html != nullptr)
-    std::cout << html;
-
   Window::init([](Window::Config* self) {
     self->title = "Game";
     self->fullScreen = false;

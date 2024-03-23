@@ -159,6 +159,15 @@ public:
     spdlog::debug("Failed get asset. name: '{}', hash: {}", _key, id);
     return nullptr;
   }
-};
 
+  static bool exists(const char* _key) {
+    asset_id id = m_hasher(_key);
+    asset_id begin, end;
+
+    for (auto& bundle : m_bundles)
+      if (bundle->tryGetOffsetById(id, begin, end))
+        return true;
+    return false;
+  }
+};
 } // namespace wind

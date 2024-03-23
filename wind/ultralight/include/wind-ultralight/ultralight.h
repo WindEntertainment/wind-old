@@ -1,6 +1,9 @@
 #pragma once
 #include "Ultralight/Listener.h"
+
+#include "filesystem.hpp"
 #include "logger.h"
+
 #include <renderer/texture.h>
 
 #include <Ultralight/RefPtr.h>
