@@ -7,13 +7,22 @@ namespace wind {
   if (action == #keyAction) \
     return keyAction;
 
+#define toString(action) #action;
+
+std::string mapKeyActionToString(KEY_ACTIONS action) {
+  return toString(action);
+};
+
+std::string mapKeycodeToString(KEYCODES action) {
+  return toString(action);
+};
+
 KEY_ACTIONS mapStringToKeyAction(std::string action) {
   isEqual(KEY_ACTIONS::RELEASED);
   isEqual(KEY_ACTIONS::PRESSED);
   isEqual(KEY_ACTIONS::HELD);
-  isEqual(KEY_ACTIONS::RELEASED);
 
-  return KEY_ACTIONS::RELEASED;
+  return KEY_ACTIONS::UNKNOWN;
 };
 
 KEYCODES mapStringToKeycode(std::string action) {
@@ -208,6 +217,7 @@ KEYCODES mapStringToKeycode(std::string action) {
 }
 
 #undef isEqual
+#undef toString
 
 KEY_ACTIONS mapGlfwActionToKeyAction(int action) {
   switch (action) {

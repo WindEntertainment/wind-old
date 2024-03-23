@@ -1,6 +1,6 @@
 #pragma once
 
-#include "init.h"
+#include "declaration.h"
 #include "utils/utils.h"
 #include <string.h>
 
@@ -22,7 +22,7 @@ public:
   std::list<ScriptSystem*> scriptSystems;
   hostfxr_get_runtime_delegate_fn fptrGetDelegate;
 
-  bool init(std::string configPath);
+  void init(std::string configPath);
   hostfxr_handle getConfig();
   ScriptSystem* createScriptSystem(std::string rootPath, std::string dllPath);
   void stop();
@@ -34,8 +34,8 @@ private:
   hostfxr_handle context = nullptr;
   hostfxr_close_fn fptrClose;
 
-  bool loadPointers();
-  bool initConfig();
+  void loadPointers();
+  void initConfig();
   void* loadLibrary(const std::string path);
   void* getExport(void* h, const char* name);
 };
