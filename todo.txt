@@ -2,3 +2,5 @@
 1. mods(shift/alt) support
 2. joystick/gamepad support
 3. keys combination support
+4. Better error handling(status/message)
+5. Input system removal of binds/callbacks

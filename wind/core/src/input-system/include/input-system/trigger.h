@@ -15,13 +15,6 @@ struct Trigger {
   Keys bindings;
   Callbacks callbacks;
 
-  // void addCallback(Callback* callback);
-  // void removeCallback(Callback* callback);
-  // void addBinding(int key);
-  // void removeBinding(int key);
-  // void clearBindings();
-  // void clearCallbacks();
-
   Trigger(std::string name, const Keys bindings = {}, const Callbacks callbacks = {});
 };
 

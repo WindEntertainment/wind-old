@@ -22,7 +22,7 @@ bool contains(C _container, T _value) {
 template <class Error>
   requires std::derived_from<Error, std::exception>
 void verify(auto value) {
-  if (value)
+  if (!value)
     throw new Error();
 }
 
