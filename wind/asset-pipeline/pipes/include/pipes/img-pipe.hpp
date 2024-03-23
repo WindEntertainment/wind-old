@@ -57,7 +57,7 @@ public:
   }
 #endif
 
-  void* load(unsigned char* bytes) override {
+  void* load(unsigned char* bytes, size_t size) override {
     return nullptr;
   }
 

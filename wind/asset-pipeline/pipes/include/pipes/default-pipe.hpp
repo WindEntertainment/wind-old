@@ -49,8 +49,11 @@ public:
   }
 #endif
 
-  void* load(unsigned char* bytes) override {
-    return nullptr;
+  void* load(unsigned char* bytes, size_t size) override {
+    spdlog::info("Hello!");
+    unsigned char* result = new unsigned char[size];
+    std::copy(bytes, bytes + size, result);
+    return result;
   }
 
   DefaultPipe()
