@@ -155,7 +155,7 @@ void InputSystem::createTriggersFromFile(fs::path path) {
 
     addTrigger(name, bindings);
 
-    spdlog::info("Loaded action {}", name);
+    spdlog::debug("Loaded action {}", name);
   }
 }
 
