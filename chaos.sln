@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "game", "game", "{7960F7AC-3A63-4B80-A740-1DEB9854E65A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{B3EA7A4B-774E-4B01-B5BF-A3ADAA6C7711}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripts", "game\assets\scripts\Scripts.csproj", "{B477385C-486A-4FBC-8465-D517FE3EB67E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B477385C-486A-4FBC-8465-D517FE3EB67E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B477385C-486A-4FBC-8465-D517FE3EB67E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B477385C-486A-4FBC-8465-D517FE3EB67E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B477385C-486A-4FBC-8465-D517FE3EB67E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B3EA7A4B-774E-4B01-B5BF-A3ADAA6C7711} = {7960F7AC-3A63-4B80-A740-1DEB9854E65A}
+		{B477385C-486A-4FBC-8465-D517FE3EB67E} = {B3EA7A4B-774E-4B01-B5BF-A3ADAA6C7711}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB854D03-ECDE-49F6-966E-93580F94BFF4}
+	EndGlobalSection
+EndGlobal

@@ -9,6 +9,8 @@
 #include <fstream>
 #include <yaml-cpp/yaml.h>
 
+#include <asset-manager/asset-manager.hpp>
+
 namespace wind {
 
 std::unordered_map<Key, Callbacks, KeyHash>
@@ -127,16 +129,13 @@ void InputSystem::init(GLFWwindow* window) {
 //
 
 void InputSystem::createTriggersFromFile(fs::path path) {
-  std::ifstream file(path);
-
-  if (!file.is_open()) {
+  auto triggersData = AssetManager::getAsset<unsigned char>(path.c_str());
+  if (!triggersData) {
     spdlog::error("Failed to open the file {}", path.string());
     return;
   }
 
-  YAML::Node config = YAML::Load(file);
-
-  file.close();
+  YAML::Node config = YAML::Load(reinterpret_cast<const char*>(triggersData));
 
   if (!config["triggers"] || !config["triggers"].IsSequence()) {
     spdlog::error("Can not load actions from file {}. The 'actions' key is either missing or not a sequence.", path.string());
