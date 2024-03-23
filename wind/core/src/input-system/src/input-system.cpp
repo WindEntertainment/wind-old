@@ -1,18 +1,18 @@
 #include "input-system/input-system.h"
 
 #include "input-system/context.h"
+#include "input-system/error.h"
 #include "input-system/keys.h"
 #include "input-system/trigger.h"
 #include "utils/includes.h"
-#include <GLFW/glfw3.h>
-#include <algorithm>
+#include "utils/utils.h"
 #include <fstream>
-#include <iostream>
-#include <spdlog/spdlog.h>
 #include <yaml-cpp/yaml.h>
 
 namespace wind {
-std::unordered_map<Key, Callbacks, KeyHash> InputSystem::keycodeTriggers;
+
+std::unordered_map<Key, Callbacks, KeyHash>
+  InputSystem::keycodeTriggers;
 std::map<std::string, Trigger*> InputSystem::groupedTriggers;
 
 InputSystemContext* InputSystem::context = new InputSystemContext();
@@ -126,7 +126,7 @@ void InputSystem::init(GLFWwindow* window) {
 
 //
 
-void InputSystem::createTriggersFromFile(std::filesystem::path path) {
+void InputSystem::createTriggersFromFile(fs::path path) {
   std::ifstream file(path);
 
   if (!file.is_open()) {
@@ -163,33 +163,54 @@ void InputSystem::createTriggersFromFile(std::filesystem::path path) {
 //
 
 void InputSystem::addTrigger(std::string groupName, Keys bindings, Callbacks callbacks) {
+  forEach(callbacks, [](auto callback) {
+    verify<InputSystemError>(callback);
+  });
+  forEach(bindings, [](auto binding) {
+    verify<InputSystemError>(binding == Key{});
+  });
+
   addGroupedTrigger(groupName, bindings, callbacks);
   addKeycodeTrigger(bindings, callbacks);
 }
 
 void InputSystem::addTrigger(std::string groupName, Keys bindings, Callback* callback) {
+  verify<InputSystemError>(callback);
+  forEach(bindings, [](auto binding) {
+    verify<InputSystemError>(binding == Key{});
+  });
+
   addGroupedTrigger(groupName, bindings, callback);
   addKeycodeTrigger(bindings, callback);
 }
 
 void InputSystem::addTrigger(std::string groupName, Key binding, Callbacks callbacks) {
+  verify<InputSystemError>(binding == Key{});
+  forEach(callbacks, [](auto callback) {
+    verify<InputSystemError>(callback);
+  });
   addGroupedTrigger(groupName, binding, callbacks);
   addKeycodeTrigger(binding, callbacks);
 }
 
 void InputSystem::addTrigger(std::string groupName, Key binding, Callback* callback) {
+  verify<InputSystemError>(binding == Key{} || !callback);
   addGroupedTrigger(groupName, binding, callback);
   addKeycodeTrigger(binding, callback);
 }
 
-void InputSystem::addTrigger(std::string groupName, Keys bindings) {
-  addGroupedTrigger(groupName, bindings, {});
-  addKeycodeTrigger(bindings, {});
+void InputSystem::addTrigger(std::string groupName, Key binding) {
+  verify<InputSystemError>(binding == Key{});
+  addGroupedTrigger(groupName, binding);
+  addKeycodeTrigger(binding);
 }
 
-void InputSystem::addTrigger(std::string groupName, Key binding) {
-  addGroupedTrigger(groupName, binding, {});
-  addKeycodeTrigger(binding, {});
+void InputSystem::addTrigger(std::string groupName, Keys bindings) {
+  forEach(bindings, [](auto binding) {
+    verify<InputSystemError>(binding == Key{});
+  });
+  addGroupedTrigger(groupName, bindings);
+  addKeycodeTrigger(bindings);
 }
 
 void InputSystem::addTrigger(std::string groupName) {
@@ -198,89 +219,39 @@ void InputSystem::addTrigger(std::string groupName) {
 
 //
 
-void InputSystem::addGroupedTrigger(std::string groupName, Keys bindings, Callbacks callbacks) {
-  if (groupedTriggers.contains(groupName)) {
-    groupedTriggers[groupName]->callbacks.insert(callbacks.begin(), callbacks.end());
-    groupedTriggers[groupName]->bindings.insert(bindings.begin(), bindings.end());
-  } else {
-    groupedTriggers.insert(std::make_pair(groupName, new Trigger(groupName, bindings, callbacks)));
-  }
+void InputSystem::addTriggerBindings(std::string groupName, Keys bindings) {
+  addGroupedTriggerBindings(groupName, bindings);
+  addKeycodeTriggerBindings(groupName, bindings);
 }
 
-void InputSystem::addGroupedTrigger(std::string groupName, Keys bindings, Callback* callback) {
-  if (groupedTriggers.contains(groupName)) {
-    groupedTriggers[groupName]->callbacks.insert(callback);
-    groupedTriggers[groupName]->bindings.insert(bindings.begin(), bindings.end());
-  } else {
-    groupedTriggers.insert(std::make_pair(groupName, new Trigger(groupName, bindings, {callback})));
-  }
-}
-
-void InputSystem::addGroupedTrigger(std::string groupName, Key binding, Callbacks callbacks) {
-  if (groupedTriggers.contains(groupName)) {
-    groupedTriggers[groupName]->callbacks.insert(callbacks.begin(), callbacks.end());
-    groupedTriggers[groupName]->bindings.insert(binding);
-  } else {
-    groupedTriggers.insert(std::make_pair(groupName, new Trigger(groupName, {binding}, callbacks)));
-  }
-}
-
-void InputSystem::addGroupedTrigger(std::string groupName, Key binding, Callback* callback) {
-  if (groupedTriggers.contains(groupName)) {
-    groupedTriggers[groupName]->callbacks.insert(callback);
-    groupedTriggers[groupName]->bindings.insert(binding);
-  } else {
-    groupedTriggers.insert(std::make_pair(groupName, new Trigger(groupName, {binding}, {callback})));
-  }
-}
-
-void InputSystem::addGroupedTrigger(std::string groupName) {
-  if (!groupedTriggers.contains(groupName)) {
-    groupedTriggers.insert(std::make_pair(groupName, new Trigger(groupName, {}, {})));
-  }
+void InputSystem::addTriggerBindings(std::string groupName, Key binding) {
+  addGroupedTriggerBindings(groupName, binding);
+  addKeycodeTriggerBindings(groupName, binding);
 }
 
 //
 
-void InputSystem::addKeycodeTrigger(Keys bindings, Callbacks callbacks) {
-  std::for_each(bindings.begin(), bindings.end(), [&callbacks](Key binding) {
-    addKeycodeTrigger(binding, callbacks);
-  });
+void InputSystem::addTriggerCallbacks(std::string groupName, Callbacks callbacks) {
+  addGroupedTriggerCallbacks(groupName, callbacks);
+  addKeycodeTriggerCallbacks(groupName, callbacks);
 }
 
-void InputSystem::addKeycodeTrigger(Keys bindings, Callback* callback) {
-  std::for_each(bindings.begin(), bindings.end(), [&callback](Key binding) {
-    addKeycodeTrigger(binding, callback);
-  });
-}
-
-void InputSystem::addKeycodeTrigger(Key binding, Callbacks callbacks) {
-  if (keycodeTriggers.contains(binding)) {
-    keycodeTriggers.insert(std::make_pair(binding, callbacks));
-  } else {
-    keycodeTriggers[binding].insert(callbacks.begin(), callbacks.end());
-  };
-}
-
-void InputSystem::addKeycodeTrigger(Key binding, Callback* callback) {
-  if (keycodeTriggers.contains(binding)) {
-    keycodeTriggers.insert(std::make_pair(binding, std::set{callback}));
-  } else {
-    keycodeTriggers[binding].insert({callback});
-  };
+void InputSystem::addTriggerCallbacks(std::string groupName, Callback* callback) {
+  addGroupedTriggerCallbacks(groupName, callback);
+  addKeycodeTriggerCallbacks(groupName, callback);
 }
 
 //
 // , bool forced
 void InputSystem::removeTrigger(std::string groupName) {
-  if (groupedTriggers.contains(groupName)) {
-    std::for_each(
-      groupedTriggers[groupName]->bindings.begin(),
-      groupedTriggers[groupName]->bindings.end(),
-      [&groupName](auto binding) { removeKeycodeTrigger(binding, groupedTriggers[groupName]->callbacks); });
+  if (groupedTriggers.contains(groupName))
+    return;
+  std::for_each(
+    groupedTriggers[groupName]->bindings.begin(),
+    groupedTriggers[groupName]->bindings.end(),
+    [&groupName](auto binding) { removeKeycodeTrigger(binding, groupedTriggers[groupName]->callbacks); });
 
-    groupedTriggers.erase(groupName);
-  };
+  groupedTriggers.erase(groupName);
 };
 // , bool forced
 void InputSystem::removeTrigger(std::set<std::string> groupNames) {
@@ -290,30 +261,4 @@ void InputSystem::removeTrigger(std::set<std::string> groupNames) {
     [](auto groupName) { removeTrigger(groupName); });
 };
 
-//
-
-void InputSystem::removeKeycodeTrigger(Key binding, Callbacks callbacks) {
-  std::for_each(callbacks.begin(), callbacks.end(), [&binding](Callback* callback) {
-    removeKeycodeTrigger(binding, callback);
-  });
-}
-
-void InputSystem::removeKeycodeTrigger(Callbacks callbacks) {
-  std::for_each(keycodeTriggers.begin(), keycodeTriggers.end(), [&callbacks](auto pair) {
-    removeKeycodeTrigger(pair.first, callbacks);
-  });
-}
-
-void InputSystem::removeKeycodeTrigger(Key binding, Callback* callback) {
-  auto it = std::find(keycodeTriggers[binding].begin(), keycodeTriggers[binding].end(), callback);
-  if (it != keycodeTriggers[binding].end()) {
-    keycodeTriggers[binding].erase(it);
-  }
-}
-
-void InputSystem::removeKeycodeTrigger(Callback* callback) {
-  std::for_each(keycodeTriggers.begin(), keycodeTriggers.end(), [&callback](auto pair) {
-    removeKeycodeTrigger(pair.first, callback);
-  });
-}
 } // namespace wind

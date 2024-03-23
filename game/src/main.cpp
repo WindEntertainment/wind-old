@@ -5,6 +5,7 @@
 #include "utils/includes.h"
 #include <GLFW/glfw3.h>
 
+#include <algorithm>
 #include <functional>
 #include <input-system/input-system.h>
 #include <ostream>
@@ -37,18 +38,22 @@ int main(int argc, char* argv[]) {
   float scope = 1.f;
   glm::vec2 camera = {};
 
-  InputSystem::addTrigger("ultralightMouseMove", {Key{KEYCODES::MOUSE_MOVE, KEY_ACTIONS::UNKNOWN}}, &Ultralight::triggerMoveEvent);
-  InputSystem::addTrigger("ultralightMouseScroll", {Key{KEYCODES::MOUSE_SCROLL, KEY_ACTIONS::UNKNOWN}}, &Ultralight::triggerScrollEvent);
-  InputSystem::addTrigger("ultralightMousePress", {Key{KEYCODES::ALL_MOUSE_KEYS, KEY_ACTIONS::PRESSED}}, &Ultralight::triggerMousePressEvent);
-  InputSystem::addTrigger("ultralightMouseRelease", {Key{KEYCODES::ALL_MOUSE_KEYS, KEY_ACTIONS::RELEASED}}, &Ultralight::triggerMouseReleaseEvent);
-  InputSystem::addTrigger("ultralightKeyPress", {Key{KEYCODES::ALL_KEYBOARD_KEYS, KEY_ACTIONS::PRESSED}}, &Ultralight::triggerKeyPressEvent);
-  InputSystem::addTrigger("ultralightKeyHold", {Key{KEYCODES::ALL_KEYBOARD_KEYS, KEY_ACTIONS::HELD}}, &Ultralight::triggerKeyHoldEvent);
-  InputSystem::addTrigger("ultralightKeyRelease", {Key{KEYCODES::ALL_KEYBOARD_KEYS, KEY_ACTIONS::RELEASED}}, &Ultralight::triggerKeyReleaseEvent);
-  InputSystem::addTrigger("ultralightChars", {Key{KEYCODES::ALL_KEYBOARD_CHARS, KEY_ACTIONS::UNKNOWN}}, &Ultralight::triggerCharEvent);
+  InputSystem::addTriggerCallbacks("ultralightMouseMove", &Ultralight::triggerMoveEvent);
+  InputSystem::addTriggerCallbacks("ultralightMouseScroll", &Ultralight::triggerScrollEvent);
+  InputSystem::addTriggerCallbacks("ultralightMousePress", &Ultralight::triggerMousePressEvent);
+  InputSystem::addTriggerCallbacks("ultralightMouseRelease", &Ultralight::triggerMouseReleaseEvent);
+  InputSystem::addTriggerCallbacks("ultralightKeyPress", &Ultralight::triggerKeyPressEvent);
+  InputSystem::addTriggerCallbacks("ultralightKeyHold", &Ultralight::triggerKeyHoldEvent);
+  InputSystem::addTriggerCallbacks("ultralightKeyRelease", &Ultralight::triggerKeyReleaseEvent);
+  InputSystem::addTriggerCallbacks("ultralightChars", &Ultralight::triggerCharEvent);
 
   auto hostfxr = new ScriptSystemHostfxr();
 
-  hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
+  auto rc = hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
+
+  if (rc != 0) {
+    spdlog::error("ZHENIA PIDOR {}", rc);
+  };
 
   ScriptSystem* scriptSystem = hostfxr->createScriptSystem(scriptsPath, scriptsPath / "Scripts.dll");
 
@@ -71,6 +76,8 @@ int main(int argc, char* argv[]) {
 
     Window::show();
   }
+
+  hostfxr->stop();
 
   return EXIT_SUCCESS;
 }

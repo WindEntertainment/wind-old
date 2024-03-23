@@ -233,8 +233,8 @@ enum class KEYCODES {
 };
 
 struct Key {
-  KEYCODES keycode;
-  KEY_ACTIONS action;
+  KEYCODES keycode = KEYCODES::KEY_UNKNOWN;
+  KEY_ACTIONS action = KEY_ACTIONS::UNKNOWN;
 
   bool operator==(const Key& key) const {
     return key.keycode == keycode && action == key.action;
@@ -251,6 +251,9 @@ using Keys = std::unordered_set<Key, KeyHash>;
 
 KEY_ACTIONS mapStringToKeyAction(std::string action);
 KEYCODES mapStringToKeycode(std::string action);
+
+std::string mapKeyActionToString(KEY_ACTIONS action);
+std::string mapKeycodeToString(KEYCODES action);
 
 Key mapGlfwMouseCodeToKey(int glfwKey, int action);
 Key mapGlfwJoystickCodeToKey(int glfwKey, int action);
