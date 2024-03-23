@@ -3,12 +3,13 @@ project(wind-script-system)
 set(HEADERS
   ./include/script-system/script-system.h
   ./include/script-system/hostfxr.h
-  ./include/script-system/init.h
+  ./include/script-system/declaration.h
 )
 
 set(SOURCES
   ./src/script-system.cpp
   ./src/hostfxr.cpp
+  ./src/error.cpp
 )
 
 add_library(${PROJECT_NAME} STATIC ${HEADERS} ${SOURCES})

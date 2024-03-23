@@ -2,6 +2,7 @@
 #include <chrono>
 #include <string.h>
 
+#include "script-system/error.h"
 #include "script-system/hostfxr.h"
 #include "script-system/script-system.h"
 #include "utils/utils.h"
@@ -17,8 +18,10 @@ load_assembly_and_get_function_pointer_fn ScriptSystem::getFunctionPointerFromAs
     hdt_load_assembly_and_get_function_pointer,
     &functionPointer);
 
-  if (rc != 0 || functionPointer == nullptr)
+  if (rc != 0 || functionPointer == nullptr) {
     std::cerr << "Get delegate failed: " << std::hex << std::showbase << rc << std::endl;
+    throw new ScriptSystemError();
+  }
 
   return (load_assembly_and_get_function_pointer_fn)functionPointer;
 }

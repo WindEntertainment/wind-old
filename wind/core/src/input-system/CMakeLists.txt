@@ -7,15 +7,19 @@ set(HEADERS
     ./include/input-system/context.h
     ./include/input-system/keys.h
     ./include/input-system/trigger.h
+    ./include/input-system/error.h
+
 )
 
 set(SOURCES
     ./src/input-system.cpp
-    ./src/mouse-context.cpp
-    ./src/keyboard-context.cpp
-    ./src/context.cpp
-    ./src/keys.cpp
-    ./src/trigger.cpp
+    ./src/triggers/keycode-triggers.cpp
+    ./src/triggers/grouped-triggers.cpp
+    ./src/context/mouse-context.cpp
+    ./src/context/keyboard-context.cpp
+    ./src/context/context.cpp
+    ./src/context/keys.cpp
+    ./src/triggers/trigger.cpp
 )
 
 add_library(${PROJECT_NAME} STATIC ${HEADERS} ${SOURCES})
