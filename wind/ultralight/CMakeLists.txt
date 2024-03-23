@@ -7,6 +7,7 @@ set(ULTRALIGHT_RESOURCES_DIR "$ENV{ULTRALIGHT_PATH}/resources")
 
 set(HEADERS
     ./include/wind-ultralight/ultralight.h
+    ./include/wind-ultralight/filesystem.hpp
 )
 
 set(SOURCES
@@ -19,6 +20,8 @@ add_library(${PROJECT_NAME} STATIC
 
 target_include_directories(${PROJECT_NAME} PUBLIC ./src/renderer/include/)
 target_link_libraries(${PROJECT_NAME} PUBLIC wind-renderer)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE wind-asset-manager)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_INCLUDE_DIR}")
 target_link_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_BINARY_DIR}")
