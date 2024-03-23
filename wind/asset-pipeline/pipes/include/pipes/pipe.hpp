@@ -22,6 +22,8 @@ public:
   virtual void compile(const fs::path& _source, const fs::path& _destination) = 0;
 #endif
 
+  virtual void* load(unsigned char* bytes) = 0;
+
   asset_id id() const {
     return m_id;
   }
