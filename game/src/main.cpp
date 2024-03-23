@@ -1,6 +1,19 @@
+#include "input-system/context.h"
+#include "input-system/keys.h"
+#include "script-system/hostfxr.h"
+#include "script-system/script-system.h"
+#include "utils/includes.h"
+#include <GLFW/glfw3.h>
+
+#include <algorithm>
 #include <asset-manager/asset-manager.hpp>
+#include <functional>
+#include <input-system/input-system.h>
+#include <ostream>
 #include <renderer/particle.h>
 #include <renderer/renderer.h>
+#include <spdlog/spdlog.h>
+#include <utils/includes.h>
 #include <utils/utils.h>
 #include <wind-ultralight/ultralight.h>
 #include <window/window.h>
@@ -24,6 +37,11 @@ int main() {
 
   AssetManager::loadBundle("assets.bundle");
 
+  auto rootPath = fs::absolute(argv[0]).parent_path();
+  auto scriptsPath = rootPath / "assets/scripts/bin/Release/";
+
+  InputSystem::createTriggersFromFile(rootPath / "assets/configs/triggers.yml");
+
   Window::init([](Window::Config* self) {
     self->title = "Game";
     self->fullScreen = false;
@@ -36,6 +54,24 @@ int main() {
 
   float scope = 1.f;
   glm::vec2 camera = {};
+
+  InputSystem::addTriggerCallbacks("ultralightMouseMove", &Ultralight::triggerMoveEvent);
+  InputSystem::addTriggerCallbacks("ultralightMouseScroll", &Ultralight::triggerScrollEvent);
+  InputSystem::addTriggerCallbacks("ultralightMousePress", &Ultralight::triggerMousePressEvent);
+  InputSystem::addTriggerCallbacks("ultralightMouseRelease", &Ultralight::triggerMouseReleaseEvent);
+  InputSystem::addTriggerCallbacks("ultralightKeyPress", &Ultralight::triggerKeyPressEvent);
+  InputSystem::addTriggerCallbacks("ultralightKeyHold", &Ultralight::triggerKeyHoldEvent);
+  InputSystem::addTriggerCallbacks("ultralightKeyRelease", &Ultralight::triggerKeyReleaseEvent);
+  InputSystem::addTriggerCallbacks("ultralightChars", &Ultralight::triggerCharEvent);
+
+  auto hostfxr = new ScriptSystemHostfxr();
+
+  hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
+
+  ScriptSystem* scriptSystem = hostfxr->createScriptSystem(scriptsPath, scriptsPath / "Scripts.dll");
+
+  scriptSystem->run("Scripts.Lib, Scripts", "HelloAgain", "from host!", 1);
+  scriptSystem->run("Scripts.Lib, Scripts", "Hello", "from host!", 1);
 
   while (Window::update()) {
     if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
@@ -53,6 +89,8 @@ int main() {
 
     Window::show();
   }
+
+  hostfxr->stop();
 
   return EXIT_SUCCESS;
 }

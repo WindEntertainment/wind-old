@@ -2,7 +2,6 @@
 /install/
 /logs/
 /.cache/
-/**/*/.cache/
 
 /**/*/icudt67l.dat
 
@@ -31,11 +30,7 @@ dist-ssr
 
 # Editor directories and files
 .vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+
+# C#
+bin
+obj

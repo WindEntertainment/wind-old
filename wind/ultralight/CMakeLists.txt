@@ -21,6 +21,9 @@ add_library(${PROJECT_NAME} STATIC
 target_include_directories(${PROJECT_NAME} PUBLIC ./src/renderer/include/)
 target_link_libraries(${PROJECT_NAME} PUBLIC wind-renderer)
 
+target_include_directories(${PROJECT_NAME} PUBLIC ./src/input-system/include/)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-input-system)
+
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-asset-manager)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_INCLUDE_DIR}")

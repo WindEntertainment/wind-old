@@ -1,10 +1,12 @@
 project(wind-core)
 
-# modules 
+# modules
 add_subdirectory(./src/utils/)
 add_subdirectory(./src/window/)
 add_subdirectory(./src/renderer/)
 add_subdirectory(./src/resources/)
+add_subdirectory(./src/input-system/)
+add_subdirectory(./src/script-system/)
 
 # wind
 add_library(${PROJECT_NAME} STATIC ./include/wind.h ./src/wind.cpp)
@@ -21,3 +23,9 @@ target_link_libraries(${PROJECT_NAME} PUBLIC wind-renderer)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ./src/resources/include/)
 target_link_libraries(${PROJECT_NAME} PUBLIC wind-resources)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ./src/input-system/include/)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-input-system)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ./src/script-system/include/)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-script-system)

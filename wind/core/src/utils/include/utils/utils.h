@@ -1,5 +1,6 @@
 #pragma once
 #include "includes.h"
+#include <ranges>
 
 namespace wind {
 
@@ -18,6 +19,15 @@ bool contains(C _container, T _value) {
   return it != _container.end();
 }
 
+template <class Error>
+  requires std::derived_from<Error, std::exception>
+void verify(auto value) {
+  if (!value)
+    throw new Error();
+}
+
+static auto forEach = std::ranges::for_each;
+
 class Stopwatch {
 public:
   Stopwatch(const std::string& message)
@@ -28,7 +38,7 @@ public:
   ~Stopwatch() {
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(
-        end_time - start_time);
+      end_time - start_time);
     spdlog::info("{} took {} milliseconds", message, duration.count());
   }
 
