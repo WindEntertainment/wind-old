@@ -41,6 +41,7 @@ public:
 
     output.write(reinterpret_cast<char*>(&m_id), sizeof(asset_id));
     output.write(reinterpret_cast<char*>(&fileSize), sizeof(asset_id));
+    output.write(reinterpret_cast<char*>(&zippedSize), sizeof(asset_id));
 
     output.write(zipped, zippedSize);
 
@@ -51,11 +52,26 @@ public:
   }
 #endif
 
-  void* load(unsigned char* bytes, size_t size) override {
-    spdlog::info("Hello!");
-    unsigned char* result = new unsigned char[size];
-    std::copy(bytes, bytes + size, result);
-    return result;
+  void* load(std::ifstream& file) override {
+    asset_id orgSize;
+    asset_id zipSize;
+
+    file.read(reinterpret_cast<char*>(&orgSize), sizeof(asset_id));
+    file.read(reinterpret_cast<char*>(&zipSize), sizeof(asset_id));
+
+    auto zipData = new unsigned char[zipSize];
+    file.read(reinterpret_cast<char*>(zipData), zipSize);
+
+    size_t orgSizeT = (size_t)orgSize;
+    auto unzipData = new unsigned char[orgSize];
+
+    auto rc = uncompress(unzipData, &orgSizeT, zipData, (size_t)zipSize);
+    if (rc != Z_OK)
+      throw std::invalid_argument("Failed uncompress data");
+
+    delete[] zipData;
+
+    return (void*)(unzipData);
   }
 
   DefaultPipe()

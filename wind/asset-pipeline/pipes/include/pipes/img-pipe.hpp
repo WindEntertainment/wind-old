@@ -56,7 +56,7 @@ public:
   }
 #endif
 
-  void* load(unsigned char* bytes, size_t size) override {
+  void* load(std::ifstream& file) override {
     return nullptr;
   }
 

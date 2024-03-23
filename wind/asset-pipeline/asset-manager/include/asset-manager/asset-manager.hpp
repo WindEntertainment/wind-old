@@ -11,11 +11,12 @@ namespace wind {
 class AssetManager {
   struct Bundle {
   private:
-    std::ifstream m_file;
     std::map<asset_id, asset_id> m_assets;
     asset_id m_fileSize;
 
   public:
+    std::ifstream m_file;
+
     Bundle(std::ifstream&& _file)
         : m_file(std::move(_file)) {
 
@@ -58,24 +59,22 @@ class AssetManager {
       return true;
     }
 
-    unsigned char* readBytes(asset_id offset, asset_id size, asset_id& pipe) {
+    bool determinatePipe(asset_id offset, asset_id size, asset_id& pipe) {
       if (size > m_fileSize)
-        return nullptr;
+        return false;
 
       try {
-        unsigned char* bytes = new unsigned char[size];
         asset_id id = 0;
 
         m_file.seekg(offset);
         m_file.read(reinterpret_cast<char*>(&id), sizeof(asset_id));
-        m_file.read(reinterpret_cast<char*>(&bytes), size);
 
         pipe = id;
 
-        return bytes;
+        return true;
       } catch (std::exception& ex) {
         spdlog::error("Fail readBytes from bundle. Offest: {}, Size: {}", offset, size);
-        return nullptr;
+        return false;
       }
     }
   };
@@ -89,24 +88,27 @@ private:
   static T* loadAsset(asset_id _id, Bundle* _bundle) {
     asset_id begin, end;
 
-    if (!_bundle->tryGetOffsetById(_id, begin, end)) {
-      spdlog::debug("Failed get asset by id: {}", _id);
+    if (!_bundle->tryGetOffsetById(_id, begin, end))
       return nullptr;
-    }
+
+    asset_id size = end - begin;
+
+    spdlog::debug("Load asset by id {}. begin: {}, end: {}, size: {}", _id, begin, end, size);
 
     void* asset = nullptr;
     asset_id pipe_id = 0;
 
-    if (auto bytes = _bundle->readBytes(begin, end - begin, pipe_id)) {
+    if (_bundle->determinatePipe(begin, size, pipe_id)) {
       AssetPipe* pipe = asset_pipeline::PipeRegister::getPipe(pipe_id);
-      if (!pipe) {
-        spdlog::error("[Asset-Manager:loadAsset] Unknow pipe:  {}. AssetId: {}", pipe_id, _id);
-        delete[] bytes;
+      if (!pipe)
+        spdlog::error("Failed load asset. unknow pipe:  {}. asset id: {}", pipe_id, _id);
+
+      try {
+        asset = pipe->load(_bundle->m_file);
+      } catch (std::exception& ex) {
+        spdlog::error("Failed load asset by id {} by pipe {}: {}", _id, pipe_id, ex.what());
+        return nullptr;
       }
-
-      asset = pipe->load(bytes, end - begin);
-
-      delete[] bytes;
     }
 
     return static_cast<T*>(asset);
@@ -150,10 +152,11 @@ public:
 
     for (auto& bundle : m_bundles) {
       T* asset = loadAsset<T>(id, bundle);
-      if (asset)
+      if (asset != nullptr)
         return asset;
     }
 
+    spdlog::debug("Failed get asset. name: '{}', hash: {}", _key, id);
     return nullptr;
   }
 };

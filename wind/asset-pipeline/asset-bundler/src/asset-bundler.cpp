@@ -277,13 +277,13 @@ void AssetPipeline::linkDirectory(const fs::path& _source,
 
   bundle.write(reinterpret_cast<const char*>(&header_size), sizeof(asset_id));
 
-  spdlog::info("Write bundle header. Header size: {}", header_size);
+  spdlog::info("Write bundle header. header size: {}", header_size);
 
   std::hash<std::string> hasher;
   for (auto& pair : files) {
-    asset_id id = hasher(pair.first);
+    asset_id id = hasher(pair.first.string());
 
-    spdlog::info("Write meta-resource. Id: {}, Offset: {}", id, offset);
+    spdlog::info("Write meta-resource. name: '{}', id: {}, offset: {}", pair.first.string(), id, offset);
 
     bundle.write(reinterpret_cast<const char*>(&id), sizeof(asset_id));
     bundle.write(reinterpret_cast<const char*>(&offset), sizeof(asset_id));
