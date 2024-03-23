@@ -31,16 +31,6 @@ void AssetPipeline::compileFile(const fs::path& _source,
     return;
   }
 
-  if (!_pipe) {
-    //_pipe = PipeRegister::getPipe(_source);
-    //_pipe->config(std::move(findConfigForPath(_source.relative_path())));
-  }
-  if (!_pipe) {
-    spdlog::error("Cannot find pipe for compile asset by path {}",
-                  _source.string());
-    return;
-  }
-
   fs::path destination = _destination;
   destination += ".obj";
 
@@ -136,19 +126,29 @@ void AssetPipeline::compileDirectory(const fs::path& _source,
             continue;
 
           AssetPipe* pipe = nullptr;
-          if (exportNode["pipe"]) {
-            std::hash<std::string> hasher;
-            asset_id hash = hasher(exportNode["pipe"].as<std::string>());
-            pipe = PipeRegister::getPipe(hash);
-            pipe->config(exportNode);
+          if (!exportNode["pipe"]) {
+            spdlog::error("Cannot find pipe for compile asset by path '{}'", fs::relative(entry, _source).string());
+            continue;
           }
+
+          std::hash<std::string> hasher;
+          auto pipeType = exportNode["pipe"].as<std::string>();
+          asset_id hashType = hasher(pipeType);
+
+          pipe = PipeRegister::getPipe(hashType);
+          if (!pipe) {
+            spdlog::warn("Unknown pipe type: '{}'", pipeType);
+            continue;
+          }
+
+          pipe->config(exportNode);
 
           compileFile(fs::relative(entry, _source),
                       _destination / fs::relative(entry, sourceParentPath),
                       pipe);
         }
     } catch (std::exception& ex) {
-      spdlog::error("Failed compiling directory {}: {}", _path.string(), ex.what());
+      spdlog::error("Failed compiling directory '{}': {}", _path.string(), ex.what());
       return;
     }
 
@@ -277,9 +277,14 @@ void AssetPipeline::linkDirectory(const fs::path& _source,
 
   bundle.write(reinterpret_cast<const char*>(&header_size), sizeof(asset_id));
 
+  spdlog::info("Write bundle header. Header size: {}", header_size);
+
   std::hash<std::string> hasher;
   for (auto& pair : files) {
     asset_id id = hasher(pair.first);
+
+    spdlog::info("Write meta-resource. Id: {}, Offset: {}", id, offset);
+
     bundle.write(reinterpret_cast<const char*>(&id), sizeof(asset_id));
     bundle.write(reinterpret_cast<const char*>(&offset), sizeof(asset_id));
 

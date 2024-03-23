@@ -7,7 +7,7 @@ namespace asset_pipeline {
 class DefaultPipe : public AssetPipe {
 public:
 #ifdef WIND_PIPE_WRITE
-  virtual void compile(const fs::path& _source, const fs::path& _destination) override {
+  void compile(const fs::path& _source, const fs::path& _destination) override {
     std::ifstream input(_source, std::ios_base::in);
     std::ofstream output(_destination, std::ios_base::binary);
 
@@ -20,8 +20,6 @@ public:
       spdlog::error("Cannot open destination file: {}", _destination.string());
       return;
     }
-
-    output.write(reinterpret_cast<char*>(m_id), sizeof(asset_id));
 
     std::string fileContent;
     {
@@ -39,7 +37,11 @@ public:
       return;
     }
 
-    output.write(reinterpret_cast<char*>((asset_id)fileContent.size()), sizeof(asset_id));
+    auto fileSize = (asset_id)fileContent.size();
+
+    output.write(reinterpret_cast<char*>(&m_id), sizeof(asset_id));
+    output.write(reinterpret_cast<char*>(&fileSize), sizeof(asset_id));
+
     output.write(zipped, zippedSize);
 
     input.close();

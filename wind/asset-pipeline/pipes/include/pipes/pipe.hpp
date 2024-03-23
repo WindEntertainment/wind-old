@@ -29,7 +29,7 @@ public:
   }
 
   AssetPipe(const char* _id) {
-    std::hash<const char*> hasher;
+    std::hash<std::string> hasher;
     m_id = hasher(_id);
   }
 };

@@ -12,8 +12,8 @@ void setting() {
   using namespace wind;
   using namespace wind::asset_pipeline;
 
-  PipeRegister::regPipe(new ImagePipe());
   PipeRegister::regPipe(new ShaderPipe());
+  PipeRegister::regPipe(new ImagePipe());
   PipeRegister::regPipe(new DefaultPipe());
 }
 
