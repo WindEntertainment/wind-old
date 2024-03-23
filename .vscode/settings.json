@@ -25,5 +25,12 @@
     "timepoint",
     "vsync",
     "hostfxr"
-  ]
+  ],
+  "files.associations": {
+    "algorithm": "cpp",
+    "fstream": "cpp",
+    "ios": "cpp",
+    "exception": "cpp"
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }

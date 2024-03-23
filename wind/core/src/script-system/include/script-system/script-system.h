@@ -1,7 +1,7 @@
 #pragma once
 
+#include "declaration.h"
 #include "hostfxr.h"
-#include "init.h"
 #include "utils/utils.h"
 #include <chrono>
 #include <spdlog/spdlog.h>
@@ -18,7 +18,7 @@ public:
   int run(std::string dotnetType, std::string methodName, FunctionArgs... args) {
     load_assembly_and_get_function_pointer_fn functionPointer = nullptr;
     functionPointer = getFunctionPointerFromAssembly();
-    assert(functionPointer != nullptr && "Failure: get_dotnet_load_assembly()");
+    verify<ScriptSystemError>(functionPointer != nullptr);
 
     component_entry_point_fn function = nullptr;
     int rc = functionPointer(
@@ -29,9 +29,10 @@ public:
       nullptr,
       (void**)&function);
 
-    assert(rc == 0 && function != nullptr && "Failure: load_assembly_and_get_function_pointer()");
+    verify<ScriptSystemError>(rc == 0 || function != nullptr);
 
-    std::tuple<FunctionArgs...> argsTuple = std::make_tuple(args...);
+    std::tuple<FunctionArgs...>
+      argsTuple = std::make_tuple(args...);
 
     function(&argsTuple, sizeof(argsTuple));
 

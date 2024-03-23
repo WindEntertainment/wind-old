@@ -1,26 +1,22 @@
-
-
 #include "script-system/hostfxr.h"
+#include "script-system/error.h"
 #include "script-system/script-system.h"
 #include "utils/utils.h"
 #include <algorithm>
+
 #ifdef WINDOWS
 #include <Windows.h>
-
 #else
-
 #include <dlfcn.h>
 #include <limits.h>
-
 #define MAX_PATH PATH_MAX
-
 #endif
 
 namespace wind {
 
-bool ScriptSystemHostfxr::loadPointers() {
+void ScriptSystemHostfxr::loadPointers() {
   if (fptrInitConfig && fptrGetDelegate && fptrClose)
-    return true;
+    return;
 
   get_hostfxr_parameters params{sizeof(get_hostfxr_parameters), nullptr, nullptr};
 
@@ -28,8 +24,8 @@ bool ScriptSystemHostfxr::loadPointers() {
   size_t buffer_size = sizeof(buffer) / sizeof(char_t);
 
   int rc = get_hostfxr_path(buffer, &buffer_size, &params);
-  if (rc != 0)
-    return false;
+
+  verify<ScriptSystemError>(rc != 0);
 
   void* lib = loadLibrary(buffer);
   fptrInitCmd = (hostfxr_initialize_for_dotnet_command_line_fn)getExport(lib, "hostfxr_initialize_for_dotnet_command_line");
@@ -37,32 +33,33 @@ bool ScriptSystemHostfxr::loadPointers() {
   fptrGetDelegate = (hostfxr_get_runtime_delegate_fn)getExport(lib, "hostfxr_get_runtime_delegate");
   fptrClose = (hostfxr_close_fn)getExport(lib, "hostfxr_close");
 
-  return (fptrInitConfig && fptrGetDelegate && fptrClose);
+  verify<ScriptSystemError>(!fptrInitConfig || !fptrGetDelegate || !fptrClose);
 }
 
-bool ScriptSystemHostfxr::initConfig() {
+void ScriptSystemHostfxr::initConfig() {
   if (context)
-    return true;
+    return;
 
   int rc = fptrInitConfig(configPath.c_str(), nullptr, &context);
 
   if (rc != 0 || context == nullptr) {
-    std::cerr << "Init failed: " << std::hex << std::showbase << rc << std::endl;
-    fptrClose(context);
-    return false;
-  }
+    std::stringstream ss;
+    ss << std::hex << std::showbase << rc;
+    spdlog::debug("Init failed: {}", ss.str());
 
-  return true;
+    fptrClose(context);
+    throw new ScriptSystemError();
+  }
 }
 
 hostfxr_handle ScriptSystemHostfxr::getConfig() {
   return context;
 }
 
-bool ScriptSystemHostfxr::init(std::string configPath) {
+void ScriptSystemHostfxr::init(std::string configPath) {
   this->configPath = configPath;
-
-  return loadPointers() && initConfig();
+  loadPointers();
+  initConfig();
 }
 
 void ScriptSystemHostfxr::stop() {
@@ -82,24 +79,22 @@ ScriptSystem* ScriptSystemHostfxr::createScriptSystem(std::string rootPath, std:
 void* ScriptSystemHostfxr::loadLibrary(const std::string path) {
 #ifdef WINDOWS
   HMODULE h = ::LoadLibraryW(path);
-  assert(h != nullptr);
-  return (void*)h;
 #else
   void* h = dlopen(path.c_str(), RTLD_LAZY | RTLD_LOCAL);
-  assert(h != nullptr);
-  return h;
 #endif
+
+  verify<ScriptSystemError>(h != nullptr);
+  return (void*)h;
 };
 
 void* ScriptSystemHostfxr::getExport(void* h, const char* name) {
 #ifdef WINDOWS
   void* f = ::GetProcAddress((HMODULE)h, name);
-  assert(f != nullptr);
-  return f;
 #else
   void* f = dlsym(h, name);
-  assert(f != nullptr);
-  return f;
 #endif
+
+  verify<ScriptSystemError>(f != nullptr);
+  return f;
 };
 } // namespace wind
