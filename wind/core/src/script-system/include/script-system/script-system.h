@@ -1,6 +1,7 @@
 #pragma once
 
 #include "declaration.h"
+#include "error.h"
 #include "hostfxr.h"
 #include "utils/utils.h"
 #include <chrono>
@@ -29,7 +30,7 @@ public:
       nullptr,
       (void**)&function);
 
-    verify<ScriptSystemError>(rc == 0 || function != nullptr);
+    verify<ScriptSystemError>(rc == 0 && function != nullptr);
 
     std::tuple<FunctionArgs...>
       argsTuple = std::make_tuple(args...);
