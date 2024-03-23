@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 
 #include <algorithm>
+#include <asset-manager/asset-manager.hpp>
 #include <functional>
 #include <input-system/input-system.h>
 #include <ostream>
@@ -17,14 +18,27 @@
 #include <wind-ultralight/ultralight.h>
 #include <window/window.h>
 
-using namespace wind;
+int main(int argc, char** argv) {
+#ifndef NDEBUG
+#define SPDLOG
+  spdlog::set_level(spdlog::level::debug);
+  spdlog::info("----Debug configuration!----");
+#endif
 
-int main(int argc, char* argv[]) {
+  using namespace wind;
+
+  using namespace wind::asset_pipeline;
+
+  PipeRegister::regPipe(new DefaultPipe());
+  PipeRegister::regPipe(new ShaderPipe());
+  PipeRegister::regPipe(new ImagePipe());
+
+  AssetManager::loadBundle("assets.bundle");
 
   auto rootPath = fs::absolute(argv[0]).parent_path();
   auto scriptsPath = rootPath / "assets/scripts/bin/Release/";
 
-  InputSystem::createTriggersFromFile(rootPath / "assets/configs/triggers.yml");
+  InputSystem::createTriggersFromFile("configs/triggers.yml");
 
   Window::init([](Window::Config* self) {
     self->title = "Game";

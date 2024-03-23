@@ -1,3 +1,4 @@
+#pragma once
 #include "Ultralight/String.h"
 #include "Ultralight/platform/Logger.h"
 #include <Ultralight/Ultralight.h>

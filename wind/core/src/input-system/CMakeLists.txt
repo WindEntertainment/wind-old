@@ -29,6 +29,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
 # internal depencencies
 
 target_link_libraries(${PROJECT_NAME} PUBLIC wind-utils)
+target_link_libraries(${PROJECT_NAME} PRIVATE wind-asset-manager)
 
 # extrenal depencencies
 

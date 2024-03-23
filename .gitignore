@@ -3,6 +3,8 @@
 /logs/
 /.cache/
 
+/**/*/icudt67l.dat
+
 *.bundle
 CMakeUserPresets.json
 
