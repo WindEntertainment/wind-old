@@ -87,6 +87,9 @@
         "thread": "cpp",
         "valarray": "cpp",
         "any": "cpp",
-        "source_location": "cpp"
+        "source_location": "cpp",
+        "filesystem": "cpp",
+        "version": "cpp",
+        "ranges": "cpp"
     }
 }
