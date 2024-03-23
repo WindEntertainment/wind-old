@@ -23,7 +23,7 @@ public:
 
   static void regPipe(AssetPipe* _pipe) {
     m_pipes.push_back(_pipe);
-    spdlog::info("PipeRegister: registered new pipe: {}", _pipe->id());
+    spdlog::debug("PipeRegister: registered new pipe: {}", _pipe->id());
   }
 };
 

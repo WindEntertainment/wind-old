@@ -62,14 +62,14 @@ int main(int argc, char** argv) {
   InputSystem::addTriggerCallbacks("ultralightKeyRelease", &Ultralight::triggerKeyReleaseEvent);
   InputSystem::addTriggerCallbacks("ultralightChars", &Ultralight::triggerCharEvent);
 
-  auto hostfxr = new ScriptSystemHostfxr();
+  // auto hostfxr = new ScriptSystemHostfxr();
 
-  hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
+  // hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
 
-  ScriptSystem* scriptSystem = hostfxr->createScriptSystem(scriptsPath, scriptsPath / "Scripts.dll");
+  // ScriptSystem* scriptSystem = hostfxr->createScriptSystem(scriptsPath, scriptsPath / "Scripts.dll");
 
-  scriptSystem->run("Scripts.Lib, Scripts", "HelloAgain", "from host!", 1);
-  scriptSystem->run("Scripts.Lib, Scripts", "Hello", "from host!", 1);
+  // scriptSystem->run("Scripts.Lib, Scripts", "HelloAgain", "from host!", 1);
+  // scriptSystem->run("Scripts.Lib, Scripts", "Hello", "from host!", 1);
 
   while (Window::update()) {
     if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
@@ -88,7 +88,7 @@ int main(int argc, char** argv) {
     Window::show();
   }
 
-  hostfxr->stop();
+  // hostfxr->stop();
 
   return EXIT_SUCCESS;
 }
