@@ -24,7 +24,4 @@ target_include_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_INCLUDE_DIR}")
 target_link_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_BINARY_DIR}")
 target_link_libraries(${PROJECT_NAME} PUBLIC UltralightCore AppCore Ultralight WebCore)
 
-find_package(stb REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE stb::stb)
-
 target_include_directories(${PROJECT_NAME} PUBLIC ./include/)

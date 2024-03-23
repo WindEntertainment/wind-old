@@ -1,7 +1,5 @@
 project(wind-asset-bundler)
 
-include(../pipes/CMakeLists.txt)
-
 set(HEADERS
     ./include/asset-bundler/asset-bundler.hpp
 )
@@ -13,10 +11,24 @@ set(SOURCES
 ) 
 
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
+target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
+
 install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/bin)
 
+target_include_directories(${PROJECT_NAME} PUBLIC ../pipes/include/)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-core)
-target_include_directories(${PROJECT_NAME} PUBLIC ${PIPES_INCLUDE_DIR})
+
+find_package(stb REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE stb::stb)
+
+find_package(ZLIB REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE ZLIB::ZLIB)
 
 find_package(cxxopts REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE cxxopts::cxxopts)
+
+find_package(yaml-cpp REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE yaml-cpp::yaml-cpp)
+
+find_package(pugixml REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE pugixml::pugixml)

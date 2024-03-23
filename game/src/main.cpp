@@ -5,6 +5,8 @@
 #include <wind-ultralight/ultralight.h>
 #include <window/window.h>
 
+#include <ranges>
+
 int main() {
 #ifndef NDEBUG
 #define SPDLOG

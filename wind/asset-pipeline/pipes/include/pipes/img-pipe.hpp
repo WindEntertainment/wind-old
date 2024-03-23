@@ -6,7 +6,6 @@
 
 #ifdef WIND_PIPE_WRITE
 
-#define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
 #endif
@@ -34,7 +33,7 @@ public:
       return;
     }
 
-    output.write(m_id, sizeof(asset_id));
+    output.write(reinterpret_cast<char*>(&m_id), sizeof(asset_id));
 
     output.write(reinterpret_cast<char*>(&width), sizeof(int));
     output.write(reinterpret_cast<char*>(&height), sizeof(int));

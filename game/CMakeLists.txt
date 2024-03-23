@@ -5,8 +5,7 @@ set(SOURCES
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
-find_package(stb REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE stb::stb)
+
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-core)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-ultralight)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-asset-manager)

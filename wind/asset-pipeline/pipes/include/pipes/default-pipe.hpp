@@ -7,7 +7,7 @@ namespace asset_pipeline {
 class DefaultPipe : public AssetPipe {
 public:
 #ifdef WIND_PIPE_WRITE
-  virtual void compile(const fs::path& source, const fs::path& destination) override {
+  virtual void compile(const fs::path& _source, const fs::path& _destination) override {
     std::ifstream input(_source, std::ios_base::in);
     std::ofstream output(_destination, std::ios_base::binary);
 

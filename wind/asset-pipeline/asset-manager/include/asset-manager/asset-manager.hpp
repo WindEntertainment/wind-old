@@ -1,3 +1,4 @@
+#pragma once
 #include <pipes/pipes-register.hpp>
 
 #include <any>
