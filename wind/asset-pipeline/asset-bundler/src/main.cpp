@@ -1,12 +1,12 @@
-#include <asset-pipeline/pipes-register.h>
-#include <asset-pipeline/pipes/default-pipe.h>
-#include <asset-pipeline/pipes/img-pipe.h>
-#include <asset-pipeline/pipes/shader-pipe.h>
-#include <spdlog/spdlog.h>
+#define WIND_PIPE_WRITE
+
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
 
 #include <cxxopts.hpp>
+#include <spdlog/spdlog.h>
 
-#include "asset-pipeline/asset-pipeline.h"
+#include "asset-bundler/asset-bundler.hpp"
 
 void setting() {
   using namespace wind;

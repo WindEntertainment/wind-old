@@ -1,4 +1,6 @@
 #pragma once
+#define WIND_PIPE_WRITE
+
 #include <utils/utils.h>
 #include <utils/yaml-utils.h>
 
@@ -7,7 +9,8 @@
 #include <yaml-cpp/node/node.h>
 #include <yaml-cpp/yaml.h>
 
-#include "pipes/pipe.h"
+#include "pipes/pipe.hpp"
+#include "pipes/pipes-register.hpp"
 
 namespace wind {
 namespace asset_pipeline {

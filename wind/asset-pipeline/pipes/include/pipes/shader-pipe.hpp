@@ -1,3 +1,4 @@
+#pragma once
 #include "pipe.hpp"
 
 #ifdef WIND_PIPE_WRITE
@@ -84,7 +85,7 @@ public:
     // =====================================================//
     // Writing
 
-    output.write(m_id, sizeof(asset_id));
+    output.write(reinterpret_cast<char*>(&m_id), sizeof(asset_id));
 
     output << (uint)vtxZippedSize;
     output.write(vtxZipped, vtxZippedSize);

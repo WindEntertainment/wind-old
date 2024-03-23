@@ -1,4 +1,4 @@
-#include "asset-pipeline/asset-pipeline.h"
+#include "asset-bundler/asset-bundler.hpp"
 #include <filesystem>
 
 namespace wind {

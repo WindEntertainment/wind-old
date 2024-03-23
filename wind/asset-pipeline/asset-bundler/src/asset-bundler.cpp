@@ -1,11 +1,15 @@
-#include "asset-pipeline/asset-pipeline.h"
-#include "asset-pipeline/pipes-register.h"
-#include "asset-pipeline/pipes/pipe.h"
+#include "asset-bundler/asset-bundler.hpp"
+#include "pipes/pipe.hpp"
+
 #include <filesystem>
 #include <fstream>
 #include <functional>
+#include <regex>
 
 namespace wind {
+
+std::vector<AssetPipe*> asset_pipeline::PipeRegister::m_pipes;
+
 namespace asset_pipeline {
 
 void AssetPipeline::compileFile(const fs::path& _source,
@@ -28,7 +32,7 @@ void AssetPipeline::compileFile(const fs::path& _source,
   }
 
   if (!_pipe) {
-    _pipe = PipeRegister::getPipe(_source);
+    //_pipe = PipeRegister::getPipe(_source);
     //_pipe->config(std::move(findConfigForPath(_source.relative_path())));
   }
   if (!_pipe) {
@@ -133,7 +137,9 @@ void AssetPipeline::compileDirectory(const fs::path& _source,
 
           AssetPipe* pipe = nullptr;
           if (exportNode["pipe"]) {
-            pipe = PipeRegister::getPipe(exportNode["pipe"].as<std::string>());
+            std::hash<std::string> hasher;
+            asset_id hash = hasher(exportNode["pipe"].as<std::string>());
+            pipe = PipeRegister::getPipe(hash);
             pipe->config(exportNode);
           }
 
@@ -218,7 +224,7 @@ void AssetPipeline::clearUnusedCache(const fs::path& _source, const fs::path& _c
       continue;
 
     fs::path sourceFile = "./" / fs::relative(entry, _cache);
-    if (!sourceFile.has_extension("obj"))
+    if (sourceFile.extension().string() == "obj")
       return;
 
     sourceFile.replace_extension();
