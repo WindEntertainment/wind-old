@@ -1,11 +1,14 @@
 #pragma once
-#include "asset-pipeline/assets/asset.h"
-
 #include <utils/utils.h>
-#include <yaml-cpp/yaml.h>
 #include <zlib.h>
 
+#ifdef WIND_PIPE_WRITE
+#include <yaml-cpp/yaml.h>
+#endif
+
 namespace wind {
+
+using asset_id = unsigned int;
 
 class AssetPipe {
   friend class AssetPipeline;
@@ -14,10 +17,10 @@ protected:
   asset_id m_id;
 
 public:
+#ifdef WIND_PIPE_WRITE
   virtual void config(YAML::Node& config){};
-
   virtual void compile(const fs::path& _source, const fs::path& _destination) = 0;
-  virtual Asset* load(unsigned char* bytes) = 0;
+#endif
 
   asset_id id() const {
     return m_id;

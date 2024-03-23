@@ -1,5 +1,5 @@
-#include "asset-pipeline/assets/asset.h"
-#include "pipes-register.h"
+#include <pipes/pipes-register.hpp>
+
 #include <fstream>
 #include <spdlog/spdlog.h>
 #include <utils/utils.h>
@@ -81,14 +81,14 @@ private:
   static std::map<const char*, Bundle*> m_bundles;
   static std::hash<std::string> hasher;
 
-  static Asset* loadAsset(const char* _name, Bundle* _bundle) {
+  static void* loadAsset(const char* _name, Bundle* _bundle) {
     asset_id id = hasher(_name);
     asset_id begin, end;
 
     if (!_bundle->tryGetOffsetById(id, begin, end))
       return nullptr;
 
-    Asset* asset = nullptr;
+    // Asset* asset = nullptr;
     asset_id pipe_id = 0;
 
     if (auto bytes = _bundle->readBytes(begin, end - begin, pipe_id)) {
@@ -98,12 +98,12 @@ private:
         delete[] bytes;
       }
 
-      asset = pipe->load(bytes);
+      // asset = pipe->load(bytes);
 
       delete[] bytes;
     }
 
-    return asset;
+    return nullptr;
   }
 
 public:
@@ -124,7 +124,6 @@ public:
   }
 
   template <typename T>
-    requires std::is_base_of_v<Asset, T>
   static T* getAsset(const char* _key) {
     for (auto& pair : m_bundles) {
       auto asset = loadAsset(pair.first, pair.second);
