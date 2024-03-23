@@ -167,7 +167,7 @@ void InputSystem::addTrigger(std::string groupName, Keys bindings, Callbacks cal
     verify<InputSystemError>(callback);
   });
   forEach(bindings, [](auto binding) {
-    verify<InputSystemError>(binding == Key{});
+    verify<InputSystemError>(binding != Key{});
   });
 
   addGroupedTrigger(groupName, bindings, callbacks);
@@ -177,7 +177,7 @@ void InputSystem::addTrigger(std::string groupName, Keys bindings, Callbacks cal
 void InputSystem::addTrigger(std::string groupName, Keys bindings, Callback* callback) {
   verify<InputSystemError>(callback);
   forEach(bindings, [](auto binding) {
-    verify<InputSystemError>(binding == Key{});
+    verify<InputSystemError>(binding != Key{});
   });
 
   addGroupedTrigger(groupName, bindings, callback);
@@ -185,7 +185,7 @@ void InputSystem::addTrigger(std::string groupName, Keys bindings, Callback* cal
 }
 
 void InputSystem::addTrigger(std::string groupName, Key binding, Callbacks callbacks) {
-  verify<InputSystemError>(binding == Key{});
+  verify<InputSystemError>(binding != Key{});
   forEach(callbacks, [](auto callback) {
     verify<InputSystemError>(callback);
   });
@@ -194,20 +194,20 @@ void InputSystem::addTrigger(std::string groupName, Key binding, Callbacks callb
 }
 
 void InputSystem::addTrigger(std::string groupName, Key binding, Callback* callback) {
-  verify<InputSystemError>(binding == Key{} || !callback);
+  verify<InputSystemError>(binding != Key{} && callback);
   addGroupedTrigger(groupName, binding, callback);
   addKeycodeTrigger(binding, callback);
 }
 
 void InputSystem::addTrigger(std::string groupName, Key binding) {
-  verify<InputSystemError>(binding == Key{});
+  verify<InputSystemError>(binding != Key{});
   addGroupedTrigger(groupName, binding);
   addKeycodeTrigger(binding);
 }
 
 void InputSystem::addTrigger(std::string groupName, Keys bindings) {
   forEach(bindings, [](auto binding) {
-    verify<InputSystemError>(binding == Key{});
+    verify<InputSystemError>(binding != Key{});
   });
   addGroupedTrigger(groupName, bindings);
   addKeycodeTrigger(bindings);

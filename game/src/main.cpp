@@ -12,6 +12,7 @@
 #include <renderer/particle.h>
 #include <renderer/renderer.h>
 #include <spdlog/spdlog.h>
+#include <utils/includes.h>
 #include <utils/utils.h>
 #include <wind-ultralight/ultralight.h>
 #include <window/window.h>
@@ -49,11 +50,7 @@ int main(int argc, char* argv[]) {
 
   auto hostfxr = new ScriptSystemHostfxr();
 
-  auto rc = hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
-
-  if (rc != 0) {
-    spdlog::error("ZHENIA PIDOR {}", rc);
-  };
+  hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
 
   ScriptSystem* scriptSystem = hostfxr->createScriptSystem(scriptsPath, scriptsPath / "Scripts.dll");
 
