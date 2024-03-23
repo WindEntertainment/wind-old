@@ -18,9 +18,7 @@
 #include <wind-ultralight/ultralight.h>
 #include <window/window.h>
 
-#include <ranges>
-
-int main() {
+int main(int argc, char** argv) {
 #ifndef NDEBUG
 #define SPDLOG
   spdlog::set_level(spdlog::level::debug);
@@ -40,7 +38,7 @@ int main() {
   auto rootPath = fs::absolute(argv[0]).parent_path();
   auto scriptsPath = rootPath / "assets/scripts/bin/Release/";
 
-  InputSystem::createTriggersFromFile(rootPath / "assets/configs/triggers.yml");
+  InputSystem::createTriggersFromFile("configs/triggers.yml");
 
   Window::init([](Window::Config* self) {
     self->title = "Game";
@@ -50,7 +48,7 @@ int main() {
   });
 
   Ultralight::init();
-  const auto uiTexture = Ultralight::loadView("ui/dist/index.html", {800, 600});
+  const auto uiTexture = Ultralight::loadView("UI/dist/index.html", {800, 600});
 
   float scope = 1.f;
   glm::vec2 camera = {};

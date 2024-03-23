@@ -1,4 +1,7 @@
+#if __APPLE__
 #include "Ultralight/ConsoleMessage.h"
+#endif
+
 #include "Ultralight/KeyEvent.h"
 #include "Ultralight/Listener.h"
 #include "Ultralight/MouseEvent.h"
@@ -223,8 +226,6 @@ void Ultralight::triggerMouseReleaseEvent(wind::InputSystemContext* context) {
 }
 
 void Ultralight::triggerKeyPressEvent(wind::InputSystemContext* context) {
-  spdlog::info("press");
-
   std::for_each(context->keyboardContext.pressedKeys.begin(), context->keyboardContext.pressedKeys.end(), [](auto pressedKey) {
     ul::KeyEvent evt;
     evt.type = ul::KeyEvent::kType_RawKeyDown;
