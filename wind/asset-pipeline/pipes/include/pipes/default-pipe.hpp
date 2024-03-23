@@ -1,11 +1,12 @@
 #pragma once
-#include "pipe.h"
+#include "pipe.hpp"
 
 namespace wind {
 namespace asset_pipeline {
 
 class DefaultPipe : public AssetPipe {
 public:
+#ifdef WIND_PIPE_WRITE
   virtual void compile(const fs::path& source, const fs::path& destination) override {
     std::ifstream input(_source, std::ios_base::in);
     std::ofstream output(_destination, std::ios_base::binary);
@@ -45,6 +46,11 @@ public:
     output.close();
 
     delete[] zipped;
+  }
+#endif
+
+  void* load(unsigned char* bytes) override {
+    return nullptr;
   }
 
   DefaultPipe()

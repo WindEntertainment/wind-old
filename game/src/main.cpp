@@ -14,7 +14,14 @@ int main() {
 
   using namespace wind::asset_pipeline;
 
+  PipeRegister::regPipe(new DefaultPipe());
+  PipeRegister::regPipe(new ShaderPipe());
+  PipeRegister::regPipe(new ImagePipe());
+
   AssetManager::loadBundle("assets.bundle");
+
+  auto html = AssetManager::getAsset<unsigned char*>("ui/dist/index.html");
+  spdlog::info("html == nullptr: {}", html == nullptr);
 
   Window::init([](Window::Config* self) {
     self->title = "Game";

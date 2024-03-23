@@ -1,12 +1,15 @@
-#include "asset-pipeline/assets/asset.h"
-#include "pipe.h"
+#include "pipe.hpp"
+
+#ifdef WIND_PIPE_WRITE
 #include <pugixml.hpp>
+#endif
 
 namespace wind {
 namespace asset_pipeline {
 
 class ShaderPipe : public AssetPipe {
 public:
+#ifdef WIND_PIPE_WRITE
   void compile(const fs::path& _source, const fs::path& _destination) override {
     std::ifstream input(_source, std::ios_base::in);
     std::ofstream output(_destination, std::ios_base::binary);
@@ -89,8 +92,11 @@ public:
     output << (uint)fgtZippedSize;
     output.write(fgtZipped, fgtZippedSize);
   }
+#endif
 
-  Asset* load(unsigned char* bytes) override;
+  void* load(unsigned char* bytes) override {
+    return nullptr;
+  }
 
   ShaderPipe()
       : AssetPipe("shader"){};

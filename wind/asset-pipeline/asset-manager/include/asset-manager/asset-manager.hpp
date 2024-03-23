@@ -1,5 +1,6 @@
 #include <pipes/pipes-register.hpp>
 
+#include <any>
 #include <fstream>
 #include <spdlog/spdlog.h>
 #include <utils/utils.h>
@@ -78,32 +79,33 @@ class AssetManager {
   };
 
 private:
-  static std::map<const char*, Bundle*> m_bundles;
-  static std::hash<std::string> hasher;
+  static std::vector<Bundle*> m_bundles;
+  static std::hash<std::string> m_hasher;
+  static std::map<asset_id, std::any> m_preloads;
 
-  static void* loadAsset(const char* _name, Bundle* _bundle) {
-    asset_id id = hasher(_name);
+  template <typename T>
+  static T* loadAsset(asset_id _id, Bundle* _bundle) {
     asset_id begin, end;
 
-    if (!_bundle->tryGetOffsetById(id, begin, end))
+    if (!_bundle->tryGetOffsetById(_id, begin, end))
       return nullptr;
 
-    // Asset* asset = nullptr;
+    void* asset = nullptr;
     asset_id pipe_id = 0;
 
     if (auto bytes = _bundle->readBytes(begin, end - begin, pipe_id)) {
       AssetPipe* pipe = asset_pipeline::PipeRegister::getPipe(pipe_id);
       if (!pipe) {
-        spdlog::error("[Asset-Manager:loadAsset] Unknow pipe:  {}", pipe_id);
+        spdlog::error("[Asset-Manager:loadAsset] Unknow pipe:  {}. AssetId: {}", pipe_id, _id);
         delete[] bytes;
       }
 
-      // asset = pipe->load(bytes);
+      asset = pipe->load(bytes);
 
       delete[] bytes;
     }
 
-    return nullptr;
+    return static_cast<T*>(asset);
   }
 
 public:
@@ -114,19 +116,36 @@ public:
       return;
     }
 
-    m_bundles.insert(std::make_pair(_path.string().c_str(), new Bundle(std::move(file))));
+    m_bundles.push_back(new Bundle(std::move(file)));
   }
 
   static void unloadBundles() {
-    for (auto& pair : m_bundles)
-      delete pair.second;
+    for (auto& bundle : m_bundles)
+      delete bundle;
     m_bundles.clear();
   }
 
   template <typename T>
+  static void preload(const char* _key) {
+    asset_id id = m_hasher(_key);
+
+    if (m_preloads.contains(id))
+      return;
+
+    m_preloads.insert(std::make_pair(
+        id,
+        std::make_any(std::make_shared(getAsset<T>(_key)))));
+  }
+
+  template <typename T>
   static T* getAsset(const char* _key) {
-    for (auto& pair : m_bundles) {
-      auto asset = loadAsset(pair.first, pair.second);
+    asset_id id = m_hasher(_key);
+
+    if (m_preloads.contains(id))
+      return std::any_cast<std::shared_ptr<T>>(m_preloads[id]).get();
+
+    for (auto& bundle : m_bundles) {
+      T* asset = loadAsset<T>(id, bundle);
       if (asset)
         return asset;
     }

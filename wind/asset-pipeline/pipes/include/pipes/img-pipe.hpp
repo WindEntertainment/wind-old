@@ -4,14 +4,19 @@
 #include <filesystem>
 #include <spdlog/spdlog.h>
 
+#ifdef WIND_PIPE_WRITE
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
+
+#endif
 
 namespace wind {
 namespace asset_pipeline {
 
 class ImagePipe : public AssetPipe {
 public:
+#ifdef WIND_PIPE_WRITE
   void compile(const fs::path& _source,
                const fs::path& _destination) override {
     int width, height, channels;
@@ -49,6 +54,11 @@ public:
     output.write(zipped, zippedSize);
 
     output.close();
+  }
+#endif
+
+  void* load(unsigned char* bytes) override {
+    return nullptr;
   }
 
   ImagePipe()
