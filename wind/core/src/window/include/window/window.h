@@ -1,9 +1,6 @@
 #pragma once
 
 // clang-format off
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 #include <utils/utils.h>
 
 #include "window/events/keyboard.h" // IWYU pragma: export
