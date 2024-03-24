@@ -5,32 +5,10 @@ inputs:
   rootPath:
     description: Path to project root
     required: true
-  # pnpmPath:
-  #   description: Path to pnpm cache
-  #   required: true
-  # pnpmKeysPrefix:
-  #   description: Prefix for pnpm cache
-  #   required: true
 
 runs:
   using: 'composite'
   steps:
-    # - name: Get pnpm store directory
-    #   shell: bash
-    #   id: storePath
-    #   run: |
-    #     echo "storePath=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-    # - name: Get pnpm store directory
-    #   shell: bash
-    #   run: |
-    #     echo "${{ steps.storePath.outputs.storePath }} is /home/runner/setup-pnpm/node_modules/.bin/store/v3"
-
-    # - name: Get pnpm store directory
-    #   shell: bash
-    #   run: |
-    #     echo ${{ steps.storePath.outputs.storePath }} == "/home/runner/setup-pnpm/node_modules/.bin/store/v3"
-
     - uses: actions/cache@v4
       name: Setup pnpm cache
       with:
