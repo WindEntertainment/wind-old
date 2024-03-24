@@ -4,12 +4,20 @@ description: Getting pnpm cache
 runs:
   using: 'composite'
   steps:
-    - name: Get pnpm store directory
+    - name: Get pnpm path
       shell: bash
       run: |
         echo "pnpmPath=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-    - name: Get pnpm store directory
+    - name: Get pnpm keys prefix
       shell: bash
       run: |
         echo "pnpmKeysPrefix=${{ runner.os }}-pnpm-store-" >> $GITHUB_ENV
+
+    - uses: actions/cache@v4
+      name: Setup pnpm cache
+      with:
+        path: "${{ env.pnpmPath }}"
+        key: ${{ env.pnpmKeysPrefix }}${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ env.pnpmKeysPrefix }}
