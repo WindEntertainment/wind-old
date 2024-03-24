@@ -1,0 +1,9 @@
+name: Script build
+description: Script build
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: ./.github/workflows/actions/scripts/base-setup
+
+    - uses: ./.github/workflows/actions/scripts/install-dependencies

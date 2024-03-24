@@ -4,15 +4,6 @@ description: Engine lint
 runs:
   using: 'composite'
   steps:
-    # - name: Checkout code
-    #   uses: actions/checkout@v4
-    #   with:
-    #     fetch-depth: 0
-
-    - uses: ./.github/actions/engine/base-setup
-
-    - uses: ./.github/actions/engine/install-dependencies
-
     - uses: DoozyX/clang-format-lint-action@v0.17
       with:
         source: '.'

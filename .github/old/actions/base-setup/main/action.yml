@@ -1,9 +1,0 @@
-name: Setup main base
-description: Setup main base
-
-runs:
-  using: 'composite'
-  steps:
-    - name: Fetching git
-      shell: sh
-      run: git fetch
