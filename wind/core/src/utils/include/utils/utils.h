@@ -1,6 +1,10 @@
 #pragma once
 #include "includes.h"
+
+#ifndef __APPLE__
 #include <bits/ranges_algo.h>
+#endif
+
 #include <ranges>
 
 namespace wind {
