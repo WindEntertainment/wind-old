@@ -34,7 +34,7 @@ runs:
     - uses: actions/cache@v4
       name: Setup pnpm cache
       with:
-        path: /home/runner/setup-pnpm/node_modules/.bin/store/v3
+        path: "${{ steps.storePath.outputs.storePath }}"
         key: ${{inputs.pnpmKeysPrefix}}${{hashFiles('**/pnpm-lock.yaml')}}
         restore-keys: |
           ${{inputs.pnpmKeysPrefix}}
