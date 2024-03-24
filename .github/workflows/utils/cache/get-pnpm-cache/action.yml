@@ -15,7 +15,7 @@ runs:
     - name: test
       shell: bash
       run: |
-        echo ${{ steps.storePath.outputs.storePath }}
+        echo pnpm store path --silent
     - name: test2
       shell: bash
       run: |
