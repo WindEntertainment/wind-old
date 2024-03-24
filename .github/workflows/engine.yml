@@ -37,8 +37,9 @@ jobs:
           author_name: Clang format bot
           author_email: robot@example.com
           message: 'Committing clang-format changes from gh action'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          add: '*'
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     outputs:
       isBuildPassed: true
