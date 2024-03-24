@@ -1,0 +1,23 @@
+name: get-pnpm-cache
+
+outputs:
+  pnpmPath:
+    required: true
+    type: string
+  pnpmKeysPrefix:
+    required: true
+    type: string
+
+jobs:
+  variables:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get pnpm store directory
+        shell: bash
+        id: storePath
+        run: |
+          echo "storePath=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
+
+    outputs:
+      pnpmPath: ${{ steps.storePath.outputs.storePath }}
+      pnpmKeysPrefix: ${{ runner.os }}-pnpm-store-

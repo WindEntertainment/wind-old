@@ -3,10 +3,7 @@ name: ui-ci
 on:
   workflow_call:
     inputs:
-      pnpmPath:
-        required: true
-        type: string
-      pnpmKeysPrefix:
+      rootPath:
         required: true
         type: string
     outputs:
@@ -27,12 +24,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: ./.github/actions/base-setup/ui
+      - name: Set up base UI
+        id: uiSetup
+        uses: ./.github/actions/base-setup/ui
 
       - uses: ./.github/actions/install-dependencies/ui
         with:
-          pnpmKeysPrefix: ${{inputs.pnpmKeysPrefix}}
-          pnpmPath: ${{inputs.pnpmPath}}
+          rootPath: ${{inputs.rootPath}}
+          pnpmKeysPrefix: ${{steps.uiSetup.outputs.pnpmKeysPrefix}}
+          pnpmPath: ${{steps.uiSetup.outputs.pnpmPath}}
 
       - name: Lint
         id: lint
