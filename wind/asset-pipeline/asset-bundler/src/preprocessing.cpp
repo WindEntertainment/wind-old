@@ -4,15 +4,23 @@
 namespace wind {
 namespace assets {
 
-void AssetPipeline::preprocessing(const fs::path& _path, YAML::Node& _options) {
-  if (!_options.IsMap()) {
-    yamlError("Failed parsing '{}': preprocessing options must be map.", _options, _path.string());
+void AssetPipeline::preprocessDirectory(const fs::path& _path, const YAML::Node& config) {
+  auto options = config["preprocessing"];
+  if (!options)
+    return;
+
+  Stopwatch sw("Preprocessing");
+
+  spdlog::info("Run preprocessing commands...");
+
+  if (!options.IsMap()) {
+    yamlError("Failed parsing '{}': preprocessing options must be map.", options, _path.string());
     return;
   }
 
-  for (auto option : _options) {
+  for (auto option : options) {
     if (!option.first.IsScalar() || !option.second.IsScalar()) {
-      yamlError("Failed parsing '{}': preprocessing option must be scalar type.", _options, _path.string());
+      yamlError("Failed parsing '{}': preprocessing option must be scalar type.", options, _path.string());
       continue;
     }
 

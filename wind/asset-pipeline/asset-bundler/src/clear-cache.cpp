@@ -11,6 +11,11 @@ namespace wind {
 namespace assets {
 
 void AssetPipeline::clearUnusedCache(const fs::path& _source, const fs::path& _cache) {
+  if (!fs::exists(_cache))
+    return;
+
+  Stopwatch sw("Clear unused cache");
+
   fs::recursive_directory_iterator cache_it;
   try {
     cache_it = createRecursiveIterator(_cache);
@@ -20,8 +25,6 @@ void AssetPipeline::clearUnusedCache(const fs::path& _source, const fs::path& _c
   }
 
   const fs::path cacheParentPath = _source.parent_path();
-
-  Stopwatch sw("Clear unused cache");
   for (const auto& entry : cache_it) {
     if (entry.is_directory())
       continue;
