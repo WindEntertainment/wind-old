@@ -24,6 +24,22 @@ jobs:
 
       - uses: ./.github/actions/install-dependencies/engine
 
+      - uses: DoozyX/clang-format-lint-action@v0.17
+        with:
+          source: '.'
+          exclude: './game/assets'
+          extensions: 'h,cpp'
+          clangFormatVersion: 17
+          inplace: true
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          author_name: Clang format bot
+          author_email: robot@example.com
+          message: 'Committing clang-format changes from gh action'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     outputs:
       isBuildPassed: true
       isLintPassed: true
