@@ -1,10 +1,13 @@
-name: 'Setup UI base'
+name: Setup UI base
+description: Setup UI base
 
 outputs:
   pnpmPath:
     value: ${{ steps.pnpmCache.outputs.pnpmPath }}
+    description: Path to pnpm cache
   pnpmKeysPrefix:
     value: ${{ steps.pnpmCache.outputs.pnpmKeysPrefix }}
+    description: Prefix for pnpm cache
 
 runs:
   using: 'composite'

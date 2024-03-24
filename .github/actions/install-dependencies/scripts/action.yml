@@ -1,4 +1,5 @@
-name: 'Install scripts dependencies'
+name: Install scripts dependencies
+description: Install scripts dependencies
 
 runs:
   using: 'composite'

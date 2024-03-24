@@ -1,4 +1,5 @@
-name: 'Setup main base'
+name: Setup main base
+description: Setup main base
 
 runs:
   using: 'composite'

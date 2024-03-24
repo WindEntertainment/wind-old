@@ -1,4 +1,5 @@
-name: 'Setup engine base'
+name: Setup engine base
+description: Setup engine base
 
 runs:
   using: 'composite'
