@@ -1,0 +1,7 @@
+name: 'Install scripts dependencies'
+
+inputs:
+
+runs:
+  using: 'composite'
+  steps:

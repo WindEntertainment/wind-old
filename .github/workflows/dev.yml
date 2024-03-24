@@ -1,0 +1,34 @@
+name: dev
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!master'
+
+jobs:
+  variables:
+    uses: ./.github/workflows/variables.yml
+
+  ui-ci:
+    needs: variables
+    uses: ./.github/workflows/ui-ci.yml
+    with:
+      pnpmKeysPrefix: ${{needs.variables.outputs.pnpmKeysPrefix}}
+      pnpmPath: ${{needs.variables.outputs.pnpmPath}}
+
+  engine-ci:
+    needs: variables
+    uses: ./.github/workflows/engine-ci.yml
+
+  scripts-ci:
+    needs: variables
+    uses: ./.github/workflows/scripts-ci.yml
+
+  # ciChecker:
+  #   runs-on: ubuntu-latest
+  #   needs: ci
+  #   steps:
+  #     - name: Check is CI valid
+  #       if: needs.ci.outputs.isPassed != 'true'
+  #       run: exit 1
