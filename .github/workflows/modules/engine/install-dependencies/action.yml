@@ -30,16 +30,9 @@ runs:
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Windows" ]; then
+          cd "C:\\Users\\runneradmin\\.conan2\\p"
           ls -a
-          cd ../
-          ls -a
-          cd "C:\\Users\\Default User\\"
-          ls -a
-          cd "C:\\Users\\Default\\"
-          ls -a
-          cd "C:\\Users\\runneradmin\\"
-          ls -a
-          echo "conanPath=%USERPROFILE%\.conan2\p" >> $GITHUB_ENV
+          echo "conanPath=C:\\Users\\runneradmin\\.conan2\\p" >> $GITHUB_ENV
         else
           echo "conanPath=~/.conan2/p/" >> $GITHUB_ENV
         fi
