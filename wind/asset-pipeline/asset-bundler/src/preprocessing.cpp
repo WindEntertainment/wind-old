@@ -2,7 +2,7 @@
 #include <filesystem>
 
 namespace wind {
-namespace asset_pipeline {
+namespace assets {
 
 void AssetPipeline::build(const fs::path& _path) {
   spdlog::info("===========================");
@@ -45,5 +45,5 @@ void AssetPipeline::preprocessing(const fs::path& _path, YAML::Node& _options) {
   }
 }
 
-} // namespace asset_pipeline
+} // namespace assets
 } // namespace wind

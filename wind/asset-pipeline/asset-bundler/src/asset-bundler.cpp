@@ -8,26 +8,24 @@
 
 namespace wind {
 
-std::vector<AssetPipe*> asset_pipeline::PipeRegister::m_pipes;
+std::vector<assets::AssetPipe*> assets::PipeRegister::m_pipes;
 
-namespace asset_pipeline {
+namespace assets {
 
-void AssetPipeline::compileFile(const fs::path& _source,
-                                const fs::path& _destination,
-                                AssetPipe* _pipe) {
+void AssetPipeline::compileFile(const fs::path& _source, const fs::path& _destination, AssetPipe* _pipe) {
   spdlog::info("Compile file: {}", _source.string());
 
   if (!fs::exists(_source)) {
     spdlog::error(
-        "Cannot compile file by specified path {} as it's a non exists location",
-        _source.string());
+      "Cannot compile file by specified path {} as it's a non exists location",
+      _source.string());
     return;
   }
 
   if (fs::is_directory(_source)) {
     spdlog::error(
-        "Cannot compile file by specified path {} as it's a directory. Use --folder flag to compile all files in the directory.",
-        _source.string());
+      "Cannot compile file by specified path {} as it's a directory. Use --folder flag to compile all files in the directory.",
+      _source.string());
     return;
   }
 
@@ -51,7 +49,7 @@ void AssetPipeline::compileFile(const fs::path& _source,
 }
 
 void AssetPipeline::compileDirectory(const fs::path& _source,
-                                     const fs::path& _destination) {
+  const fs::path& _destination) {
   spdlog::info("===========================");
   spdlog::info("Start compiling directory {}", _source.string());
 
@@ -144,8 +142,8 @@ void AssetPipeline::compileDirectory(const fs::path& _source,
           pipe->config(exportNode);
 
           compileFile(fs::relative(entry, _source),
-                      _destination / fs::relative(entry, sourceParentPath),
-                      pipe);
+            _destination / fs::relative(entry, sourceParentPath),
+            pipe);
         }
     } catch (std::exception& ex) {
       spdlog::error("Failed compiling directory '{}': {}", _path.string(), ex.what());
@@ -237,7 +235,7 @@ void AssetPipeline::clearUnusedCache(const fs::path& _source, const fs::path& _c
 }
 
 void AssetPipeline::linkDirectory(const fs::path& _source,
-                                  const fs::path& _destination) {
+  const fs::path& _destination) {
   Stopwatch sw("Linked");
 
   spdlog::info("===========================");
@@ -254,7 +252,7 @@ void AssetPipeline::linkDirectory(const fs::path& _source,
   std::ofstream bundle(_destination, std::ios_base::binary);
   if (!bundle.is_open()) {
     spdlog::error("Cannot create file for create bundle by path {}",
-                  _destination.string());
+      _destination.string());
     return;
   }
 
@@ -324,21 +322,21 @@ void AssetPipeline::setConfig(const fs::path& _importConfigPath) {
 fs::recursive_directory_iterator AssetPipeline::createRecursiveIterator(const fs::path& _path) {
   if (!fs::exists(_path))
     throw std::invalid_argument(fmt::format(
-        "Cannot create recursive directory iterator by specified path {} as it's a non exists location",
-        _path.string()));
+      "Cannot create recursive directory iterator by specified path {} as it's a non exists location",
+      _path.string()));
 
   if (!fs::is_directory(_path))
     throw std::invalid_argument(fmt::format(
-        "Cannot create recursive directory iterator by specified path {} as it's a file. Don't use --folder flag to compile separate file.",
-        _path.string()));
+      "Cannot create recursive directory iterator by specified path {} as it's a file. Don't use --folder flag to compile separate file.",
+      _path.string()));
 
   fs::recursive_directory_iterator it;
   try {
     it = fs::recursive_directory_iterator(_path);
   } catch (fs::filesystem_error& ex) {
     throw std::invalid_argument(
-        fmt::format("Cannot create recursive directory iterator for {}",
-                    _path.string()));
+      fmt::format("Cannot create recursive directory iterator for {}",
+        _path.string()));
   }
 
   return it;
@@ -355,5 +353,5 @@ YAML::Node AssetPipeline::findConfigForPath(const fs::path& path) {
   return YAML::Node();
 }
 
-} // namespace asset_pipeline
+} // namespace assets
 } // namespace wind

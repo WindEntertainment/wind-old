@@ -6,7 +6,7 @@
 #include "shader-pipe.hpp"
 
 namespace wind {
-namespace asset_pipeline {
+namespace assets {
 
 class PipeRegister {
 private:
@@ -27,5 +27,5 @@ public:
   }
 };
 
-} // namespace asset_pipeline
+} // namespace assets
 } // namespace wind
