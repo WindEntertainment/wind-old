@@ -16,9 +16,9 @@ runs:
 
     - name: Set up base UI
       id: uiSetup
-      uses: ./.github/actions/base-setup/ui
+      uses: ./.github/actions/ui/base-setup
 
-    - uses: ./.github/actions/install-dependencies/ui
+    - uses: ./.github/actions/ui/install-dependencies
       with:
         rootPath: ${{inputs.rootPath}}
         pnpmKeysPrefix: ${{steps.uiSetup.outputs.pnpmKeysPrefix}}
