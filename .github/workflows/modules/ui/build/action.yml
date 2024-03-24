@@ -14,8 +14,8 @@ runs:
 
     - uses: ./.github/workflows/modules/ui/install-dependencies
       with:
-        rootPath: ${{inputs.rootPath}}
+        rootPath: ${{ inputs.rootPath }}
 
     - name: Build
       shell: bash
-      run: cd ${{inputs.rootPath}} && pnpm build
+      run: cd ${{ inputs.rootPath }} && pnpm build
