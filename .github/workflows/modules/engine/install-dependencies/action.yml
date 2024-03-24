@@ -19,9 +19,9 @@ runs:
       shell: bash
       run: conan profile detect
 
-    - name: Update profile
-      shell: bash
-      run: conan profile update settings.compiler.libcxx=libstdc++11 default
+    # - name: Update profile
+    #   shell: bash
+    #   run: conan profile update settings.compiler.libcxx=libstdc++11 default
 
     - name: Install dependencies
       shell: bash
