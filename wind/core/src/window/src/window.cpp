@@ -45,7 +45,7 @@ void Window::init(void (*buildConfig)(Config*)) {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, config.openglVersion.x);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, config.openglVersion.y);
 
-#if __APPLE__
+#ifdef __APPLE__
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
