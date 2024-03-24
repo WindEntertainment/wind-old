@@ -1,8 +1,10 @@
 exports:
-  - path: "scripts"
-    type: directory
-    name: "Managed"
+  - path: "art"
+    output:
+      path: "Art"
+      type: directory
 
   - path: "[^\/]*"
-    type: bundle
-    name: "Base.bundle"
+    output:
+      path: "Assets.bundle"
+      type: bundle

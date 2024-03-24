@@ -13,7 +13,7 @@ namespace assets {
 void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _destination, const YAML::Node& config) {
   Stopwatch sw("Compiled");
 
-  const fs::path sourceParentPath = _source.parent_path();
+  const fs::path sourceParentPath = _source.parent_path().parent_path();
 
   fs::recursive_directory_iterator it;
   try {
@@ -79,7 +79,7 @@ void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _d
         pipe->config(exportNode);
 
         compileFile(
-          fs::relative(entry, sourceParentPath.parent_path()),
+          fs::relative(entry, sourceParentPath),
           _destination / fs::relative(entry, sourceParentPath),
           pipe);
       }

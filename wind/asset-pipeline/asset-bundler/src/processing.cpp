@@ -27,7 +27,7 @@ void AssetPipeline::processDirectory(const fs::path& _source, const fs::path& _d
     return;
   }
 
-  preprocessDirectory(configPath, config);
+  preprocessDirectory(_source, config);
   compileDirectory(_source, _destination, config);
   processChildDirectories(_source, _destination, config);
 }
@@ -53,6 +53,8 @@ void AssetPipeline::processChildDirectories(const fs::path& _source, const fs::p
         continue;
 
       bool isMatch = false;
+      YAML::Node output;
+
       for (auto option : config["exports"]) {
         auto exportPath = option["path"];
         if (!exportPath) {
@@ -75,12 +77,34 @@ void AssetPipeline::processChildDirectories(const fs::path& _source, const fs::p
 
         if (std::regex_match(entry.path().lexically_relative(_source).string(), regex)) {
           isMatch = true;
+          output = option["output"];
           break;
         }
       }
 
-      if (isMatch)
-        processDirectory(entry.path(), _destination);
+      if (!isMatch)
+        continue;
+
+      fs::path destination = _destination;
+
+      if (output.IsMap()) {
+        if (!output["path"] || !output.IsScalar()) {
+          spdlog::error("Invalid output configuration: missing path option");
+          continue;
+        }
+
+        if (!output["type"] || !output.IsScalar()) {
+          spdlog::error("Invalid output configuration: missing type option");
+          return;
+        }
+
+        auto path = output["path"].as<std::string>();
+        auto type = output["type"].as<std::string>();
+
+        destination = path;
+      }
+
+      processDirectory(entry.path(), destination);
     }
   } catch (std::exception& ex) {
     spdlog::error("Failed compiling child directories: {}", ex.what());
