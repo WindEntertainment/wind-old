@@ -35,11 +35,11 @@ runs:
 
     - name: Piska
       shell: bash
-      run: apt install libgl-dev
+      run: sudo apt install libgl-dev
 
     - name: Piska2
       shell: bash
-      run: apt install libgl1-mesa-dev
+      run: sudo apt install libgl1-mesa-dev
 
     # - name: Update profile
     #   shell: bash
