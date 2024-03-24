@@ -29,19 +29,19 @@ runs:
       with:
         version: 2.0.17
 
-    - name: Create default profile
-      shell: bash
-      run: conan profile detect
-
-    - name: Create default profile
-      shell: bash
-      run: sudo echo "/home/runner/.local/bin/conan" >> $PATH
-    - name: Create default profile
-      shell: bash
-      run: sudo echo "/home/runner/.local/bin/conan" >> $GITHUB_PATH
-    # - name: Piska
+    # - name: Create default profile
     #   shell: bash
-    #   run: sudo apt install libgl-dev
+    #   run: conan profile detect
+
+    # - name: Create default profile
+    #   shell: bash
+    #   run: sudo echo "/home/runner/.local/bin/conan" >> $PATH
+    # - name: Create default profile
+    #   shell: bash
+    #   run: sudo echo "/home/runner/.local/bin/conan" >> $GITHUB_PATH
+    - name: Deps
+      shell: bash
+      run: sudo apt install libgl-dev libgl1-mesa-dev
 
     # - name: Piska2
     #   shell: bash
