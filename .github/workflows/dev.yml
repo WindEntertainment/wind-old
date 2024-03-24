@@ -11,15 +11,15 @@ jobs:
     uses: ./.github/workflows/base.yml
 
   ui:
-    uses: ./.github/workflows/ui-ci.yml
+    uses: ./.github/workflows/ui.yml
     with:
       rootPath: 'game/assets/UI'
 
   engine:
-    uses: ./.github/workflows/engine-ci.yml
+    uses: ./.github/workflows/engine.yml
 
   scripts:
-    uses: ./.github/workflows/scripts-ci.yml
+    uses: ./.github/workflows/scripts.yml
 
   # ciChecker:
   #   runs-on: ubuntu-latest

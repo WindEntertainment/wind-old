@@ -24,6 +24,13 @@ jobs:
 
       - uses: ./.github/actions/install-dependencies/engine
 
+      - uses: DoozyX/clang-format-lint-action@v0.17
+        with:
+          source: '.'
+          exclude: './game/assets'
+          extensions: 'h,cpp'
+          clangFormatVersion: 17
+
     outputs:
       isBuildPassed: true
       isLintPassed: true
