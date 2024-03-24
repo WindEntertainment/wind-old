@@ -25,7 +25,7 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: conan install . -s build_type=Debug
+      run: conan install . -s build_type=Debug --build=missing
 
     # - name: Conan profile config
     #   shell: bash
