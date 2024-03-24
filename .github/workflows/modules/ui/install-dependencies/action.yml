@@ -15,7 +15,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - uses: actions/cache@v4
+    - uses: actions/cache@v3
       name: Setup pnpm cache
       with:
         path: ${{ inputs.pnpmPath }}
