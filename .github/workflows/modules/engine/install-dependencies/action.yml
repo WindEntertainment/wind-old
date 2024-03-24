@@ -29,9 +29,9 @@ runs:
       with:
         version: 2.0.17
 
-    # - name: Create default profile
-    #   shell: bash
-    #   run: conan profile detect
+    - name: Create default profile
+      shell: bash
+      run: conan profile detect
 
     # - name: Create default profile
     #   shell: bash
