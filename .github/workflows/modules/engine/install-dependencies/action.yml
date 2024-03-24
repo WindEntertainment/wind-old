@@ -30,9 +30,10 @@ runs:
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Windows" ]; then
-          # # cd "C:\\Users\\runneradmin\\.conan2\\p\\"
-          # # ls -a
+          # cd "C:\\Users\\runneradmin\\.conan2\\p\\"
+          # ls -a
           # cat C:\\Users\\runneradmin\\.conan2\\global.conf
+          echo 1
           # echo "conanPath=C:\\Users\\runneradmin\\.conan2\\p\\" >> $GITHUB_ENV
         else
           echo "conanPath=~/.conan2/p/" >> $GITHUB_ENV
@@ -61,5 +62,8 @@ runs:
       run:   |
         if [ "$RUNNER_OS" == "Windows" ]; then
           conan cache path yaml-cpp/0.8.0
+        else
+          # ls -a ~/.conan2/p
+          ls -a
         fi
       shell: bash
