@@ -6,7 +6,7 @@ outputs:
     value: ${{ steps.storePath.outputs.storePath }}
     description: Path to pnpm cache
   pnpmKeysPrefix:
-    value: ${{ matrix.config.os }}-pnpm-store-
+    value: $RUNNER_OS-pnpm-store-
     description: Prefix for pnpm cache
 
 runs:
@@ -19,7 +19,7 @@ runs:
     - name: test2
       shell: bash
       run: |
-        echo "${{ matrix.config.os }}-pnpm-store-"
+        echo "$RUNNER_OS-pnpm-store-"
     - name: Get pnpm store directory
       shell: bash
       id: storePath
