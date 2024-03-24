@@ -6,22 +6,22 @@
 // clang-format on
 
 int main() {
-    using namespace wind;
+  using namespace wind;
 
-    Window::init([](Window::Config* self) {
-        self->title = "Game";
-        self->fullScreen = false;
-        self->size = {1920, 1080};
-        self->vSync = false;
-    });
+  Window::init([](Window::Config* self) {
+    self->title = "Game";
+    self->fullScreen = false;
+    self->size = {1920, 1080};
+    self->vSync = false;
+  });
 
-    while (Window::update()) {
-        if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
-            Window::close();
+  while (Window::update()) {
+    if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
+      Window::close();
 
-        Renderer::clear({0.1f, 0.1f, 0.1f, 1});
-        Window::show();
-    }
+    Renderer::clear({0.1f, 0.1f, 0.1f, 1});
+    Window::show();
+  }
 
-    return EXIT_SUCCESS;
+  return EXIT_SUCCESS;
 }
