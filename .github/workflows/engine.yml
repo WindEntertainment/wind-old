@@ -1,4 +1,4 @@
-name: engine-ci
+name: engine
 
 on:
   workflow_call:
@@ -39,10 +39,10 @@ jobs:
       #     message: 'Clang-format from gh action'
       #     add: '*'
 
-      - name: Commit linting changes
-        uses: ./.github/actions/commit
-        with:
-          message: 'Clang-format from gh action'
+      # - name: Commit linting changes
+      #   uses: ./.github/actions/commit
+      #   with:
+      #     message: 'Clang-format from gh action'
 
     outputs:
       isBuildPassed: true

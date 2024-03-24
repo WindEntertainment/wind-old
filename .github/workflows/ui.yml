@@ -1,4 +1,4 @@
-name: ui-ci
+name: ui
 
 on:
   workflow_call:

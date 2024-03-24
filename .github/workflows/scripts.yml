@@ -1,4 +1,4 @@
-name: scripts-ci
+name: scripts
 
 on:
   workflow_call:
