@@ -15,15 +15,8 @@ permissions:
   checks: write
   contents: write
   deployments: write
-  id-token: write
-  issues: write
-  discussions: write
-  packages: write
   pages: write
-  pull-requests: write
   repository-projects: write
-  security-events: write
-  statuses: write
 jobs:
   ci:
     continue-on-error: true
@@ -52,8 +45,6 @@ jobs:
           author_email: robot@example.com
           message: 'Committing clang-format changes from gh action'
           add: '*'
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     outputs:
       isBuildPassed: true
