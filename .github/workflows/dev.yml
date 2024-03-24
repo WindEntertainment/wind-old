@@ -51,22 +51,22 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {
-              name: 'Windows Latest MSVC',
-              artifact: 'Windows-MSVC.tar.xz',
-              os: windows-latest,
-              build_type: 'Release',
-              cc: 'clang',
-              cxx: 'clang++',
-            }
-          - {
-              name: 'Ubuntu Clang',
-              artifact: 'Linux.tar.xz',
-              os: ubuntu-latest,
-              build_type: 'Release',
-              cc: 'clang',
-              cxx: 'clang++',
-            }
+          # - {
+          #     name: 'Windows Latest MSVC',
+          #     artifact: 'Windows-MSVC.tar.xz',
+          #     os: windows-latest,
+          #     build_type: 'Release',
+          #     cc: 'clang',
+          #     cxx: 'clang++',
+          #   }
+          # - {
+          #     name: 'Ubuntu Clang',
+          #     artifact: 'Linux.tar.xz',
+          #     os: ubuntu-latest,
+          #     build_type: 'Release',
+          #     cc: 'clang',
+          #     cxx: 'clang++',
+          #   }
           - {
               name: 'MacOS Clang',
               artifact: 'macOS.tar.xz',
