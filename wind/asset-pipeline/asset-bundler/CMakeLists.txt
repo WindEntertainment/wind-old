@@ -8,6 +8,10 @@ set(SOURCES
     ./src/main.cpp
     ./src/asset-bundler.cpp
     ./src/preprocessing.cpp
+    ./src/clear-cache.cpp
+    ./src/compile-directory.cpp
+    ./src/compile-file.cpp
+    ./src/link-directory.cpp
 ) 
 
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
