@@ -28,7 +28,11 @@ runs:
     #   with:
     #     version: 8
     #     run_install: false
+#
+# steps.uiSetup.outputs.pnpmKeysPrefix
+# steps.uiSetup.outputs.pnpmPath
 
+#
     - name: Get pnpm store directory
       shell: bash
       run: |
@@ -37,10 +41,10 @@ runs:
     - uses: actions/cache@v3
       name: Setup pnpm cache
       with:
-        path: ${{ env.STORE_PATH }}
-        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        path: ${{ steps.uiSetup.outputs.pnpmPath}}
+        key: ${{ steps.uiSetup.outputs.pnpmKeysPrefix }}${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
-          ${{ runner.os }}-pnpm-store-
+          ${{ steps.uiSetup.outputs.pnpmKeysPrefix }}
 
     - name: Install dependencies
       shell: bash
