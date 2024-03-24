@@ -21,4 +21,4 @@ runs:
 
     - name: Dependencies installation
       shell: bash
-      run: conan install . --build=missing --settings=${{inputs.buildSettings}}
+      run: conan install . --build=missing --settings=${{inputs.buildSettings}} -c tools.system.package_manager:mode=install
