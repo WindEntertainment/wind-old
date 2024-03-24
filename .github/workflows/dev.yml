@@ -17,6 +17,8 @@ jobs:
         with:
           fetch-depth: 0
       - name: UI
+        with:
+          rootPath: 'game/assets/UI'
         uses: './.github/actions/ui/lint'
       - name: Scripts
         uses: './.github/actions/scripts/lint'
@@ -32,9 +34,9 @@ jobs:
   #       uses: actions/checkout@v4
   #       with:
   #         fetch-depth: 0
-  #     - name: UI
-  #       uses: './.github/actions/scripts/test'
   #     - name: Scripts
+  #       uses: './.github/actions/scripts/test'
+  #     - name: Engine
   #       uses: './.github/actions/engine/test'
 
   building:
@@ -46,6 +48,8 @@ jobs:
         with:
           fetch-depth: 0
       - name: UI
+        with:
+          rootPath: 'game/assets/UI'
         uses: './.github/actions/ui/build'
       - name: Scripts
         uses: './.github/actions/scripts/build'
