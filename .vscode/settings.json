@@ -1,6 +1,5 @@
 {
   "files.exclude": {
-    "**/.cache/": true,
     "CMakeUserPresets.json": true
   },
   "clangd.checkUpdates": false,

@@ -14,7 +14,7 @@ void AssetPipeline::clearUnusedCache(const fs::path& _source, const fs::path& _c
   fs::recursive_directory_iterator cache_it;
   try {
     cache_it = createRecursiveIterator(_cache);
-  } catch (std::invalid_argument& ex) {
+  } catch (AssetBundlerError& ex) {
     spdlog::error(ex.what());
     return;
   }
@@ -27,7 +27,7 @@ void AssetPipeline::clearUnusedCache(const fs::path& _source, const fs::path& _c
       continue;
 
     fs::path sourceFile = "./" / fs::relative(entry, _cache);
-    if (sourceFile.extension().string() == "obj")
+    if (sourceFile.extension().string() != c_cacheExtentsion)
       return;
 
     sourceFile.replace_extension();

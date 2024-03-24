@@ -16,6 +16,7 @@
 #include "pipes/pipes-register.hpp"
 
 #include "asset-bundler/asset-bundler-error.hpp"
+#include "asset-bundler/consts.hpp"
 
 namespace wind {
 namespace assets {

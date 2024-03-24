@@ -19,12 +19,12 @@ void AssetPipeline::compileFile(const fs::path& _source, const fs::path& _destin
   }
 
   if (fs::is_directory(_source)) {
-    spdlog::error("Cannot compile file by specified path {} as it's a directory. Use --folder flag to compile all files in the directory.", _source.string());
+    spdlog::error("Cannot compile file by specified path {} as it's a directory", _source.string());
     return;
   }
 
   fs::path destination = _destination;
-  destination += ".obj";
+  destination += c_cacheExtentsion;
 
   try {
     auto parent_path = destination.parent_path();
