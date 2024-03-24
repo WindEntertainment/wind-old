@@ -13,11 +13,11 @@ runs:
       id: uiSetup
       uses: ./.github/workflows/modules/ui/base-setup
 
-    # - uses: ./.github/workflows/modules/ui/install-dependencies
-    #   with:
-    #     rootPath: ${{inputs.rootPath}}
-    #     pnpmKeysPrefix: ${{steps.uiSetup.outputs.pnpmKeysPrefix}}
-    #     pnpmPath: ${{steps.uiSetup.outputs.pnpmPath}}
+    - uses: ./.github/workflows/modules/ui/install-dependencies
+      with:
+        rootPath: ${{inputs.rootPath}}
+        pnpmKeysPrefix: ${{steps.uiSetup.outputs.pnpmKeysPrefix}}
+        pnpmPath: ${{steps.uiSetup.outputs.pnpmPath}}
     # - name: Install Node.js
     #   uses: actions/setup-node@v4
     #   with:
@@ -33,22 +33,18 @@ runs:
 # steps.uiSetup.outputs.pnpmPath
 
 #
-    - name: Get pnpm store directory
-      shell: bash
-      run: |
-        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-    - uses: actions/cache@v3
-      name: Setup pnpm cache
-      with:
-        path: ${{ steps.uiSetup.outputs.pnpmPath}}
-        key: ${{ steps.uiSetup.outputs.pnpmKeysPrefix }}${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: |
-          ${{ steps.uiSetup.outputs.pnpmKeysPrefix }}
+    # - uses: actions/cache@v3
+    #   name: Setup pnpm cache
+    #   with:
+    #     path: ${{ steps.uiSetup.outputs.pnpmPath}}
+    #     key: ${{ steps.uiSetup.outputs.pnpmKeysPrefix }}${{ hashFiles('**/pnpm-lock.yaml') }}
+    #     restore-keys: |
+    #       ${{ steps.uiSetup.outputs.pnpmKeysPrefix }}
 
-    - name: Install dependencies
-      shell: bash
-      run: cd ${{inputs.rootPath}} && pnpm install
+    # - name: Install dependencies
+    #   shell: bash
+    #   run: cd ${{inputs.rootPath}} && pnpm install
 
     - name: Lint
       shell: bash
