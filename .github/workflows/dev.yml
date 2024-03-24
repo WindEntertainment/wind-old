@@ -10,6 +10,7 @@ permissions:
   contents: write
 jobs:
   linting:
+    name: Linting
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -28,6 +29,7 @@ jobs:
         uses: './.github/workflows/utils/commit'
 
   testing:
+    name: Testing
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -42,6 +44,9 @@ jobs:
   building:
     name: 'Build: ${{ matrix.config.name }}'
     runs-on: ${{ matrix.config.os }}
+    needs:
+      - linting
+      - testing
     strategy:
       fail-fast: false
       matrix:
