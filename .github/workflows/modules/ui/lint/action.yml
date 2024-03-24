@@ -9,25 +9,25 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    # - name: Set up base UI
-    #   id: uiSetup
-    #   uses: ./.github/workflows/modules/ui/base-setup
+    - name: Set up base UI
+      id: uiSetup
+      uses: ./.github/workflows/modules/ui/base-setup
 
     # - uses: ./.github/workflows/modules/ui/install-dependencies
     #   with:
     #     rootPath: ${{inputs.rootPath}}
     #     pnpmKeysPrefix: ${{steps.uiSetup.outputs.pnpmKeysPrefix}}
     #     pnpmPath: ${{steps.uiSetup.outputs.pnpmPath}}
-    - name: Install Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
+    # - name: Install Node.js
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: 20
 
-    - uses: pnpm/action-setup@v3
-      name: Install pnpm
-      with:
-        version: 8
-        run_install: false
+    # - uses: pnpm/action-setup@v3
+    #   name: Install pnpm
+    #   with:
+    #     version: 8
+    #     run_install: false
 
     - name: Get pnpm store directory
       shell: bash
