@@ -30,7 +30,7 @@ runs:
 
 #
 
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       name: Setup pnpm cache
       with:
         path: ${{ steps.uiSetup.outputs.pnpmPath}}
