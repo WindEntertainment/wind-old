@@ -25,5 +25,5 @@ runs:
         pnpmPath: ${{steps.uiSetup.outputs.pnpmPath}}
 
     - name: Build
-      id: build
+      shell: bash
       run: cd ${{inputs.rootPath}} && pnpm build
