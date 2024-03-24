@@ -1,4 +1,5 @@
-name: 'Setup scripts base'
+name: Setup scripts base
+description: Setup scripts base
 
 runs:
   using: 'composite'

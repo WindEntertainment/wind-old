@@ -1,4 +1,5 @@
-name: 'Install engine dependencies'
+name: Install engine dependencies
+description: Install engine dependencies
 
 runs:
   using: 'composite'

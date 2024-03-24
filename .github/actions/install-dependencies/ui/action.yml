@@ -1,15 +1,16 @@
-name: 'Install UI dependencies'
+name: Install UI dependencies
+description: Install UI dependencies
 
 inputs:
   rootPath:
+    description: Path to project root
     required: true
-    type: string
   pnpmPath:
+    description: Path to pnpm cache
     required: true
-    type: string
   pnpmKeysPrefix:
+    description: Prefix for pnpm cache
     required: true
-    type: string
 
 runs:
   using: 'composite'
