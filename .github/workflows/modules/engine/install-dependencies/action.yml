@@ -26,44 +26,9 @@ runs:
         fi
       shell: bash
 
-    - name: Get pnpm store directory
-      shell: bash
-      run: |
-        if [ "$RUNNER_OS" == "Windows" ]; then
-          # cd "C:\\Users\\runneradmin\\.conan2\\p\\"
-          # ls -a
-          # cat C:\\Users\\runneradmin\\.conan2\\global.conf
-          # echo 1
-          echo "conanPath=C:\\Users\\runneradmin\\.conan2\\p\\" >> $GITHUB_ENV
-        else
-          echo "conanPath=~/.conan2/p/" >> $GITHUB_ENV
-        fi
-
-
-    - uses: actions/cache@v4
-      name: Setup pnpm cache
-      with:
-        path: ${{ env.conanPath }}
-        key: ${{ runner.os }}-conan-store-${{ hashFiles('conanfile.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-conan-store-
+    - name: Setup conane cache
+      uses: ./.github/workflows/utils/cache/get-conan-cache
 
     - name: Install dependencies
       shell: bash
       run: conan install . --update -s build_type=Debug --build=missing -c tools.system.package_manager:mode=install
-
-    - name: Install Linux staff
-      run:   |
-        which conan
-      shell: bash
-
-
-    # - name: Install Linux staff
-    #   run:   |
-    #     if [ "$RUNNER_OS" == "Windows" ]; then
-    #       conan cache path yaml-cpp/0.8.0
-    #     else
-    #       # ls -a ~/.conan2/p
-    #       ls -a
-    #     fi
-    #   shell: bash

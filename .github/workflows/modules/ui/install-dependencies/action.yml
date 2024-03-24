@@ -9,14 +9,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - uses: actions/cache@v4
-      name: Setup pnpm cache
-      with:
-        path: "${{ env.pnpmPath }}"
-        key: ${{ env.pnpmKeysPrefix }}${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: |
-          ${{ env.pnpmKeysPrefix }}
-
     - name: Dependencies installation
       shell: bash
       run: cd ${{inputs.rootPath}} && pnpm install
