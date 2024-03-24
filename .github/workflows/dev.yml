@@ -23,6 +23,14 @@ jobs:
   scripts:
     uses: ./.github/workflows/scripts.yml
 
+  post:
+    needs:
+      - base
+      - ui
+      - engine
+      - scripts
+    uses: ./.github/workflows/base.yml
+
   # ciChecker:
   #   runs-on: ubuntu-latest
   #   needs: ci

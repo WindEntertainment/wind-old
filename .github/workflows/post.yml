@@ -1,0 +1,13 @@
+name: post
+
+on: workflow_call
+
+jobs:
+  ci:
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Commit linting changes
+        uses: ./.github/actions/commit
+        with:
+          message: 'Linting changes from gh action'

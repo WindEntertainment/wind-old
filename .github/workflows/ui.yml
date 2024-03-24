@@ -45,14 +45,14 @@ jobs:
       #     message: 'Lint from gh action'
       #     add: '*'
 
-      - name: Commit linting changes
-        uses: ./.github/actions/commit
-        with:
-          message: 'Lint from gh action'
+      # - name: Commit linting changes
+      #   uses: ./.github/actions/commit
+      #   with:
+      #     message: 'Lint from gh action'
 
-      # - name: Build
-      #   id: build
-      #   run: cd ${{inputs.rootPath}} && pnpm build
+      - name: Build
+        id: build
+        run: cd ${{inputs.rootPath}} && pnpm build
 
     outputs:
       isBuildPassed: true
