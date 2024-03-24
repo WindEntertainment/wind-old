@@ -2,11 +2,9 @@ name: 'Setup UI base'
 
 outputs:
   pnpmPath:
-    required: true
-    type: string
+    value: ${{ steps.pnpmCache.outputs.pnpmPath }}
   pnpmKeysPrefix:
-    required: true
-    type: string
+    value: ${{ steps.pnpmCache.outputs.pnpmKeysPrefix }}
 
 runs:
   using: 'composite'
@@ -19,7 +17,3 @@ runs:
     - name: Set up pnpm cache
       id: pnpmCache
       uses: ./.github/actions/cache/get-pnpm-cache
-
-    outputs:
-      pnpmPath: ${{ steps.pnpmCache.outputs.pnpmPath }}
-      pnpmKeysPrefix: ${{ steps.pnpmCache.outputs.pnpmKeysPrefix }}
