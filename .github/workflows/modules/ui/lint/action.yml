@@ -11,9 +11,9 @@ runs:
   steps:
     - name: Set up base UI
       id: uiSetup
-      uses: ./.github/workflows/actions/ui/base-setup
+      uses: ./.github/workflows/modules/ui/base-setup
 
-    - uses: ./.github/workflows/actions/ui/install-dependencies
+    - uses: ./.github/workflows/modules/ui/install-dependencies
       with:
         rootPath: ${{inputs.rootPath}}
         pnpmKeysPrefix: ${{steps.uiSetup.outputs.pnpmKeysPrefix}}

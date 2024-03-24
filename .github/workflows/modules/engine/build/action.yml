@@ -1,0 +1,9 @@
+name: Engine lint
+description: Engine lint
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: ./.github/workflows/modules/engine/base-setup
+
+    - uses: ./.github/workflows/modules/engine/install-dependencies

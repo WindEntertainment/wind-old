@@ -25,4 +25,4 @@ runs:
 
     - name: Set up pnpm cache
       id: pnpmCache
-      uses: ./.github/workflows/actions/cache/get-pnpm-cache
+      uses: ./.github/workflows/utils/cache/get-pnpm-cache

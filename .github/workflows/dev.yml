@@ -19,13 +19,13 @@ jobs:
       - name: UI
         with:
           rootPath: 'game/assets/UI'
-        uses: './.github/workflows/actions/ui/lint'
+        uses: './.github/workflows/modules/ui/lint'
       - name: Scripts
-        uses: './.github/workflows/actions/scripts/lint'
+        uses: './.github/workflows/modules/scripts/lint'
       - name: Engine
-        uses: './.github/workflows/actions/engine/lint'
+        uses: './.github/workflows/modules/engine/lint'
       - name: Linting commit
-        uses: './.github/workflows/actions/commit'
+        uses: './.github/workflows/utils/commit'
 
   # testing:
   #   runs-on: ubuntu-latest
@@ -35,9 +35,9 @@ jobs:
   #       with:
   #         fetch-depth: 0
   #     - name: Scripts
-  #       uses: './.github/workflows/actions/scripts/test'
+  #       uses: './.github/workflows/modules/scripts/test'
   #     - name: Engine
-  #       uses: './.github/workflows/actions/engine/test'
+  #       uses: './.github/workflows/modules/engine/test'
 
   building:
     needs: linting
@@ -50,8 +50,8 @@ jobs:
       - name: UI
         with:
           rootPath: 'game/assets/UI'
-        uses: './.github/workflows/actions/ui/build'
+        uses: './.github/workflows/modules/ui/build'
       - name: Scripts
-        uses: './.github/workflows/actions/scripts/build'
+        uses: './.github/workflows/modules/scripts/build'
       - name: Engine
-        uses: './.github/workflows/actions/engine/build'
+        uses: './.github/workflows/modules/engine/build'
