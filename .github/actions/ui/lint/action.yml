@@ -25,5 +25,5 @@ runs:
         pnpmPath: ${{steps.uiSetup.outputs.pnpmPath}}
 
     - name: Lint
-      id: lint
+      shell: bash
       run: cd ${{inputs.rootPath}} && pnpm lint:fix
