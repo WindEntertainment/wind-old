@@ -12,7 +12,5 @@ runs:
     - uses: ./.github/workflows/modules/engine/base-setup
 
     - uses: ./.github/workflows/modules/engine/install-dependencies
-
-    - uses: ./.github/workflows/modules/engine/install-dependencies
       with:
         buildSettings: ${{inputs.buildSettings}}
