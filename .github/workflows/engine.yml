@@ -12,6 +12,9 @@ on:
 
 jobs:
   ci:
+    permissions:
+      contents: read
+      pages: write
     continue-on-error: true
     runs-on: ubuntu-latest
     steps:
