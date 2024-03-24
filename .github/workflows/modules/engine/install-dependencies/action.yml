@@ -30,10 +30,10 @@ runs:
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Windows" ]; then
-          # cd "C:\\Users\\runneradmin\\.conan2\\p\\"
-          # ls -a
-          cat C:\\Users\\runneradmin\\.conan2\\global.conf
-          echo "conanPath=C:\\Users\\runneradmin\\.conan2\\p\\" >> $GITHUB_ENV
+          # # cd "C:\\Users\\runneradmin\\.conan2\\p\\"
+          # # ls -a
+          # cat C:\\Users\\runneradmin\\.conan2\\global.conf
+          # echo "conanPath=C:\\Users\\runneradmin\\.conan2\\p\\" >> $GITHUB_ENV
         else
           echo "conanPath=~/.conan2/p/" >> $GITHUB_ENV
         fi
@@ -57,12 +57,9 @@ runs:
       shell: bash
 
 
-    # - name: Install Linux staff
-    #   run:   |
-    #     if [ "$RUNNER_OS" == "Windows" ]; then
-    #       ls -a %USERPROFILE%\.conan2\p
-    #     else
-    #       # ls -a ~/.conan2/p
-    #       ls -a
-    #     fi
-    #   shell: bash
+    - name: Install Linux staff
+      run:   |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          conan cache path yaml-cpp/0.8.0
+        fi
+      shell: bash
