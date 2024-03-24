@@ -10,6 +10,8 @@ namespace wind {
 
 using asset_id = unsigned int;
 
+namespace assets {
+
 class AssetPipe {
   friend class AssetPipeline;
 
@@ -34,4 +36,5 @@ public:
   }
 };
 
+} // namespace assets
 } // namespace wind

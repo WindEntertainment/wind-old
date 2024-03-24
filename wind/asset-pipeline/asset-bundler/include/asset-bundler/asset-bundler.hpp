@@ -13,7 +13,7 @@
 #include "pipes/pipes-register.hpp"
 
 namespace wind {
-namespace asset_pipeline {
+namespace assets {
 
 class AssetPipeline {
 public:
@@ -33,5 +33,5 @@ private:
   YAML::Node m_importConfig;
 };
 
-} // namespace asset_pipeline
+} // namespace assets
 } // namespace wind
