@@ -13,11 +13,7 @@ runs:
       id: uiSetup
       uses: ./.github/workflows/modules/ui/base-setup
 
-    # - uses: ./.github/workflows/modules/ui/install-dependencies
-    #   with:
-    #     rootPath: ${{inputs.rootPath}}
-    #     pnpmKeysPrefix: ${{steps.uiSetup.outputs.pnpmKeysPrefix}}
-    #     pnpmPath: ${{steps.uiSetup.outputs.pnpmPath}}
+
     # - name: Install Node.js
     #   uses: actions/setup-node@v4
     #   with:
@@ -42,9 +38,15 @@ runs:
         restore-keys: |
           ${{ steps.uiSetup.outputs.pnpmKeysPrefix }}
 
-    - name: Install dependencies
-      shell: bash
-      run: cd ${{inputs.rootPath}} && pnpm install
+    - uses: ./.github/workflows/modules/ui/install-dependencies
+      with:
+        rootPath: ${{inputs.rootPath}}
+        pnpmKeysPrefix: ${{steps.uiSetup.outputs.pnpmKeysPrefix}}
+        pnpmPath: ${{steps.uiSetup.outputs.pnpmPath}}
+
+    # - name: Install dependencies
+    #   shell: bash
+    #   run: cd ${{inputs.rootPath}} && pnpm install
 
     - name: Lint
       shell: bash
