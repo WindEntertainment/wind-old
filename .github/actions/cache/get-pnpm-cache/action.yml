@@ -2,11 +2,9 @@ name: get-pnpm-cache
 
 outputs:
   pnpmPath:
-    required: true
-    type: string
+    value: ${{ steps.storePath.outputs.storePath }}
   pnpmKeysPrefix:
-    required: true
-    type: string
+    value: ${{ runner.os }}-pnpm-store-
 
 jobs:
   variables:
@@ -17,7 +15,3 @@ jobs:
         id: storePath
         run: |
           echo "storePath=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
-
-    outputs:
-      pnpmPath: ${{ steps.storePath.outputs.storePath }}
-      pnpmKeysPrefix: ${{ runner.os }}-pnpm-store-
