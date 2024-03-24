@@ -35,7 +35,10 @@ runs:
 
     - name: Create default profile
       shell: bash
-      run:  echo "/home/runner/.local/bin/conan" >> $PATH
+      run: sudo echo "/home/runner/.local/bin/conan" >> $PATH
+    - name: Create default profile
+      shell: bash
+      run: sudo echo "/home/runner/.local/bin/conan" >> $GITHUB_PATH
     # - name: Piska
     #   shell: bash
     #   run: sudo apt install libgl-dev
