@@ -1,24 +1,14 @@
 name: Get pnpm cache
 description: Getting pnpm cache
 
-# outputs:
-#   pnpmPath:
-#     value: ${{ steps.storePath.outputs.storePath }}
-#     description: Path to pnpm cache
-#   pnpmKeysPrefix:
-#     value: ${{ runner.os }}-pnpm-store-
-#     description: Prefix for pnpm cache
-
 runs:
   using: 'composite'
   steps:
     - name: Get pnpm store directory
       shell: bash
-      # id: storePath
       run: |
         echo "pnpmPath=$(pnpm store path --silent)" >> $GITHUB_ENV
     - name: Get pnpm store directory
       shell: bash
-      # id: storePath
       run: |
         echo "pnpmKeysPrefix=${{ runner.os }}-pnpm-store-" >> $GITHUB_ENV

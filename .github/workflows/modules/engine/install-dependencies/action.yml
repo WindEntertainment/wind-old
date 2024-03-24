@@ -27,7 +27,7 @@ runs:
       id: conan
       uses: turtlebrowser/get-conan@main
       with:
-        version: 2.0.17
+        version: 2.1.0
 
     - name: Create default profile
       shell: bash
