@@ -10,7 +10,7 @@ runs:
   using: 'composite'
   steps:
     - name: Set up base UI
-      id: uiSetup
+      # id: uiSetup
       uses: ./.github/workflows/modules/ui/base-setup
 
 
@@ -41,8 +41,8 @@ runs:
     - uses: ./.github/workflows/modules/ui/install-dependencies
       with:
         rootPath: ${{inputs.rootPath}}
-        pnpmKeysPrefix: ${{steps.uiSetup.outputs.pnpmKeysPrefix}}
-        pnpmPath: ${{steps.uiSetup.outputs.pnpmPath}}
+        # pnpmKeysPrefix: ${{steps.uiSetup.outputs.pnpmKeysPrefix}}
+        # pnpmPath: ${{steps.uiSetup.outputs.pnpmPath}}
 
     # - name: Install dependencies
     #   shell: bash

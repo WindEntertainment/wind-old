@@ -1,13 +1,13 @@
 name: Setup UI base
 description: Setup UI base
 
-outputs:
-  pnpmPath:
-    value: ${{ steps.pnpmCache.outputs.pnpmPath }}
-    description: Path to pnpm cache
-  pnpmKeysPrefix:
-    value: ${{ steps.pnpmCache.outputs.pnpmKeysPrefix }}
-    description: Prefix for pnpm cache
+# outputs:
+#   pnpmPath:
+#     value: ${{ steps.pnpmCache.outputs.pnpmPath }}
+#     description: Path to pnpm cache
+#   pnpmKeysPrefix:
+#     value: ${{ steps.pnpmCache.outputs.pnpmKeysPrefix }}
+#     description: Prefix for pnpm cache
 
 runs:
   using: 'composite'
@@ -24,5 +24,5 @@ runs:
         run_install: false
 
     - name: Set up pnpm cache
-      id: pnpmCache
+      # id: pnpmCache
       uses: ./.github/workflows/utils/cache/get-pnpm-cache
