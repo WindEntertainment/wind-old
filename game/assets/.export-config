@@ -1,2 +1,8 @@
 exports:
+  - path: "scripts"
+    type: directory
+    name: "Managed"
+
   - path: "[^\/]*"
+    type: bundle
+    name: "Base.bundle"
