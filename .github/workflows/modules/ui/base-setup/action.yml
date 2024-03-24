@@ -23,6 +23,6 @@ runs:
         version: 8
         run_install: false
 
-    # - name: Set up pnpm cache
-    #   id: pnpmCache
-    #   uses: ./.github/workflows/utils/cache/get-pnpm-cache
+    - name: Set up pnpm cache
+      id: pnpmCache
+      uses: ./.github/workflows/utils/cache/get-pnpm-cache
