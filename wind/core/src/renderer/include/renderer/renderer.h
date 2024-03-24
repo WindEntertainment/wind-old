@@ -19,7 +19,7 @@ public:
   static void setScope(float scope);
   static void drawRectangle(glm::vec4 rect, glm::vec4 color);
   static void drawTexture(Texture* texture, glm::vec2 tiling, glm::vec3 position,
-                          glm::vec3 rotation, glm::vec3 scale);
+    glm::vec3 rotation, glm::vec3 scale);
   static void drawCircle(glm::vec2 center, float radius, glm::vec4 color);
   static void drawParticles(ParticleSystem* particles);
 };

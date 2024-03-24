@@ -10,7 +10,7 @@
 namespace wind {
 
 ParticleSystem::ParticleSystem(std::vector<glm::vec3> _vertices, std::vector<uint> _indicies,
-                               std::vector<glm::vec2> _uv, size_t _count) {
+  std::vector<glm::vec2> _uv, size_t _count) {
   assert(_vertices.size() == _uv.size());
 
   m_vertices.resize(_vertices.size());
@@ -31,45 +31,45 @@ ParticleSystem::ParticleSystem(std::vector<glm::vec3> _vertices, std::vector<uin
 
   glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
   glBufferData(GL_ARRAY_BUFFER,
-               m_vertices.size() * sizeof(Vertex),
-               &m_vertices[0],
-               GL_STATIC_DRAW);
+    m_vertices.size() * sizeof(Vertex),
+    &m_vertices[0],
+    GL_STATIC_DRAW);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-               m_indices.size() * sizeof(uint),
-               m_indices.data(),
-               GL_STATIC_DRAW);
+    m_indices.size() * sizeof(uint),
+    m_indices.data(),
+    GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 
   glEnableVertexAttribArray(2);
   glVertexAttribPointer(2,
-                        2,
-                        GL_FLOAT,
-                        GL_FALSE,
-                        sizeof(Vertex),
-                        (void*)offsetof(Vertex, tex_coords));
+    2,
+    GL_FLOAT,
+    GL_FALSE,
+    sizeof(Vertex),
+    (void*)offsetof(Vertex, tex_coords));
 
   glBindBuffer(GL_ARRAY_BUFFER, m_MBO);
   glBufferData(GL_ARRAY_BUFFER,
-               m_models.size() * sizeof(glm::mat4),
-               &m_models[0],
-               GL_STATIC_DRAW);
+    m_models.size() * sizeof(glm::mat4),
+    &m_models[0],
+    GL_STATIC_DRAW);
 
   std::size_t vec4Size = sizeof(glm::vec4);
   glEnableVertexAttribArray(3);
   glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)0);
   glEnableVertexAttribArray(4);
   glVertexAttribPointer(
-      4, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)(1 * vec4Size));
+    4, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)(1 * vec4Size));
   glEnableVertexAttribArray(5);
   glVertexAttribPointer(
-      5, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)(2 * vec4Size));
+    5, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)(2 * vec4Size));
   glEnableVertexAttribArray(6);
   glVertexAttribPointer(
-      6, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)(3 * vec4Size));
+    6, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)(3 * vec4Size));
 
   glVertexAttribDivisor(3, 1);
   glVertexAttribDivisor(4, 1);
@@ -115,12 +115,12 @@ void ParticleSystem::draw(glm::mat4 _orthoMatrix, glm::mat4 _viewMatrix) {
 
   glBindBuffer(GL_ARRAY_BUFFER, m_MBO);
   glBufferData(GL_ARRAY_BUFFER,
-               m_models.size() * sizeof(glm::mat4),
-               &m_models[0],
-               GL_STATIC_DRAW);
+    m_models.size() * sizeof(glm::mat4),
+    &m_models[0],
+    GL_STATIC_DRAW);
 
   glDrawElementsInstanced(
-      GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0, m_models.size());
+    GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0, m_models.size());
 }
 
 } // namespace wind
