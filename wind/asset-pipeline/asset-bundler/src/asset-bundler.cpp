@@ -7,12 +7,17 @@ std::vector<assets::AssetPipe*> assets::PipeRegister::m_pipes;
 namespace assets {
 
 void AssetPipeline::build(const fs::path& _path) {
+  Stopwatch sw("Builded");
+
   spdlog::info("===========================");
   spdlog::info("Start build directory {}", _path.string());
 
-  clearUnusedCache(_path, fs::current_path() / ".cache");
-  compileDirectory(_path, fs::current_path() / ".cache");
-  linkDirectory(_path, fs::current_path() / "assets.bundle");
+  auto cachePath = fs::current_path() / ".cache";
+  auto destinationPath = fs::current_path() / "assets.bundle";
+
+  clearUnusedCache(_path, cachePath);
+  processDirectory(_path, cachePath);
+  linkDirectory(cachePath, destinationPath);
 }
 
 fs::recursive_directory_iterator AssetPipeline::createRecursiveIterator(const fs::path& _path) {
@@ -23,7 +28,7 @@ fs::recursive_directory_iterator AssetPipeline::createRecursiveIterator(const fs
 
   if (!fs::is_directory(_path))
     throw AssetBundlerError(
-      "Cannot create recursive directory iterator by specified path {} as it's a file. Don't use --folder flag to compile separate file.",
+      "Cannot create recursive directory iterator by specified path {} as it's a file. ",
       _path.string());
 
   fs::recursive_directory_iterator it;

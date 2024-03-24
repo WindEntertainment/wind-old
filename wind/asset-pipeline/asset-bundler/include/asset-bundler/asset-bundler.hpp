@@ -27,8 +27,12 @@ public:
 
 private:
   void clearUnusedCache(const fs::path& source, const fs::path& cache);
-  void compileDirectory(const fs::path& source, const fs::path& destination);
-  void preprocessing(const fs::path& path, YAML::Node& options);
+
+  void processDirectory(const fs::path& source, const fs::path& destination);
+  void processChildDirectories(const fs::path& source, const fs::path& destination, const YAML::Node& config);
+  void compileDirectory(const fs::path& source, const fs::path& destination, const YAML::Node& config);
+  void preprocessDirectory(const fs::path& path, const YAML::Node& config);
+
   void compileFile(const fs::path& source, const fs::path& destination, AssetPipe* pipe);
   void linkDirectory(const fs::path& source, const fs::path& destination);
 

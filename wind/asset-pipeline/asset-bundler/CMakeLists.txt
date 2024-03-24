@@ -12,6 +12,7 @@ set(SOURCES
     ./src/compile-directory.cpp
     ./src/compile-file.cpp
     ./src/link-directory.cpp
+    ./src/processing.cpp
 ) 
 
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
