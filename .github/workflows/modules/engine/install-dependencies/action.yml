@@ -33,13 +33,18 @@ runs:
       shell: bash
       run: conan profile detect
 
-    - name: Piska
+    - name: dfdfddfdfddffd
       shell: bash
-      run: sudo apt install libgl-dev
+      run: which conan
 
-    - name: Piska2
-      shell: bash
-      run: sudo apt install libgl1-mesa-dev
+
+    # - name: Piska
+    #   shell: bash
+    #   run: sudo apt install libgl-dev
+
+    # - name: Piska2
+    #   shell: bash
+    #   run: sudo apt install libgl1-mesa-dev
 
     # - name: Update profile
     #   shell: bash
