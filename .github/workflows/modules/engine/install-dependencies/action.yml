@@ -12,6 +12,8 @@ runs:
     - name: Install conan
       id: conan
       uses: turtlebrowser/get-conan@main
+      with:
+        version: 2.1.0
 
     - name: Conan profile config
       shell: bash
