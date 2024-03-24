@@ -44,7 +44,7 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: pnpm install
+      run: cd ${{inputs.rootPath}} && pnpm install
 
     - name: Lint
       shell: bash
