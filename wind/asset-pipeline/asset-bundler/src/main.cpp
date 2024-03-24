@@ -1,7 +1,10 @@
 #define WIND_PIPE_WRITE
 
 #define STB_IMAGE_IMPLEMENTATION
+
+#ifndef __APPLE__
 #include <stb_image.h>
+#endif
 
 #include <cxxopts.hpp>
 #include <spdlog/spdlog.h>
@@ -70,7 +73,7 @@ int main(int argc, char** argv) {
         pipeline.setConfig(source / ".import-config");
 
       fs::path destination =
-          useCache ? fs::path(options["cache"].as<std::string>()) : output;
+        useCache ? fs::path(options["cache"].as<std::string>()) : output;
 
       if (useCache)
         pipeline.clearUnusedCache(source, destination);
