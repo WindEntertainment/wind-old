@@ -1,6 +1,6 @@
 "use client";
-import { Title } from "@radix-ui/react-dialog";
 import { tw } from "@/tw";
+import { Title } from "@radix-ui/react-dialog";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
 export const DialogTitle = forwardRef<ElementRef<typeof Title>, ComponentPropsWithoutRef<typeof Title>>(
