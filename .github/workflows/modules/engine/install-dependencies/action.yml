@@ -15,10 +15,31 @@ runs:
       with:
         version: 2.1.0
 
-    - name: Conan profile config
+    - name: Create default profile
       shell: bash
-      run: conan profile detect
+      run: conan profile new default --detect
 
-    - name: Dependencies installation
+    - name: Update profile
       shell: bash
-      run: conan install . --update --build=missing --settings=${{inputs.buildSettings}} -c tools.system.package_manager:mode=install
+      run: conan profile update settings.compiler.libcxx=libstdc++11 default
+
+    - name: Install dependencies
+      shell: bash
+      run: conan install . -s build_type=Debug --install-folder=${{github.workspace}}/build
+
+    # - name: Conan profile config
+    #   shell: bash
+    #   run: conan profile detect
+
+    # - name: Dependencies installation
+    #   shell: bash
+    #   run: |
+    #       mkdir build_Browser
+    #       cd build_Browser
+    #       conan config install ..\code\conan\config
+    #       conan user github --remote jfrog --password "${{ secrets.CONAN_TOKEN_BIMPLUGIN_GITHUB }}"
+    #       conan install ..\code --profile win_ac${{ matrix.adk }} --settings build_type=${{ env.BUILD_TYPE }} --build=missing
+    #       cd ..\build_Browser
+    #       conan install ..\code --profile cef_release --settings build_type=Release --build=missing
+    #       cd ..
+      # run: conan install . --update --build=missing --settings=${{inputs.buildSettings}} -c tools.system.package_manager:mode=install
