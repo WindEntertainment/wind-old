@@ -1,7 +1,7 @@
 "use client";
+import { tw } from "@/tw";
 import { Close, Content } from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { tw } from "@/tw";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
 import { DialogOverlay } from "./dialog-overlay";
