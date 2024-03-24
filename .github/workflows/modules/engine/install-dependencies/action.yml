@@ -17,7 +17,7 @@ runs:
 
     - name: Create default profile
       shell: bash
-      run: conan profile new default --detect
+      run: conan profile detect
 
     - name: Update profile
       shell: bash
