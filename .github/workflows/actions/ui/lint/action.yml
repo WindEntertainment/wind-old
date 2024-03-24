@@ -7,13 +7,13 @@ inputs:
     required: true
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Set up base UI
       id: uiSetup
-      uses: ./.github/actions/ui/base-setup
+      uses: ./.github/workflows/actions/ui/base-setup
 
-    - uses: ./.github/actions/ui/install-dependencies
+    - uses: ./.github/workflows/actions/ui/install-dependencies
       with:
         rootPath: ${{inputs.rootPath}}
         pnpmKeysPrefix: ${{steps.uiSetup.outputs.pnpmKeysPrefix}}
