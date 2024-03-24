@@ -12,14 +12,6 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - name: test
-      shell: bash
-      run: |
-        echo "${{ runner.os }}"
-    - name: test2
-      shell: bash
-      run: |
-        echo ${{ runner.os }}
     - name: Get pnpm store directory
       shell: bash
       id: storePath
