@@ -52,7 +52,7 @@ jobs:
       matrix:
         config:
           # - {
-          #     name: 'Windows Latest MSVC',
+          #     name: 'Windows',
           #     artifact: 'Windows-MSVC.tar.xz',
           #     os: windows-latest,
           #     build_type: 'Release',
@@ -60,7 +60,7 @@ jobs:
           #     cxx: 'clang++',
           #   }
           # - {
-          #     name: 'Ubuntu Clang',
+          #     name: 'Ubuntu',
           #     artifact: 'Linux.tar.xz',
           #     os: ubuntu-latest,
           #     build_type: 'Release',
@@ -68,7 +68,7 @@ jobs:
           #     cxx: 'clang++',
           #   }
           - {
-              name: 'MacOS Clang',
+              name: 'MacOS',
               artifact: 'macOS.tar.xz',
               os: macos-latest,
               build_type: 'Release',
