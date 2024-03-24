@@ -34,7 +34,7 @@ runs:
           # ls -a
           # cat C:\\Users\\runneradmin\\.conan2\\global.conf
           echo 1
-          # echo "conanPath=C:\\Users\\runneradmin\\.conan2\\p\\" >> $GITHUB_ENV
+          echo "conanPath=C:\\Users\\runneradmin\\.conan2\\p\\" >> $GITHUB_ENV
         else
           echo "conanPath=~/.conan2/p/" >> $GITHUB_ENV
         fi
