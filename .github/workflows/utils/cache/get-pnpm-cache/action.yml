@@ -6,7 +6,7 @@ outputs:
     value: ${{ steps.storePath.outputs.storePath }}
     description: Path to pnpm cache
   pnpmKeysPrefix:
-    value: ${{ runner.os }}-pnpm-store-
+    value: ${{ matrix.config.os }}-pnpm-store-
     description: Prefix for pnpm cache
 
 runs:
