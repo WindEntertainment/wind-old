@@ -27,7 +27,7 @@ void AssetPipeline::preprocessDirectory(const fs::path& _path, const YAML::Node&
     auto preprocessing_step = option.first.as<std::string>();
     if (preprocessing_step.compare("execute") == 0) {
       std::stringstream ss;
-      ss << "cd " << _path.parent_path() << " && " << option.second.as<std::string>();
+      ss << "cd " << _path << " && " << option.second.as<std::string>();
 
       auto command = ss.str();
       spdlog::info("Execute: {}", command);
