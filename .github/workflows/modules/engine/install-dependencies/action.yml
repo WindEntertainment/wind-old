@@ -33,52 +33,13 @@ runs:
       shell: bash
       run: conan profile detect
 
-    # - name: Create default profile
-    #   shell: bash
-    #   run: sudo echo "/home/runner/.local/bin/conan" >> $PATH
-    # - name: Create default profile
-    #   shell: bash
-    #   run: sudo echo "/home/runner/.local/bin/conan" >> $GITHUB_PATH
-
     - name:  Install
       run:   |
             if [ "$RUNNER_OS" == "Linux" ]; then
                   sudo apt install libxcb-util-dev libgl-dev libgl1-mesa-dev libx11-xcb-dev libfontenc-dev libxaw7-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxfixes-dev libxi-dev libxinerama-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxres-dev libxss-dev libxtst-dev libxv-dev libxxf86vm-dev libxcb-glx0-dev libxcb-render-util0-dev libxcb-xkb-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-dri3-dev libxcb-cursor-dev libxcb-dri2-0-dev libxcb-dri3-dev libxcb-present-dev libxcb-composite0-dev libxcb-ewmh-dev libxcb-res0-dev
-            elif [ "$RUNNER_OS" == "Windows" ]; then
-                  echo "$RUNNER_OS not supported"
-                  # choco install important_windows_software
             fi
       shell: bash
-
-    # - name: Deps
-    #   shell: bash
-    #   run: sudo apt install libxcb-util-dev libgl-dev libgl1-mesa-dev libx11-xcb-dev libfontenc-dev libxaw7-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxfixes-dev libxi-dev libxinerama-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxres-dev libxss-dev libxtst-dev libxv-dev libxxf86vm-dev libxcb-glx0-dev libxcb-render-util0-dev libxcb-xkb-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-dri3-dev libxcb-cursor-dev libxcb-dri2-0-dev libxcb-dri3-dev libxcb-present-dev libxcb-composite0-dev libxcb-ewmh-dev libxcb-res0-dev
-
-    # - name: Piska2
-    #   shell: bash
-    #   run: sudo apt install libgl1-mesa-dev
-
-    # - name: Update profile
-    #   shell: bash
-    #   run: conan profile update settings.compiler.libcxx=libstdc++11 default
 
     - name: Install dependencies
       shell: bash
       run: conan install . --update -s build_type=Debug --build=missing -c tools.system.package_manager:mode=install
-
-    # - name: Conan profile config
-    #   shell: bash
-    #   run: conan profile detect
-
-    # - name: Dependencies installation
-    #   shell: bash
-    #   run: |
-    #       mkdir build_Browser
-    #       cd build_Browser
-    #       conan config install ..\code\conan\config
-    #       conan user github --remote jfrog --password "${{ secrets.CONAN_TOKEN_BIMPLUGIN_GITHUB }}"
-    #       conan install ..\code --profile win_ac${{ matrix.adk }} --settings build_type=${{ env.BUILD_TYPE }} --build=missing
-    #       cd ..\build_Browser
-    #       conan install ..\code --profile cef_release --settings build_type=Release --build=missing
-    #       cd ..
-      # run: conan install . --update --build=missing --settings=${{inputs.buildSettings}} -c tools.system.package_manager:mode=install
