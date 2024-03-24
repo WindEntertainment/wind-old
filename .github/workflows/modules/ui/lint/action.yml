@@ -40,9 +40,9 @@ runs:
 
     - uses: ./.github/workflows/modules/ui/install-dependencies
       with:
-        rootPath: ${{ inputs.rootPath }}
-        pnpmKeysPrefix: ${{ steps.uiSetup.outputs.pnpmKeysPrefix }}
-        pnpmPath: ${{ steps.uiSetup.outputs.pnpmPath }}
+        rootPath: ${{inputs.rootPath}}
+        pnpmKeysPrefix: ${{steps.uiSetup.outputs.pnpmKeysPrefix}}
+        pnpmPath: ${{steps.uiSetup.outputs.pnpmPath}}
 
     # - name: Install dependencies
     #   shell: bash
