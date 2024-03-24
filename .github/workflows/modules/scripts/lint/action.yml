@@ -1,0 +1,9 @@
+name: Script lint
+description: Script lint
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: ./.github/workflows/modules/scripts/base-setup
+
+    - uses: ./.github/workflows/modules/scripts/install-dependencies
