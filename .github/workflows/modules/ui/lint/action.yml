@@ -9,7 +9,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Set up base UI
+    - name: Setup base UI
       uses: ./.github/workflows/modules/ui/base-setup
 
     - uses: ./.github/workflows/modules/ui/install-dependencies
