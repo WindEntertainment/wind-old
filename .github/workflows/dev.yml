@@ -11,6 +11,10 @@ jobs:
     continue-on-error: true
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Set up main base
         id: uiSetup
         uses: ./.github/actions/base-setup/main
