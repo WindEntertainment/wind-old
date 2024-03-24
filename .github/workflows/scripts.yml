@@ -20,9 +20,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: ./.github/actions/base-setup/engine
+      - uses: ./.github/actions/base-setup/scripts
 
-      - uses: ./.github/actions/install-dependencies/engine
+      - uses: ./.github/actions/install-dependencies/scripts
 
     outputs:
       isBuildPassed: true
