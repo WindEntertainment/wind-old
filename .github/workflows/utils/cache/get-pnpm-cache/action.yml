@@ -8,6 +8,7 @@ runs:
       shell: bash
       run: |
         echo "pnpmPath=$(pnpm store path --silent)" >> $GITHUB_ENV
+
     - name: Get pnpm store directory
       shell: bash
       run: |
