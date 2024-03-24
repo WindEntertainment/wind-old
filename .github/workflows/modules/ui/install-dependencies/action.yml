@@ -15,17 +15,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - uses: pnpm/action-setup@v3
-      name: Install pnpm
-      with:
-        version: 8
-        run_install: false
-
-    - name: Dependencies installation
-      shell: bash
-      run: echo ${{ inputs.pnpmPath }}
-
-    - uses: actions/cache@v4
+    - uses: actions/cache@v3
       name: Setup pnpm cache
       with:
         path: ${{ inputs.pnpmPath }}
