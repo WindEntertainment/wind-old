@@ -1,0 +1,29 @@
+name: UI build
+description: UI build
+
+inputs:
+  rootPath:
+    description: Path to project root
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    # - name: Checkout code
+    #   uses: actions/checkout@v4
+    #   with:
+    #     fetch-depth: 0
+
+    - name: Set up base UI
+      id: uiSetup
+      uses: ./.github/actions/base-setup/ui
+
+    - uses: ./.github/actions/install-dependencies/ui
+      with:
+        rootPath: ${{inputs.rootPath}}
+        pnpmKeysPrefix: ${{steps.uiSetup.outputs.pnpmKeysPrefix}}
+        pnpmPath: ${{steps.uiSetup.outputs.pnpmPath}}
+
+    - name: Build
+      id: build
+      run: cd ${{inputs.rootPath}} && pnpm build

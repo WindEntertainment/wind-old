@@ -1,0 +1,10 @@
+name: Install engine dependencies
+description: Install engine dependencies
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Hello world
+      shell: bash
+      run: |
+        echo "Hello world!"

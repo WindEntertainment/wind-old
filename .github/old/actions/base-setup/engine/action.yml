@@ -1,0 +1,10 @@
+name: Setup engine base
+description: Setup engine base
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Hello world
+      shell: bash
+      run: |
+        echo "Hello world!"
