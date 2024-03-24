@@ -33,7 +33,7 @@ runs:
           ls -a
           cd ../
           ls -a
-          cd C:\Users\
+          cd C:\\Users\\
           ls -a
           echo "conanPath=%USERPROFILE%\.conan2\p" >> $GITHUB_ENV
         else
