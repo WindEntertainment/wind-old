@@ -33,11 +33,9 @@ runs:
       shell: bash
       run: conan profile detect
 
-    - name: dfdfddfdfddffd
+    - name: Create default profile
       shell: bash
-      run: which conan
-
-
+      run:  echo "/home/runner/.local/bin" >> $PATH
     # - name: Piska
     #   shell: bash
     #   run: sudo apt install libgl-dev
