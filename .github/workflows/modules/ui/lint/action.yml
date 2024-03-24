@@ -14,7 +14,7 @@ runs:
 
     - uses: ./.github/workflows/modules/ui/install-dependencies
       with:
-        rootPath: ${{inputs.rootPath}}
+        rootPath: ${{ inputs.rootPath }}
 
     - name: Lint
       shell: bash

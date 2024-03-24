@@ -13,5 +13,5 @@ runs:
       with:
         author_name: formatter
         author_email: robot@example.com
-        message: ${{inputs.message}}
+        message: ${{ inputs.message }}
         add: '*'

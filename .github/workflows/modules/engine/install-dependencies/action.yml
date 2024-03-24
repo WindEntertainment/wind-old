@@ -47,8 +47,6 @@ runs:
             elif [ "$RUNNER_OS" == "Windows" ]; then
                   echo "$RUNNER_OS not supported"
                   # choco install important_windows_software
-            else
-                  echo "$RUNNER_OS not supported"
             fi
       shell: bash
 
