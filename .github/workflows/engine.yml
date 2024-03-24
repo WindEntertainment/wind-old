@@ -11,12 +11,7 @@ on:
         value: ${{jobs.ci.outputs.isPassed}}
 
 permissions:
-  actions: write
-  checks: write
   contents: write
-  deployments: write
-  pages: write
-  repository-projects: write
 jobs:
   ci:
     continue-on-error: true
