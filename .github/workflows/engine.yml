@@ -10,6 +10,20 @@ on:
       isPassed:
         value: ${{jobs.ci.outputs.isPassed}}
 
+permissions:
+  actions: write
+  checks: write
+  contents: write
+  deployments: write
+  id-token: write
+  issues: write
+  discussions: write
+  packages: write
+  pages: write
+  pull-requests: write
+  repository-projects: write
+  security-events: write
+  statuses: write
 jobs:
   ci:
     continue-on-error: true
