@@ -34,6 +34,9 @@ jobs:
           pnpmKeysPrefix: ${{steps.uiSetup.outputs.pnpmKeysPrefix}}
           pnpmPath: ${{steps.uiSetup.outputs.pnpmPath}}
 
+      - name: Open root
+        run: cd ${{inputs.rootPath}}
+
       - name: Lint
         id: lint
         run: pnpm lint
