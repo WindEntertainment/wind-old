@@ -16,7 +16,7 @@
 #include <utils/includes.h>
 #include <utils/utils.h>
 #include <wind-ultralight/ultralight.h>
-#include <window/window.h>
+                                  #include <window/window.h>
 
 int main(int argc, char** argv) {
 #ifndef NDEBUG

@@ -36,7 +36,14 @@ jobs:
 
       - name: Lint
         id: lint
-        run: cd ${{inputs.rootPath}} && pnpm lint
+        run: cd ${{inputs.rootPath}} && pnpm lint:fix
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          author_name: Clang format bot
+          author_email: robot@example.com
+          message: 'Lint from gh action'
+          add: '*'
 
       - name: Build
         id: build

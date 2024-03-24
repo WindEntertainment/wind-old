@@ -36,7 +36,7 @@ jobs:
         with:
           author_name: Clang format bot
           author_email: robot@example.com
-          message: 'Committing clang-format changes from gh action'
+          message: 'Clang-format from gh action'
           add: '*'
 
     outputs:
