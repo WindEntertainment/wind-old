@@ -1,0 +1,14 @@
+name: Script build
+description: Script build
+
+runs:
+  using: 'composite'
+  steps:
+    # - name: Checkout code
+    #   uses: actions/checkout@v4
+    #   with:
+    #     fetch-depth: 0
+
+    - uses: ./.github/actions/scripts/base-setup
+
+    - uses: ./.github/actions/scripts/install-dependencies

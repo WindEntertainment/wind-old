@@ -1,0 +1,22 @@
+name: Engine lint
+description: Engine lint
+
+runs:
+  using: 'composite'
+  steps:
+    # - name: Checkout code
+    #   uses: actions/checkout@v4
+    #   with:
+    #     fetch-depth: 0
+
+    - uses: ./.github/actions/engin/base-setup
+
+    - uses: ./.github/actions/engin/install-dependencies
+
+    - uses: DoozyX/clang-format-lint-action@v0.17
+      with:
+        source: '.'
+        exclude: './game/assets'
+        extensions: 'h,cpp'
+        clangFormatVersion: 17
+        inplace: true

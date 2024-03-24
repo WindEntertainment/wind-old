@@ -1,0 +1,10 @@
+name: Setup scripts base
+description: Setup scripts base
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Hello world
+      shell: bash
+      run: |
+        echo "Hello world!"

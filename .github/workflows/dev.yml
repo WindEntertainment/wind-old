@@ -9,30 +9,72 @@ on:
 permissions:
   contents: write
 jobs:
-  base:
-    uses: ./.github/workflows/base.yml
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: UI
+        uses: './.github/actions/ui/lint'
+      - name: Scripts
+        uses: './.github/actions/scripts/lint'
+      - name: Engine
+        uses: './.github/actions/engine/lint'
+      - name: Linting commit
+        uses: './.github/actions/commit'
 
-  ui:
-    needs: base
-    uses: ./.github/workflows/ui.yml
-    with:
-      rootPath: 'game/assets/UI'
+  # testing:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
+  #     - name: UI
+  #       uses: './.github/actions/scripts/test'
+  #     - name: Scripts
+  #       uses: './.github/actions/engine/test'
 
-  engine:
-    needs: base
-    uses: ./.github/workflows/engine.yml
+  building:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: UI
+        uses: './.github/actions/ui/build'
+      - name: Scripts
+        uses: './.github/actions/scripts/build'
+      - name: Engine
+        uses: './.github/actions/engine/build'
 
-  scripts:
-    needs: base
-    uses: ./.github/workflows/scripts.yml
+  # base:
+  #   uses: ./.github/workflows/base.yml
 
-  post:
-    needs:
-      - base
-      - ui
-      - engine
-      - scripts
-    uses: ./.github/workflows/post.yml
+  # ui:
+  #   needs: base
+  #   uses: ./.github/workflows/ui.yml
+  #   with:
+  #     rootPath: 'game/assets/UI'
+
+  # engine:
+  #   needs: base
+  #   uses: ./.github/workflows/engine.yml
+
+  # scripts:
+  #   needs: base
+  #   uses: ./.github/workflows/scripts.yml
+
+  # post:
+  #   needs:
+  #     - base
+  #     - ui
+  #     - engine
+  #     - scripts
+  #   uses: ./.github/workflows/post.yml
 
   # ciChecker:
   #   runs-on: ubuntu-latest

@@ -1,0 +1,55 @@
+name: dev
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!master'
+
+permissions:
+  contents: write
+jobs:
+  linting:
+    steps:
+      -
+
+  # testing:
+  #   steps:
+  #     - name: template
+
+  building:
+    steps:
+      -
+
+  # base:
+  #   uses: ./.github/workflows/base.yml
+
+  # ui:
+  #   needs: base
+  #   uses: ./.github/workflows/ui.yml
+  #   with:
+  #     rootPath: 'game/assets/UI'
+
+  # engine:
+  #   needs: base
+  #   uses: ./.github/workflows/engine.yml
+
+  # scripts:
+  #   needs: base
+  #   uses: ./.github/workflows/scripts.yml
+
+  # post:
+  #   needs:
+  #     - base
+  #     - ui
+  #     - engine
+  #     - scripts
+  #   uses: ./.github/workflows/post.yml
+
+  # ciChecker:
+  #   runs-on: ubuntu-latest
+  #   needs: ci
+  #   steps:
+  #     - name: Check is CI valid
+  #       if: needs.ci.outputs.isPassed != 'true'
+  #       run: exit 1
