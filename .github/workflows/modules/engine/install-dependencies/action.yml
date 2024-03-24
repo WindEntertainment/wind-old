@@ -9,23 +9,37 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Install conan
-      id: conan
-      uses: turtlebrowser/get-conan@main
-      with:
-        version: 2.0.17
-
-    - name: Create default profile
+    - name: Install Conan
       shell: bash
-      run: conan profile detect
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-pip
+        pip3 install --upgrade conan
+
+    - name: Configure Conan profile
+      shell: bash
+      run: conan profile update settings.compiler.libcxx=libstdc++11 default
+
+    - name: Install dependencies with Conan
+      shell: bash
+      run: conan install . --build=missing
+    # - name: Install conan
+    #   id: conan
+    #   uses: turtlebrowser/get-conan@main
+    #   with:
+    #     version: 2.0.17
+
+    # - name: Create default profile
+    #   shell: bash
+    #   run: conan profile detect
 
     # - name: Update profile
     #   shell: bash
     #   run: conan profile update settings.compiler.libcxx=libstdc++11 default
 
-    - name: Install dependencies
-      shell: bash
-      run: conan install . --update -s build_type=Debug --build=missing -c tools.system.package_manager:mode=install
+    # - name: Install dependencies
+    #   shell: bash
+    #   run: conan install . --update -s build_type=Debug --build=missing -c tools.system.package_manager:mode=install
 
     # - name: Conan profile config
     #   shell: bash
