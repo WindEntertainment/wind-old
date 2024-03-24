@@ -1,0 +1,22 @@
+name: Pull&Push
+description: Pull last changes and push
+
+inputs:
+  message:
+    required: true
+    description: Message for commit
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - uses: EndBug/add-and-commit@v9
+      with:
+        author_name: formatter
+        author_email: robot@example.com
+        message: ${{inputs.message}}
+        add: '*'
