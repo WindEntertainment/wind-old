@@ -1,0 +1,58 @@
+name: prod
+
+on:
+  push:
+    branches:
+      - 'master'
+
+permissions:
+  contents: write
+jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: UI
+        with:
+          rootPath: 'game/assets/UI'
+        uses: './.github/workflows/modules/ui/lint'
+      - name: Scripts
+        uses: './.github/workflows/modules/scripts/lint'
+      - name: Engine
+        uses: './.github/workflows/modules/engine/lint'
+      - name: Linting commit
+        uses: './.github/workflows/utils/commit'
+
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scripts
+        uses: './.github/workflows/modules/scripts/test'
+      - name: Engine
+        uses: './.github/workflows/modules/engine/test'
+
+  building:
+    needs:
+      - testing
+      - linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: UI
+        with:
+          rootPath: 'game/assets/UI'
+        uses: './.github/workflows/modules/ui/build'
+      - name: Scripts
+        uses: './.github/workflows/modules/scripts/build'
+      - name: Engine
+        uses: './.github/workflows/modules/engine/build'
