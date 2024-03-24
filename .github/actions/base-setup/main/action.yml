@@ -1,0 +1,13 @@
+name: 'Setup main base'
+
+inputs:
+  withDependencies:
+    required: true
+    default: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Fetching git
+      shell: sh
+      run: git fetch

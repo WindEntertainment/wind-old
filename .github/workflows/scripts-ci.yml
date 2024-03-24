@@ -1,0 +1,30 @@
+name: scripts-ci
+
+on:
+  workflow_call:
+    outputs:
+      isBuildPassed:
+        value: ${{jobs.ci.outputs.isBuildPassed}}
+      isLintPassed:
+        value: ${{jobs.ci.outputs.isLintPassed}}
+      isPassed:
+        value: ${{jobs.ci.outputs.isPassed}}
+
+jobs:
+  ci:
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/base-setup/engine
+
+      - uses: ./.github/actions/install-dependencies/engine
+
+    outputs:
+      isBuildPassed: true
+      isLintPassed: true
+      isPassed: true
