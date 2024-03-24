@@ -41,18 +41,18 @@ jobs:
         uses: './.github/workflows/modules/engine/test'
 
   building:
+    name: 'Build: ${{ matrix.config.name }}'
+    runs-on: ${{ matrix.config.os }}
     needs:
       - testing
       - linting
-    name: 'Build: ${{ matrix.config.name }}'
-    runs-on: ${{ matrix.config.os }}
     strategy:
       fail-fast: false
       matrix:
         config:
           - {
-              name: 'Windows Latest MSVC',
-              artifact: 'Windows-MSVC.tar.xz',
+              name: 'Windows Clang',
+              artifact: 'windows.tar.xz',
               os: windows-latest,
               build_type: 'Release',
               cc: 'clang',
@@ -60,7 +60,7 @@ jobs:
             }
           - {
               name: 'Ubuntu Clang',
-              artifact: 'Linux.tar.xz',
+              artifact: 'linux.tar.xz',
               os: ubuntu-latest,
               build_type: 'Release',
               cc: 'clang',
