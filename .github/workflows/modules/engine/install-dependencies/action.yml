@@ -47,7 +47,7 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: conan install . --update -s build_type=Debug --build=missing -c tools.system.package_manager:mode=install
+      run: sudo conan install . --update -s build_type=Debug --build=missing -c tools.system.package_manager:mode=install
 
     # - name: Conan profile config
     #   shell: bash
