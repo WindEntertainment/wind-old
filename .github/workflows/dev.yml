@@ -8,8 +8,12 @@ on:
 
 jobs:
   base:
-    uses: ./.github/actions/base-setup/main
-
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up main base
+        id: uiSetup
+        uses: ./.github/actions/base-setup/main
   # variables:
   #   uses: ./.github/workflows/variables.yml
 
