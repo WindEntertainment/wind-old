@@ -49,6 +49,7 @@ runs:
         if [ "$RUNNER_OS" == "Windows" ]; then
           ls -a %USERPROFILE%\.conan2\p
         else
-          ls -a ~/.conan2/p
+          # ls -a ~/.conan2/p
+          ls -a
         fi
       shell: bash
