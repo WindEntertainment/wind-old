@@ -1,6 +1,9 @@
 name: 'Install UI dependencies'
 
 inputs:
+  rootPath:
+    required: true
+    type: string
   pnpmPath:
     required: true
     type: string
@@ -27,4 +30,4 @@ runs:
 
     - name: Installation
       shell: sh
-      run: pnpm install
+      run: cd ${{inputs.rootPath}} && pnpm install

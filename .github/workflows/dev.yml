@@ -7,22 +7,26 @@ on:
       - '!master'
 
 jobs:
-  variables:
-    uses: ./.github/workflows/variables.yml
+  base:
+    uses: ./.github/actions/base-setup/main
+
+  # variables:
+  #   uses: ./.github/workflows/variables.yml
 
   ui-ci:
-    needs: variables
+    # needs: variables
     uses: ./.github/workflows/ui-ci.yml
     with:
-      pnpmKeysPrefix: ${{needs.variables.outputs.pnpmKeysPrefix}}
-      pnpmPath: ${{needs.variables.outputs.pnpmPath}}
+      rootPath: 'game/assets/UI'
+      # pnpmKeysPrefix: ${{needs.variables.outputs.pnpmKeysPrefix}}
+      # pnpmPath: ${{needs.variables.outputs.pnpmPath}}
 
   engine-ci:
-    needs: variables
+    # needs: variables
     uses: ./.github/workflows/engine-ci.yml
 
   scripts-ci:
-    needs: variables
+    # needs: variables
     uses: ./.github/workflows/scripts-ci.yml
 
   # ciChecker:
