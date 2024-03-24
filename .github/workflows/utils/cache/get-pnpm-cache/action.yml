@@ -12,6 +12,14 @@ outputs:
 runs:
   using: 'composite'
   steps:
+    - name: test
+      shell: bash
+      run: |
+        echo ${{ steps.storePath.outputs.storePath }}
+    - name: test2
+      shell: bash
+      run: |
+        echo ${{ matrix.config.os }}-pnpm-store-
     - name: Get pnpm store directory
       shell: bash
       id: storePath
