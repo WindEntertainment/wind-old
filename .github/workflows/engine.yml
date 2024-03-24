@@ -10,8 +10,6 @@ on:
       isPassed:
         value: ${{jobs.ci.outputs.isPassed}}
 
-permissions:
-  contents: write
 jobs:
   ci:
     continue-on-error: true
