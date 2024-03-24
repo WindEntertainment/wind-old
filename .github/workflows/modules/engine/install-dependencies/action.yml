@@ -9,9 +9,13 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Install Conan
+    - name: Install conan
       id: conan
       uses: turtlebrowser/get-conan@main
+
+    - name: Conan profile config
+      shell: bash
+      run: conan profile detect
 
     - name: Dependencies installation
       shell: bash
