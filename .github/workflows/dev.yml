@@ -8,33 +8,17 @@ on:
 
 jobs:
   base:
-    continue-on-error: true
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Set up main base
-        id: uiSetup
-        uses: ./.github/actions/base-setup/main
-  # variables:
-  #   uses: ./.github/workflows/variables.yml
+    uses: ./.github/workflows/base.yml
 
-  ui-ci:
-    # needs: variables
+  ui:
     uses: ./.github/workflows/ui-ci.yml
     with:
       rootPath: 'game/assets/UI'
-      # pnpmKeysPrefix: ${{needs.variables.outputs.pnpmKeysPrefix}}
-      # pnpmPath: ${{needs.variables.outputs.pnpmPath}}
 
-  engine-ci:
-    # needs: variables
+  engine:
     uses: ./.github/workflows/engine-ci.yml
 
-  scripts-ci:
-    # needs: variables
+  scripts:
     uses: ./.github/workflows/scripts-ci.yml
 
   # ciChecker:
