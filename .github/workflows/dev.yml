@@ -10,39 +10,8 @@ permissions:
   contents: write
 jobs:
   linting:
-    name: 'Lint: ${{ matrix.config.name }}'
-    runs-on: ${{ matrix.config.os }}
-    # needs:
-      # - linting
-      # - testing
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-          # - {
-          #     name: 'Windows',
-          #     artifact: 'Windows-MSVC.tar.xz',
-          #     os: windows-latest,
-          #     build_type: 'Release',
-          #     cc: 'clang',
-          #     cxx: 'clang++',
-          #   }
-          # - {
-          #     name: 'Ubuntu',
-          #     artifact: 'Linux.tar.xz',
-          #     os: ubuntu-latest,
-          #     build_type: 'Release',
-          #     cc: 'clang',
-          #     cxx: 'clang++',
-          #   }
-          - {
-              name: 'MacOS',
-              artifact: 'macOS.tar.xz',
-              os: macos-latest,
-              build_type: 'Release',
-              cc: 'clang',
-              cxx: 'clang++',
-            }
+    name: Linting
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -60,7 +29,7 @@ jobs:
         uses: './.github/workflows/utils/commit'
 
   testing:
-    name: 'Test: ${{ matrix.config.name }}'
+    name: 'Testing: ${{ matrix.config.name }}'
     runs-on: ${{ matrix.config.os }}
     # needs:
       # - linting
