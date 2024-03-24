@@ -38,6 +38,7 @@ jobs:
   #       uses: './.github/actions/engine/test'
 
   building:
+    needs: linting
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

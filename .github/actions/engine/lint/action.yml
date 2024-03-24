@@ -9,9 +9,9 @@ runs:
     #   with:
     #     fetch-depth: 0
 
-    - uses: ./.github/actions/engin/base-setup
+    - uses: ./.github/actions/engine/base-setup
 
-    - uses: ./.github/actions/engin/install-dependencies
+    - uses: ./.github/actions/engine/install-dependencies
 
     - uses: DoozyX/clang-format-lint-action@v0.17
       with:
