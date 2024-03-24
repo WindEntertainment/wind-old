@@ -11,8 +11,9 @@ namespace wind {
 namespace assets {
 
 void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _destination) {
-  spdlog::info("===========================");
-  spdlog::info("Start compiling directory {}", _source.string());
+  Stopwatch sw("Compiled");
+
+  spdlog::info("===================================================");
 
   const fs::path sourceParentPath = _source.parent_path();
 
@@ -21,10 +22,11 @@ void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _d
     if (!fs::exists(configPath))
       return;
 
+    spdlog::info("Start processing directory: '{}'", _path.string());
+
     YAML::Node config;
     try {
       config = YAML::LoadFile(configPath);
-      spdlog::info("Start processing directory: '{}'", _path.string());
     } catch (std::exception& ex) {
       spdlog::error("Failed open export config: {}", _path.string());
       return;
@@ -41,8 +43,8 @@ void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _d
 
     fs::recursive_directory_iterator it;
     try {
-      it = fs::recursive_directory_iterator(_path);
-    } catch (std::exception& ex) {
+      it = createRecursiveIterator(_path);
+    } catch (AssetBundlerError& ex) {
       spdlog::error("Cannot create directory iterator: {}", ex.what());
       return;
     }
@@ -102,7 +104,7 @@ void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _d
 
           pipe->config(exportNode);
 
-          compileFile(fs::relative(entry, _source),
+          compileFile(fs::relative(entry, sourceParentPath),
             _destination / fs::relative(entry, sourceParentPath),
             pipe);
         }
@@ -112,8 +114,8 @@ void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _d
     }
 
     try {
-      it = fs::recursive_directory_iterator(_path);
-    } catch (std::exception& ex) {
+      it = createRecursiveIterator(_path);
+    } catch (AssetBundlerError& ex) {
       spdlog::error("Cannot create directory iterator: {}", ex.what());
       return;
     }
@@ -162,7 +164,6 @@ void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _d
     }
   };
 
-  Stopwatch sw("Compiled");
   processDirectory(_source);
 }
 

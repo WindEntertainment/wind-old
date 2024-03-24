@@ -19,7 +19,7 @@ void AssetPipeline::linkDirectory(const fs::path& _source, const fs::path& _dest
   fs::recursive_directory_iterator it;
   try {
     it = createRecursiveIterator(_source);
-  } catch (std::invalid_argument& ex) {
+  } catch (AssetBundlerError& ex) {
     spdlog::error(ex.what());
     return;
   }
