@@ -10,6 +10,16 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
   },
+  "yaml.schemas": {
+    "http://json.schemastore.org/github-workflow": [
+      "**/.github/workflows/*.yaml",
+      "**/.github/workflows/*.yml"
+    ],
+    "http://json.schemastore.org/github-action": [
+      "**/action.yaml",
+      "**/action.yml"
+    ]
+  },
   "editor.formatOnSave": true,
   "editor.formatOnType": false,
   "i18n-ally.keystyle": "nested",
@@ -27,6 +37,9 @@
   ],
   "C_Cpp.errorSquiggles": "disabled",
   "files.associations": {
+    "action.yaml": "yaml",
+    "**/.github/workflows/**/*.yaml": "yaml",
+    "**/.github/workflows/**/*.yml": "yaml",
     "*.prefab": "xml",
     "*.uss": "scss",
     ".import-config": "yaml",

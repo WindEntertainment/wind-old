@@ -1,10 +1,18 @@
 name: Install engine dependencies
 description: Install engine dependencies
 
+inputs:
+  buildSettings:
+    description: Conan settings
+    default: build_type=Debug
+
 runs:
   using: 'composite'
   steps:
-    - name: Hello world
+    - name: Install Conan
+      id: conan
+      uses: turtlebrowser/get-conan@main
+
+    - name: Dependencies installation
       shell: bash
-      run: |
-        echo "Hello world!"
+      run: conan install . --build=missing --settings=${{inputs.buildSettings}}

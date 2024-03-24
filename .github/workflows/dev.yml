@@ -88,3 +88,5 @@ jobs:
         uses: './.github/workflows/modules/scripts/build'
       - name: Engine
         uses: './.github/workflows/modules/engine/build'
+        with:
+          buildSettings: build_type=Debug

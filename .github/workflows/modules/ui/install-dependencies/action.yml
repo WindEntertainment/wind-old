@@ -29,6 +29,6 @@ runs:
         restore-keys: |
           ${{ inputs.pnpmKeysPrefix }}
 
-    - name: Installation
-      shell: sh
+    - name: Dependencies installation
+      shell: bash
       run: cd ${{inputs.rootPath}} && pnpm install
