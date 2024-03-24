@@ -21,6 +21,10 @@ runs:
         version: 8
         run_install: false
 
+    - name: Dependencies installation
+      shell: bash
+      run: echo ${{ inputs.pnpmPath }}
+
     - uses: actions/cache@v4
       name: Setup pnpm cache
       with:
