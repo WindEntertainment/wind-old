@@ -1,4 +1,4 @@
-name: Pull&Push
+name: Push
 description: Pull last changes and push
 
 inputs:
@@ -9,11 +9,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
     - uses: EndBug/add-and-commit@v9
       with:
         author_name: formatter
