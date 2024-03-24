@@ -33,6 +33,14 @@ runs:
       shell: bash
       run: conan profile detect
 
+    - name: Piska
+      shell: bash
+      run: apt install libgl-dev
+
+    - name: Piska2
+      shell: bash
+      run: apt install libgl1-mesa-dev
+
     # - name: Update profile
     #   shell: bash
     #   run: conan profile update settings.compiler.libcxx=libstdc++11 default
