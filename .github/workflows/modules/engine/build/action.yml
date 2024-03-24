@@ -1,5 +1,10 @@
-name: Engine lint
-description: Engine lint
+name: Engine build
+description: Engine build
+
+inputs:
+  buildSettings:
+    description: Conan settings
+    default: build_type=Debug
 
 runs:
   using: 'composite'
@@ -7,3 +12,7 @@ runs:
     - uses: ./.github/workflows/modules/engine/base-setup
 
     - uses: ./.github/workflows/modules/engine/install-dependencies
+
+    - uses: ./.github/workflows/modules/engine/install-dependencies
+      with:
+        buildSettings: ${{inputs.buildSettings}}
