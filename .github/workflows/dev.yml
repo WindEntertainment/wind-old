@@ -27,17 +27,17 @@ jobs:
       - name: Linting commit
         uses: './.github/workflows/utils/commit'
 
-  # testing:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0
-  #     - name: Scripts
-  #       uses: './.github/workflows/modules/scripts/test'
-  #     - name: Engine
-  #       uses: './.github/workflows/modules/engine/test'
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scripts
+        uses: './.github/workflows/modules/scripts/test'
+      - name: Engine
+        uses: './.github/workflows/modules/engine/test'
 
   building:
     needs: linting
