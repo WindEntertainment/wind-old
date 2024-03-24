@@ -18,7 +18,7 @@ void setting() {
   PipeRegister::regPipe(new ShaderPipe());
   PipeRegister::regPipe(new ImagePipe());
   PipeRegister::regPipe(new DefaultPipe());
-}
+     }
 
 int main(int argc, char** argv) {
   // clang-format off

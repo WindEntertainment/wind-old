@@ -32,12 +32,17 @@ jobs:
           clangFormatVersion: 17
           inplace: true
 
-      - uses: EndBug/add-and-commit@v9
+      # - uses: EndBug/add-and-commit@v9
+      #   with:
+      #     author_name: Clang format bot
+      #     author_email: robot@example.com
+      #     message: 'Clang-format from gh action'
+      #     add: '*'
+
+      - name: Commit linting changes
+        uses: ./.github/actions/commit
         with:
-          author_name: Clang format bot
-          author_email: robot@example.com
           message: 'Clang-format from gh action'
-          add: '*'
 
     outputs:
       isBuildPassed: true
