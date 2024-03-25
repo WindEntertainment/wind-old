@@ -1,9 +1,18 @@
 name: Script build
 description: Script build
 
+inputs:
+  buildMode:
+    description: Dotnet build mode
+    default: publish
+
 runs:
   using: 'composite'
   steps:
     - uses: ./.github/workflows/modules/scripts/base-setup
 
     - uses: ./.github/workflows/modules/scripts/install-dependencies
+
+    - name: build
+      shell: bash
+      run: dotnet ${{ inputs.buildMode }}

@@ -9,23 +9,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Install conan
-      id: conan
-      uses: turtlebrowser/get-conan@main
-      with:
-        version: 2.1.0
-
-    - name: Create default profile
-      shell: bash
-      run: conan profile detect
-
-    - name: Install Linux staff
-      run:   |
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          sudo apt install libxcb-util-dev libgl-dev libgl1-mesa-dev libx11-xcb-dev libfontenc-dev libxaw7-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxfixes-dev libxi-dev libxinerama-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxres-dev libxss-dev libxtst-dev libxv-dev libxxf86vm-dev libxcb-glx0-dev libxcb-render-util0-dev libxcb-xkb-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-dri3-dev libxcb-cursor-dev libxcb-dri2-0-dev libxcb-dri3-dev libxcb-present-dev libxcb-composite0-dev libxcb-ewmh-dev libxcb-res0-dev
-        fi
-      shell: bash
-
     - name: Setup conan cache
       uses: ./.github/workflows/utils/cache/get-conan-cache
 
@@ -36,17 +19,6 @@ runs:
     - name: Install Linux staff
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
-          chmod +x ./dotnet-install.sh
-          ./dotnet-install.sh --version latest
-          ./dotnet-install.sh --version latest --runtime aspnetcore
-          ./dotnet-install.sh --channel 8.0
-          dotnet --version
-          cd game/assets/scripts
-          dotnet publish
-          dotnet build
-
-          # dotnet -v
           # touch CMakeEnv.txt
           # echo 'set(ENV{ULTRALIGHT_PATH} "~/cpp-libs/ultralight-arm/SDK")' >> CMakeEnv.txt
           # echo 'set(ENV{DOTNET_ROOT} "/usr/local/share/dotnet")' >> CMakeEnv.txt
