@@ -34,14 +34,14 @@ runs:
           echo "DOTNET_PATH=$(which dotnet)" >> $GITHUB_ENV
           ls -a
 
-          cd ../dreich
-          touch CMakeEnv.txt
-          echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }})' >> CMakeEnv.txt
-          echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
+          # cd ../dreich
+          # touch CMakeEnv.txt
+          # echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }})' >> CMakeEnv.txt
+          # echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
 
-          cat CMakeEnv.txt
+          # cat CMakeEnv.txt
 
-          cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
+          # cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
 
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
@@ -60,17 +60,32 @@ runs:
           echo "DOTNET_PATH=$(which dotnet)" >> $GITHUB_ENV
           ls -a
 
-          cd ../dreich
-          touch CMakeEnv.txt
+          # cd ../dreich
+          # touch CMakeEnv.txt
+          # echo ${{ env.ULTRALIGHT_PATH }}
+          # echo ${{ env.DOTNET_PATH }}
+          # echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }})' >> CMakeEnv.txt
+          # echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
+
+          # cat CMakeEnv.txt
+
+          # cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
+
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
+        fi
+      shell: bash
+    - name: Install Linux staff
+      run:   |
+        if [ "$RUNNER_OS" == "Linux" ]; then
           echo ${{ env.ULTRALIGHT_PATH }}
           echo ${{ env.DOTNET_PATH }}
-          echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }})' >> CMakeEnv.txt
-          echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
-
-          cat CMakeEnv.txt
-
-          cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
-
+        elif [ "$RUNNER_OS" == "Windows" ]; then
+          echo Windows
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          echo ${{ env.ULTRALIGHT_PATH }}
+          echo ${{ env.DOTNET_PATH }}
         else
           echo "$RUNNER_OS not supported"
           exit 1
