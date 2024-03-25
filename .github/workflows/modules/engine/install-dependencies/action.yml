@@ -44,6 +44,9 @@ runs:
           7za x ultralight-sdk-1.4.0a-mac-arm64.7z
 
           ls -a
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
         fi
       shell: bash
           # which dotnet
