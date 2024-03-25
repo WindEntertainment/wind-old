@@ -36,7 +36,7 @@ runs:
 
           cd ../dreich
           touch CMakeEnv.txt
-          echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }}' >> CMakeEnv.txt
+          echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }})' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
 
           cat CMakeEnv.txt
@@ -62,6 +62,8 @@ runs:
 
           cd ../dreich
           touch CMakeEnv.txt
+          echo ${{ env.ULTRALIGHT_PATH }}
+          echo ${{ env.DOTNET_PATH }}
           echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }})' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
 
