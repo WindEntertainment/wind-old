@@ -41,9 +41,7 @@ runs:
           echo 'set(ENV{DOTNET_ROOT} "/usr/local/share/dotnet")' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_INCLUDES} "/usr/local/share/dotnet/packs/Microsoft.NETCore.App.Host.osx-arm64/8.0.3/runtimes/osx-arm64/native")' >> CMakeEnv.txt
           ls -a
-          cd build
-          ls -a
-          cmake .. -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -G "Unix Makefiles"
+          cmake .. -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S/ -B/build/Debug -G "Unix Makefiles"
           # cmake --build .
         fi
       shell: bash
