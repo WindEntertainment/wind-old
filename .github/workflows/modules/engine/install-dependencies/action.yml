@@ -14,7 +14,7 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: conan install . --update -s build_type=Debug settings=compiler=clang --build=missing -c tools.system.package_manager:mode=install
+      run: conan install . --update -s build_type=Debug -s compiler=clang --build=missing -c tools.system.package_manager:mode=install
 
     - name: Install Linux staff
       run:   |
