@@ -1,7 +1,7 @@
 #pragma once
 #include "includes.h"
 
-#ifndef __arm64__
+#ifndef __APPLE__
 #include <bits/ranges_algo.h>
 #endif
 
