@@ -6,5 +6,5 @@ exports:
 
   - path: "[^\/]*"
     output:
-      path: "Assets.bundle"
+      path: "Assets"
       type: bundle
