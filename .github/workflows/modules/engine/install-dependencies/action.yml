@@ -41,7 +41,12 @@ runs:
           ./dotnet-install.sh --version latest
           ./dotnet-install.sh --version latest --runtime aspnetcore
           ./dotnet-install.sh --channel 8.0
-          dotnet -v
+          dotnet --version
+          cd game/assets/scripts
+          dotnet publish
+          dotnet build
+
+          # dotnet -v
           # touch CMakeEnv.txt
           # echo 'set(ENV{ULTRALIGHT_PATH} "~/cpp-libs/ultralight-arm/SDK")' >> CMakeEnv.txt
           # echo 'set(ENV{DOTNET_ROOT} "/usr/local/share/dotnet")' >> CMakeEnv.txt
