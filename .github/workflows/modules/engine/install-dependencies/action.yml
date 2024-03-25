@@ -31,6 +31,13 @@ runs:
           wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.3.0-linux-x64.7z
           7za x ultralight-sdk-1.3.0-linux-x64.7z
           ls -a
+
+          cd ../dreich
+          touch CMakeEnv.txt
+          echo 'set(ENV{ULTRALIGHT_PATH} "$(pwd)/../ultralight")' >> CMakeEnv.txt
+          echo 'set(ENV{DOTNET_ROOT} "$(which dotnet)")' >> CMakeEnv.txt
+          cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
+
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
@@ -45,6 +52,13 @@ runs:
           wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-mac-arm64.7z
           7za x ultralight-sdk-1.4.0a-mac-arm64.7z
           ls -a
+
+          cd ../dreich
+          touch CMakeEnv.txt
+          echo 'set(ENV{ULTRALIGHT_PATH} "$(pwd)/../ultralight/SDK")' >> CMakeEnv.txt
+          echo 'set(ENV{DOTNET_ROOT} "$(which dotnet)")' >> CMakeEnv.txt
+          cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
+
         else
           echo "$RUNNER_OS not supported"
           exit 1
@@ -52,10 +66,6 @@ runs:
       shell: bash
           # which dotnet
 
-          # touch CMakeEnv.txt
-          # echo 'set(ENV{ULTRALIGHT_PATH} "~/cpp-libs/ultralight-arm/SDK")' >> CMakeEnv.txt
-          # echo 'set(ENV{DOTNET_ROOT} "/usr/local/share/dotnet")' >> CMakeEnv.txt
-          # echo 'set(ENV{DOTNET_INCLUDES} "/usr/local/share/dotnet/packs/Microsoft.NETCore.App.Host.osx-arm64/8.0.3/runtimes/osx-arm64/native")' >> CMakeEnv.txt
           # ls -a
           # pwd
           # cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
