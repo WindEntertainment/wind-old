@@ -12,7 +12,7 @@
 #include <fstream>         // IWYU pragma: export
 #include <algorithm>       // IWYU pragma: export
 #include <ranges>          // IWYU pragma: export
-#include <stringstream>    // IWYU pragma: export
+#include <sstream>         // IWYU pragma: export
 
 #ifndef __APPLE__
 #include <bits/ranges_algo.h> // IWYU pragma: export
