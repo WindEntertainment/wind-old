@@ -1,7 +1,6 @@
 #define WIND_PIPE_WRITE
 
 #define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
 
 #include <cxxopts.hpp>
 #include <spdlog/spdlog.h>

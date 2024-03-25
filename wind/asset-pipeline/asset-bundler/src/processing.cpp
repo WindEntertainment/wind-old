@@ -88,12 +88,12 @@ void AssetPipeline::processChildDirectories(const fs::path& _source, const fs::p
       fs::path destination = _destination;
 
       if (output.IsMap()) {
-        if (!output["path"] || !output.IsScalar()) {
+        if (!output["path"] || !output["path"].IsScalar()) {
           spdlog::error("Invalid output configuration: missing path option");
           continue;
         }
 
-        if (!output["type"] || !output.IsScalar()) {
+        if (!output["type"] || !output["type"].IsScalar()) {
           spdlog::error("Invalid output configuration: missing type option");
           return;
         }
@@ -101,7 +101,8 @@ void AssetPipeline::processChildDirectories(const fs::path& _source, const fs::p
         auto path = output["path"].as<std::string>();
         auto type = output["type"].as<std::string>();
 
-        destination = path;
+        destination /= path;
+        destination += "." + type;
       }
 
       processDirectory(entry.path(), destination);

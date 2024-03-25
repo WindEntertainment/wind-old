@@ -13,11 +13,21 @@ void AssetPipeline::build(const fs::path& _path) {
   spdlog::info("Start build directory {}", _path.string());
 
   auto cachePath = fs::current_path() / ".cache";
-  auto destinationPath = fs::current_path() / "assets.bundle";
 
   clearUnusedCache(_path, cachePath);
   processDirectory(_path, cachePath);
-  linkDirectory(cachePath, destinationPath);
+
+  fs::directory_iterator it;
+  try {
+    it = fs::directory_iterator(cachePath);
+  } catch (fs::filesystem_error ex) {
+    spdlog::error("Failed create directory iterator for {} directory: {}", cachePath.string(), ex.what());
+    return;
+  }
+
+  for (const auto& entry : it)
+    if (entry.path().extension().string() == ".bundle")
+      linkDirectory(entry.path(), fs::current_path() / entry.path().filename());
 }
 
 fs::recursive_directory_iterator AssetPipeline::createRecursiveIterator(const fs::path& _path) {
