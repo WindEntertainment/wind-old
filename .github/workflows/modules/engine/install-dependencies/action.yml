@@ -26,9 +26,18 @@ runs:
         fi
       shell: bash
 
-    - name: Setup conane cache
+    - name: Setup conan cache
       uses: ./.github/workflows/utils/cache/get-conan-cache
 
     - name: Install dependencies
       shell: bash
       run: conan install . --update -s build_type=Debug --build=missing -c tools.system.package_manager:mode=install
+
+    - name: Install Linux staff
+      run:   |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          cd build
+          cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+          cmake --build .
+        fi
+      shell: bash
