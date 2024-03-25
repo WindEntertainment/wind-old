@@ -19,6 +19,7 @@ runs:
     - name: Install Linux staff
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
+          conan profile show
           sudo apt update
           sudo apt install p7zip-full
 
@@ -33,6 +34,7 @@ runs:
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
+          conan profile show
           brew install p7zip
 
           cd ../
