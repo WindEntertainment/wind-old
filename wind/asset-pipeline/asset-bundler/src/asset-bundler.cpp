@@ -13,6 +13,10 @@ void AssetPipeline::build(const fs::path& _path) {
   spdlog::info("Start build directory {}", _path.string());
 
   auto cachePath = fs::current_path() / ".cache";
+  auto outputPath = fs::current_path().parent_path() / "res";
+
+  if (!fs::exists(outputPath))
+    fs::create_directory(outputPath);
 
   clearUnusedCache(_path, cachePath);
   processDirectory(_path, cachePath);
@@ -25,9 +29,21 @@ void AssetPipeline::build(const fs::path& _path) {
     return;
   }
 
-  for (const auto& entry : it)
-    if (entry.path().extension().string() == ".bundle")
-      linkDirectory(entry.path(), fs::current_path() / entry.path().filename());
+  for (const auto& entry : it) {
+    auto ext = entry.path().extension().string();
+    if (ext == ".bundle")
+      linkDirectory(entry.path(), outputPath / entry.path().filename());
+    else if (ext == ".directory") {
+      spdlog::info("Copy directory {} to res", entry.path().string());
+      auto name = entry.path().filename().replace_extension();
+      try {
+        fs::copy(entry.path(), outputPath / name, fs::copy_options::overwrite_existing | fs::copy_options::recursive);
+      } catch (fs::filesystem_error& ex) {
+        spdlog::error("Failed to copy directory {}: {}", entry.path().string(), ex.what());
+        continue;
+      }
+    }
+  }
 }
 
 fs::recursive_directory_iterator AssetPipeline::createRecursiveIterator(const fs::path& _path) {
