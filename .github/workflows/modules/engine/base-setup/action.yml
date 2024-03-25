@@ -17,8 +17,6 @@ runs:
     - name: Config profile
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          export CC=clang
-          export CXX=clang++
           echo "
             [settings]
             arch=x86_64
@@ -32,8 +30,6 @@ runs:
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          export CC=clang
-          export CXX=clang++
           echo "
             [settings]
             arch=armv8
