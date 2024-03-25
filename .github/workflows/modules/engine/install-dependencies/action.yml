@@ -25,15 +25,11 @@ runs:
           cd ../
           mkdir ultralight
           cd ultralight
-          # pwd
-          # which dotnet
 
           wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.3.0-linux-x64.7z
           7za x ultralight-sdk-1.3.0-linux-x64.7z
           echo "ULTRALIGHT_PATH=$(pwd)" >> $GITHUB_ENV
-          dotnet --list-sdks
-          echo "DOTNET_PATH=$(which dotnet)" >> $GITHUB_ENV
-          # ls -a
+          echo "DOTNET_PATH=/usr/share/dotnet" >> $GITHUB_ENV
 
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
@@ -43,15 +39,11 @@ runs:
           cd ../
           mkdir ultralight
           cd ultralight
-          # pwd
-          # which dotnet
 
           wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-mac-arm64.7z
           7za x ultralight-sdk-1.4.0a-mac-arm64.7z
           echo "ULTRALIGHT_PATH=$(pwd)/SDK" >> $GITHUB_ENV
-          dotnet --list-sdks
-          echo "DOTNET_PATH=$(which dotnet)" >> $GITHUB_ENV
-          # ls -a
+          echo "DOTNET_PATH=/Users/runner/.dotnet" >> $GITHUB_ENV
         else
           echo "$RUNNER_OS not supported"
           exit 1
@@ -66,7 +58,6 @@ runs:
           echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/8.0.3/runtimes/linux-x64/native")' >> CMakeEnv.txt
           echo "-------------------------"
-          which dotnet
           cd ${{ env.DOTNET_PATH }}
           ls -a
           echo "-------------------------"
@@ -85,8 +76,6 @@ runs:
           echo 'set(ENV{DOTNET_ROOT} "${{ env.DOTNET_PATH }}")' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/8.0.3/runtimes/osx-arm64/native")' >> CMakeEnv.txt
           echo "-------------------------"
-          which dotnet
-          dot
           cd ${{ env.DOTNET_PATH }}
           ls -a
           echo "-------------------------"
