@@ -30,24 +30,20 @@ runs:
 
           wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.3.0-linux-x64.7z
           7za x ultralight-sdk-1.3.0-linux-x64.7z
-
           ls -a
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          # sudo apt update
-          # sudo apt install p7zip-full
+          brew install p7zip
 
           cd ../
           mkdir ultralight
           cd ultralight
           pwd
           which dotnet
-          brew -v
 
           wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-mac-arm64.7z
-          # 7za x ultralight-sdk-1.4.0a-mac-arm64.7z
-
+          7za x ultralight-sdk-1.4.0a-mac-arm64.7z
           ls -a
         else
           echo "$RUNNER_OS not supported"
