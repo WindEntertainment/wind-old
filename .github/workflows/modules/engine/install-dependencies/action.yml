@@ -30,7 +30,6 @@ runs:
           7za x ultralight-sdk-1.3.0-linux-x64.7z
           echo "ULTRALIGHT_PATH=$(pwd)" >> $GITHUB_ENV
           echo "DOTNET_PATH=/usr/share/dotnet" >> $GITHUB_ENV
-
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
@@ -52,38 +51,27 @@ runs:
     - name: Install Linux staff
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          # pwd
           touch CMakeEnv.txt
           echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }})' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/8.0.3/runtimes/linux-x64/native")' >> CMakeEnv.txt
-          echo "-------------------------"
-          cd ${{ env.DOTNET_PATH }}
-          ls -a
-          echo "-------------------------"
-          # cat CMakeEnv.txt
 
-          # cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
-          # cmake --build $(pwd)/build/Debug --parallel 10 --target game
+          cat CMakeEnv.txt
+
+          cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
+          cmake --build $(pwd)/build/Debug --parallel 10 --target game
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          # pwd
           touch CMakeEnv.txt
-          # echo ${{ env.ULTRALIGHT_PATH }}
-          # echo ${{ env.DOTNET_PATH }}
           echo 'set(ENV{ULTRALIGHT_PATH} "${{ env.ULTRALIGHT_PATH }}")' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_ROOT} "${{ env.DOTNET_PATH }}")' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/8.0.3/runtimes/osx-arm64/native")' >> CMakeEnv.txt
-          echo "-------------------------"
-          cd ${{ env.DOTNET_PATH }}
-          ls -a
-          echo "-------------------------"
-          # cat CMakeEnv.txt
 
-          # cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
-          # echo 123
-          # cmake --build $(pwd)/build/Debug --parallel 10 --target game
+          cat CMakeEnv.txt
+
+          cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
+          cmake --build $(pwd)/build/Debug --parallel 10 --target game
         else
           echo "$RUNNER_OS not supported"
           exit 1
