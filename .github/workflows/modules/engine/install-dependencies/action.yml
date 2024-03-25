@@ -31,7 +31,7 @@ runs:
 
           ls -a
         elif [ "$RUNNER_OS" == "Windows" ]; then
-
+          echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
           sudo apt update
           sudo apt install p7zip-full
