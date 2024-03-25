@@ -65,7 +65,7 @@ runs:
           echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/8.0.3/runtimes/linux-x64/native")' >> CMakeEnv.txt
           echo "-------------------------"
           which dotnet
-          cd ~${{ env.DOTNET_PATH }}
+          cd ${{ env.DOTNET_PATH }}
           ls -a
           echo "-------------------------"
           # cat CMakeEnv.txt
@@ -84,7 +84,7 @@ runs:
           echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/8.0.3/runtimes/osx-arm64/native")' >> CMakeEnv.txt
           echo "-------------------------"
           which dotnet
-          cd ~${{ env.DOTNET_PATH }}
+          cd ${{ env.DOTNET_PATH }}
           ls -a
           echo "-------------------------"
           # cat CMakeEnv.txt
