@@ -81,7 +81,7 @@ runs:
           cat CMakeEnv.txt
 
           cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
-
+          echo 123
           cmake --build .
         else
           echo "$RUNNER_OS not supported"
