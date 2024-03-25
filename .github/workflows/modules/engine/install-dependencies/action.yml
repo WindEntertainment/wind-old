@@ -30,12 +30,17 @@ runs:
 
           wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.3.0-linux-x64.7z
           7za x ultralight-sdk-1.3.0-linux-x64.7z
+          echo "ULTRALIGHT_PATH=$(pwd)" >> $GITHUB_ENV
+          echo "DOTNET_PATH=$(which dotnet)" >> $GITHUB_ENV
           ls -a
 
           cd ../dreich
           touch CMakeEnv.txt
-          echo 'set(ENV{ULTRALIGHT_PATH} "$(pwd)/../ultralight")' >> CMakeEnv.txt
-          echo 'set(ENV{DOTNET_ROOT} "$(which dotnet)")' >> CMakeEnv.txt
+          echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }}' >> CMakeEnv.txt
+          echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
+
+          cat CMakeEnv.txt
+
           cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
 
         elif [ "$RUNNER_OS" == "Windows" ]; then
@@ -51,12 +56,17 @@ runs:
 
           wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-mac-arm64.7z
           7za x ultralight-sdk-1.4.0a-mac-arm64.7z
+          echo "ULTRALIGHT_PATH=$(pwd)/SDK" >> $GITHUB_ENV
+          echo "DOTNET_PATH=$(which dotnet)" >> $GITHUB_ENV
           ls -a
 
           cd ../dreich
           touch CMakeEnv.txt
-          echo 'set(ENV{ULTRALIGHT_PATH} "$(pwd)/../ultralight/SDK")' >> CMakeEnv.txt
-          echo 'set(ENV{DOTNET_ROOT} "$(which dotnet)")' >> CMakeEnv.txt
+          echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }})' >> CMakeEnv.txt
+          echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
+
+          cat CMakeEnv.txt
+
           cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
 
         else
