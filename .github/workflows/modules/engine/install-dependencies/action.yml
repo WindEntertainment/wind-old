@@ -43,6 +43,7 @@ runs:
           cd ultralight
           pwd
           which dotnet
+          brew -v
 
           wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-mac-arm64.7z
           # 7za x ultralight-sdk-1.4.0a-mac-arm64.7z
