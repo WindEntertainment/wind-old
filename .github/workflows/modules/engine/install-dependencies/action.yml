@@ -14,7 +14,7 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: conan install . --update -s build_type=Debug -s:a compiler=clang -s:a compiler.version=11 -s:a compiler.libcxx=libstdc++11 -s:a compiler.cppstd=gnu17 --build=missing -c tools.system.package_manager:mode=install
+      run: conan install . --update --build=missing -c tools.system.package_manager:mode=install
 
     - name: Install Linux staff
       run:   |
@@ -50,6 +50,7 @@ runs:
           exit 1
         fi
       shell: bash
+
     - name: Install Linux staff
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
