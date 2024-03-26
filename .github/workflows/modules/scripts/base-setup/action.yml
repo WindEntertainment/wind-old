@@ -20,6 +20,7 @@ runs:
           # set DOTNET_ROOT=C:\dotnet
           # set PATH=%PATH%;C:\dotnet
           # dotnet --version
+          echo windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
           wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
           chmod +x ./dotnet-install.sh
