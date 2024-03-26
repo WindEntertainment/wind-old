@@ -69,8 +69,8 @@ runs:
           # cmake -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug --config Debug --target game
           # cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
           # cmake --build $(pwd)/build/Debug --parallel 10 --target game
-          cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug"
-          cmake --build $(pwd)/build/Debug --target game
+          cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+          cmake --build $(pwd)/build/Debug --parallel 10 --target game
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
@@ -85,8 +85,8 @@ runs:
           # cmake -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug --config Debug --target game
           # cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
           # cmake --build $(pwd)/build/Debug --parallel 10 --target game
-          cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug"
-          cmake --build $(pwd)/build/Debug --target game
+          /opt/homebrew/bin/cmake -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+          /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target game
         else
           echo "$RUNNER_OS not supported"
           exit 1
