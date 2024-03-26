@@ -75,6 +75,9 @@ runs:
           sudo apt-get install make
           which make
 
+          cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+          cmake --build $(pwd)/build/Debug --parallel 10 --target wind-assets-bundler
+
           # cmake -B build
           # cmake -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug --config Debug --target game
           # cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
@@ -95,6 +98,9 @@ runs:
           brew install cmake
           brew install make
           which make
+
+          /opt/homebrew/bin/cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+          /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target wind-assets-bundler
 
           # cmake -B build
           # cmake -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug --config Debug --target game
