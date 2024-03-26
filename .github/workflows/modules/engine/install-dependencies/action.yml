@@ -65,6 +65,11 @@ runs:
 
           cat CMakeEnv.txt
 
+          sudo apt install clang
+          sudo apt-get install build-essential
+          sudo apt-get install cmake
+          sudo apt-get install make
+
           # cmake -B build
           # cmake -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug --config Debug --target game
           # cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
@@ -80,6 +85,10 @@ runs:
           echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/8.0.3/runtimes/osx-arm64/native")' >> CMakeEnv.txt
 
           cat CMakeEnv.txt
+
+          brew install llvm
+          brew install cmake
+          brew install make
 
           # cmake -B build
           # cmake -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug --config Debug --target game
