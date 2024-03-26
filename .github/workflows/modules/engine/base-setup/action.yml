@@ -37,8 +37,8 @@ runs:
     - name: Create default profile
       shell: bash
       run: |
-        # export CC=clang
-        # export CXX=clang++
+        export CC=clang
+        export CXX=clang++
         conan profile detect
 
     - name: Config profile
@@ -59,6 +59,9 @@ runs:
             compiler.libcxx=libstdc++11
             compiler.version=11
             os=Linux
+            [conf]
+            tools.system.package_manager:mode=install
+            tools.system.package_manager:sudo=True
           " > /home/runner/.conan2/profiles/default
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
