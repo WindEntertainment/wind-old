@@ -11,6 +11,9 @@ runs:
           sudo apt-get install build-essential
           sudo apt-get install cmake
           sudo apt-get install make
+          sudo apt install llvm
+          export CC=clang
+          export CXX=clang++
           clang -v
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
