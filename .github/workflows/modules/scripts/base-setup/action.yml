@@ -14,7 +14,12 @@ runs:
           ./dotnet-install.sh --version latest --runtime aspnetcore
           ./dotnet-install.sh --channel 8.0
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          winget install Microsoft.DotNet.AspNetCore.8
+          curl -Lo dotnet.zip https://download.visualstudio.microsoft.com/download/pr/3e9b8d29-808a-488c-aac5-e553e970adbb/76b4ecb7f8751ecf2375730398816271/dotnet-sdk-8.0.100-rc.2.23502.2-win-x64.exe
+          tar -C dotnet -xf dotnet.zip
+          del dotnet.zip
+          set DOTNET_ROOT=C:\dotnet
+          set PATH=%PATH%;C:\dotnet
+          dotnet --version
         elif [ "$RUNNER_OS" == "macOS" ]; then
           wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
           chmod +x ./dotnet-install.sh
