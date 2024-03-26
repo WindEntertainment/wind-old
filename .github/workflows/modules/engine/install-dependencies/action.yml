@@ -18,7 +18,7 @@ runs:
         export CC=clang
         export CXX=clang++
         # conan install . --update --build=missing -c tools.system.package_manager:mode=install
-        conan install . --settings=build_type=Debug --update --build=missing -c tools.system.package_manager:mode=install
+        conan install . --update --build=missing -c tools.system.package_manager:mode=install
 
     - name: Install Linux staff
       run:   |
