@@ -12,12 +12,16 @@ runs:
 
     - name: Create default profile
       shell: bash
-      run: conan profile detect
+      run: |
+        export CC=clang
+        export CXX=clang++
+        conan profile detect
 
     - name: Config profile
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
           sudo apt-get install cmake
+          sudo apt-get update && sudo apt-get install build-essential
           sudo apt install clang
           clang -v
           echo "
