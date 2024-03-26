@@ -80,6 +80,8 @@ runs:
 
           cd build/Debug
           sudo make install
+          wind-asset-bundler
+          cd ../../
 
           # cmake -B build
           # cmake -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug --config Debug --target game
@@ -107,6 +109,8 @@ runs:
 
           cd build/Debug
           sudo make install
+          wind-asset-bundler
+          cd ../../
 
           # cmake -B build
           # cmake -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug --config Debug --target game
