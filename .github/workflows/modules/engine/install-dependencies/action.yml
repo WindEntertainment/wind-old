@@ -79,7 +79,7 @@ runs:
           cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
 
           echo start
-          cd build/Debug
+          cd build/Debug/wind
           ls -a
           sudo make install
           wind-asset-bundler -h
@@ -113,7 +113,7 @@ runs:
           /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
 
           echo start
-          cd build/Debug
+          cd build/Debug/wind/asset-pipeline
           ls -a
           sudo make install
           wind-asset-bundler -h
