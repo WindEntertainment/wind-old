@@ -17,6 +17,7 @@ runs:
     - name: Config profile
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo apt-get install cmake
           sudo apt install clang
           clang -v
           echo "
@@ -32,6 +33,7 @@ runs:
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
+          brew install cmake
           brew install llvm
           clang -v
           echo "
