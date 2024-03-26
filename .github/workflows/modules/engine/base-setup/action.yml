@@ -46,16 +46,16 @@ runs:
         #   sudo apt-get update && sudo apt-get install build-essential
         #   sudo apt install clang
         #   clang -v
-        #   echo "
-        #     [settings]
-        #     arch=x86_64
-        #     build_type=Release
-        #     compiler=clang
-        #     compiler.cppstd=gnu17
-        #     compiler.libcxx=libstdc++11
-        #     compiler.version=11
-        #     os=Linux
-        # " > /home/runner/.conan2/profiles/default
+          echo "
+            [settings]
+            arch=x86_64
+            build_type=Release
+            compiler=clang
+            compiler.cppstd=gnu17
+            compiler.libcxx=libstdc++11
+            compiler.version=11
+            os=Linux
+          " > /home/runner/.conan2/profiles/default
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
@@ -65,16 +65,16 @@ runs:
           # brew install make
           # brew install llvm
           # clang -v
-          # echo "
-          #   [settings]
-          #   arch=armv8
-          #   build_type=Release
-          #   compiler=apple-clang
-          #   compiler.cppstd=gnu17
-          #   compiler.libcxx=libc++
-          #   compiler.version=15
-          #   os=Macos
-          # " > /Users/runner/.conan2/profiles/default
+          echo "
+            [settings]
+            arch=armv8
+            build_type=Release
+            compiler=apple-clang
+            compiler.cppstd=gnu17
+            compiler.libcxx=libc++
+            compiler.version=15
+            os=Macos
+          " > /Users/runner/.conan2/profiles/default
         else
           echo "$RUNNER_OS not supported"
           exit 1
