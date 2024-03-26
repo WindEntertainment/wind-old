@@ -50,7 +50,6 @@ runs:
 
           echo -e "#include <Ultralight/String.h>\n$(cat SDK/include/Ultralight/ConsoleMessage.h )" > SDK/include/Ultralight/ConsoleMessage.h
 
-
           echo "ULTRALIGHT_PATH=$(pwd)/SDK" >> $GITHUB_ENV
           echo "DOTNET_PATH=/Users/runner/.dotnet" >> $GITHUB_ENV
         else
