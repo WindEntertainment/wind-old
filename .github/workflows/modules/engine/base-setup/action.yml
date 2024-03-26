@@ -4,6 +4,22 @@ description: Setup engine base
 runs:
   using: 'composite'
   steps:
+    - name: Test
+      run:   |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo apt install clang
+          clang -v
+        elif [ "$RUNNER_OS" == "Windows" ]; then
+          echo Windows
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          brew install llvm
+          clang -v
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
+        fi
+      shell: bash
+
     - name: Install conan
       id: conan
       uses: turtlebrowser/get-conan@main
