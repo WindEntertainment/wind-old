@@ -73,6 +73,9 @@ runs:
           sudo apt-get install make
           which make
 
+          export CC=clang
+          export CXX=clang++
+
           cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
 
