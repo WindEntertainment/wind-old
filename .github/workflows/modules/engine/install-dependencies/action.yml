@@ -117,7 +117,7 @@ runs:
           ls -a
           sudo make install
           wind-asset-bundler -h
-          cd ../../game/assets
+          cd ../../../../game/assets
           wind-asset-bundler --build ../.cache/
           cd ../../
           echo end
