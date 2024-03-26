@@ -80,7 +80,9 @@ runs:
 
           cd build/Debug
           sudo make install
-          wind-asset-bundler
+          wind-asset-bundler -h
+          cd ../../game/assets
+          wind-asset-bundler --build ../.cache/
           cd ../../
 
           # cmake -B build
@@ -109,7 +111,9 @@ runs:
 
           cd build/Debug
           sudo make install
-          wind-asset-bundler
+          wind-asset-bundler -h
+          cd ../../game/assets
+          wind-asset-bundler --build ../.cache/
           cd ../../
 
           # cmake -B build
