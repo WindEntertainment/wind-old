@@ -15,14 +15,15 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        export CC=clang
-        export CXX=clang++
-        conan install . --update --build=missing -c tools.system.package_manager:mode=install
+        # export CC=clang
+        # export CXX=clang++
+        # conan install . --update --build=missing -c tools.system.package_manager:mode=install
+        conan install . --build=missing
 
     - name: Install Linux staff
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          conan profile show
+          # conan profile show
           sudo apt update
           sudo apt install p7zip-full
 
@@ -37,7 +38,7 @@ runs:
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          conan profile show
+          # conan profile show
           brew install p7zip
 
           cd ../
@@ -64,8 +65,10 @@ runs:
 
           cat CMakeEnv.txt
 
-          cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
-          cmake --build $(pwd)/build/Debug --parallel 10 --target game
+          cmake -B build
+          cmake --build build --config Release --target game
+          # cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
+          # cmake --build $(pwd)/build/Debug --parallel 10 --target game
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
@@ -76,8 +79,10 @@ runs:
 
           cat CMakeEnv.txt
 
-          cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
-          cmake --build $(pwd)/build/Debug --parallel 10 --target game
+          cmake -B build
+          cmake --build build --config Release --target game
+          # cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
+          # cmake --build $(pwd)/build/Debug --parallel 10 --target game
         else
           echo "$RUNNER_OS not supported"
           exit 1
