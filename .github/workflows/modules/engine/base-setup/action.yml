@@ -8,11 +8,16 @@ runs:
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
           sudo apt install clang
+          sudo apt-get install build-essential
+          sudo apt-get install cmake
+          sudo apt-get install make
           clang -v
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
           brew install llvm
+          brew install cmake
+          brew install make
           clang -v
         else
           echo "$RUNNER_OS not supported"
@@ -37,7 +42,7 @@ runs:
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
           echo Linux
-          sudo apt-get install cmake
+
         #   sudo apt-get update && sudo apt-get install build-essential
         #   sudo apt install clang
         #   clang -v
@@ -55,7 +60,9 @@ runs:
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo macOS
-          brew install cmake
+          # brew install cmake
+          # brew install make
+          # brew install make
           # brew install llvm
           # clang -v
           # echo "
