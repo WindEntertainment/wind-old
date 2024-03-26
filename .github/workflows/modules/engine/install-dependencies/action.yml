@@ -69,6 +69,7 @@ runs:
           sudo apt-get install build-essential
           sudo apt-get install cmake
           sudo apt-get install make
+          which make
 
           # cmake -B build
           # cmake -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug --config Debug --target game
@@ -89,6 +90,7 @@ runs:
           brew install llvm
           brew install cmake
           brew install make
+          which make
 
           # cmake -B build
           # cmake -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug --config Debug --target game
