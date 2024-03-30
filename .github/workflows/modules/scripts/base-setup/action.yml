@@ -5,7 +5,7 @@ runs:
   using: 'composite'
   steps:
     - name: Install .Net
-      if: matrix.os == "Linux" || matrix.os == "macOS"
+      if: matrix.os == "ubuntu-latest" || matrix.os == "macos-14"
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
@@ -33,8 +33,9 @@ runs:
           exit 1
         fi
 
+
     - name: Install .Net
-      if: matrix.os == "Windows"
+      if: matrix.os == "windows-latest"
       shell: powershell
       run: |
         Invoke-WebRequest -Uri https://dot.net/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1
