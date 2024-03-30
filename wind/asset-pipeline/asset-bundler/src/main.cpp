@@ -38,6 +38,7 @@ int main(int argc, char** argv) {
   PipeRegister::regPipe(new ShaderPipe());
   PipeRegister::regPipe(new ImagePipe());
   PipeRegister::regPipe(new DefaultPipe());
+  PipeRegister::regPipe(new CopyPipe());
 
   fs::path source = options["build"].as<std::string>();
   pipeline.build(source);
