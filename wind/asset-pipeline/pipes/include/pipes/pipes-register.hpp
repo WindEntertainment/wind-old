@@ -1,6 +1,7 @@
 #pragma once
 #include "pipe.hpp"
 
+#include "copy-pipe.hpp"
 #include "default-pipe.hpp"
 #include "img-pipe.hpp"
 #include "shader-pipe.hpp"

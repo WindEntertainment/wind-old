@@ -1,7 +1,7 @@
 exports:
-  - path: "art"
+  - path: "scripts"
     output:
-      path: "Art"
+      path: "Managed"
       type: directory
 
   - path: "[^\/]*"
