@@ -124,7 +124,7 @@ jobs:
       - name: Add env
         shell: bash
         run: |
-          for key in "${!config[@]}"; do
+          for key in "${!matrix.config[@]}"; do
             value="${config[$key]}"
             echo "$key=$value" >> $GITHUB_ENV
           done
