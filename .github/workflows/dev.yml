@@ -131,6 +131,7 @@ jobs:
           echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
           echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
       - name: Print Environment Variables
+        shell: bash
         run: |
           for var in $(printenv | cut -d "=" -f1); do
             echo "$var=${!var}"
