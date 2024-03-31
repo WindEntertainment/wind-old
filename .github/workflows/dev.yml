@@ -121,7 +121,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: ENV
+      - name: Add env
         shell: bash
         run: |
           echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
