@@ -32,42 +32,16 @@ int main(int argc, char** argv) {
   }
 
   using namespace wind;
-  using namespace wind::asset_pipeline;
+  using namespace wind::assets;
 
-  AssetPipeline pipeline;
-  setting();
+  AssetBundler bundler;
+  PipeRegister::regPipe(new ShaderPipe());
+  PipeRegister::regPipe(new ImagePipe());
+  PipeRegister::regPipe(new DefaultPipe());
+  PipeRegister::regPipe(new CopyPipe());
 
-  bool useBuild = options.count("build");
-  if (useBuild) {
-    fs::path source = options["build"].as<std::string>();
-    pipeline.build(source);
-  } else {
-    fs::path source = options["source"].as<std::string>();
-    fs::path output = options["output"].as<std::string>();
-
-    bool useFolder = options.count("folder");
-    bool useConfig = options.count("config");
-    bool useCache = options.count("cache");
-    bool useLink = options.count("link");
-
-    if (useFolder) {
-      if (useConfig)
-        pipeline.setConfig(source / ".import-config");
-
-      fs::path destination =
-        useCache ? fs::path(options["cache"].as<std::string>()) : output;
-
-      if (useCache)
-        pipeline.clearUnusedCache(source, destination);
-
-      pipeline.compileDirectory(source, destination);
-
-      if (useLink)
-        pipeline.linkDirectory(destination, output);
-    } else {
-      pipeline.compileFile(source, output, nullptr);
-    }
-  }
+  fs::path source = options["build"].as<std::string>();
+  bundler.build(source);
 
   return EXIT_SUCCESS;
 }
