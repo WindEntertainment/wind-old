@@ -47,10 +47,9 @@ runs:
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
           echo Linux
-
-        #   sudo apt-get update && sudo apt-get install build-essential
-        #   sudo apt install clang
-        #   clang -v
+          sudo apt-get update && sudo apt-get install build-essential
+          sudo apt install clang
+          clang -v
           conan profile show
           echo "
             [settings]
@@ -69,11 +68,11 @@ runs:
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo macOS
-          # brew install cmake
-          # brew install make
-          # brew install make
-          # brew install llvm
-          # clang -v
+          brew install cmake
+          brew install make
+          brew install make
+          brew install llvm
+          clang -v
           conan profile show
           echo "
             [settings]
@@ -88,6 +87,7 @@ runs:
             tools.system.package_manager:mode=install
             tools.system.package_manager:sudo=True
           " > /Users/runner/.conan2/profiles/default
+          conan profile show
         else
           echo "$RUNNER_OS not supported"
           exit 1
