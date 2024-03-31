@@ -68,6 +68,7 @@ runs:
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo macOS
+          conan remove "*" --locks --force
           brew install cmake
           brew install make
           brew install make
