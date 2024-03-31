@@ -122,6 +122,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: ENV
+        shell: bash
         run: |
           echo "test=test" >> $GITHUB_ENV
           echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
@@ -131,7 +132,7 @@ jobs:
           echo "uiRoot=${{ matrix.config.uiRoot }}" >> $GITHUB_ENV
           echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
           echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
-      - name:
+      - name: test
         shell: bash
         run: |
           echo ${{env.test}}
