@@ -19,8 +19,10 @@ runs:
         export CXX=clang++
         conan install . --update --build=missing
 
-    - name: Install Linux staff
-      run:   |
+    - name: Install .Net
+      if: ${{ inputs.operating-system == 'ubuntu-latest' || inputs.operating-system == 'macos-14' }}
+      shell: bash
+      run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           # conan profile show
           sudo apt update
@@ -55,7 +57,23 @@ runs:
           echo "$RUNNER_OS not supported"
           exit 1
         fi
-      shell: bash
+
+
+    - name: Install .Net
+      if: ${{ inputs.operating-system == 'windows-latest' }}
+      shell: powershell
+      run: |
+        choco install 7zip
+
+        cd ../
+        New-Item -ItemType Directory -Path ultralight
+        cd ultralight
+
+        Invoke-WebRequest -Uri https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-win-x64.7z -OutFile ultralight-sdk.7z
+        7z x ultralight-sdk.7z -o"ultralight"
+
+        $env:ULTRALIGHT_PATH = "$(Get-Location)\ultralight"
+        $env:DOTNET_PATH = "C:\Program Files\dotnet"
 
     - name: Install Linux staff
       run:   |
