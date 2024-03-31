@@ -23,7 +23,7 @@ jobs:
       - name: Scripts
         uses: './.github/workflows/modules/scripts/lint'
         with:
-         operating-system: ubuntu-latest
+         operating-system: 'ubuntu-latest'
       - name: Engine
         uses: './.github/workflows/modules/engine/lint'
       - name: Linting commit
@@ -40,7 +40,7 @@ jobs:
       - name: Scripts
         uses: './.github/workflows/modules/scripts/test'
         with:
-          operating-system: ubuntu-latest
+          operating-system: 'ubuntu-latest'
       - name: Engine
         uses: './.github/workflows/modules/engine/test'
 
