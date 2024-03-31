@@ -57,7 +57,7 @@ runs:
             build_type=Debug
             compiler=clang
             compiler.cppstd=gnu17
-            compiler.libcxx=libstdc++11
+            compiler.libcxx=libc++11
             compiler.version=11
             os=Linux
             [conf]
@@ -68,7 +68,6 @@ runs:
           echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo macOS
-          conan remove "*" --locks --force
           brew install cmake
           brew install make
           brew install make
