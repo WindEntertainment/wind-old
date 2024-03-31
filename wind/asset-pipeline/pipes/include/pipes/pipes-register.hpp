@@ -1,12 +1,13 @@
 #pragma once
 #include "pipe.hpp"
 
+#include "copy-pipe.hpp"
 #include "default-pipe.hpp"
 #include "img-pipe.hpp"
 #include "shader-pipe.hpp"
 
 namespace wind {
-namespace asset_pipeline {
+namespace assets {
 
 class PipeRegister {
 private:
@@ -27,5 +28,5 @@ public:
   }
 };
 
-} // namespace asset_pipeline
+} // namespace assets
 } // namespace wind
