@@ -1,4 +1,4 @@
-#if __APPLE__
+#ifdef __APPLE__
 #include "Ultralight/ConsoleMessage.h"
 #endif
 
@@ -72,7 +72,7 @@ private:
   }
 
 public:
-#if __APPLE__
+#ifdef __APPLE__
   void OnAddConsoleMessage(
     ul::View* caller,
     const ul::ConsoleMessage& log) override {
@@ -140,7 +140,7 @@ public:
   }
 };
 
-#if __APPLE__
+#ifdef __APPLE__
 class NetworkLogger : public ul::NetworkListener {
 public:
   bool OnNetworkRequest(ultralight::View* caller, ul::NetworkRequest& request) override {
@@ -314,7 +314,7 @@ Texture* Ultralight::loadView(const std::string& _path, const glm::ivec2 _size) 
 
   view->set_view_listener(new ViewLogger());
   view->set_load_listener(new LoadLogger());
-#if __APPLE__
+#ifdef __APPLE__
   view->set_network_listener(new NetworkLogger());
 #endif
 
