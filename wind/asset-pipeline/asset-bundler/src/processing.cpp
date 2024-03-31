@@ -10,7 +10,7 @@ namespace wind {
 
 namespace assets {
 
-void AssetPipeline::processDirectory(const fs::path& _source, const fs::path& _destination) {
+void AssetBundler::processDirectory(const fs::path& _source, const fs::path& _destination) {
   Stopwatch sw("Processed");
 
   auto configPath = _source / ".export-config";
@@ -32,7 +32,7 @@ void AssetPipeline::processDirectory(const fs::path& _source, const fs::path& _d
   processChildDirectories(_source, _destination, config);
 }
 
-void AssetPipeline::processChildDirectories(const fs::path& _source, const fs::path& _destination, const YAML::Node& config) {
+void AssetBundler::processChildDirectories(const fs::path& _source, const fs::path& _destination, const YAML::Node& config) {
   fs::recursive_directory_iterator it;
   try {
     it = createRecursiveIterator(_source);

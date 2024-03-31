@@ -10,7 +10,7 @@ namespace wind {
 
 namespace assets {
 
-void AssetPipeline::linkDirectory(const fs::path& _source, const fs::path& _destination) {
+void AssetBundler::linkDirectory(const fs::path& _source, const fs::path& _destination) {
   Stopwatch sw("Linked");
 
   spdlog::info("===========================");

@@ -4,7 +4,7 @@
 namespace wind {
 namespace assets {
 
-void AssetPipeline::preprocessDirectory(const fs::path& _path, const YAML::Node& config) {
+void AssetBundler::preprocessDirectory(const fs::path& _path, const YAML::Node& config) {
   auto options = config["preprocessing"];
   if (!options)
     return;

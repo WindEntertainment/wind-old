@@ -10,7 +10,7 @@ namespace wind {
 
 namespace assets {
 
-void AssetPipeline::compileFile(const fs::path& _source, const fs::path& _destination, AssetPipe* _pipe) {
+void AssetBundler::compileFile(const fs::path& _source, const fs::path& _destination, AssetPipe* _pipe) {
   spdlog::info("Compile file: {}", _source.string());
 
   if (!fs::exists(_source)) {
