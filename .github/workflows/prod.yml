@@ -22,6 +22,8 @@ jobs:
         uses: './.github/workflows/modules/ui/lint'
       - name: Scripts
         uses: './.github/workflows/modules/scripts/lint'
+        with:
+         operating-system: ubuntu-latest
       - name: Engine
         uses: './.github/workflows/modules/engine/lint'
       - name: Linting commit
@@ -37,6 +39,8 @@ jobs:
           fetch-depth: 0
       - name: Scripts
         uses: './.github/workflows/modules/scripts/test'
+        with:
+          operating-system: ubuntu-latest
       - name: Engine
         uses: './.github/workflows/modules/engine/test'
 
@@ -85,6 +89,8 @@ jobs:
         uses: './.github/workflows/modules/ui/build'
       - name: Scripts
         uses: './.github/workflows/modules/scripts/build'
+        with:
+          operating-system: ${{ matrix.os }}
       - name: Engine
         uses: './.github/workflows/modules/engine/build'
         with:
