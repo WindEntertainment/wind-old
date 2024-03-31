@@ -133,6 +133,7 @@ jobs:
       - name:
         shell: bash
         run: |
+          echo  ${{env}}
           echo ${{env.name}}
           echo ${{env.artifact}}
           echo ${{env.os}}
