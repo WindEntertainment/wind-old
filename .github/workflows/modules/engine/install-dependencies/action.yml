@@ -5,6 +5,9 @@ inputs:
   buildSettings:
     description: Conan settings
     default: build_type=Debug
+  operating-system:
+    description: 'Operating system of the runner'
+    required: true
 
 runs:
   using: 'composite'

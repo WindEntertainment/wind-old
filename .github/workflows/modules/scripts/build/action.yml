@@ -17,6 +17,8 @@ runs:
         operating-system: ${{ inputs.operating-system }}
 
     - uses: ./.github/workflows/modules/scripts/install-dependencies
+      with:
+        operating-system: ${{ inputs.operating-system }}
 
     - name: build
       shell: bash
