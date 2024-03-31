@@ -10,7 +10,7 @@ namespace wind {
 
 namespace assets {
 
-void AssetPipeline::compileDirectory(const fs::path& _source, const fs::path& _destination, const YAML::Node& config) {
+void AssetBundler::compileDirectory(const fs::path& _source, const fs::path& _destination, const YAML::Node& config) {
   Stopwatch sw("Compiled");
 
   const fs::path sourceParentPath = _source.parent_path().parent_path();

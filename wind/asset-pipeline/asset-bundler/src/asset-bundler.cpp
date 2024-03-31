@@ -6,7 +6,7 @@ std::vector<assets::AssetPipe*> assets::PipeRegister::m_pipes;
 
 namespace assets {
 
-void AssetPipeline::build(const fs::path& _path) {
+void AssetBundler::build(const fs::path& _path) {
   Stopwatch sw("Builded");
 
   spdlog::info("===========================");
@@ -34,19 +34,15 @@ void AssetPipeline::build(const fs::path& _path) {
     if (ext == ".bundle")
       linkDirectory(entry.path(), outputPath / entry.path().filename());
     else if (ext == ".directory") {
-      spdlog::info("Copy directory {} to res", entry.path().string());
-      auto name = entry.path().filename().replace_extension();
-      try {
-        fs::copy(entry.path(), outputPath / name, fs::copy_options::overwrite_existing | fs::copy_options::recursive);
-      } catch (fs::filesystem_error& ex) {
-        spdlog::error("Failed to copy directory {}: {}", entry.path().string(), ex.what());
-        continue;
-      }
+      auto destination = outputPath / entry.path().filename();
+      destination.replace_extension();
+
+      exportDirectory(entry.path(), destination);
     }
   }
 }
 
-fs::recursive_directory_iterator AssetPipeline::createRecursiveIterator(const fs::path& _path) {
+fs::recursive_directory_iterator AssetBundler::createRecursiveIterator(const fs::path& _path) {
   if (!fs::exists(_path))
     throw AssetBundlerError(
       "Cannot create recursive directory iterator by specified path {} as it's a non exists location",

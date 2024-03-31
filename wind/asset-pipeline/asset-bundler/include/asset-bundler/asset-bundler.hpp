@@ -21,7 +21,7 @@
 namespace wind {
 namespace assets {
 
-class AssetPipeline {
+class AssetBundler {
 public:
   void build(const fs::path& source);
 
@@ -35,6 +35,7 @@ private:
 
   void compileFile(const fs::path& source, const fs::path& destination, AssetPipe* pipe);
   void linkDirectory(const fs::path& source, const fs::path& destination);
+  void exportDirectory(const fs::path& source, const fs::path& destination);
 
   fs::recursive_directory_iterator createRecursiveIterator(const fs::path& path);
 };

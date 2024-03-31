@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
   using namespace wind;
   using namespace wind::assets;
 
-  AssetPipeline pipeline;
+  AssetBundler pipeline;
   PipeRegister::regPipe(new ShaderPipe());
   PipeRegister::regPipe(new ImagePipe());
   PipeRegister::regPipe(new DefaultPipe());

@@ -13,7 +13,7 @@ using asset_id = unsigned int;
 namespace assets {
 
 class AssetPipe {
-  friend class AssetPipeline;
+  friend class AssetBundler;
 
 protected:
   asset_id m_id;

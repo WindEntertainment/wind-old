@@ -10,7 +10,7 @@ namespace wind {
 
 namespace assets {
 
-void AssetPipeline::clearUnusedCache(const fs::path& _source, const fs::path& _cache) {
+void AssetBundler::clearUnusedCache(const fs::path& _source, const fs::path& _cache) {
   if (!fs::exists(_cache))
     return;
 
