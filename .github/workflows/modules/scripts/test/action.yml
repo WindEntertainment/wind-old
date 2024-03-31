@@ -1,18 +1,9 @@
 name: Script test
 description: Script test
 
-inputs:
-  operating-system:
-    description: 'Operating system of the runner'
-    required: true
-
 runs:
   using: 'composite'
   steps:
     - uses: ./.github/workflows/modules/scripts/base-setup
-      with:
-        operating-system: ${{ inputs.operating-system }}
 
     - uses: ./.github/workflows/modules/scripts/install-dependencies
-      with:
-        operating-system: ${{ inputs.operating-system }}
