@@ -1,51 +1,28 @@
-project(breeze)
+project(wind-breeze)
 
-add_library(${PROJECT_NAME} STATIC
-    ./breeze/breeze.h
-    ./breeze/breeze.cpp
-
-    # systems
-    ./breeze/systems/system.h
-
-    ./breeze/systems/render.h
-    ./breeze/systems/render.cpp
-
-    # components
-    ./breeze/components/transform.h
-    ./breeze/components/renderable.h
-
-    # prefab
-    ./breeze/prefab/prefab.h
-    ./breeze/prefab/prefab.cpp
-    
-    ./breeze/prefab/component_registry.h
-    ./breeze/prefab/component_registry.cpp
+set(SOURCES
+./breeze/breeze.cpp
 )
 
-include_directories(../breeze/)
+set(HEADERS
+./breeze/breeze.hpp
+)
 
-include_directories(../logger/)
-target_link_libraries(${PROJECT_NAME} PRIVATE logger)
+add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
 
-include_directories(../asset-bundler/)
-target_link_libraries(${PROJECT_NAME} PRIVATE asset-bundler)
+target_include_directories(${PROJECT_NAME} PUBLIC ./include)
 
-include_directories(../renderer/)
-target_link_libraries(${PROJECT_NAME} PRIVATE renderer)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-utils)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-resources)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-input-system)
 
-include_directories(../resources/)
-target_link_libraries(${PROJECT_NAME} PRIVATE resources)
-
-include_directories(../cloudy/)
-target_link_libraries(${PROJECT_NAME} PRIVATE cloudy)
-
-include_directories(../system/)
-target_link_libraries(${PROJECT_NAME} PRIVATE system)
-
-##
-
-find_package(EnTT CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE EnTT::EnTT)
+# external
 
 find_package(glad CONFIG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE glad::glad)
+target_link_libraries(${PROJECT_NAME} PUBLIC glad::glad)
+
+find_package(glfw3 CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
+
+find_package(spdlog REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog)

@@ -1,12 +1,12 @@
 project(wind-renderer)
 
 set(HEADERS
-    ./include/renderer/camera.h
-    ./include/renderer/mesh.h
-    ./include/renderer/renderer.h
-    ./include/renderer/shader.h
-    ./include/renderer/texture.h
-    ./include/renderer/particle.h
+    ./include/renderer/camera.hpp
+    ./include/renderer/mesh.hpp
+    ./include/renderer/renderer.hpp
+    ./include/renderer/shader.hpp
+    ./include/renderer/texture.hpp
+    ./include/renderer/particle.hpp
 )
 
 set(SOURCES
