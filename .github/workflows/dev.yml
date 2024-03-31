@@ -130,17 +130,11 @@ jobs:
           echo "uiRoot=${{ matrix.config.uiRoot }}" >> $GITHUB_ENV
           echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
           echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
-      - name:
-        shell: bash
+      - name: Print Environment Variables
         run: |
-          echo  ${{env}}
-          echo ${{env.name}}
-          echo ${{env.artifact}}
-          echo ${{env.os}}
-          echo ${{env.buildType}}
-          echo ${{env.uiRoot}}
-          echo ${{env.scriptRoot}}
-          echo ${{env.engineRoot}}
+          for var in $(printenv | cut -d "=" -f1); do
+            echo "$var=${!var}"
+          done
       - name: UI
         uses: './.github/workflows/modules/ui/build'
       - name: Scripts
