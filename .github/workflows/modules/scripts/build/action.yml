@@ -10,4 +10,4 @@ runs:
 
     - name: build
       shell: bash
-      run: dotnet ${{ env.buildType }}
+      run: dotnet ${{ env.scriptBuildType }}
