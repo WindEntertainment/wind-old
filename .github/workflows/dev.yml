@@ -126,8 +126,9 @@ jobs:
         run: |
           for key in "${!config[@]}"; do
             value="${config[$key]}"
-            echo "${key^^}=$value" >> $GITHUB_ENV
+            echo "$key=$value" >> $GITHUB_ENV
           done
+
           # echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
           # echo "artifact=${{ matrix.config.artifact }}" >> $GITHUB_ENV
           # echo "os=${{ matrix.config.os }}" >> $GITHUB_ENV
