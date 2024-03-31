@@ -84,14 +84,8 @@ jobs:
         with:
           fetch-depth: 0
       - name: UI
-        with:
-          rootPath: 'game/assets/UI'
         uses: './.github/workflows/modules/ui/build'
       - name: Scripts
         uses: './.github/workflows/modules/scripts/build'
-        with:
-          operating-system: 'windows-latest'
       - name: Engine
         uses: './.github/workflows/modules/engine/build'
-        with:
-          buildSettings: build_type=Release
