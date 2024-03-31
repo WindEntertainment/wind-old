@@ -55,7 +55,7 @@ runs:
 
 
     - name: Install .Net
-      if: $env.os == 'windows-latest'
+      if: env.os == 'windows-latest'
       shell: powershell
       run: |
         choco install 7zip
