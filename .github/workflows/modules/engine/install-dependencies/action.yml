@@ -15,7 +15,7 @@ runs:
         conan install . --update --build=missing
 
     - name: Install .Net
-      if: ${{ env.os == 'ubuntu-latest' || env.os == 'macos-14' }}
+      if:  env.os == 'ubuntu-latest' || env.os == 'macos-14'
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
@@ -55,7 +55,7 @@ runs:
 
 
     - name: Install .Net
-      if: ${{ env.os == 'windows-latest' }}
+      if: $env.os == 'windows-latest'
       shell: powershell
       run: |
         choco install 7zip
