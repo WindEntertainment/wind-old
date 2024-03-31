@@ -21,8 +21,8 @@ runs:
           brew install llvm
           brew install cmake
           brew install make
-          export CC=clang
-          export CXX=clang++
+          # export CC=clang
+          # export CXX=clang++
           clang -v
         else
           echo "$RUNNER_OS not supported"
