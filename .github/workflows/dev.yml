@@ -64,7 +64,7 @@ jobs:
           - {
               name: 'MacOS',
               artifact: 'macOS.tar.xz',
-              os: macos-latest,
+              os: macos-14,
               scriptBuildType: 'publish',
               conanBuildType: 'Debug',
               uiRoot: game/assets/UI,
@@ -144,7 +144,7 @@ jobs:
   #         - {
   #             name: 'MacOS',
   #             artifact: 'macOS.tar.xz',
-  #             os: macos-latest,
+  #             os: macos-14,
   #             scriptBuildType: 'publish',
   #             conanBuildType: 'Debug',
   #             uiRoot: game/assets/UI,
@@ -170,7 +170,7 @@ jobs:
   #         echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
   #         echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
   #         echo "cc=${{ matrix.config.cc }}" >> $GITHUB_ENV
-  #         echo "ccx=${{ matrix.config.ccx }}" >> $GITHUB_ENV
+  #         echo "cxx=${{ matrix.config.cxx }}" >> $GITHUB_ENV
   #     - name: List env
   #       shell: bash
   #       run: |
