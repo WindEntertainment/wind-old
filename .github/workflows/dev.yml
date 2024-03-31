@@ -119,7 +119,7 @@ jobs:
       - name: Scripts
         uses: './.github/workflows/modules/scripts/build'
         with:
-          operating-system: 'windows-latest'
+          operating-system: ${{ matrix.config.os }}
       - name: Engine
         uses: './.github/workflows/modules/engine/build'
         with:
