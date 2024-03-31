@@ -84,7 +84,7 @@ runs:
           sudo apt-get install build-essential
           sudo apt-get install cmake
           sudo apt-get install make
-          which make
+          which cmake
 
           export CC=clang
           export CXX=clang++
@@ -119,8 +119,8 @@ runs:
           brew install make
           which make
 
-          cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
-          cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
+          /opt/homebrew/bin/cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+          /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
 
           echo start
           cd build/Debug/wind/asset-pipeline
@@ -132,8 +132,8 @@ runs:
           cd ../../
           echo end
 
-          cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
-          cmake --build $(pwd)/build/Debug --parallel 10 --target game
+          /opt/homebrew/bin/cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+          /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target game
         else
           echo "$RUNNER_OS not supported"
           exit 1
