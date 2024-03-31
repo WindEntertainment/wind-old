@@ -1,11 +1,6 @@
 name: Setup scripts base
 description: Setup scripts base
 
-inputs:
-  operating-system:
-    description: 'Operating system of the runner'
-    required: true
-
 runs:
   using: 'composite'
   steps:

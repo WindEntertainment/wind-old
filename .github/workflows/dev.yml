@@ -104,8 +104,6 @@ jobs:
           echo ${{env.engineRoot}}
       - name: Scripts
         uses: './.github/workflows/modules/scripts/test'
-        with:
-          operating-system: 'ubuntu-latest'
       - name: Engine
         uses: './.github/workflows/modules/engine/test'
 
