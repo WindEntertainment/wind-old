@@ -102,10 +102,6 @@ runs:
           cd ../../
           echo end
 
-          # cmake -B build
-          # cmake -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug --config Debug --target game
-          # cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
-          # cmake --build $(pwd)/build/Debug --parallel 10 --target game
           cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           cmake --build $(pwd)/build/Debug --parallel 10 --target game
         elif [ "$RUNNER_OS" == "Windows" ]; then
@@ -136,10 +132,6 @@ runs:
           cd ../../
           echo end
 
-          # cmake -B build
-          # cmake -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug --config Debug --target game
-          # cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
-          # cmake --build $(pwd)/build/Debug --parallel 10 --target game
           cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           cmake --build $(pwd)/build/Debug --parallel 10 --target game
         else
