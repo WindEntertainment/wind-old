@@ -87,40 +87,53 @@ jobs:
               name: 'Windows',
               artifact: 'Windows.tar.xz',
               os: windows-latest,
-              build_type: 'Release',
-              cc: 'clang',
-              cxx: 'clang++',
+              buildType: 'Release',
+              uiRoot: game/assets/UI,
+              scriptRoot: game/assets/scripts,
+              engineRoot: '/',
+              # cc: 'clang',
+              # cxx: 'clang++',
             }
           - {
               name: 'Ubuntu',
               artifact: 'Linux.tar.xz',
               os: ubuntu-latest,
-              build_type: 'Release',
-              cc: 'clang',
-              cxx: 'clang++',
+              buildType: 'Release',
+              uiRoot: game/assets/UI,
+              scriptRoot: game/assets/scripts,
+              engineRoot: '/',
+              # cc: 'clang',
+              # cxx: 'clang++',
             }
           - {
               name: 'MacOS',
               artifact: 'macOS.tar.xz',
               os: macos-latest,
-              build_type: 'Release',
-              cc: 'clang',
-              cxx: 'clang++',
+              buildType: 'Release',
+              uiRoot: game/assets/UI,
+              scriptRoot: game/assets/scripts,
+              engineRoot: '/',
+              # cc: 'clang',
+              # cxx: 'clang++',
             }
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: ENV
+        run: |
+          echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
+          echo "artifact=${{ matrix.config.artifact }}" >> $GITHUB_ENV
+          echo "os=${{ matrix.config.os }}" >> $GITHUB_ENV
+          echo "buildType=${{ matrix.config.buildType }}" >> $GITHUB_ENV
+          echo "uiRoot=${{ matrix.config.uiRoot }}" >> $GITHUB_ENV
+          echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
+          echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
+
       - name: UI
-        with:
-          rootPath: 'game/assets/UI'
         uses: './.github/workflows/modules/ui/build'
       - name: Scripts
         uses: './.github/workflows/modules/scripts/build'
-        with:
-          operating-system: ${{ matrix.config.os }}
       - name: Engine
         uses: './.github/workflows/modules/engine/build'
-        with:
-          buildSettings: build_type=Debug

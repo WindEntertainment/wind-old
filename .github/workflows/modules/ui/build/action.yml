@@ -1,11 +1,6 @@
 name: UI build
 description: UI build
 
-inputs:
-  rootPath:
-    description: Path to project root
-    required: true
-
 runs:
   using: 'composite'
   steps:
@@ -13,9 +8,7 @@ runs:
       uses: ./.github/workflows/modules/ui/base-setup
 
     - uses: ./.github/workflows/modules/ui/install-dependencies
-      with:
-        rootPath: ${{ inputs.rootPath }}
 
     - name: Build
       shell: bash
-      run: cd ${{ inputs.rootPath }} && pnpm build
+      run: cd ${{ env.uiRoot }} && pnpm build

@@ -1,14 +1,6 @@
 name: Install engine dependencies
 description: Install engine dependencies
 
-inputs:
-  buildSettings:
-    description: Conan settings
-    default: build_type=Debug
-  operating-system:
-    description: 'Operating system of the runner'
-    required: true
-
 runs:
   using: 'composite'
   steps:
@@ -23,7 +15,7 @@ runs:
         conan install . --update --build=missing
 
     - name: Install .Net
-      if: ${{ inputs.operating-system == 'ubuntu-latest' || inputs.operating-system == 'macos-14' }}
+      if: ${{ env.os == 'ubuntu-latest' || env.os == 'macos-14' }}
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
@@ -63,7 +55,7 @@ runs:
 
 
     - name: Install .Net
-      if: ${{ inputs.operating-system == 'windows-latest' }}
+      if: ${{ env.os == 'windows-latest' }}
       shell: powershell
       run: |
         choco install 7zip
