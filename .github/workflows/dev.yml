@@ -90,7 +90,7 @@ jobs:
           echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
           echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
           echo "cc=${{ matrix.config.cc }}" >> $GITHUB_ENV
-          echo "ccx=${{ matrix.config.ccx }}" >> $GITHUB_ENV
+          echo "cxx=${{ matrix.config.cxx }}" >> $GITHUB_ENV
       - name: List env
         shell: bash
         run: |
