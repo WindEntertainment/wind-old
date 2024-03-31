@@ -12,8 +12,13 @@ namespace assets {
 class PipeRegister {
 private:
   static std::vector<AssetPipe*> m_pipes;
+  static PipeRegister m_register;
 
 public:
+  PipeRegister(std::vector<AssetPipe*> pipes) {
+    m_pipes = pipes;
+  }
+
   static AssetPipe* getPipe(asset_id _id) {
     for (auto&& pipe : m_pipes)
       if (_id == pipe->id())

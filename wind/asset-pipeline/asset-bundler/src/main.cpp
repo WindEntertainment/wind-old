@@ -35,10 +35,6 @@ int main(int argc, char** argv) {
   using namespace wind::assets;
 
   AssetBundler bundler;
-  PipeRegister::regPipe(new ShaderPipe());
-  PipeRegister::regPipe(new ImagePipe());
-  PipeRegister::regPipe(new DefaultPipe());
-  PipeRegister::regPipe(new CopyPipe());
 
   fs::path source = options["build"].as<std::string>();
   bundler.build(source);
