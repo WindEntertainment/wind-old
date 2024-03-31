@@ -19,6 +19,12 @@ public:
     m_pipes = pipes;
   }
 
+  ~PipeRegister() {
+    forEach(m_pipes, [](const auto& item) {
+      delete item;
+    });
+  }
+
   static AssetPipe* getPipe(asset_id _id) {
     for (auto&& pipe : m_pipes)
       if (_id == pipe->id())

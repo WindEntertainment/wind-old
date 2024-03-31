@@ -34,6 +34,8 @@ public:
     std::hash<std::string> hasher;
     m_id = hasher(_id);
   }
+
+  virtual ~AssetPipe() = default;
 };
 
 } // namespace assets
