@@ -30,9 +30,6 @@ int main(int argc, char** argv) {
 
   //=========Assest Pipeline===============//
 
-  PipeRegister::regPipe(new DefaultPipe());
-  PipeRegister::regPipe(new ShaderPipe());
-  PipeRegister::regPipe(new ImagePipe());
   AssetManager::loadBundle("assets.bundle");
 
   //=========Input System==================//
