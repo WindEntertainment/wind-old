@@ -169,7 +169,7 @@ runs:
         # cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
         # ls -a
         # echo $PWD
-        cmake -DCMAKE_MAKE_PROGRAM="C:\ProgramData\chocolatey\lib\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="$PWD\build\Debug\generators\conan_toolchain.cmake" -B\build\Debug
+        cmake -DCMAKE_MAKE_PROGRAM="C:\ProgramData\chocolatey\lib\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="$PWD\build\Debug\generators\conan_toolchain.cmake" -B$PWD\build\Debug
         cmake --build "$PWD\build\Debug" --parallel 10 --target wind-asset-bundler
 
         echo start
