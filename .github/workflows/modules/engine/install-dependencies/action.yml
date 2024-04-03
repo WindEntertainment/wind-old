@@ -15,7 +15,6 @@ runs:
         conan install . --update --build=missing
 
     - name: Install .Net
-      if:  env.os == 'ubuntu-latest' || env.os == 'macos-14'
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
