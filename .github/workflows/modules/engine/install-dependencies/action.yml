@@ -32,7 +32,8 @@ runs:
           echo "ULTRALIGHT_PATH=$(pwd)" >> $GITHUB_ENV
           echo "DOTNET_PATH=/usr/share/dotnet" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          echo Windows
+          echo "ULTRALIGHT_PATH=$(pwd)/../ultralight" >> $GITHUB_ENV
+          echo "DOTNET_PATH='C:\Program Files\dotnet'" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "macOS" ]; then
           # conan profile show
           brew install p7zip
@@ -66,9 +67,6 @@ runs:
 
         Invoke-WebRequest -Uri https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-win-x64.7z -OutFile ultralight-sdk.7z
         7z x ultralight-sdk.7z -o"ultralight"
-
-        echo "ULTRALIGHT_PATH=$(Get-Location)\ultralight" >> $GITHUB_ENV
-        echo "DOTNET_PATH=C:\Program Files\dotnet" >> $GITHUB_ENV
 
         choco install llvm
         choco install cmake
