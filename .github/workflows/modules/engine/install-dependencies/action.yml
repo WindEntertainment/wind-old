@@ -148,7 +148,7 @@ runs:
         touch CMakeEnv.txt
         echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }})' >> CMakeEnv.txt
         echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
-        echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/8.0.3/runtimes/linux-x64/native")' >> CMakeEnv.txt
+        echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}\packs\Microsoft.NETCore.App.Host.win-x64\7.0.3\runtimes\win-x64\native")' >> CMakeEnv.txt
 
         cat CMakeEnv.txt
 
@@ -162,8 +162,8 @@ runs:
         # sudo apt-get install make
         # which cmake
 
-        export CC=clang
-        export CXX=clang++
+        # export CC=clang
+        # export CXX=clang++
 
         cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
         cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
