@@ -145,42 +145,41 @@ runs:
     - name: Install Linux staff
       if: env.os == 'windows-latest'
       run:   |
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          touch CMakeEnv.txt
-          echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }})' >> CMakeEnv.txt
-          echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
-          echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/8.0.3/runtimes/linux-x64/native")' >> CMakeEnv.txt
+        touch CMakeEnv.txt
+        echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }})' >> CMakeEnv.txt
+        echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
+        echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/8.0.3/runtimes/linux-x64/native")' >> CMakeEnv.txt
 
-          cat CMakeEnv.txt
+        cat CMakeEnv.txt
 
-          choco install llvm
-          choco install cmake
-          choco install make
+        choco install llvm
+        choco install cmake
+        choco install make
 
-          # sudo apt install clang
-          # sudo apt-get install build-essential
-          # sudo apt-get install cmake
-          # sudo apt-get install make
-          # which cmake
+        # sudo apt install clang
+        # sudo apt-get install build-essential
+        # sudo apt-get install cmake
+        # sudo apt-get install make
+        # which cmake
 
-          export CC=clang
-          export CXX=clang++
+        export CC=clang
+        export CXX=clang++
 
-          cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
-          cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
+        cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+        cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
 
-          echo start
-          cd build/Debug/wind
-          ls -a
-          make install
-          wind-asset-bundler -h
-          cd ../../game/assets
-          wind-asset-bundler --build ../.cache/
-          cd ../../
-          echo end
+        echo start
+        cd build/Debug/wind
+        ls -a
+        make install
+        wind-asset-bundler -h
+        cd ../../game/assets
+        wind-asset-bundler --build ../.cache/
+        cd ../../
+        echo end
 
-          cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
-          cmake --build $(pwd)/build/Debug --parallel 10 --target game
+        cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+        cmake --build $(pwd)/build/Debug --parallel 10 --target game
       shell: powershell
           # which dotnet
 
