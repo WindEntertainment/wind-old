@@ -21,8 +21,6 @@ runs:
           brew install llvm
           brew install cmake
           brew install make
-          # export CC=clang
-          # export CXX=clang++
           clang -v
         else
           echo "$RUNNER_OS not supported"
@@ -39,8 +37,8 @@ runs:
     - name: Create default profile
       shell: bash
       run: |
-        # export CC=clang
-        # export CXX=clang++
+        export CC=clang
+        export CXX=clang++
         conan profile detect
 
     - name: Config profile
