@@ -70,6 +70,10 @@ runs:
         $env:ULTRALIGHT_PATH = "$(Get-Location)\ultralight"
         $env:DOTNET_PATH = "C:\Program Files\dotnet"
 
+        choco install llvm
+        choco install cmake
+        choco install make
+
     - name: Install Linux staff
       if:  env.os == 'ubuntu-latest' || env.os == 'macos-14'
       run:   |
@@ -141,7 +145,6 @@ runs:
         fi
       shell: bash
 
-
     - name: Install Linux staff
       if: env.os == 'windows-latest'
       run:   |
@@ -152,42 +155,26 @@ runs:
 
         cat CMakeEnv.txt
 
-        choco install llvm
-        choco install cmake
-        choco install make
+        export CC=clang
+        export CXX=clang++
 
-        # sudo apt install clang
-        # sudo apt-get install build-essential
-        # sudo apt-get install cmake
-        # sudo apt-get install make
-        # which cmake
-
-        # export CC=clang
-        # export CXX=clang++
-
-        # cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
-        # cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
-        # ls -a
-        # echo $PWD
-        cmake -DCMAKE_MAKE_PROGRAM="C:\ProgramData\chocolatey\lib\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="$PWD\build\Debug\generators\conan_toolchain.cmake" -S$PWD -B$PWD\build\Debug
-        cmake --build "$PWD\build\Debug" --parallel 10 --target wind-asset-bundler
+        cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+        cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
 
         echo start
-        cd build\\Debug\\wind
-        # ls -a
-        make install
+        cd build/Debug/wind
+        ls -a
+        sudo make install
         wind-asset-bundler -h
-        cd ..\\..\\game\\assets
+        cd ../../game/assets
         wind-asset-bundler --build ../.cache/
-        cd ..\\..\\
+        cd ../../
         echo end
 
-        # cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
-        # cmake --build $(pwd)/build/Debug --parallel 10 --target game
-        cmake -DCMAKE_MAKE_PROGRAM="C:\ProgramData\chocolatey\lib\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="$PWD\build\Debug\generators\conan_toolchain.cmake" -S$PWD -B$PWD\build\Debug
-        cmake --build "$PWD\build\Debug" --parallel 10 --target game
+        cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+        cmake --build $(pwd)/build/Debug --parallel 10 --target game
 
-      shell: powershell
+      shell: bash
           # which dotnet
 
           # ls -a
