@@ -31,8 +31,8 @@ runs:
           echo "ULTRALIGHT_PATH=$(pwd)" >> $GITHUB_ENV
           echo "DOTNET_PATH=/usr/share/dotnet" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          echo "ULTRALIGHT_PATH=$(pwd)/../ultralight" >> $GITHUB_ENV
-          echo "DOTNET_PATH='C:\Program Files\dotnet'" >> $GITHUB_ENV
+          echo "ULTRALIGHT_PATH=C:\\a\\dreich\\ultralight" >> $GITHUB_ENV
+          echo "DOTNET_PATH=C:\\Program Files\\dotnet" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "macOS" ]; then
           # conan profile show
           brew install p7zip
@@ -155,7 +155,7 @@ runs:
         export CC=clang
         export CXX=clang++
 
-        cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+        cmake -DCMAKE_MAKE_PROGRAM="C:\ProgramData\chocolatey\lib\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
         cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
 
         echo start
@@ -168,7 +168,7 @@ runs:
         cd ../../
         echo end
 
-        cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+        cmake -DCMAKE_MAKE_PROGRAM="C:\ProgramData\chocolatey\lib\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
         cmake --build $(pwd)/build/Debug --parallel 10 --target game
 
       shell: bash
