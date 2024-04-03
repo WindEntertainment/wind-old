@@ -67,8 +67,8 @@ runs:
         Invoke-WebRequest -Uri https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-win-x64.7z -OutFile ultralight-sdk.7z
         7z x ultralight-sdk.7z -o"ultralight"
 
-        $env:ULTRALIGHT_PATH = "$(Get-Location)\ultralight"
-        $env:DOTNET_PATH = "C:\Program Files\dotnet"
+        echo "ULTRALIGHT_PATH=$(Get-Location)\ultralight" >> $GITHUB_ENV
+        echo "DOTNET_PATH=C:\Program Files\dotnet" >> $GITHUB_ENV
 
         choco install llvm
         choco install cmake
