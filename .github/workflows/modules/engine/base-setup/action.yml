@@ -39,8 +39,8 @@ runs:
     - name: Create default profile
       shell: bash
       run: |
-        export CC=clang
-        export CXX=clang++
+        # export CC=clang
+        # export CXX=clang++
         conan profile detect
 
     - name: Config profile
