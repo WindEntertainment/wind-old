@@ -169,8 +169,8 @@ runs:
         # cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
         ls -a
         echo $PWD
-        cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="$PWD/build/Debug/generators/conan_toolchain.cmake" -S$PWD -B$PWD/build/Debug
-        cmake --build "$PWD/build/Debug" --parallel 10 --target wind-asset-bundler
+        cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="$PWD\\build\\Debug\\generators\\conan_toolchain.cmake" -S$PWD -B$PWD\\build\\Debug
+        cmake --build "$PWD\\build\\Debug" --parallel 10 --target wind-asset-bundler
 
         echo start
         cd build/Debug/wind
@@ -178,14 +178,14 @@ runs:
         make install
         wind-asset-bundler -h
         cd ../../game/assets
-        wind-asset-bundler --build ../.cache/
+        wind-asset-bundler --build ..\\.cache\\
         cd ../../
         echo end
 
         # cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
         # cmake --build $(pwd)/build/Debug --parallel 10 --target game
-        cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="$PWD/build/Debug/generators/conan_toolchain.cmake" -S$PWD -B$PWD/build/Debug
-        cmake --build "$PWD/build/Debug" --parallel 10 --target game
+        cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="$PWD\\build\\Debug\\generators\\conan_toolchain.cmake" -S$PWD -B$PWD\\build\\Debug
+        cmake --build "$PWD\\build\\Debug" --parallel 10 --target game
 
       shell: powershell
           # which dotnet
