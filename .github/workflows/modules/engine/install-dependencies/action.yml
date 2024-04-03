@@ -146,8 +146,8 @@ runs:
       if: env.os == 'windows-latest'
       run:   |
         touch CMakeEnv.txt
-        echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }})' >> CMakeEnv.txt
-        echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
+        echo 'set(ENV{ULTRALIGHT_PATH} "${{ env.ULTRALIGHT_PATH }})"' >> CMakeEnv.txt
+        echo 'set(ENV{DOTNET_ROOT} "${{ env.DOTNET_PATH }})"' >> CMakeEnv.txt
         echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}\packs\Microsoft.NETCore.App.Host.win-x64\7.0.3\runtimes\win-x64\native")' >> CMakeEnv.txt
 
         cat CMakeEnv.txt
