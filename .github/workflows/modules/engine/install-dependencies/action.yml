@@ -148,9 +148,11 @@ runs:
       if: env.os == 'windows-latest'
       run:   |
         touch CMakeEnv.txt
-        echo 'set(ENV{ULTRALIGHT_PATH} "D:\a\dreich\ultralight")' >> CMakeEnv.txt
-        echo 'set(ENV{DOTNET_ROOT} "C:\Program Files\dotnet")' >> CMakeEnv.txt
-        echo 'set(ENV{DOTNET_INCLUDES} "C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Host.win-x64\7.0.3\runtimes\win-x64\native")' >> CMakeEnv.txt
+        echo 'set(ENV{ULTRALIGHT_PATH} "/d/a/dreich/dreich/ultralight")' >> CMakeEnv.txt
+        echo 'set(ENV{DOTNET_ROOT} "/d/a/dreich/dreich/ultralight")' >> CMakeEnv.txt
+        echo 'set(ENV{DOTNET_INCLUDES} "/d/a/dreich/dreich/ultralight")' >> CMakeEnv.txt
+        # echo 'set(ENV{DOTNET_ROOT} "C:\Program Files\dotnet")' >> CMakeEnv.txt
+        # echo 'set(ENV{DOTNET_INCLUDES} "C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Host.win-x64\7.0.3\runtimes\win-x64\native")' >> CMakeEnv.txt
 
         cat CMakeEnv.txt
 
@@ -160,8 +162,8 @@ runs:
         ls -a
         ls -a build
         ls -a build\\Debug
-        cmake -DCMAKE_MAKE_PROGRAM="C:\Program Data\chocolatey\lib\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
-        cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
+        cmake -DCMAKE_MAKE_PROGRAM="C:\Program Data\chocolatey\lib\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=/d/a/dreich/dreich/build/Debug/generators/conan_toolchain.cmake -S/d/a/dreich/dreich -B/d/a/dreich/dreich/build/Debug
+        cmake --build /d/a/dreich/dreich/build/Debug --parallel 10 --target wind-asset-bundler
 
         echo start
         cd build/Debug/wind
@@ -173,8 +175,8 @@ runs:
         cd ../../
         echo end
 
-        cmake -DCMAKE_MAKE_PROGRAM="C:\Program Data\chocolatey\lib\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
-        cmake --build $(pwd)/build/Debug --parallel 10 --target game
+        cmake -DCMAKE_MAKE_PROGRAM="C:\Program Data\chocolatey\lib\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=/d/a/dreich/dreich/build/Debug/generators/conan_toolchain.cmake -S/d/a/dreich/dreich -B/d/a/dreich/dreich/build/Debug
+        cmake --build /d/a/dreich/dreich/build/Debug --parallel 10 --target game
 
       shell: bash
           # which dotnet
