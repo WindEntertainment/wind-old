@@ -31,8 +31,8 @@ runs:
           echo "ULTRALIGHT_PATH=$(pwd)" >> $GITHUB_ENV
           echo "DOTNET_PATH=/usr/share/dotnet" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          echo "ULTRALIGHT_PATH=C:\\a\\dreich\\ultralight" >> $GITHUB_ENV
-          echo "DOTNET_PATH=C:\\Program Files\\dotnet" >> $GITHUB_ENV
+          echo "ULTRALIGHT_PATH=C:\\\a\\\dreich\\\ultralight" >> $GITHUB_ENV
+          echo "DOTNET_PATH=C:\\\Program Files\\\dotnet" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "macOS" ]; then
           # conan profile show
           brew install p7zip
@@ -148,7 +148,7 @@ runs:
         touch CMakeEnv.txt
         echo 'set(ENV{ULTRALIGHT_PATH} "${{ env.ULTRALIGHT_PATH }}")' >> CMakeEnv.txt
         echo 'set(ENV{DOTNET_ROOT} "${{ env.DOTNET_PATH }}")' >> CMakeEnv.txt
-        echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}\packs\Microsoft.NETCore.App.Host.win-x64\7.0.3\runtimes\win-x64\native")' >> CMakeEnv.txt
+        echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}\\packs\\Microsoft.NETCore.App.Host.win-x64\\7.0.3\\runtimes\\win-x64\\native")' >> CMakeEnv.txt
 
         cat CMakeEnv.txt
 
