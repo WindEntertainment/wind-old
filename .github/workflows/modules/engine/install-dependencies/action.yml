@@ -31,6 +31,8 @@ runs:
           echo "ULTRALIGHT_PATH=$(pwd)" >> $GITHUB_ENV
           echo "DOTNET_PATH=/usr/share/dotnet" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "Windows" ]; then
+          cd C:/
+          ls -a
           echo "ULTRALIGHT_PATH=C:\\\a\\\dreich\\\ultralight" >> $GITHUB_ENV
           echo "DOTNET_PATH=C:\\\Program Files\\\dotnet" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "macOS" ]; then
