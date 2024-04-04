@@ -84,7 +84,7 @@ runs:
             [conf]
             tools.system.package_manager:mode=install
             tools.system.package_manager:sudo=True
-          " > /Users/runner/.conan2/profiles/default
+          " > C:\\Users\\runneradmin\\.conan2\\profiles\\default
           conan profile show
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo macOS
