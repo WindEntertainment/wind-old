@@ -70,6 +70,22 @@ runs:
           " > /home/runner/.conan2/profiles/default
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo Windows
+          echo "
+            [settings]
+            arch=x86_64
+            build_type=Debug
+            compiler=clang
+            compiler.cppstd=gnu17
+            compiler.runtime=dynamic
+            compiler.runtime_type=Release
+            compiler.runtime_version=v143
+            compiler.version=16
+            os=Windows
+            [conf]
+            tools.system.package_manager:mode=install
+            tools.system.package_manager:sudo=True
+          " > /Users/runner/.conan2/profiles/default
+          conan profile show
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo macOS
           # brew install cmake
