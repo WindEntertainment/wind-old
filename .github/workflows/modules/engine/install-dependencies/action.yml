@@ -166,6 +166,7 @@ runs:
         # cmake --build /d/a/dreich/dreich/build/Debug --parallel 10 --target wind-asset-bundler
 
         cmake -DCMAKE_MAKE_PROGRAM="c/Program\ Data/chocolatey/lib/cmake" -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+        cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
 
         echo start
         cd build/Debug/wind
