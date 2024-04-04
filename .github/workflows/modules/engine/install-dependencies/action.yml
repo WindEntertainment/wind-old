@@ -157,7 +157,9 @@ runs:
         export CC=clang
         export CXX=clang++
         ls -a
-        ls -a C:\\ProgramData\\chocolatey\\lib\\
+        ls -a build
+        ls -a build\\Debug
+        echo $(pwd)
         cmake -DCMAKE_MAKE_PROGRAM="C:\ProgramData\chocolatey\lib\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
         cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
 
