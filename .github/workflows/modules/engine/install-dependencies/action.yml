@@ -169,7 +169,7 @@ runs:
         # ls -a "D:\a\dreich"
         ls -a "D:\a\dreich\ultralight\ultralight\SDK"
 
-        cmake  -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\a\dreich\dreich\build\Debug\generators\conan_toolchain.cmake" -S "D:\a\dreich\dreich" -B "D:\a\dreich\dreich\build\Debug"
+        cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\a\dreich\dreich\build\Debug\generators\conan_toolchain.cmake" -S "D:\a\dreich\dreich" -B "D:\a\dreich\dreich\build\Debug"
         cmake --build "D:\a\dreich\dreich\build\Debug" --parallel 10 --target wind-asset-bundler
 
         echo start
