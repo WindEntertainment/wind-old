@@ -60,7 +60,7 @@ runs:
             arch=x86_64
             build_type=Debug
             compiler=clang
-            compiler.cppstd=gnu17
+            compiler.cppstd=gnu23
             compiler.libcxx=libc++
             compiler.version=11
             os=Linux
@@ -75,7 +75,7 @@ runs:
             arch=x86_64
             build_type=Debug
             compiler=clang
-            compiler.cppstd=gnu17
+            compiler.cppstd=gnu23
             compiler.runtime=dynamic
             compiler.runtime_type=Release
             compiler.runtime_version=v143
@@ -99,7 +99,7 @@ runs:
             arch=armv8
             build_type=Debug
             compiler=apple-clang
-            compiler.cppstd=gnu17
+            compiler.cppstd=gnu23
             compiler.libcxx=libc++
             compiler.version=15
             os=Macos
