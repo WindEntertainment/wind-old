@@ -148,9 +148,9 @@ runs:
       if: env.os == 'windows-latest'
       run:   |
         touch CMakeEnv.txt
-        echo 'set(ENV{ULTRALIGHT_PATH} "D:\\a\\dreich\\ultralight\\ultralight")' >> CMakeEnv.txt
-        echo 'set(ENV{DOTNET_ROOT} "D:\\a\\dreich\\ultralight\\ultralight")' >> CMakeEnv.txt
-        echo 'set(ENV{DOTNET_INCLUDES} "D:\\a\\dreich\\ultralight\\ultralight")' >> CMakeEnv.txt
+        echo 'set(ENV{ULTRALIGHT_PATH} "D:\\a\\dreich\\ultralight\\ultralight\\SDK")' >> CMakeEnv.txt
+        echo 'set(ENV{DOTNET_ROOT} "D:\\a\\dreich\\ultralight\\ultralight\\SDK")' >> CMakeEnv.txt
+        echo 'set(ENV{DOTNET_INCLUDES} "D:\\a\\dreich\\ultralight\\ultralight\\SDK")' >> CMakeEnv.txt
 
         # echo 'set(ENV{DOTNET_ROOT} "C:\Program Files\dotnet")' >> CMakeEnv.txt
         # echo 'set(ENV{DOTNET_INCLUDES} "C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Host.win-x64\7.0.3\runtimes\win-x64\native")' >> CMakeEnv.txt
@@ -165,11 +165,11 @@ runs:
         # ls -a build\\Debug
         # cmake -DCMAKE_MAKE_PROGRAM="C:\\Program\ Data\\chocolatey\\lib\\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\\a\\dreich\\dreich\\build\\Debug\\generators\\conan_toolchain.cmake" -S"D:\\a\\dreich\\dreich" -B"D:\\a\\dreich\\dreich\\build\\Debug"
         # cmake --build /d/a/dreich/dreich/build/Debug --parallel 10 --target wind-asset-bundler
-        ls -a "C:\ProgramData\chocolatey\lib\cmake"
-        ls -a "D:\a\dreich"
-        ls -a "D:\a\dreich\ultralight\ultralight"
+        # ls -a "C:\ProgramData\chocolatey\lib\cmake"
+        # ls -a "D:\a\dreich"
+        ls -a "D:\a\dreich\ultralight\ultralight\SDK"
 
-        cmake -DCMAKE_MAKE_PROGRAM="C:\ProgramData\chocolatey\lib\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\a\dreich\dreich\build\Debug\generators\conan_toolchain.cmake" -S "D:\a\dreich\dreich" -B "D:\a\dreich\dreich\build\Debug"
+        cmake  -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\a\dreich\dreich\build\Debug\generators\conan_toolchain.cmake" -S "D:\a\dreich\dreich" -B "D:\a\dreich\dreich\build\Debug"
         cmake --build "D:\a\dreich\dreich\build\Debug" --parallel 10 --target wind-asset-bundler
 
         echo start
