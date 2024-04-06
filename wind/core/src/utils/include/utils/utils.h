@@ -5,6 +5,8 @@ namespace wind {
 
 namespace chrono = std::chrono;
 
+using uint = unsigned int;
+
 template <typename C, typename T>
 concept Container = requires(C c, T t) {
   c.find(t);
