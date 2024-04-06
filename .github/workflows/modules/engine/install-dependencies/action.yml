@@ -69,9 +69,9 @@ runs:
         Invoke-WebRequest -Uri https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-win-x64.7z -OutFile ultralight-sdk.7z
         7z x ultralight-sdk.7z -o"ultralight"
 
-        choco install llvm
-        choco install cmake
         choco install make
+        choco install cmake
+        choco install llvm
 
     - name: Install Linux staff
       if:  env.os == 'ubuntu-latest' || env.os == 'macos-14'
@@ -86,8 +86,8 @@ runs:
 
           sudo apt install clang
           sudo apt-get install build-essential
-          sudo apt-get install cmake
           sudo apt-get install make
+          sudo apt-get install cmake
           which cmake
 
           export CC=clang
