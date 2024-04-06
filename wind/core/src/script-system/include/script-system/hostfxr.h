@@ -5,13 +5,13 @@
 #include <string.h>
 
 #ifdef _WIN32
+
 #include <Windows.h>
 
 #else
 
 #include <dlfcn.h>
 #include <limits.h>
-
 #define MAX_PATH PATH_MAX
 
 #endif
