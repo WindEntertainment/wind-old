@@ -62,7 +62,7 @@ runs:
             compiler=clang
             compiler.cppstd=gnu20
             compiler.libcxx=libstdc++
-            compiler.version=11
+            compiler.version=14
             os=Linux
             [conf]
             tools.system.package_manager:mode=install
