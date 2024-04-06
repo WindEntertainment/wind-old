@@ -166,7 +166,7 @@ runs:
         # cmake -DCMAKE_MAKE_PROGRAM="C:\\Program\ Data\\chocolatey\\lib\\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\\a\\dreich\\dreich\\build\\Debug\\generators\\conan_toolchain.cmake" -S"D:\\a\\dreich\\dreich" -B"D:\\a\\dreich\\dreich\\build\\Debug"
         # cmake --build /d/a/dreich/dreich/build/Debug --parallel 10 --target wind-asset-bundler
 
-        cmake -DCMAKE_MAKE_PROGRAM="C:\\Program\ Data\\chocolatey\\lib\\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\\a\\dreich\\dreich\\build\\Debug\\generators\\conan_toolchain.cmake" -S "D:\\a\\dreich\\dreich" -B "D:\\a\\dreich\\dreich\\build\\Debug"
+        cmake -DCMAKE_MAKE_PROGRAM="C:\\Program Data\\chocolatey\\lib\\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\\a\\dreich\\dreich\\build\\Debug\\generators\\conan_toolchain.cmake" -S "D:\\a\\dreich\\dreich" -B "D:\\a\\dreich\\dreich\\build\\Debug"
         cmake --build D:\\a\\dreich\\dreich\\build\\Debug --parallel 10 --target wind-asset-bundler
 
         echo start
