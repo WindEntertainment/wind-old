@@ -61,7 +61,7 @@ runs:
             build_type=Debug
             compiler=clang
             compiler.cppstd=gnu20
-            compiler.libcxx=libstdc++
+            compiler.libcxx=libc++
             compiler.version=14
             os=Linux
             [conf]
