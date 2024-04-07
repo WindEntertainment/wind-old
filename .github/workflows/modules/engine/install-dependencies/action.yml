@@ -38,7 +38,6 @@ runs:
         wind-asset-bundler --build ../.cache/
         cd ../../
 
-        cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\a\dreich\dreich\build\Debug\generators\conan_toolchain.cmake" -S "D:\a\dreich\dreich" -B "D:\a\dreich\dreich\build\Debug"
         cmake --build "D:\a\dreich\dreich\build\Debug" --parallel 10 --target game
 
       shell: bash
