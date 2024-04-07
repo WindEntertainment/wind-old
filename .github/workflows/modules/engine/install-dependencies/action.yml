@@ -177,9 +177,9 @@ runs:
         ls -a
         sudo make install
         wind-asset-bundler -h
-        cd ../../game/assets
+        cd ../../../game/assets
         wind-asset-bundler --build ../.cache/
-        cd ../../
+        cd ../../../
         echo end
 
         cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\a\dreich\dreich\build\Debug\generators\conan_toolchain.cmake" -S "D:\a\dreich\dreich" -B "D:\a\dreich\dreich\build\Debug"
