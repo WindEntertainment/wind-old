@@ -24,13 +24,14 @@
   "i18n-ally.localesPaths": ["./game/assets/UI/public/translations"],
   "i18n-ally.sourceLanguage": "en",
   "cSpell.words": [
+    "choco",
     "glfw",
+    "hostfxr",
     "KEYCODES",
     "opengl",
     "spdlog",
     "timepoint",
-    "vsync",
-    "hostfxr"
+    "vsync"
   ],
   "C_Cpp.errorSquiggles": "disabled",
   "files.associations": {
