@@ -20,7 +20,7 @@ void ScriptSystemHostfxr::loadPointers() {
 
   get_hostfxr_parameters params{sizeof(get_hostfxr_parameters), nullptr, nullptr};
 
-  char_t buffer[MAX_PATH];
+  char buffer[MAX_PATH];
   size_t buffer_size = sizeof(buffer) / sizeof(char_t);
 
   int rc = get_hostfxr_path(buffer, &buffer_size, &params);
