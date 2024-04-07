@@ -1,7 +1,7 @@
 #pragma once
 #include "includes.h"
-#include <algorithm>
-#include <ranges>
+#include <codecvt>
+#include <locale>
 
 namespace wind {
 
@@ -39,7 +39,7 @@ static auto forEach(const Range& range, Func func) {
 static auto stringToWindowsString(std::string input) {
   std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>, wchar_t> converter;
   std::wstring wide_string = converter.from_bytes(input);
-  return wide_string
+  return wide_string;
 }
 #endif
 
