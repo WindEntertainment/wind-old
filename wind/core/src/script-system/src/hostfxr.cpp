@@ -40,7 +40,11 @@ void ScriptSystemHostfxr::initConfig() {
   if (context)
     return;
 
+#ifdef _WIN32
+  int rc = fptrInitConfig(stringToWindowsString(configPath), nullptr, &context);
+#else
   int rc = fptrInitConfig(configPath.c_str(), nullptr, &context);
+#endif
 
   if (rc != 0 || context == nullptr) {
     std::stringstream ss;

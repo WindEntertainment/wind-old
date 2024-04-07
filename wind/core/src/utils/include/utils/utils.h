@@ -31,6 +31,14 @@ void verify(auto value) {
 
 static auto forEach = std::ranges::for_each;
 
+#ifdef _WIN32
+static auto stringToWindowsString(std::string input) {
+  std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>, wchar_t> converter;
+  std::wstring wide_string = converter.from_bytes(input);
+  return wide_string
+}
+#endif
+
 class Stopwatch {
 public:
   Stopwatch(const std::string& message)
