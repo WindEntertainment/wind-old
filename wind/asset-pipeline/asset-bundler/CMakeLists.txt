@@ -8,7 +8,7 @@ set(SOURCES
     ./src/main.cpp
     ./src/asset-bundler.cpp
     ./src/preprocessing.cpp
-) 
+)
 
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
@@ -22,7 +22,7 @@ find_package(stb REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE stb::stb)
 
 find_package(ZLIB REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE ZLIB::ZLIB)
+target_link_libraries(${PROJECT_NAME} PUBLIC ZLIB::ZLIB)
 
 find_package(cxxopts REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE cxxopts::cxxopts)
