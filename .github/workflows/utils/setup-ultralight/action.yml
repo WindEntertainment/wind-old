@@ -1,0 +1,74 @@
+name: Setup ultralight
+description: Setup ultralight
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install .Net
+      shell: bash
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo apt update
+          sudo apt install p7zip-full
+
+          cd ../
+          mkdir ultralight
+          cd ultralight
+
+          wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.3.0-linux-x64.7z
+          7za x ultralight-sdk-1.3.0-linux-x64.7z
+          echo "ULTRALIGHT_PATH=$(pwd)" >> $GITHUB_ENV
+        elif [ "$RUNNER_OS" == "Windows" ]; then
+          echo "ULTRALIGHT_PATH=C:\\\a\\\dreich\\\ultralight" >> $GITHUB_ENV
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          brew install p7zip
+
+          cd ../
+          mkdir ultralight
+          cd ultralight
+
+          wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-mac-arm64.7z
+          7za x ultralight-sdk-1.4.0a-mac-arm64.7z
+
+          echo -e "#include <Ultralight/String.h>\n$(cat SDK/include/Ultralight/ConsoleMessage.h )" > SDK/include/Ultralight/ConsoleMessage.h
+
+          echo "ULTRALIGHT_PATH=$(pwd)/SDK" >> $GITHUB_ENV
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
+        fi
+
+
+    - name: Install .Net
+      if: env.os == 'windows-latest'
+      shell: powershell
+      run: |
+        choco install 7zip
+
+        cd ../
+        New-Item -ItemType Directory -Path ultralight
+        cd ultralight
+
+        Invoke-WebRequest -Uri https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-win-x64.7z -OutFile ultralight-sdk.7z
+        7z x ultralight-sdk.7z -o"ultralight"
+
+        choco install make
+        choco install cmake
+        choco install llvm
+
+    # - name: Install .Net
+    #   if: env.os == 'ubuntu-latest' || env.os == 'macos-14'
+    #   shell: bash
+    #   run: |
+    #     wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+    #     chmod +x ./dotnet-install.sh
+    #     ./dotnet-install.sh --version latest
+    #     ./dotnet-install.sh --version latest --runtime aspnetcore
+    #     ./dotnet-install.sh --channel 8.0
+
+    # - name: Install .Net
+    #   if: env.os == 'windows-latest'
+    #   shell: powershell
+    #   run: |
+    #     choco install dotnet
+    #     dotnet --version
