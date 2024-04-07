@@ -96,20 +96,15 @@ runs:
           cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
 
-          echo start
-          cd build/Debug/wind
-          ls -a
+          cd build/Debug/wind/asset-pipeline
           sudo make install
           wind-asset-bundler -h
           cd ../../../game/assets
           wind-asset-bundler --build ../.cache/
           cd ../../
-          echo end
 
           cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           cmake --build $(pwd)/build/Debug --parallel 10 --target game
-        elif [ "$RUNNER_OS" == "Windows" ]; then
-          echo Windows
         elif [ "$RUNNER_OS" == "macOS" ]; then
           touch CMakeEnv.txt
           echo 'set(ENV{ULTRALIGHT_PATH} "${{ env.ULTRALIGHT_PATH }}")' >> CMakeEnv.txt
@@ -126,15 +121,12 @@ runs:
           /opt/homebrew/bin/cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
 
-          echo start
           cd build/Debug/wind/asset-pipeline
-          ls -a
           sudo make install
           wind-asset-bundler -h
           cd ../../../../game/assets
           wind-asset-bundler --build ../.cache/
           cd ../../
-          echo end
 
           /opt/homebrew/bin/cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target game
@@ -186,9 +178,3 @@ runs:
         cmake --build "D:\a\dreich\dreich\build\Debug" --parallel 10 --target game
 
       shell: bash
-          # which dotnet
-
-          # ls -a
-          # pwd
-          # cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug -G "Unix Makefiles"
-          # cmake --build .
