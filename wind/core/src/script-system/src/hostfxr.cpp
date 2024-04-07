@@ -77,7 +77,7 @@ ScriptSystem* ScriptSystemHostfxr::createScriptSystem(std::string rootPath, std:
 }
 
 void* ScriptSystemHostfxr::loadLibrary(const std::string path) {
-#ifdef WINDOWS
+#ifdef _WIND32
   HMODULE h = ::LoadLibraryW(path);
 #else
   void* h = dlopen(path.c_str(), RTLD_LAZY | RTLD_LOCAL);
@@ -88,7 +88,7 @@ void* ScriptSystemHostfxr::loadLibrary(const std::string path) {
 };
 
 void* ScriptSystemHostfxr::getExport(void* h, const char* name) {
-#ifdef WINDOWS
+#ifdef _WIN32
   void* f = ::GetProcAddress((HMODULE)h, name);
 #else
   void* f = dlsym(h, name);
