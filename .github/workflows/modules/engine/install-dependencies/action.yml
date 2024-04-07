@@ -10,15 +10,12 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        export CC=clang
-        export CXX=clang++
         conan install . --update --build=missing
 
     - name: Install .Net
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          # conan profile show
           sudo apt update
           sudo apt install p7zip-full
 
@@ -89,9 +86,6 @@ runs:
           sudo apt-get install make
           sudo apt-get install cmake
           which cmake
-
-          export CC=clang
-          export CXX=clang++
 
           cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
