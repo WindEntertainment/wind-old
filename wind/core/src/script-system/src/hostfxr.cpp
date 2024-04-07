@@ -20,8 +20,8 @@ void ScriptSystemHostfxr::loadPointers() {
 
   get_hostfxr_parameters params{sizeof(get_hostfxr_parameters), nullptr, nullptr};
 
-  char buffer[MAX_PATH];
-  size_t buffer_size = sizeof(buffer) / sizeof(char);
+  char_t buffer[MAX_PATH];
+  size_t buffer_size = sizeof(buffer) / sizeof(char_t);
 
   int rc = get_hostfxr_path(buffer, &buffer_size, &params);
 
@@ -80,11 +80,11 @@ ScriptSystem* ScriptSystemHostfxr::createScriptSystem(std::string rootPath, std:
   return scriptSystem;
 }
 
-void* ScriptSystemHostfxr::loadLibrary(const std::string path) {
+void* ScriptSystemHostfxr::loadLibrary(const char_t* path) {
 #ifdef _WIN32
   HMODULE h = ::LoadLibraryW(path);
 #else
-  void* h = dlopen(path.c_str(), RTLD_LAZY | RTLD_LOCAL);
+  void* h = dlopen(path, RTLD_LAZY | RTLD_LOCAL);
 #endif
 
   verify<ScriptSystemError>(h != nullptr);
