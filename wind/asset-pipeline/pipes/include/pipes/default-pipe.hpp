@@ -62,10 +62,10 @@ public:
     auto zipData = new unsigned char[zipSize];
     file.read(reinterpret_cast<char*>(zipData), zipSize);
 
-    size_t orgSizeT = (size_t)orgSize;
+    uLongf orgSizeT = (uLongf)orgSize;
     auto unzipData = new unsigned char[orgSize];
 
-    auto rc = uncompress(unzipData, &orgSizeT, zipData, (size_t)zipSize);
+    auto rc = uncompress(unzipData, &orgSizeT, zipData, (uLongf)zipSize);
     if (rc != Z_OK)
       throw std::invalid_argument("Failed uncompress data");
 
