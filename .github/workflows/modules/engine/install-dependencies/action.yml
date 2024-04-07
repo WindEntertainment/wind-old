@@ -82,9 +82,6 @@ runs:
         echo 'set(ENV{DOTNET_ROOT} "C:\\Program\ Files\\dotnet")' >> CMakeEnv.txt
         echo 'set(ENV{DOTNET_INCLUDES} "C:\\Program\ Files\\dotnet\\packs\\Microsoft.NETCore.App.Host.win-x64\\7.0.3\\runtimes\\win-x64\\native")' >> CMakeEnv.txt
 
-        # echo 'set(ENV{DOTNET_ROOT} "C:\Program Files\dotnet")' >> CMakeEnv.txt
-        # echo 'set(ENV{DOTNET_INCLUDES} "C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Host.win-x64\7.0.3\runtimes\win-x64\native")' >> CMakeEnv.txt
-
         cat CMakeEnv.txt
 
         export CC=clang
