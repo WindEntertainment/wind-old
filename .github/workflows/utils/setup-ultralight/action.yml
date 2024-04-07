@@ -6,18 +6,19 @@ runs:
   steps:
     # - name: Caching ultralight
     #   uses: './.github/workflows/utils/cache/get-ultralight-cache'
-    - name: Get ultralight keys prefix
-      shell: bash
-      run: |
-        echo "ULTRALIGHT_KEYS_PREFIX=${{ runner.os }}-ultralight-store-" >> $GITHUB_ENV
+
+    # - name: Get ultralight keys prefix
+    #   shell: bash
+    #   run: |
+    #     echo "ULTRALIGHT_KEYS_PREFIX=${{ runner.os }}-ultralight-store-" >> $GITHUB_ENV
 
     - uses: actions/cache@v4
       name: Setup ultralight cache
       with:
         path: ultralight/ultralight
-        key: ${{ env.ULTRALIGHT_KEYS_PREFIX }}
+        key: ${{ runner.os }}-ultralight-store-
         restore-keys: |
-          ${{ env.ULTRALIGHT_KEYS_PREFIX }}
+          ${{ runner.os }}-ultralight-store-
 
     - name: Check if Ultralight is cached
       id: check-cache
