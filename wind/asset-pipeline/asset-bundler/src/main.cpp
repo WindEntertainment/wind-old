@@ -2,10 +2,6 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 
-#ifndef __APPLE__
-#include <stb_image.h>
-#endif
-
 #include <cxxopts.hpp>
 #include <spdlog/spdlog.h>
 
