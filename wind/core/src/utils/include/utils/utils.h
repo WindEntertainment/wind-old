@@ -1,5 +1,7 @@
 #pragma once
 #include "includes.h"
+#include <algorithm>
+#include <ranges>
 
 namespace wind {
 
