@@ -1,5 +1,5 @@
-name: Setup UI base
-description: Setup UI base
+name: Setup NodeJS
+description: Setup NodeJS
 
 runs:
   using: 'composite'

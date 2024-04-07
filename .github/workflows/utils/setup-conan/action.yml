@@ -1,5 +1,5 @@
-name: Setup engine base
-description: Setup engine base
+name: Setup conan
+description: Setup conan
 
 runs:
   using: 'composite'
