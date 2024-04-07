@@ -41,7 +41,7 @@ void ScriptSystemHostfxr::initConfig() {
     return;
 
 #ifdef _WIN32
-  int rc = fptrInitConfig(stringToWindowsString(configPath), nullptr, &context);
+  int rc = fptrInitConfig(stringToWindowsString(configPath).c_str(), nullptr, &context);
 #else
   int rc = fptrInitConfig(configPath.c_str(), nullptr, &context);
 #endif
