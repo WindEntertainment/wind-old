@@ -4,6 +4,6 @@ description: Script test
 runs:
   using: 'composite'
   steps:
-    - uses: ./.github/workflows/modules/scripts/base-setup
+    - uses: ./.github/workflows/utils/setup-dotnet
 
     - uses: ./.github/workflows/modules/scripts/install-dependencies

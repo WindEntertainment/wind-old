@@ -4,6 +4,6 @@ description: Engine test
 runs:
   using: 'composite'
   steps:
-    - uses: ./.github/workflows/modules/engine/base-setup
+    - uses: ./.github/workflows/utils/setup-conan
 
     - uses: ./.github/workflows/modules/engine/install-dependencies

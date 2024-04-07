@@ -15,7 +15,7 @@
 #include <sstream>         // IWYU pragma: export
 
 // #ifndef __APPLE__
-#include <bits/ranges_algo.h> // IWYU pragma: export
+// #include <bits/ranges_algo.h> // IWYU pragma: export
 // #endif
 
 #include <spdlog/spdlog.h> // IWYU pragma: export

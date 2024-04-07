@@ -5,7 +5,7 @@ runs:
   using: 'composite'
   steps:
     - name: Setup base UI
-      uses: ./.github/workflows/modules/ui/base-setup
+      uses: ./.github/workflows/utils/setup-node
 
     - uses: ./.github/workflows/modules/ui/install-dependencies
 

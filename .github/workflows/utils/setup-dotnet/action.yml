@@ -1,0 +1,22 @@
+name: Setup .Net
+description: Setup .Net
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install .Net
+      if: env.os == 'ubuntu-latest' || env.os == 'macos-14'
+      shell: bash
+      run: |
+        wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+        chmod +x ./dotnet-install.sh
+        ./dotnet-install.sh --version latest
+        ./dotnet-install.sh --version latest --runtime aspnetcore
+        ./dotnet-install.sh --channel 8.0
+
+    - name: Install .Net
+      if: env.os == 'windows-latest'
+      shell: powershell
+      run: |
+        choco install dotnet
+        dotnet --version
