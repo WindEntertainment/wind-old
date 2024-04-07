@@ -36,7 +36,7 @@ private:
 
   void loadPointers();
   void initConfig();
-  void* loadLibrary(const std::string path);
+  void* loadLibrary(const char_t* path);
   void* getExport(void* h, const char* name);
 };
 } // namespace wind
