@@ -4,19 +4,6 @@ description: Setup conan
 runs:
   using: 'composite'
   steps:
-    - name: Test
-      run:   |
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          sudo apt-get install build-essential
-          sudo apt install llvm
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-          brew install llvm
-        else
-          echo "$RUNNER_OS not supported"
-          exit 1
-        fi
-      shell: bash
-
     - name: Install conan
       if:  env.os != 'macos-14'
       uses: turtlebrowser/get-conan@main
