@@ -83,13 +83,9 @@ runs:
 
           cat CMakeEnv.txt
 
-
-
           sudo apt install clang
           sudo apt-get install build-essential
-          sudo apt-get install make
           sudo apt-get install cmake
-          which cmake
 
           export CC=clang
           export CXX=clang++
@@ -104,7 +100,6 @@ runs:
           wind-asset-bundler --build ../.cache/
           cd ../../
 
-          # cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           cmake --build $(pwd)/build/Debug --parallel 10 --target game
         elif [ "$RUNNER_OS" == "macOS" ]; then
           touch CMakeEnv.txt
@@ -116,8 +111,6 @@ runs:
 
           brew install llvm
           brew install cmake
-          brew install make
-          which cmake
 
           /opt/homebrew/bin/cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
@@ -129,7 +122,6 @@ runs:
           wind-asset-bundler --build ../.cache/
           cd ../../
 
-          # /opt/homebrew/bin/cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target game
         else
           echo "$RUNNER_OS not supported"
