@@ -53,7 +53,6 @@ runs:
             tools.system.package_manager:mode=install
             tools.system.package_manager:sudo=True
           " > C:\\Users\\runneradmin\\.conan2\\profiles\\default
-          conan profile show
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo "
             [settings]
@@ -68,7 +67,6 @@ runs:
             tools.system.package_manager:mode=install
             tools.system.package_manager:sudo=True
           " > /Users/runner/.conan2/profiles/default
-          conan profile show
         else
           echo "$RUNNER_OS not supported"
           exit 1
