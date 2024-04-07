@@ -104,7 +104,7 @@ runs:
           wind-asset-bundler --build ../.cache/
           cd ../../
 
-          cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+          # cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           cmake --build $(pwd)/build/Debug --parallel 10 --target game
         elif [ "$RUNNER_OS" == "macOS" ]; then
           touch CMakeEnv.txt
@@ -129,7 +129,7 @@ runs:
           wind-asset-bundler --build ../.cache/
           cd ../../
 
-          /opt/homebrew/bin/cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+          # /opt/homebrew/bin/cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target game
         else
           echo "$RUNNER_OS not supported"
@@ -152,28 +152,16 @@ runs:
 
         export CC=clang
         export CXX=clang++
-        # echo $(pwd)
-        # ls -a
-        # ls -a build
-        # ls -a build\\Debug
-        # cmake -DCMAKE_MAKE_PROGRAM="C:\\Program\ Data\\chocolatey\\lib\\cmake" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\\a\\dreich\\dreich\\build\\Debug\\generators\\conan_toolchain.cmake" -S"D:\\a\\dreich\\dreich" -B"D:\\a\\dreich\\dreich\\build\\Debug"
-        # cmake --build /d/a/dreich/dreich/build/Debug --parallel 10 --target wind-asset-bundler
-        # ls -a "C:\ProgramData\chocolatey\lib\cmake"
-        # ls -a "D:\a\dreich"
-        ls -a "D:\a\dreich\ultralight\ultralight\SDK"
 
         cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\a\dreich\dreich\build\Debug\generators\conan_toolchain.cmake" -S "D:\a\dreich\dreich" -B "D:\a\dreich\dreich\build\Debug"
         cmake --build "D:\a\dreich\dreich\build\Debug" --parallel 10 --target wind-asset-bundler
 
-        echo start
-        cd build/Debug/wind
-        ls -a
+        cd build/Debug/wind/asset-pipeline
         sudo make install
         wind-asset-bundler -h
-        cd ../../../game/assets
+        cd ../../../../game/assets
         wind-asset-bundler --build ../.cache/
-        cd ../../../
-        echo end
+        cd ../../
 
         cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\a\dreich\dreich\build\Debug\generators\conan_toolchain.cmake" -S "D:\a\dreich\dreich" -B "D:\a\dreich\dreich\build\Debug"
         cmake --build "D:\a\dreich\dreich\build\Debug" --parallel 10 --target game
