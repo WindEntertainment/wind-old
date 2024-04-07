@@ -7,3 +7,9 @@ runs:
     - uses: ./.github/workflows/utils/setup-conan
 
     - uses: ./.github/workflows/modules/engine/install-dependencies
+
+    - name: Setup ultralight
+      uses: ./.github/workflows/utils/setup-ultralight
+
+    - name: Setup ultralight
+      uses: ./.github/workflows/modules/engine/setup-env
