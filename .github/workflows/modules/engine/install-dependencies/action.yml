@@ -103,7 +103,7 @@ runs:
           wind-asset-bundler -h
           cd ../../../game/assets
           wind-asset-bundler --build ../.cache/
-          cd ../../../
+          cd ../../
           echo end
 
           cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
