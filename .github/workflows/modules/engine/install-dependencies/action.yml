@@ -16,6 +16,63 @@ runs:
       uses: ./.github/workflows/utils/setup-ultralight
 
     - name: Install Linux staff
+      if:  env.os == 'ubuntu-latest' || env.os == 'macos-14'
+      run:   |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          touch CMakeEnv.txt
+          echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }})' >> CMakeEnv.txt
+          echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
+          echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/8.0.3/runtimes/linux-x64/native")' >> CMakeEnv.txt
+
+          cat CMakeEnv.txt
+
+          sudo apt install clang
+          sudo apt-get install build-essential
+          sudo apt-get install cmake
+
+          export CC=clang
+          export CXX=clang++
+
+          cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+          cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
+
+          cd build/Debug/wind/asset-pipeline
+          sudo make install
+          wind-asset-bundler -h
+          cd ../../../../game/assets
+          wind-asset-bundler --build ../.cache/
+          cd ../../
+
+          cmake --build $(pwd)/build/Debug --parallel 10 --target game
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          touch CMakeEnv.txt
+          echo 'set(ENV{ULTRALIGHT_PATH} "${{ env.ULTRALIGHT_PATH }}")' >> CMakeEnv.txt
+          echo 'set(ENV{DOTNET_ROOT} "${{ env.DOTNET_PATH }}")' >> CMakeEnv.txt
+          echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/8.0.3/runtimes/osx-arm64/native")' >> CMakeEnv.txt
+
+          cat CMakeEnv.txt
+
+          brew install llvm
+          brew install cmake
+
+          /opt/homebrew/bin/cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
+          /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
+
+          cd build/Debug/wind/asset-pipeline
+          sudo make install
+          wind-asset-bundler -h
+          cd ../../../../game/assets
+          wind-asset-bundler --build ../.cache/
+          cd ../../
+
+          /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target game
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
+        fi
+      shell: bash
+
+    - name: Install Linux staff
       if: env.os == 'windows-latest'
       run:   |
         touch CMakeEnv.txt
@@ -38,6 +95,7 @@ runs:
         wind-asset-bundler --build ../.cache/
         cd ../../
 
+        cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\a\dreich\dreich\build\Debug\generators\conan_toolchain.cmake" -S "D:\a\dreich\dreich" -B "D:\a\dreich\dreich\build\Debug"
         cmake --build "D:\a\dreich\dreich\build\Debug" --parallel 10 --target game
 
       shell: bash
