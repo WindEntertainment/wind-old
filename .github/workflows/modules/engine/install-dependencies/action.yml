@@ -83,11 +83,16 @@ runs:
 
           cat CMakeEnv.txt
 
+
+
           sudo apt install clang
           sudo apt-get install build-essential
           sudo apt-get install make
           sudo apt-get install cmake
           which cmake
+
+          export CC=clang
+          export CXX=clang++
 
           cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
