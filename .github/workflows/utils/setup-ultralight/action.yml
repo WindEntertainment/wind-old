@@ -33,7 +33,6 @@ runs:
           exit 1
         fi
 
-
     - name: Install ultralight
       if: env.os == 'windows-latest'
       shell: powershell
@@ -44,3 +43,5 @@ runs:
 
         Invoke-WebRequest -Uri https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-win-x64.7z -OutFile ultralight-sdk.7z
         7z x ultralight-sdk.7z -o"ultralight"
+
+    - uses: './.github/workflows/utils/cache/get-ultralight-cache'
