@@ -19,28 +19,64 @@ runs:
           exit 1
         fi
 
-    - name: Cache check
+    - name: Check if cache exists
       id: cache-check
-      uses: actions/cache@v4
-      if: env.os == 'macos-14'
+      uses: actions/cache@v2
       with:
-        path: /usr/local/Homebrew/Library
-        key: ${{ runner.os }}-brew-store-${{ hashFiles('**/Brewfile.lock.json') }}
+        path: |
+          ~/.brew
+        key: ${{ runner.os }}-brew-${{ hashFiles('**/Brewfile.lock.json') }}
+      continue-on-error: true
 
-    - name: Install ultralight
-      if: env.os == 'macos-14'
+    # Restore cache
+    - name: Restore cache
+      if: steps.cache-check.outputs.cache-hit == 'true'
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.brew
+        key: ${{ runner.os }}-brew-${{ hashFiles('**/Brewfile.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-brew-
+
+    - name: Install packages with Homebrew
       shell: bash
       run: |
           brew install p7zip
           brew install llvm
           brew install cmake
 
-    - name: Cache save
-      if: steps.cache-check.outputs.cache-hit != 'true' && env.os == 'macos-14'
-      uses: actions/cache@v4
+    # Save cache
+    - name: Save cache
+      if: steps.cache-check.outputs.cache-hit != 'true'
+      uses: actions/cache@v2
       with:
-        path: /usr/local/Homebrew/Library
-        key: ${{ runner.os }}-brew-store-${{ hashFiles('**/Brewfile.lock.json') }}
+        path: |
+          ~/.brew
+        key: ${{ runner.os }}-brew-${{ hashFiles('**/Brewfile.lock.json') }}
+
+    # - name: Cache check
+    #   id: cache-check
+    #   uses: actions/cache@v4
+    #   if: env.os == 'macos-14'
+    #   with:
+    #     path: /usr/local/Homebrew/Library
+    #     key: ${{ runner.os }}-brew-store-${{ hashFiles('**/Brewfile.lock.json') }}
+
+    # - name: Install ultralight
+    #   if: env.os == 'macos-14'
+      # shell: bash
+      # run: |
+      #     brew install p7zip
+      #     brew install llvm
+      #     brew install cmake
+
+    # - name: Cache save
+    #   if: steps.cache-check.outputs.cache-hit != 'true' && env.os == 'macos-14'
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: /usr/local/Homebrew/Library
+    #     key: ${{ runner.os }}-brew-store-${{ hashFiles('**/Brewfile.lock.json') }}
 
 
     - name: Install ultralight
