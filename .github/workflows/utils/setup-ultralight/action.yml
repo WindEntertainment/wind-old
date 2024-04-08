@@ -25,8 +25,9 @@ runs:
       id: cache-check
       uses: actions/cache@v4
       with:
+        lookup-only: true
         path: /Users/runner/work/dreich/ultralight/SDK  # Path to the Ultralight installation directory
-        key: ${{ runner.os }}-ultralight-${{ hashFiles('/Users/runner/work/dreich/ultralight/SDK') }}
+        key: ${{ runner.os }}-ultralight
         restore-keys: |
           ${{ runner.os }}-ultralight
 
@@ -84,10 +85,10 @@ runs:
           echo -e "#include <Ultralight/String.h>\n$(cat SDK/include/Ultralight/ConsoleMessage.h )" > SDK/include/Ultralight/ConsoleMessage.h
 
     - name: Cache Ultralight installation
-      if: steps.cache-check.outputs.cache-hit != 'true'
+      if: steps.cache-check.outputs.cache-hit == 'true'
       uses: actions/cache@v4
       with:
         path: /Users/runner/work/dreich/ultralight/SDK
-        key: ${{ runner.os }}-ultralight-${{ hashFiles('/Users/runner/work/dreich/ultralight/SDK') }}
+        key: ${{ runner.os }}-ultralight
         restore-keys: |
           ${{ runner.os }}-ultralight
