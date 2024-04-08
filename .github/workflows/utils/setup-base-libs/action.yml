@@ -21,7 +21,7 @@ runs:
 
     - name: Check if cache exists
       id: cache-check
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: |
           ~/.brew
@@ -31,7 +31,7 @@ runs:
     # Restore cache
     - name: Restore cache
       if: steps.cache-check.outputs.cache-hit == 'true'
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: |
           ~/.brew
@@ -45,11 +45,12 @@ runs:
           brew install p7zip
           brew install llvm
           brew install cmake
+          which cmake
 
     # Save cache
     - name: Save cache
       if: steps.cache-check.outputs.cache-hit != 'true'
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: |
           ~/.brew
