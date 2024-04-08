@@ -41,7 +41,21 @@ runs:
         echo ${{ steps.cache-check.outputs.cache-hit != 'true' }}
         echo ${{ steps.cache-check.outputs.cache-hit != true }}
         echo ${{ steps.cache-check.outputs.cache-hit }}
-
+    - name: Install ultralight
+      shell: bash
+      if: ${{ steps.cache-check.outputs.cache-hit != 'true' }}
+      run: |
+        echo 1
+    - name: Install ultralight
+      shell: bash
+      if: ${{ steps.cache-check.outputs.cache-hit != true }}
+      run: |
+        echo 2
+    - name: Install ultralight
+      shell: bash
+      if: ${{ steps.cache-check.outputs.cache-hit }}
+      run: |
+        echo 3
     - name: Install ultralight
       shell: bash
       if: ${{ steps.cache-check.outputs.cache-hit != 'true' }}
