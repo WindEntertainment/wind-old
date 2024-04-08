@@ -10,12 +10,6 @@ runs:
       with:
         version: 2.1.0
 
-    - name: Install conan
-      if:  env.os == 'macos-14'
-      shell: bash
-      run: |
-        brew install conan
-
     - name: Create default profile
       shell: bash
       run: |
