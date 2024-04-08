@@ -27,6 +27,8 @@ runs:
       with:
         path: /Users/runner/work/dreich/ultralight/SDK  # Path to the Ultralight installation directory
         key: ${{ runner.os }}-ultralight-${{ hashFiles('/Users/runner/work/dreich/ultralight/SDK') }}
+        restore-keys: |
+          ${{ runner.os }}-ultralight
 
     # - name: Check if Ultralight is cached
     #   id: check-cache
@@ -87,3 +89,5 @@ runs:
       with:
         path: /Users/runner/work/dreich/ultralight/SDK
         key: ${{ runner.os }}-ultralight-${{ hashFiles('/Users/runner/work/dreich/ultralight/SDK') }}
+        restore-keys: |
+          ${{ runner.os }}-ultralight
