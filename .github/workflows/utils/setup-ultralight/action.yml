@@ -42,7 +42,7 @@ runs:
 
     - name: Install ultralight
       shell: bash
-      if: ${{ steps.cache-check.outputs.cache-hit }} != 'true'
+      if: ${{ steps.cache-check.outputs.cache-hit != 'true' }}
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           cd ../
@@ -71,7 +71,7 @@ runs:
         fi
 
     - name: Install ultralight
-      if: steps.cache-check.outputs.cache-hit != 'true' && env.os == 'windows-latest'
+      if: ${{ steps.cache-check.outputs.cache-hit != 'true' }} && env.os == 'windows-latest'
       shell: powershell
       run: |
         cd ../
@@ -83,7 +83,7 @@ runs:
 
 
     - name: Cache Ultralight installation
-      if: steps.cache-check.outputs.cache-hit != 'true'
+      if: ${{ steps.cache-check.outputs.cache-hit != 'true' }}
       uses: actions/cache@v4
       with:
         path: /Users/runner/work/dreich/ultralight/SDK  # Path to the Ultralight installation directory
