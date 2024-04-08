@@ -5,7 +5,7 @@ runs:
   using: 'composite'
   steps:
     - name: Install ultralight
-      if: env.os != 'windows-latest' && && env.os != 'macos-14'
+      if: env.os == 'ubuntu-latest'
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
@@ -25,7 +25,7 @@ runs:
       if: env.os == 'macos-14'
       with:
         path: /usr/local/Homebrew/Library
-        key: brew-${{ runner.os }}-${{ hashFiles('**/Brewfile.lock.json') }}
+        key: ${{ runner.os }}-brew-store-${{ hashFiles('**/Brewfile.lock.json') }}
 
     - name: Install ultralight
       if: env.os == 'macos-14'
@@ -40,7 +40,7 @@ runs:
       uses: actions/cache@v4
       with:
         path: /usr/local/Homebrew/Library
-        key: brew-${{ runner.os }}-${{ hashFiles('**/Brewfile.lock.json') }}
+        key: ${{ runner.os }}-brew-store-${{ hashFiles('**/Brewfile.lock.json') }}
 
 
     - name: Install ultralight
