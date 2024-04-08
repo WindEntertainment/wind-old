@@ -37,6 +37,11 @@ runs:
 
     - name: Install ultralight
       shell: bash
+      run: |
+        echo steps.cache-check.outputs.cache-hit
+
+    - name: Install ultralight
+      shell: bash
       if: steps.cache-check.outputs.cache-hit != true
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
