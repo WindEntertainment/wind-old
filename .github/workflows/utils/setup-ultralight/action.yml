@@ -37,43 +37,7 @@ runs:
 
     - name: Install ultralight
       shell: bash
-      run: |
-        echo ${{ steps.cache-check.outputs.cache-hit != 'true' }}
-        echo ${{ steps.cache-check.outputs.cache-hit != true }}
-        echo ${{ steps.cache-check.outputs.cache-hit }}
-    - name: Install ultralight
-      shell: bash
-      if: ${{ steps.cache-check.outputs.cache-hit == 'true' }}
-      run: |
-        echo 1
-    - name: Install ultralight
-      shell: bash
-      if: ${{ steps.cache-check.outputs.cache-hit == true }}
-      run: |
-        echo 2
-    - name: Install ultralight
-      shell: bash
-      if: steps.cache-check.outputs.cache-hit == 'true'
-      run: |
-        echo 5
-    - name: Install ultralight
-      shell: bash
-      if: steps.cache-check.outputs.cache-hit == true
-      run: |
-        echo 6
-    - name: Install ultralight
-      shell: bash
-      if: ${{ steps.cache-check.outputs.cache-hit }}
-      run: |
-        echo 3
-    - name: Install ultralight
-      shell: bash
-      if: steps.cache-check.outputs.cache-hit
-      run: |
-        echo 4
-    - name: Install ultralight
-      shell: bash
-      if: ${{ steps.cache-check.outputs.cache-hit != 'true' }}
+      if: steps.cache-check.outputs.cache-hit != 'true'
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           cd ../
@@ -102,7 +66,7 @@ runs:
         fi
 
     - name: Install ultralight
-      if: env.os == 'windows-latest'
+      if: steps.cache-check.outputs.cache-hit != 'true' && env.os == 'windows-latest'
       shell: powershell
       run: |
         cd ../
@@ -114,7 +78,7 @@ runs:
 
 
     - name: Cache Ultralight installation
-      if: ${{ steps.cache-check.outputs.cache-hit != 'true' }}
+      if: steps.cache-check.outputs.cache-hit != 'true'
       uses: actions/cache@v4
       with:
         path: /Users/runner/work/dreich/ultralight/SDK
