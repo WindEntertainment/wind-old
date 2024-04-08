@@ -59,6 +59,8 @@ runs:
           wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-mac-arm64.7z
           7za x ultralight-sdk-1.4.0a-mac-arm64.7z
 
+          echo -e "#include <Ultralight/String.h>\n$(cat SDK/include/Ultralight/ConsoleMessage.h )" > SDK/include/Ultralight/ConsoleMessage.h
+
           echo "ULTRALIGHT_PATH=$(pwd)/SDK" >> $GITHUB_ENV
         else
           echo "$RUNNER_OS not supported"
@@ -75,14 +77,6 @@ runs:
 
         Invoke-WebRequest -Uri https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-win-x64.7z -OutFile ultralight-sdk.7z
         7z x ultralight-sdk.7z -o"ultralight"
-
-    - name: Install ultralight
-      shell: bash
-      if: env.os == 'macos-14'
-      run: |
-          cd ../ultralight
-
-          echo -e "#include <Ultralight/String.h>\n$(cat SDK/include/Ultralight/ConsoleMessage.h )" > SDK/include/Ultralight/ConsoleMessage.h
 
     - name: Cache Ultralight installation
       if: steps.cache-check.outputs.cache-hit == 'true'
