@@ -25,7 +25,7 @@ runs:
       with:
         path: |
           /opt/homebrew/bin
-        key: ${{ runner.os }}-brew-${{ hashFiles('**/Brewfile.lock.json') }}
+        key: ${{ runner.os }}-brew
       continue-on-error: true
 
     # Restore cache
@@ -35,11 +35,12 @@ runs:
       with:
         path: |
           /opt/homebrew/bin
-        key: ${{ runner.os }}-brew-${{ hashFiles('**/Brewfile.lock.json') }}
+        key: ${{ runner.os }}-brew
         restore-keys: |
-          ${{ runner.os }}-brew-
+          ${{ runner.os }}-brew
 
     - name: Install packages with Homebrew
+      if: steps.cache-check.outputs.cache-hit != 'true'
       shell: bash
       run: |
           brew install p7zip
@@ -54,7 +55,7 @@ runs:
       with:
         path: |
           /opt/homebrew/bin
-        key: ${{ runner.os }}-brew-${{ hashFiles('**/Brewfile.lock.json') }}
+        key: ${{ runner.os }}-brew
 
     # - name: Cache check
     #   id: cache-check
@@ -62,7 +63,7 @@ runs:
     #   if: env.os == 'macos-14'
     #   with:
     #     path: /usr/local/Homebrew/Library
-    #     key: ${{ runner.os }}-brew-store-${{ hashFiles('**/Brewfile.lock.json') }}
+    #     key: ${{ runner.os }}-brew
 
     # - name: Install ultralight
     #   if: env.os == 'macos-14'
@@ -77,7 +78,7 @@ runs:
     #   uses: actions/cache@v4
     #   with:
     #     path: /usr/local/Homebrew/Library
-    #     key: ${{ runner.os }}-brew-store-${{ hashFiles('**/Brewfile.lock.json') }}
+    #     key: ${{ runner.os }}-brew
 
 
     - name: Install ultralight
