@@ -97,6 +97,10 @@ runs:
         Invoke-WebRequest -Uri https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-win-x64.7z -OutFile ultralight-sdk.7z
         7z x ultralight-sdk.7z -o"ultralight"
 
+    - name: test
+      shell: bash
+      run: ls -a /Users/runner/work/dreich/ultralight
+
     - name: Save cache
       if: steps.cache-check.outputs.cache-hit != 'true'
       uses: actions/cache@v4
