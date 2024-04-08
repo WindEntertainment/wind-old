@@ -99,7 +99,9 @@ runs:
 
     - name: test
       shell: bash
-      run: ls -a /Users/runner/work/dreich/ultralight
+      run: |
+        ls -a /Users/runner/work/dreich/ultralight/SDK
+        ls -a /Users/runner/work/dreich/ultralight/SDK/include/Ultralight
 
     - name: Save cache
       if: steps.cache-check.outputs.cache-hit != 'true'
