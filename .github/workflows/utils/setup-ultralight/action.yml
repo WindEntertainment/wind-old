@@ -42,7 +42,7 @@ runs:
 
     - name: Install ultralight
       shell: bash
-      if: ${{ steps.cache-check.outputs.cache-hit != 'true' }}
+      if: ${{ steps.cache-check.outputs.cache-hit }} != 'true'
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           cd ../
