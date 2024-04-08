@@ -74,7 +74,6 @@ runs:
         7z x ultralight-sdk.7z -o"ultralight"
 
     - name: Save cache
-      if: steps.cache-check.outputs.cache-hit != 'true'
       uses: actions/cache@v4
       with:
         path: |
