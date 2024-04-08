@@ -39,6 +39,8 @@ runs:
       shell: bash
       run: |
         echo ${{ steps.cache-check.outputs.cache-hit != 'true' }}
+        echo ${{ steps.cache-check.outputs.cache-hit != true }}
+        echo ${{ steps.cache-check.outputs.cache-hit }}
 
     - name: Install ultralight
       shell: bash
