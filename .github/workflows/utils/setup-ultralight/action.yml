@@ -41,8 +41,9 @@ runs:
       id: cache-check
       uses: actions/cache@v4
       with:
+        lookup-only: true
         path: |
-          /Users/runner/work/dreich/ultralight/SDK
+          /Users/runner/work/dreich/ultralight
         key: ${{ runner.os }}-ultralight
 
     - name: Restore cache
@@ -50,7 +51,7 @@ runs:
       uses: actions/cache@v4
       with:
         path: |
-          /Users/runner/work/dreich/ultralight/SDK
+          /Users/runner/work/dreich/ultralight
         key: ${{ runner.os }}-ultralight
         restore-keys: |
           ${{ runner.os }}-ultralight
@@ -101,7 +102,7 @@ runs:
       uses: actions/cache@v4
       with:
         path: |
-          /Users/runner/work/dreich/ultralight/SDK
+          /Users/runner/work/dreich/ultralight
         key: ${{ runner.os }}-ultralight
 
     # - name: Cache Ultralight installation
