@@ -5,7 +5,7 @@ runs:
   using: 'composite'
   steps:
     - name: Install ultralight
-      if: env.os != 'windows-latest'
+      if: env.os != 'windows-latest' && && env.os != 'macos-14'
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
@@ -14,14 +14,33 @@ runs:
           sudo apt-get install build-essential
           sudo apt-get install cmake
           sudo apt install libxcb-util-dev libgl-dev libgl1-mesa-dev libx11-xcb-dev libfontenc-dev libxaw7-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxfixes-dev libxi-dev libxinerama-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxres-dev libxss-dev libxtst-dev libxv-dev libxxf86vm-dev libxcb-glx0-dev libxcb-render-util0-dev libxcb-xkb-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-dri3-dev libxcb-cursor-dev libxcb-dri2-0-dev libxcb-dri3-dev libxcb-present-dev libxcb-composite0-dev libxcb-ewmh-dev libxcb-res0-dev
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-          brew install p7zip
-          brew install llvm
-          brew install cmake
         else
           echo "$RUNNER_OS not supported"
           exit 1
         fi
+
+    - name: Cache check
+      id: cache-check
+      uses: actions/cache@v4
+      if: env.os == 'macos-14'
+      with:
+        path: /usr/local/Homebrew/Library
+        key: brew-${{ runner.os }}-${{ hashFiles('**/Brewfile.lock.json') }}
+
+    - name: Install ultralight
+      if: env.os == 'macos-14'
+      shell: bash
+      run: |
+          brew install p7zip
+          brew install llvm
+          brew install cmake
+
+    - name: Cache save
+      if: steps.cache-check.outputs.cache-hit != 'true' && env.os == 'macos-14'
+      uses: actions/cache@v4
+      with:
+        path: /usr/local/Homebrew/Library
+        key: brew-${{ runner.os }}-${{ hashFiles('**/Brewfile.lock.json') }}
 
 
     - name: Install ultralight
