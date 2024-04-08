@@ -57,8 +57,6 @@ runs:
           wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-mac-arm64.7z
           7za x ultralight-sdk-1.4.0a-mac-arm64.7z
 
-          echo -e "#include <Ultralight/String.h>\n$(cat SDK/include/Ultralight/ConsoleMessage.h )" > SDK/include/Ultralight/ConsoleMessage.h
-
           echo "ULTRALIGHT_PATH=$(pwd)/SDK" >> $GITHUB_ENV
         else
           echo "$RUNNER_OS not supported"
