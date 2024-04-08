@@ -45,6 +45,7 @@ runs:
           brew install p7zip
           brew install llvm
           brew install cmake
+          brew install conan
           which cmake
 
     - name: Save cache
