@@ -24,7 +24,7 @@ runs:
       uses: actions/cache@v4
       with:
         path: |
-          ~/.brew
+          /opt/homebrew/bin
         key: ${{ runner.os }}-brew-${{ hashFiles('**/Brewfile.lock.json') }}
       continue-on-error: true
 
@@ -34,7 +34,7 @@ runs:
       uses: actions/cache@v4
       with:
         path: |
-          ~/.brew
+          /opt/homebrew/bin
         key: ${{ runner.os }}-brew-${{ hashFiles('**/Brewfile.lock.json') }}
         restore-keys: |
           ${{ runner.os }}-brew-
@@ -53,7 +53,7 @@ runs:
       uses: actions/cache@v4
       with:
         path: |
-          ~/.brew
+          /opt/homebrew/bin
         key: ${{ runner.os }}-brew-${{ hashFiles('**/Brewfile.lock.json') }}
 
     # - name: Cache check
