@@ -20,6 +20,7 @@ runs:
         fi
 
     - name: Check if cache exists
+      if: env.os == 'macos-14'
       id: cache-check
       uses: actions/cache@v4
       with:
@@ -28,9 +29,8 @@ runs:
         key: ${{ runner.os }}-brew
       continue-on-error: true
 
-    # Restore cache
     - name: Restore cache
-      if: steps.cache-check.outputs.cache-hit == 'true'
+      if: env.os == 'macos-14' && steps.cache-check.outputs.cache-hit == 'true'
       uses: actions/cache@v4
       with:
         path: |
@@ -40,7 +40,7 @@ runs:
           ${{ runner.os }}-brew
 
     - name: Install packages with Homebrew
-      if: steps.cache-check.outputs.cache-hit != 'true'
+      if: env.os == 'macos-14' && steps.cache-check.outputs.cache-hit != 'true'
       shell: bash
       run: |
           brew install p7zip
@@ -48,38 +48,13 @@ runs:
           brew install cmake
           which cmake
 
-    # Save cache
     - name: Save cache
-      if: steps.cache-check.outputs.cache-hit != 'true'
+      if: env.os == 'macos-14' && steps.cache-check.outputs.cache-hit != 'true'
       uses: actions/cache@v4
       with:
         path: |
           /opt/homebrew/bin
         key: ${{ runner.os }}-brew
-
-    # - name: Cache check
-    #   id: cache-check
-    #   uses: actions/cache@v4
-    #   if: env.os == 'macos-14'
-    #   with:
-    #     path: /usr/local/Homebrew/Library
-    #     key: ${{ runner.os }}-brew
-
-    # - name: Install ultralight
-    #   if: env.os == 'macos-14'
-      # shell: bash
-      # run: |
-      #     brew install p7zip
-      #     brew install llvm
-      #     brew install cmake
-
-    # - name: Cache save
-    #   if: steps.cache-check.outputs.cache-hit != 'true' && env.os == 'macos-14'
-    #   uses: actions/cache@v4
-    #   with:
-    #     path: /usr/local/Homebrew/Library
-    #     key: ${{ runner.os }}-brew
-
 
     - name: Install ultralight
       if: env.os == 'windows-latest'
