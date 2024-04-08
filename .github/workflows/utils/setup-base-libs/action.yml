@@ -27,7 +27,6 @@ runs:
         path: |
           /opt/homebrew/bin
         key: ${{ runner.os }}-brew
-      continue-on-error: true
 
     - name: Restore cache
       if: env.os == 'macos-14' && steps.cache-check.outputs.cache-hit == 'true'

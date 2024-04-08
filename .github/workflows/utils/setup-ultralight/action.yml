@@ -21,21 +21,39 @@ runs:
     #     restore-keys: |
     #       ${{ runner.os }}-ultralight-store-
 
-    - name: Check if Ultralight cache exists
-      id: cache-check
-      uses: actions/cache@v4
-      with:
-        lookup-only: true
-        path: /Users/runner/work/dreich/ultralight/SDK  # Path to the Ultralight installation directory
-        key: ${{ runner.os }}-ultralight
-        restore-keys: |
-          ${{ runner.os }}-ultralight
+    # - name: Check if Ultralight cache exists
+    #   id: cache-check
+    #   uses: actions/cache@v4
+    #   with:
+    #     lookup-only: true
+    #     path: /Users/runner/work/dreich/ultralight/SDK  # Path to the Ultralight installation directory
+    #     key: ${{ runner.os }}-ultralight
+    #     restore-keys: |
+    #       ${{ runner.os }}-ultralight
 
     # - name: Check if Ultralight is cached
     #   id: check-cache
     #   shell: bash
     #   run: |
     #     echo "::set-output name=ultralight-cached::$(if [ -d '/Users/runner/work/dreich/ultralight/SDK' ]; then echo 'true'; else echo 'false'; fi)"
+
+    - name: Check if cache exists
+      id: cache-check
+      uses: actions/cache@v4
+      with:
+        path: |
+          /Users/runner/work/dreich/ultralight/SDK
+        key: ${{ runner.os }}-ultralight
+
+    - name: Restore cache
+      if: steps.cache-check.outputs.cache-hit == 'true'
+      uses: actions/cache@v4
+      with:
+        path: |
+          /Users/runner/work/dreich/ultralight/SDK
+        key: ${{ runner.os }}-ultralight
+        restore-keys: |
+          ${{ runner.os }}-ultralight
 
     - name: Install ultralight
       shell: bash
@@ -78,11 +96,19 @@ runs:
         Invoke-WebRequest -Uri https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-win-x64.7z -OutFile ultralight-sdk.7z
         7z x ultralight-sdk.7z -o"ultralight"
 
-    - name: Cache Ultralight installation
-      if: steps.cache-check.outputs.cache-hit == 'true'
+    - name: Save cache
+      if: steps.cache-check.outputs.cache-hit != 'true'
       uses: actions/cache@v4
       with:
-        path: /Users/runner/work/dreich/ultralight/SDK
+        path: |
+          /Users/runner/work/dreich/ultralight/SDK
         key: ${{ runner.os }}-ultralight
-        restore-keys: |
-          ${{ runner.os }}-ultralight
+
+    # - name: Cache Ultralight installation
+    #   if: steps.cache-check.outputs.cache-hit == 'true'
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: /Users/runner/work/dreich/ultralight/SDK
+    #     key: ${{ runner.os }}-ultralight
+    #     restore-keys: |
+    #       ${{ runner.os }}-ultralight
