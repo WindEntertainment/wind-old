@@ -57,14 +57,14 @@ runs:
       with:
         run: 'brew install p7zip llvm cmake conan'
         path: 'brew --prefix'
-        cache: false
+        cache: yes
         key: '${{ runner.os }}-brew'
-        sudo: true
+        sudo: false
 
     - uses: tecolicom/actions-install-and-cache@v1
       if: env.os == 'windows-latest'
       with:
-        run: 'choco install make cmake llvm 7zip'
+        run: 'choco install make cmake llvm 7zip dotnet'
         path: 'C:\ProgramData\chocolatey\lib'
         cache: yes
         key: '${{ runner.os }}-choco'

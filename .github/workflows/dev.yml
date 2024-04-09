@@ -122,9 +122,9 @@ jobs:
           echo ${{ env.uiRoot }}
           echo ${{ env.scriptRoot }}
           echo ${{ env.engineRoot }}
+      - uses: ./.github/workflows/utils/setup-base-libs
       - name: Scripts
         uses: './.github/workflows/modules/scripts/test'
-      - uses: ./.github/workflows/utils/setup-base-libs
       - name: Engine
         uses: './.github/workflows/modules/engine/test'
 
@@ -205,8 +205,8 @@ jobs:
           echo ${{ env.engineRoot }}
       - name: UI
         uses: './.github/workflows/modules/ui/build'
+      - uses: ./.github/workflows/utils/setup-base-libs
       - name: Scripts
         uses: './.github/workflows/modules/scripts/build'
-      - uses: ./.github/workflows/utils/setup-base-libs
       - name: Engine
         uses: './.github/workflows/modules/engine/build'
