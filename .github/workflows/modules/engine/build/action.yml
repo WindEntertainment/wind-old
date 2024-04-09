@@ -46,12 +46,12 @@ runs:
         export CC=clang
         export CXX=clang++
 
-        # cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\a\dreich\dreich\build\Debug\generators\conan_toolchain.cmake" -S "D:\a\dreich\dreich" -B "D:\a\dreich\dreich\build\Debug"
-        # cmake --build "D:\a\dreich\dreich\build\Debug" --parallel 10 --target wind-asset-bundler
+        cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\a\dreich\dreich\build\Debug\generators\conan_toolchain.cmake" -S "D:\a\dreich\dreich" -B "D:\a\dreich\dreich\build\Debug"
+        cmake --build "D:\a\dreich\dreich\build\Debug" --parallel 10 --target wind-asset-bundler
 
-        # cd build/Debug/wind/asset-pipeline
-        # sudo make install
-        # wind-asset-bundler -h
+        cd build/Debug/wind/asset-pipeline
+        sudo make install
+        wind-asset-bundler -h
 
       shell: bash
 
