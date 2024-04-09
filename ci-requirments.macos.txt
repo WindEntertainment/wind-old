@@ -1,0 +1,4 @@
+p7zip
+llvm
+cmake
+conan

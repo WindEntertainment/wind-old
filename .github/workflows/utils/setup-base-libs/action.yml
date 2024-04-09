@@ -8,9 +8,8 @@ runs:
     - uses: actions/cache@v4
       if: env.os == 'ubuntu-latest'
       with:
-        key: ${{ runner.os }}-apt-store
-        path: |
-          /usr
+        key: ${{ runner.os }}-apt-store-${{ hashFiles('ci-requirments.linux.txt') }}
+        path: /var/cache/apt/archives
 
     - name: Install ultralight
       if: env.os == 'ubuntu-latest'
@@ -18,12 +17,8 @@ runs:
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           sudo apt-get update
-          sudo apt-get install p7zip-full
-          sudo apt-get install clang
-          sudo apt-get install build-essential
-          sudo apt-get install cmake
-          sudo apt-get install libxcb-util-dev libgl-dev libgl1-mesa-dev libx11-xcb-dev libfontenc-dev libxaw7-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxfixes-dev libxi-dev libxinerama-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxres-dev libxss-dev libxtst-dev libxv-dev libxxf86vm-dev libxcb-glx0-dev libxcb-render-util0-dev libxcb-xkb-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-dri3-dev libxcb-cursor-dev libxcb-dri2-0-dev libxcb-dri3-dev libxcb-present-dev libxcb-composite0-dev libxcb-ewmh-dev libxcb-res0-dev
-          # which p7zip-full
+          sudo apt-get install -y --no-install-recommends $(< ci-requirments.linux.txt)
+
           which clang
           which cmake
         else
@@ -49,12 +44,13 @@ runs:
     #     key: ${{ runner.os }}-brew
     #     restore-keys: |
     #       ${{ runner.os }}-brew
-    - uses: actions/cache@v4
-      if: env.os == 'macos-14'
-      with:
-        key: ${{ runner.os }}-brew-store
-        path: |
-          /opt/homebrew
+
+    # - uses: actions/cache@v4
+    #   if: env.os == 'macos-14'
+    #   with:
+    #     key: ${{ runner.os }}-brew-store
+    #     path: |
+    #       /opt/homebrew
 
     - name: Install packages with Homebrew
       if: env.os == 'macos-14' && steps.cache-check.outputs.cache-hit != 'true'
@@ -74,12 +70,12 @@ runs:
     #       /opt/homebrew/bin
     #     key: ${{ runner.os }}-brew
 
-    - uses: actions/cache@v4
-      if: env.os == 'windows-latest'
-      with:
-        key: ${{ runner.os }}-choco-store
-        path: |
-          C:\ProgramData
+    # - uses: actions/cache@v4
+    #   if: env.os == 'windows-latest'
+    #   with:
+    #     key: ${{ runner.os }}-choco-store
+    #     path: |
+    #       C:\ProgramData
 
     - name: Install ultralight
       if: env.os == 'windows-latest'

@@ -1,0 +1,4 @@
+make
+cmake
+llvm
+7zip
