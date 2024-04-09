@@ -23,24 +23,30 @@ runs:
           exit 1
         fi
 
-    - name: Check if cache exists
-      if: env.os == 'macos-14'
-      id: cache-check
-      uses: actions/cache@v4
-      with:
-        path: |
-          /opt/homebrew/bin
-        key: ${{ runner.os }}-brew
+    # - name: Check if cache exists
+    #   if: env.os == 'macos-14'
+    #   id: cache-check
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: |
+    #       /opt/homebrew/bin
+    #     key: ${{ runner.os }}-brew
 
-    - name: Restore cache
-      if: env.os == 'macos-14' && steps.cache-check.outputs.cache-hit == 'true'
-      uses: actions/cache@v4
+    # - name: Restore cache
+    #   if: env.os == 'macos-14' && steps.cache-check.outputs.cache-hit == 'true'
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: |
+    #       /opt/homebrew/bin
+    #     key: ${{ runner.os }}-brew
+    #     restore-keys: |
+    #       ${{ runner.os }}-brew
+    - uses: actions/cache@v4
+      if: env.os == 'macos-14'
       with:
+        key: ${{ runner.os }}-brew-store
         path: |
           /opt/homebrew/bin
-        key: ${{ runner.os }}-brew
-        restore-keys: |
-          ${{ runner.os }}-brew
 
     - name: Install packages with Homebrew
       if: env.os == 'macos-14' && steps.cache-check.outputs.cache-hit != 'true'
@@ -52,13 +58,20 @@ runs:
           brew install conan
           which cmake
 
-    - name: Save cache
-      if: env.os == 'macos-14'
-      uses: actions/cache@v4
+    # - name: Save cache
+    #   if: env.os == 'macos-14'
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: |
+    #       /opt/homebrew/bin
+    #     key: ${{ runner.os }}-brew
+
+    - uses: actions/cache@v4
+      if: env.os == 'windows-latest'
       with:
+        key: ${{ runner.os }}-choco-store
         path: |
-          /opt/homebrew/bin
-        key: ${{ runner.os }}-brew
+          C:\ProgramData
 
     - name: Install ultralight
       if: env.os == 'windows-latest'
