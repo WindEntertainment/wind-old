@@ -34,6 +34,8 @@ runs:
           cd build/Debug/wind/asset-pipeline
           sudo make install
           wind-asset-bundler -h
+          cd ../../../../game/assets
+          wind-asset-bundler --build ../.cache/
         else
           echo "$RUNNER_OS not supported"
           exit 1
