@@ -57,7 +57,7 @@ runs:
 
     - uses: tecolicom/actions-install-and-cache@v1
       with:
-        run: 'cd build/Debug/game/assets && wind-asset-bundler --build ../.cache/'
+        run: 'cd ${{ env.projectRoot }}/build/Debug/game/assets && wind-asset-bundler --build ../.cache/'
         path: ${{ env.projectRoot }}/build/Debug/game/.cache
         cache: yes
         key: '${{ runner.os }}-assets-manager'
