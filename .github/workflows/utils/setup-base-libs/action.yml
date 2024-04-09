@@ -72,8 +72,9 @@ runs:
       shell: bash
       if: env.os == 'macos-14'
       run: |
-        HOMEBREW_NO_AUTO_UPDATE=1
-        export HOMEBREW_NO_AUTO_UPDATE
+        echo 1
+        # HOMEBREW_NO_AUTO_UPDATE=1
+        # export HOMEBREW_NO_AUTO_UPDATE
 
     - name: Install Brew Packages
       shell: bash
