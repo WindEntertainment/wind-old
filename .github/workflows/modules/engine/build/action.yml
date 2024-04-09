@@ -61,7 +61,6 @@ runs:
         path: ${{ env.projectRoot }}/build/Debug/game/.cache
         cache: yes
         key: '${{ runner.os }}-assets-manager'
-        sudo: false
 
     - name: Install Linux staff
       if:  env.os == 'ubuntu-latest' || env.os == 'macos-14'
