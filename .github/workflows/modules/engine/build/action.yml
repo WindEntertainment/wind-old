@@ -27,11 +27,6 @@ runs:
           cd build/Debug/wind/asset-pipeline
           sudo make install
           wind-asset-bundler -h
-          cd ../../../../game/assets
-          wind-asset-bundler --build ../.cache/
-          cd ../../
-
-          cmake --build $(pwd)/build/Debug --parallel 10 --target game
         elif [ "$RUNNER_OS" == "macOS" ]; then
           /opt/homebrew/bin/cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/Debug/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/Debug
           /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target wind-asset-bundler
@@ -39,11 +34,6 @@ runs:
           cd build/Debug/wind/asset-pipeline
           sudo make install
           wind-asset-bundler -h
-          cd ../../../../game/assets
-          wind-asset-bundler --build ../.cache/
-          cd ../../
-
-          /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target game
         else
           echo "$RUNNER_OS not supported"
           exit 1
@@ -62,9 +52,38 @@ runs:
         # cd build/Debug/wind/asset-pipeline
         # sudo make install
         # wind-asset-bundler -h
-        # cd ../../../../game/assets
-        # wind-asset-bundler --build ../.cache/
-        # cd ../../
+
+      shell: bash
+
+    - uses: tecolicom/actions-install-and-cache@v1
+      with:
+        run: 'cd game/assets && wind-asset-bundler --build .cache/'
+        path: .cache
+        cache: yes
+        key: '${{ runner.os }}-assets-manager'
+        sudo: false
+
+    - name: Install Linux staff
+      if:  env.os == 'ubuntu-latest' || env.os == 'macos-14'
+      run:   |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          export CC=clang
+          export CXX=clang++
+
+          cmake --build $(pwd)/build/Debug --parallel 10 --target game
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          /opt/homebrew/bin/cmake --build $(pwd)/build/Debug --parallel 10 --target game
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
+        fi
+      shell: bash
+
+    - name: Install Linux staff
+      if: env.os == 'windows-latest'
+      run:   |
+        export CC=clang
+        export CXX=clang++
 
         # cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="D:\a\dreich\dreich\build\Debug\generators\conan_toolchain.cmake" -S "D:\a\dreich\dreich" -B "D:\a\dreich\dreich\build\Debug"
         # cmake --build "D:\a\dreich\dreich\build\Debug" --parallel 10 --target game
