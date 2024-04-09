@@ -54,7 +54,7 @@ runs:
         wind-asset-bundler -h
         # wind-asset-bundler --build ../.cache/
         cd ../../../../game/assets
-        wind-asset-bundler --build ../.cache/'
+        wind-asset-bundler --build ../.cache/
       shell: bash
 
     - uses: tecolicom/actions-install-and-cache@v1
