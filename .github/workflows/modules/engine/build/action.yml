@@ -52,13 +52,13 @@ runs:
         cd build/Debug/wind/asset-pipeline
         sudo make install
         wind-asset-bundler -h
-
+        # wind-asset-bundler --build ../.cache/
       shell: bash
 
     - uses: tecolicom/actions-install-and-cache@v1
       with:
-        run: 'cd game/assets && wind-asset-bundler --build ../.cache/'
-        path: ${{ env.projectRoot }}/game/.cache
+        run: 'cd build/Debug/game/assets && wind-asset-bundler --build ../.cache/'
+        path: ${{ env.projectRoot }}/build/Debug/game/.cache
         cache: yes
         key: '${{ runner.os }}-assets-manager'
         sudo: false
