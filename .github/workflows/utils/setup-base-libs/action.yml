@@ -52,16 +52,16 @@ runs:
     #     path: |
     #       /opt/homebrew
 
-    - name: Install packages with Homebrew
-    # && steps.cache-check.outputs.cache-hit != 'true'
-      if: env.os == 'macos-14'
-      shell: bash
-      run: |
-          brew install p7zip
-          brew install llvm
-          brew install cmake
-          brew install conan
-          which cmake
+    # - name: Install packages with Homebrew
+    # # && steps.cache-check.outputs.cache-hit != 'true'
+    #   if: env.os == 'macos-14'
+    #   shell: bash
+    #   run: |
+    #       brew install p7zip
+    #       brew install llvm
+    #       brew install cmake
+    #       brew install conan
+    #       which cmake
 
     - name: Setup Homebrew
       shell: bash
@@ -76,21 +76,21 @@ runs:
       run: |
         brew bundle --file=ci-requirements.macos.txt
 
-    - name: Cache Homebrew Packages
-      if: env.os == 'macos-14'
-      uses: actions/cache@v4
-      with:
-        path: /opt/homebrew/Homebrew/Library/Taps/homebrew/homebrew-core
-        key: ${{ runner.os }}-brew-store-packages-${{ hashFiles('ci-requirements.macos.txt') }}
-        restore-keys: ${{ runner.os }}-brew-store-packages-
+    # - name: Cache Homebrew Packages
+    #   if: env.os == 'macos-14'
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: /opt/homebrew/Homebrew/Library/Taps/homebrew/homebrew-core
+    #     key: ${{ runner.os }}-brew-store-packages-${{ hashFiles('ci-requirements.macos.txt') }}
+    #     restore-keys: ${{ runner.os }}-brew-store-packages-
 
-    - name: Cache Homebrew Formulae
-      if: env.os == 'macos-14'
-      uses: actions/cache@v4
-      with:
-        path: /opt/homebrew/Homebrew/Library/Taps/homebrew/homebrew-cask
-        key: ${{ runner.os }}-brew-store-formulae-${{ hashFiles('ci-requirements.macos.txt') }}
-        restore-keys: ${{ runner.os }}-brew-store-formulae-
+    # - name: Cache Homebrew Formulae
+    #   if: env.os == 'macos-14'
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: /opt/homebrew/Homebrew/Library/Taps/homebrew/homebrew-cask
+    #     key: ${{ runner.os }}-brew-store-formulae-${{ hashFiles('ci-requirements.macos.txt') }}
+    #     restore-keys: ${{ runner.os }}-brew-store-formulae-
 
     # - name: Save cache
     #   if: env.os == 'macos-14'
