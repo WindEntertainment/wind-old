@@ -164,16 +164,16 @@ runs:
     #     choco install llvm
     #     choco install 7zip
 
-    - name: Install Chocolatey Packages
-      if: env.os == 'windows-latest'
-      shell: powershell
-      run: |
-        choco install --package-parameters=@ci-requirements.windows.txt -y
+    # - name: Install Chocolatey Packages
+    #   if: env.os == 'windows-latest'
+    #   shell: powershell
+    #   run: |
+    #     choco install --package-parameters=@ci-requirements.windows.txt -y
 
-    - name: Cache Chocolatey Packages
-      uses: actions/cache@v4
-      if: env.os == 'windows-latest'
-      with:
-        path: C:\ProgramData\chocolatey\lib
-        key:  ${{ runner.os }}-choco-store-${{ hashFiles('ci-requirements.windows.txt') }}
-        restore-keys:  ${{ runner.os }}-choco-store-
+    # - name: Cache Chocolatey Packages
+    #   uses: actions/cache@v4
+    #   if: env.os == 'windows-latest'
+    #   with:
+    #     path: C:\ProgramData\chocolatey\lib
+    #     key:  ${{ runner.os }}-choco-store-${{ hashFiles('ci-requirements.windows.txt') }}
+    #     restore-keys:  ${{ runner.os }}-choco-store-
