@@ -2,5 +2,5 @@
 
 brew 'p7zip'
 brew 'llvm'
-cask 'cmake'
+brew 'cmake'
 brew 'conan'
