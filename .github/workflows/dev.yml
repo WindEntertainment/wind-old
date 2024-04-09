@@ -57,18 +57,18 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          # - {
-          #     name: 'Windows',
-          #     artifact: 'Windows.tar.xz',
-          #     os: windows-latest,
-          #     scriptBuildType: 'publish',
-          #     conanBuildType: 'Debug',
-          #     uiRoot: game/assets/UI,
-          #     scriptRoot: game/assets/scripts,
-          #     engineRoot: '/',
-          #     cc: 'clang',
-          #     cxx: 'clang++',
-          #   }
+          - {
+              name: 'Windows',
+              artifact: 'Windows.tar.xz',
+              os: windows-latest,
+              scriptBuildType: 'publish',
+              conanBuildType: 'Debug',
+              uiRoot: game/assets/UI,
+              scriptRoot: game/assets/scripts,
+              engineRoot: '/',
+              cc: 'clang',
+              cxx: 'clang++',
+            }
           - {
               name: 'Ubuntu',
               artifact: 'Linux.tar.xz',
