@@ -24,10 +24,3 @@ runs:
           echo "$RUNNER_OS not supported"
           exit 1
         fi
-
-    - name: Install .Net
-      if: env.os == 'windows-latest'
-      shell: powershell
-      run: |
-        choco install dotnet
-        dotnet --version

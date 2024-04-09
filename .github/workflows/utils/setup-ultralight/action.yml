@@ -37,10 +37,17 @@ runs:
     #     restore-keys: |
     #       ${{ runner.os }}-ultralight
 
+    - uses: actions/cache/restore@v3
+      id: restore-cache
+      with:
+        path: |
+          ${{ env.ULTRALIGHT_PATH }}
+        key: ${{ runner.os }}-ultralight
+
     - name: Install ultralight
       shell: bash
-      # steps.cache-check.outputs.cache-hit != 'true' &&
-      if: env.os != 'windows-latest'
+      #  &&
+      if: steps.restore-cache.outputs.cache-hit != 'true' && env.os != 'windows-latest'
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           cd ../
@@ -69,7 +76,7 @@ runs:
 
     - name: Install ultralight
     # // && steps.cache-check.outputs.cache-hit != 'true'
-      if:  env.os == 'windows-latest'
+      if: steps.restore-cache.outputs.cache-hit != 'true' && env.os == 'windows-latest'
       shell: powershell
       run: |
         cd ../
@@ -85,3 +92,9 @@ runs:
     #     path: |
     #       ${{ env.ULTRALIGHT_PATH }}
     #     key: ${{ runner.os }}-ultralight
+
+    - uses: actions/cache/save@v3
+      with:
+        path: |
+          ${{ env.ULTRALIGHT_PATH }}
+        key: ${{ runner.os }}-ultralight
