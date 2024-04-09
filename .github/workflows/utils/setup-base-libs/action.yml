@@ -4,6 +4,14 @@ description: Setup ultralight
 runs:
   using: 'composite'
   steps:
+
+    - uses: actions/cache@v4
+      if: env.os == 'ubuntu-latest'
+      with:
+        key: ${{ runner.os }}-apt-store
+        path: |
+          /usr
+
     - name: Install ultralight
       if: env.os == 'ubuntu-latest'
       shell: bash
@@ -46,7 +54,7 @@ runs:
       with:
         key: ${{ runner.os }}-brew-store
         path: |
-          /opt/homebrew/bin
+          /opt/homebrew
 
     - name: Install packages with Homebrew
       if: env.os == 'macos-14' && steps.cache-check.outputs.cache-hit != 'true'
