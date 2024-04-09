@@ -14,6 +14,11 @@ runs:
     - name: Setup ultralight
       uses: ./.github/workflows/modules/engine/setup-env
 
+    - uses: actions/cache/restore@v3
+      with:
+        path: ${{ env.projectRoot }}/dreich/game/.cache
+        key: ${{ runner.os }}-assets-manager
+
     - name: Install Linux staff
       if:  env.os == 'ubuntu-latest' || env.os == 'macos-14'
       run:   |
@@ -61,12 +66,15 @@ runs:
         wind-asset-bundler --build ../.cache/
       shell: bash
 
-    - uses: actions/cache@v4
-      name: Setup pnpm cache
+    # - uses: actions/cache@v4
+    #   name: Setup pnpm cache
+    #   with:
+    #     path: ${{ env.projectRoot }}/dreich/game/.cache
+    #     key: ${{ runner.os }}-assets-manager
+    - uses: actions/cache/save@v4
       with:
         path: ${{ env.projectRoot }}/dreich/game/.cache
         key: ${{ runner.os }}-assets-manager
-
 
     # - uses: tecolicom/actions-install-and-cache@v1
     #   with:
