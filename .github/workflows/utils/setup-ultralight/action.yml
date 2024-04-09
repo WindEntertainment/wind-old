@@ -18,28 +18,29 @@ runs:
           exit 1
         fi
 
-    - name: Check if cache exists
-      id: cache-check
-      uses: actions/cache@v4
-      with:
-        lookup-only: true
-        path: |
-          ${{ env.ULTRALIGHT_PATH }}
-        key: ${{ runner.os }}-ultralight
+    # - name: Check if cache exists
+    #   id: cache-check
+    #   uses: actions/cache@v4
+    #   with:
+    #     lookup-only: true
+    #     path: |
+    #       ${{ env.ULTRALIGHT_PATH }}
+    #     key: ${{ runner.os }}-ultralight
 
-    - name: Restore cache
-      if: steps.cache-check.outputs.cache-hit == 'true'
-      uses: actions/cache@v4
-      with:
-        path: |
-          ${{ env.ULTRALIGHT_PATH }}
-        key: ${{ runner.os }}-ultralight
-        restore-keys: |
-          ${{ runner.os }}-ultralight
+    # - name: Restore cache
+    #   if: steps.cache-check.outputs.cache-hit == 'true'
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: |
+    #       ${{ env.ULTRALIGHT_PATH }}
+    #     key: ${{ runner.os }}-ultralight
+    #     restore-keys: |
+    #       ${{ runner.os }}-ultralight
 
     - name: Install ultralight
       shell: bash
-      if: steps.cache-check.outputs.cache-hit != 'true' && env.os != 'windows-latest'
+      # steps.cache-check.outputs.cache-hit != 'true' &&
+      if: env.os != 'windows-latest'
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           cd ../
@@ -63,7 +64,8 @@ runs:
         fi
 
     - name: Install ultralight
-      if: steps.cache-check.outputs.cache-hit != 'true' && env.os == 'windows-latest'
+    # // && steps.cache-check.outputs.cache-hit != 'true'
+      if:  env.os == 'windows-latest'
       shell: powershell
       run: |
         cd ../
@@ -73,9 +75,9 @@ runs:
         Invoke-WebRequest -Uri https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-win-x64.7z -OutFile ultralight-sdk.7z
         7z x ultralight-sdk.7z -o"ultralight"
 
-    - name: Save cache
-      uses: actions/cache@v4
-      with:
-        path: |
-          ${{ env.ULTRALIGHT_PATH }}
-        key: ${{ runner.os }}-ultralight
+    # - name: Save cache
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: |
+    #       ${{ env.ULTRALIGHT_PATH }}
+    #     key: ${{ runner.os }}-ultralight
