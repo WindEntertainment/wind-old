@@ -57,7 +57,7 @@ runs:
       with:
         run: 'brew install p7zip llvm cmake conan'
         path: 'brew --prefix'
-        cache: yes
+        cache: false
         key: '${{ runner.os }}-brew'
         sudo: true
 
@@ -68,7 +68,7 @@ runs:
         path: 'C:\ProgramData\chocolatey\lib'
         cache: yes
         key: '${{ runner.os }}-choco'
-        sudo: true
+        sudo: false
 
         # verbose: true
 
