@@ -94,6 +94,7 @@ runs:
     #     key: ${{ runner.os }}-ultralight
 
     - uses: actions/cache/save@v3
+      if: steps.restore-cache.outputs.cache-hit != 'true'
       with:
         path: |
           ${{ env.ULTRALIGHT_PATH }}
