@@ -35,6 +35,7 @@ runs:
     #       ${{ env.ULTRALIGHT_PATH }}
     #     key: ${{ runner.os }}-ultralight
     #     restore-keys: |
+
     #       ${{ runner.os }}-ultralight
 
     - uses: actions/cache/restore@v3
@@ -46,7 +47,6 @@ runs:
 
     - name: Install ultralight
       shell: bash
-      #  &&
       if: steps.restore-cache.outputs.cache-hit != 'true' && env.os != 'windows-latest'
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
