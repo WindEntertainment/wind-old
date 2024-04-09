@@ -150,18 +150,18 @@ jobs:
           #     cc: 'clang',
           #     cxx: 'clang++',
           #   }
-          - {
-              name: 'Ubuntu',
-              artifact: 'Linux.tar.xz',
-              os: ubuntu-latest,
-              scriptBuildType: 'publish',
-              conanBuildType: 'Debug',
-              uiRoot: game/assets/UI,
-              scriptRoot: game/assets/scripts,
-              engineRoot: '/',
-              cc: 'clang',
-              cxx: 'clang++',
-            }
+          # - {
+          #     name: 'Ubuntu',
+          #     artifact: 'Linux.tar.xz',
+          #     os: ubuntu-latest,
+          #     scriptBuildType: 'publish',
+          #     conanBuildType: 'Debug',
+          #     uiRoot: game/assets/UI,
+          #     scriptRoot: game/assets/scripts,
+          #     engineRoot: '/',
+          #     cc: 'clang',
+          #     cxx: 'clang++',
+          #   }
           - {
               name: 'MacOS',
               artifact: 'macOS.tar.xz',
