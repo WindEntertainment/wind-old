@@ -21,6 +21,7 @@ jobs:
         shell: bash
         run: |
           echo "name=Ubuntu" >> $GITHUB_ENV
+          echo "projectRoot=/home/runner/work/dreich" >> $GITHUB_ENV
           echo "artifact=Linux.tar.xz" >> $GITHUB_ENV
           echo "os=ubuntu-latest" >> $GITHUB_ENV
           echo "scriptBuildType=publish" >> $GITHUB_ENV
@@ -59,6 +60,7 @@ jobs:
         config:
           # - {
           #     name: 'Windows',
+          #     projectRoot: 'C:\\\a\\\dreich',
           #     artifact: 'Windows.tar.xz',
           #     os: windows-latest,
           #     scriptBuildType: 'publish',
@@ -71,6 +73,7 @@ jobs:
           #   }
           - {
               name: 'Ubuntu',
+              projectRoot: '/home/runner/work/dreich',
               artifact: 'Linux.tar.xz',
               os: ubuntu-latest,
               scriptBuildType: 'publish',
@@ -83,6 +86,7 @@ jobs:
             }
           - {
               name: 'MacOS',
+              projectRoot: '/Users/runner/work/dreich',
               artifact: 'macOS.tar.xz',
               os: macos-14,
               scriptBuildType: 'publish',
@@ -140,6 +144,7 @@ jobs:
         config:
           # - {
           #     name: 'Windows',
+          #     projectRoot: 'C:\\\a\\\dreich',
           #     artifact: 'Windows.tar.xz',
           #     os: windows-latest,
           #     scriptBuildType: 'publish',
@@ -152,6 +157,7 @@ jobs:
           #   }
           - {
               name: 'Ubuntu',
+              projectRoot: '/home/runner/work/dreich',
               artifact: 'Linux.tar.xz',
               os: ubuntu-latest,
               scriptBuildType: 'publish',
@@ -164,6 +170,7 @@ jobs:
             }
           - {
               name: 'MacOS',
+              projectRoot: '/Users/runner/work/dreich',
               artifact: 'macOS.tar.xz',
               os: macos-14,
               scriptBuildType: 'publish',
