@@ -26,7 +26,7 @@ runs:
       if: env.os == 'windows-latest'
       with:
         run: 'choco install make cmake llvm 7zip dotnet'
-        path: 'C:/ProgramData/chocolatey/lib'
+        path: '/c/ProgramData/chocolatey/lib'
         cache: yes
         key: '${{ runner.os }}-choco'
         sudo: false
