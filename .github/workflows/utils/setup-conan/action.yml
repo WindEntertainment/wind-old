@@ -5,7 +5,7 @@ runs:
   using: 'composite'
   steps:
     - name: Install conan
-      if:  env.os != 'macos-14'
+      if:  env.os == 'ubuntu-latest'
       uses: turtlebrowser/get-conan@main
       with:
         version: 2.1.0

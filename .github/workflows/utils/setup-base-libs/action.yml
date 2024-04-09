@@ -64,7 +64,7 @@ runs:
     - uses: tecolicom/actions-install-and-cache@v1
       if: env.os == 'windows-latest'
       with:
-        run: 'choco install make cmake llvm 7zip dotnet'
+        run: 'choco install make cmake llvm 7zip dotnet conan'
         path: 'C:\ProgramData\chocolatey\lib'
         cache: yes
         key: '${{ runner.os }}-choco'
