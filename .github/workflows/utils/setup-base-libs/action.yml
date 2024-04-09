@@ -4,6 +4,11 @@ description: Setup ultralight
 runs:
   using: 'composite'
   steps:
+    - name: Install ultralight
+      if: env.os == 'ubuntu-latest'
+      shell: bash
+      run: |
+        sudo chown -R $(whoami) /var/cache/apt/archives
 
     - uses: actions/cache@v4
       if: env.os == 'ubuntu-latest'
