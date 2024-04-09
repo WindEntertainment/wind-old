@@ -106,6 +106,7 @@ jobs:
   #       shell: bash
   #       run: |
   #         echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
+        #   echo "projectRoot=${{ matrix.config.projectRoot }}" >> $GITHUB_ENV
   #         echo "artifact=${{ matrix.config.artifact }}" >> $GITHUB_ENV
   #         echo "os=${{ matrix.config.os }}" >> $GITHUB_ENV
   #         echo "scriptBuildType=${{ matrix.config.scriptBuildType }}" >> $GITHUB_ENV
@@ -190,6 +191,7 @@ jobs:
         shell: bash
         run: |
           echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
+          echo "projectRoot=${{ matrix.config.projectRoot }}" >> $GITHUB_ENV
           echo "artifact=${{ matrix.config.artifact }}" >> $GITHUB_ENV
           echo "os=${{ matrix.config.os }}" >> $GITHUB_ENV
           echo "scriptBuildType=${{ matrix.config.scriptBuildType }}" >> $GITHUB_ENV
