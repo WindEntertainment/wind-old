@@ -56,7 +56,7 @@ runs:
       if: env.os == 'macos-14'
       with:
         run: 'brew install p7zip llvm cmake conan'
-        path: 'brew --prefix'
+        path: $(brew --prefix)
         cache: yes
         key: '${{ runner.os }}-brew'
         sudo: false
