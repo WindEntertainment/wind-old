@@ -1,0 +1,6 @@
+# Brewfile
+
+brew 'p7zip'
+brew 'llvm'
+brew 'cmake'
+brew 'conan'

@@ -8,7 +8,7 @@ runs:
     - uses: actions/cache@v4
       if: env.os == 'ubuntu-latest'
       with:
-        key: ${{ runner.os }}-apt-store-${{ hashFiles('ci-requirments.linux.txt') }}
+        key: ${{ runner.os }}-apt-store-${{ hashFiles('ci-requirements.linux.txt') }}
         path: /var/cache/apt/archives
 
     - name: Install ultralight
@@ -17,7 +17,7 @@ runs:
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends $(< ci-requirments.linux.txt)
+          sudo apt-get install -y --no-install-recommends $(< ci-requirements.linux.txt)
 
           which clang
           which cmake
@@ -53,7 +53,8 @@ runs:
     #       /opt/homebrew
 
     - name: Install packages with Homebrew
-      if: env.os == 'macos-14' && steps.cache-check.outputs.cache-hit != 'true'
+    # && steps.cache-check.outputs.cache-hit != 'true'
+      if: env.os == 'macos-14'
       shell: bash
       run: |
           brew install p7zip
@@ -61,6 +62,35 @@ runs:
           brew install cmake
           brew install conan
           which cmake
+
+    - name: Setup Homebrew
+      shell: bash
+      if: env.os == 'macos-14'
+      run: |
+        HOMEBREW_NO_AUTO_UPDATE=1
+        export HOMEBREW_NO_AUTO_UPDATE
+
+    - name: Install Brew Packages
+      shell: bash
+      if: env.os == 'macos-14'
+      run: |
+        brew bundle --file=ci-requirements.macos.txt
+
+    - name: Cache Homebrew Packages
+      if: env.os == 'macos-14'
+      uses: actions/cache@v4
+      with:
+        path: /opt/homebrew/Homebrew/Library/Taps/homebrew/homebrew-core
+        key: ${{ runner.os }}-brew-store-packages-${{ hashFiles('ci-requirements.macos.txt') }}
+        restore-keys: ${{ runner.os }}-brew-store-packages-
+
+    - name: Cache Homebrew Formulae
+      if: env.os == 'macos-14'
+      uses: actions/cache@v4
+      with:
+        path: /opt/homebrew/Homebrew/Library/Taps/homebrew/homebrew-cask
+        key: ${{ runner.os }}-brew-store-formulae-${{ hashFiles('ci-requirements.macos.txt') }}
+        restore-keys: ${{ runner.os }}-brew-store-formulae-
 
     # - name: Save cache
     #   if: env.os == 'macos-14'
@@ -77,11 +107,25 @@ runs:
     #     path: |
     #       C:\ProgramData
 
-    - name: Install ultralight
+    # - name: Install ultralight
+    #   if: env.os == 'windows-latest'
+    #   shell: powershell
+    #   run: |
+    #     choco install make
+    #     choco install cmake
+    #     choco install llvm
+    #     choco install 7zip
+
+    - name: Install Chocolatey Packages
       if: env.os == 'windows-latest'
       shell: powershell
       run: |
-        choco install make
-        choco install cmake
-        choco install llvm
-        choco install 7zip
+        choco install --package-parameters=@ci-requirements.windows.txt -y
+
+    - name: Cache Chocolatey Packages
+      uses: actions/cache@v4
+      if: env.os == 'windows-latest'
+      with:
+        path: C:\ProgramData\chocolatey\lib
+        key:  ${{ runner.os }}-choco-store-${{ hashFiles('ci-requirements.windows.txt') }}
+        restore-keys:  ${{ runner.os }}-choco-store-
