@@ -8,11 +8,11 @@ runs:
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          echo "ULTRALIGHT_PATH=/home/runner/work/dreich/ultralight" >> $GITHUB_ENV
+          echo "ULTRALIGHT_PATH={{ env.projectRoot }}/ultralight" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          echo "ULTRALIGHT_PATH=C:\\\a\\\dreich\\\ultralight" >> $GITHUB_ENV
+          echo "ULTRALIGHT_PATH={{ env.projectRoot }}\\\ultralight" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          echo "ULTRALIGHT_PATH=/Users/runner/work/dreich/ultralight/SDK" >> $GITHUB_ENV
+          echo "ULTRALIGHT_PATH={{ env.projectRoot }}/ultralight/SDK" >> $GITHUB_ENV
         else
           echo "$RUNNER_OS not supported"
           exit 1
