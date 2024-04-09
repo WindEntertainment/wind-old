@@ -57,11 +57,18 @@ runs:
         wind-asset-bundler --build ../.cache/
       shell: bash
 
-    - uses: tecolicom/actions-install-and-cache@v1
+    - uses: actions/cache@v4
+      name: Setup pnpm cache
       with:
         path: ${{ env.projectRoot }}/dreich/game/.cache
-        cache: yes
-        key: '${{ runner.os }}-assets-manager'
+        key: ${{ runner.os }}-assets-manager
+
+
+    # - uses: tecolicom/actions-install-and-cache@v1
+    #   with:
+    #     path: ${{ env.projectRoot }}/dreich/game/.cache
+    #     cache: yes
+    #     key: '${{ runner.os }}-assets-manager'
 
     - name: Install Linux staff
       if:  env.os == 'ubuntu-latest' || env.os == 'macos-14'
