@@ -303,7 +303,7 @@ void AssetPipeline::setConfig(const fs::path& _importConfigPath) {
   YAML::Node importConfigRoot;
 
   try {
-    importConfigRoot = YAML::LoadFile(_importConfigPath);
+    importConfigRoot = YAML::LoadFile(_importConfigPath.c_str());
   } catch (YAML::ParserException& ex) {
     spdlog::error("{}, {}", _importConfigPath.string(), ex.what());
     return;
