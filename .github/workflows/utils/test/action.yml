@@ -96,6 +96,7 @@ runs:
       if: steps.cache.outputs.cache-hit != 'true'
       uses: tecolicom/actions-install-and-archive@v1
       with:
-        run:     ${{ echo Here }}
+        run:     ${{ inputs.run }}
+        sudo: false
         archive: ${{ steps.setup.outputs.archive }}
         path:    ${{ inputs.path }}
