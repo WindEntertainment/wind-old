@@ -58,19 +58,19 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          # - {
-          #     name: 'Windows',
-          #     projectRoot: 'C:\\\a\\\dreich',
-          #     artifact: 'Windows.tar.xz',
-          #     os: windows-latest,
-          #     scriptBuildType: 'publish',
-          #     conanBuildType: 'Debug',
-          #     uiRoot: game/assets/UI,
-          #     scriptRoot: game/assets/scripts,
-          #     engineRoot: '/',
-          #     cc: 'clang',
-          #     cxx: 'clang++',
-          #   }
+          - {
+              name: 'Windows',
+              projectRoot: 'C:\\\a\\\dreich',
+              artifact: 'Windows.tar.xz',
+              os: windows-latest,
+              scriptBuildType: 'publish',
+              conanBuildType: 'Debug',
+              uiRoot: game/assets/UI,
+              scriptRoot: game/assets/scripts,
+              engineRoot: '/',
+              cc: 'clang',
+              cxx: 'clang++',
+            }
           - {
               name: 'Ubuntu',
               projectRoot: '/home/runner/work/dreich',
