@@ -32,7 +32,7 @@ runs:
     - uses: ./.github/workflows/utils/test
       if: env.os == 'windows-latest'
       with:
-        run: 'echo 1'
+        run: 'echo here'
         path: C:\ProgramData\chocolatey\lib
         cache: yes
         key: ${{ runner.os }}-choco
