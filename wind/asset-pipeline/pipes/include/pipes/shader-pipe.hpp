@@ -54,14 +54,14 @@ public:
     // =====================================================//
     // Compress file content
 
-    const size_t vtxSize = strlen(vtxShader) + 1;
+    const uLong vtxSize = strlen(vtxShader) + 1;
 
-    size_t vtxZippedSize = compressBound(vtxSize);
+    uLongf vtxZippedSize = compressBound(vtxSize);
     char vtxZipped[vtxZippedSize];
 
-    const size_t fgtSize = strlen(fgtShader) + 1;
+    const uLong fgtSize = strlen(fgtShader) + 1;
 
-    size_t fgtZippedSize = compressBound(fgtSize);
+    uLongf fgtZippedSize = compressBound(fgtSize);
     char fgtZipped[fgtZippedSize];
 
     // vtx
