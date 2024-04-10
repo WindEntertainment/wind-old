@@ -94,7 +94,7 @@ runs:
 
     - id: install-and-archive
       if: steps.cache.outputs.cache-hit != 'true'
-      uses: tecolicom/actions-install-and-archive@v1
+      uses: ./.github/workflows/utils/tz
       with:
         run:     ${{ inputs.run }}
         sudo: false

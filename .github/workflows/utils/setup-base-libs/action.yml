@@ -44,14 +44,14 @@ runs:
       run: |
         choco install make cmake llvm 7zip dotnet
 
-    - uses: ./.github/workflows/utils/test
-      if: env.os == 'windows-latest'
-      with:
-        run: 'echo 1'
-        path: C:\ProgramData\chocolatey\lib
-        cache: yes
-        key: ${{ runner.os }}-choco
-        sudo: false
+    # - uses: ./.github/workflows/utils/test
+    #   if: env.os == 'windows-latest'
+    #   with:
+    #     run: 'echo 1'
+    #     path: C:\ProgramData\chocolatey\lib
+    #     cache: yes
+    #     key: ${{ runner.os }}-choco
+    #     sudo: false
 
     # - uses: tecolicom/actions-install-and-cache@v1
     #   if: env.os == 'windows-latest'
