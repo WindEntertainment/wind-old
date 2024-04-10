@@ -41,9 +41,11 @@ runs:
         ${{ inputs.run }}
         EOS_cad8_c24e_
         directory="${{ inputs.path }}"
+        echo $directory
         if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
           directory=$(cygpath -u "$directory")
         fi
+        echo $directory
         given_key="${{ inputs.key }}"
         archive= key=
         case "${{ inputs.cache }}" in
