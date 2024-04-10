@@ -28,10 +28,10 @@ public:
       fileContent = buffer.str();
     }
 
-    size_t zippedSize = compressBound(fileContent.size());
+    uLongf zippedSize = compressBound(fileContent.size());
     char* zipped = new char[zippedSize];
 
-    auto result = compress(reinterpret_cast<Bytef*>(zipped), &zippedSize, reinterpret_cast<const Bytef*>(fileContent.c_str()), fileContent.size());
+    auto result = compress(reinterpret_cast<Bytef*>(zipped), &zippedSize, reinterpret_cast<const Bytef*>(fileContent.c_str()), static_cast<uLong>(fileContent.size()));
     if (result != Z_OK) {
       spdlog::error("Cannot compress data");
       return;
@@ -65,7 +65,7 @@ public:
     uLongf orgSizeT = (uLongf)orgSize;
     auto unzipData = new unsigned char[orgSize];
 
-    auto rc = uncompress(unzipData, &orgSizeT, zipData, (uLongf)zipSize);
+    auto rc = uncompress(unzipData, &orgSizeT, zipData, (uLong)zipSize);
     if (rc != Z_OK)
       throw std::invalid_argument("Failed uncompress data");
 

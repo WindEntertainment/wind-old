@@ -17,11 +17,11 @@ class ImagePipe : public AssetPipe {
 public:
 #ifdef WIND_PIPE_WRITE
   void compile(const fs::path& _source,
-               const fs::path& _destination) override {
+    const fs::path& _destination) override {
     int width, height, channels;
 
     unsigned char* image =
-        stbi_load(_source.string().c_str(), &width, &height, &channels, 0);
+      stbi_load(_source.string().c_str(), &width, &height, &channels, 0);
     if (image == nullptr) {
       spdlog::error("Cannot load image by path {}", _source.string());
       return;
@@ -39,9 +39,9 @@ public:
     output.write(reinterpret_cast<char*>(&height), sizeof(int));
     output.write(reinterpret_cast<char*>(&channels), sizeof(int));
 
-    const size_t fileSize = width * height * channels + 1;
+    const uLong fileSize = width * height * channels + 1;
 
-    size_t zippedSize = compressBound(fileSize);
+    uLongf zippedSize = compressBound(fileSize);
     char zipped[zippedSize];
 
     auto result = compress(reinterpret_cast<Bytef*>(zipped), &zippedSize, reinterpret_cast<const Bytef*>(image), fileSize);
