@@ -71,7 +71,7 @@ runs:
                 [ -e "$path" ] || continue
                 echo "$path:"
                 # require sudo to avoid permission error
-                time sudo \
+                time \
                 find $path \
                     -not -type d \( -cnewer $epoch -o -newer $epoch \) -print \
                     | tee -a $list \
