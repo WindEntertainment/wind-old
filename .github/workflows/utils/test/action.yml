@@ -36,6 +36,9 @@ runs:
       shell: bash
       run: |
         : setup install-and-cache
+        if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+          directory=$(cygpath -u "$directory")
+        fi
         define() { IFS='\n' read -r -d '' ${1} || true ; }
         define script <<'EOS_cad8_c24e_'
         ${{ inputs.run }}
