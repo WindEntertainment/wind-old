@@ -1,0 +1,101 @@
+name: Setup ultralight
+description: Setup ultralight
+
+inputs:
+  run:
+    required: true
+    description: Setup ultralight
+  path:
+    required: true
+    description: Setup ultralight
+  cache:
+    required: false
+    description: Setup ultralight
+    default: yes
+  key:
+    required: false
+    description: Setup ultralight
+  sudo:
+    required: false
+    description: Setup ultralight
+  verbose:
+    required: false
+    description: Setup ultralight
+    default: false
+
+outputs:
+  cache-hit:
+    description: Setup ultralight
+    value: ${{ steps.cache.outputs.cache-hit }}
+
+runs:
+  using: composite
+  steps:
+
+    - id: setup
+      shell: bash
+      run: |
+        : setup install-and-cache
+        define() { IFS='\n' read -r -d '' ${1} || true ; }
+        define script <<'EOS_cad8_c24e_'
+        ${{ inputs.run }}
+        EOS_cad8_c24e_
+        directory="${{ inputs.path }}"
+        given_key="${{ inputs.key }}"
+        archive= key=
+        case "${{ inputs.cache }}" in
+            yes|workflow)
+                cache="${{ inputs.cache }}"
+                uname -mrs
+                hash=$( (uname -mrs ; cat <<< "$script" ; echo $directory) | \
+                        (md5sum||md5) | awk '{print $1}' )
+                key="${hash}${given_key:+-$given_key}"
+                [ "$cache" == 'workflow' ] && \
+                    key="$key-${{ github.run_id }}-${{ github.run_attempt }}"
+                archive=$HOME/archive-$hash.tz
+                ;;
+            *)
+                cache=no
+                ;;
+        esac
+        sed 's/^ *//' << END >> $GITHUB_OUTPUT
+            cache=$cache
+            archive=$archive
+            key=$key
+        END
+
+    - id: cache
+      if: steps.setup.outputs.cache != 'no'
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.setup.outputs.archive }}
+        key:  ${{ steps.setup.outputs.key }}
+
+    - id: extract
+      if: steps.setup.outputs.cache != 'no' && steps.cache.outputs.cache-hit == 'true'
+      shell: bash
+      run: |
+        : extract
+        archive="${{ steps.setup.outputs.archive }}"
+        verbose="${{ inputs.verbose }}"
+        [ "${{ inputs.sudo }}" = true ] && sudo=sudo
+        ls -l $archive
+        if [ -s $archive ]
+        then
+            if [ "$verbose" = true ]
+            then
+                tar -tvzf $archive
+            fi
+            $sudo tar -C / -P -xvzf $archive
+        else
+            echo "$archive is empty"
+        fi
+
+    - id: install-and-archive
+      if: steps.cache.outputs.cache-hit != 'true'
+      uses: tecolicom/actions-install-and-archive@v1
+      with:
+        run:     ${{ inputs.run }}
+        archive: ${{ steps.setup.outputs.archive }}
+        path:    ${{ inputs.path }}
+        sudo:    ${{ inputs.sudo }}
