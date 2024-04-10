@@ -304,7 +304,7 @@ void AssetPipeline::setConfig(const fs::path& _importConfigPath) {
 
   try {
 #ifdef _WIN32
-    importConfigRoot = YAML::LoadFile(stringToWindowsString(_importConfigPath.c_str()));
+    importConfigRoot = YAML::LoadFile(_importConfigPath.c_str());
 #else
     importConfigRoot = YAML::LoadFile(_importConfigPath);
 #endif
