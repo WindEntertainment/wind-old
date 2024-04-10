@@ -23,11 +23,11 @@ runs:
         sudo: false
 
 
-    - uses: actions/cache/restore@v4
-      if: env.os == 'windows-latest'
-      with:
-        path: C:\ProgramData\chocolatey\lib
-        key: ${{ runner.os }}-choco
+    # - uses: actions/cache/restore@v4
+    #   if: env.os == 'windows-latest'
+    #   with:
+    #     path: C:\ProgramData\chocolatey\lib
+    #     key: ${{ runner.os }}-choco
 
     - name: test
       if: env.os == 'windows-latest'
@@ -35,11 +35,20 @@ runs:
       run: |
         choco install make cmake llvm 7zip dotnet
 
-    - uses: actions/cache/save@v4
+    - uses: tecolicom/actions-install-and-cache@v1
       if: env.os == 'windows-latest'
       with:
+        run: 'echo 1'
         path: C:\ProgramData\chocolatey\lib
+        cache: yes
         key: ${{ runner.os }}-choco
+        sudo: false
+
+    # - uses: actions/cache/save@v4
+    #   if: env.os == 'windows-latest'
+    #   with:
+    #     path: C:\ProgramData\chocolatey\lib
+    #     key: ${{ runner.os }}-choco
 
 
     # - uses: tecolicom/actions-install-and-cache@v1
