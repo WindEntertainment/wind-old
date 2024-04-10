@@ -29,14 +29,14 @@ runs:
     #     path: C:\ProgramData\chocolatey\lib
     #     key: ${{ runner.os }}-choco
 
-    - uses: ./.github/workflows/utils/test
-      if: env.os == 'windows-latest'
-      with:
-        run: 'echo here'
-        path: /c/ProgramData/chocolatey/lib
-        cache: yes
-        key: ${{ runner.os }}-choco
-        sudo: false
+    # - uses: ./.github/workflows/utils/test
+    #   if: env.os == 'windows-latest'
+    #   with:
+    #     run: 'echo here'
+    #     path: /c/ProgramData/chocolatey/lib
+    #     cache: yes
+    #     key: ${{ runner.os }}-choco
+    #     sudo: false
 
     - name: test
       if: env.os == 'windows-latest'
