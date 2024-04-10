@@ -33,7 +33,7 @@ runs:
       if: env.os == 'windows-latest'
       with:
         run: 'echo here'
-        path: C:\ProgramData\chocolatey\lib
+        path: /c/ProgramData/chocolatey/lib
         cache: yes
         key: ${{ runner.os }}-choco
         sudo: false
