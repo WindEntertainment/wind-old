@@ -79,7 +79,6 @@ runs:
         : extract
         archive="${{ steps.setup.outputs.archive }}"
         verbose="${{ inputs.verbose }}"
-        [ "${{ inputs.sudo }}" = true ] && sudo=sudo
         ls -l $archive
         if [ -s $archive ]
         then
@@ -87,7 +86,7 @@ runs:
             then
                 tar -tvzf $archive
             fi
-            $sudo tar -C / -P -xvzf $archive
+            tar -C / -P -xvzf $archive
         else
             echo "$archive is empty"
         fi
@@ -99,4 +98,3 @@ runs:
         run:     ${{ inputs.run }}
         archive: ${{ steps.setup.outputs.archive }}
         path:    ${{ inputs.path }}
-        sudo:    ${{ inputs.sudo }}
