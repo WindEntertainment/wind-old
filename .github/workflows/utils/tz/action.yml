@@ -57,6 +57,7 @@ runs:
         archive="${{ inputs.archive }}"
         list=${{ inputs.list }}
         verbose="${{ inputs.verbose }}"
+        innerSudo=$(command -v sudo &>/dev/null && echo "sudo" || echo "")
         paths="${{ inputs.path }}"
         : ${epoch:?} ${archive:?} ${paths:?}
         [ "$verbose" = true ] && set -x
@@ -71,7 +72,7 @@ runs:
                 [ -e "$path" ] || continue
                 echo "$path:"
                 # require sudo to avoid permission error
-                time \
+                time $innerSudo \
                 find $path \
                     -not -type d \( -cnewer $epoch -o -newer $epoch \) -print \
                     | tee -a $list \
