@@ -64,7 +64,7 @@ void AssetPipeline::compileDirectory(const fs::path& _source,
 
     YAML::Node config;
     try {
-      config = YAML::LoadFile(configPath);
+      config = YAML::LoadFile(configPath.string());
       spdlog::info("Start processing directory: '{}'", _path.string());
     } catch (std::exception& ex) {
       spdlog::error("Failed open export config: {}", _path.string());
@@ -303,11 +303,7 @@ void AssetPipeline::setConfig(const fs::path& _importConfigPath) {
   YAML::Node importConfigRoot;
 
   try {
-#ifdef _WIN32
-    importConfigRoot = YAML::LoadFile(_importConfigPath.wstring());
-#else
-    importConfigRoot = YAML::LoadFile(_importConfigPath.w);
-#endif
+    importConfigRoot = YAML::LoadFile(_importConfigPath.string());
   } catch (YAML::ParserException& ex) {
     spdlog::error("{}, {}", _importConfigPath.string(), ex.what());
     return;
