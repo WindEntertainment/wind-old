@@ -218,7 +218,7 @@ jobs:
           # echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
           # echo "cc=${{ matrix.config.cc }}" >> $GITHUB_ENV
           # echo "cxx=${{ matrix.config.cxx }}" >> $GITHUB_ENV
-          for key in $(echo "${!matrix_config[@]}"); do
+          for key in $(echo "${!matrix.config[@]}"); do
               echo "${key}=${matrix_config[$key]}" >> $GITHUB_ENV
           done
 
