@@ -21,7 +21,7 @@
   "editor.formatOnType": false,
   "i18n-ally.keystyle": "nested",
   "i18n-ally.enabledFrameworks": ["i18next"],
-  "i18n-ally.localesPaths": ["./game/assets/UI/public/translations"],
+  "i18n-ally.localesPaths": ["./game/data/main/UI/public/translations"],
   "i18n-ally.sourceLanguage": "en",
   "cSpell.words": [
     "choco",
