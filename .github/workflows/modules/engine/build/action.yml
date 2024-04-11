@@ -17,7 +17,7 @@ runs:
       uses: ./.github/workflows/modules/engine/setup-env
 
     - name: Prepare assets
-      uses: ./.github/workflows/modules/engine/setup-env
+      uses: ./.github/workflows/modules/engine/assets
 
     - name: Build game
       run:   |
