@@ -1,7 +1,5 @@
 #pragma once
 #include "includes.h"
-#include <codecvt>
-#include <locale>
 
 namespace wind {
 
@@ -26,19 +24,7 @@ void verify(auto value) {
     throw new Error();
 }
 
-// static auto forEach = std::ranges::for_each;
-template <typename Range, typename Func>
-static auto forEach(const Range& range, Func func) {
-  std::for_each(std::begin(range), std::end(range), func);
-}
-
-#ifdef _WIN32
-static auto stringToWindowsString(std::string input) {
-  std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>, wchar_t> converter;
-  std::wstring wide_string = converter.from_bytes(input);
-  return wide_string;
-}
-#endif
+static auto forEach = std::ranges::for_each;
 
 class Stopwatch {
 public:
