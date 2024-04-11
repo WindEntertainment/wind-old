@@ -10,7 +10,7 @@ runs:
       run: |
         wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
         chmod +x ./dotnet-install.sh
-        ./dotnet-install.sh --version 8.0.3
+        ./dotnet-install.sh --version 8
 
     - name: Set DOTNET_PATH
       shell: bash
