@@ -207,7 +207,7 @@ jobs:
       - name: Add env
         shell: bash
         run: |
-          json='{"key1": "value1", "key2": "value2", "key3": "value3"}'
+          json='${{ toJSON(matrix.config) }}'
 
           # Iterate over key-value pairs
           jq -r 'to_entries[] | "\(.key)=\(.value)"' <<< "$json" | while IFS='=' read -r key value; do
