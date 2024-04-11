@@ -8,7 +8,7 @@ runs:
       uses: DoozyX/clang-format-lint-action@v0.17
       with:
         source: '.'
-        exclude: './game/assets'
+        exclude: './game/data'
         extensions: 'h,cpp'
         clangFormatVersion: 17
         inplace: true
