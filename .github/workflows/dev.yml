@@ -207,22 +207,8 @@ jobs:
       - name: Add env
         shell: bash
         run: |
-          # echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
-          # echo "projectRoot=${{ matrix.config.projectRoot }}" >> $GITHUB_ENV
-          # echo "artifact=${{ matrix.config.artifact }}" >> $GITHUB_ENV
-          # echo "os=${{ matrix.config.os }}" >> $GITHUB_ENV
-          # echo "scriptBuildType=${{ matrix.config.scriptBuildType }}" >> $GITHUB_ENV
-          # echo "engineBuildType=${{ matrix.config.engineBuildType }}" >> $GITHUB_ENV
-          # echo "uiRoot=${{ matrix.config.uiRoot }}" >> $GITHUB_ENV
-          # echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
-          # echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
-          # echo "cc=${{ matrix.config.cc }}" >> $GITHUB_ENV
-          # echo "cxx=${{ matrix.config.cxx }}" >> $GITHUB_ENV
           config=${{ toJSON(matrix.config) }}
-          echo config
-          # for key in name projectRoot artifact os scriptBuildType engineBuildType uiRoot scriptRoot engineRoot cc cxx; do
-          #     echo "${key}=${{ matrix.config[$key] }}" >> $GITHUB_ENV
-          # done
+          echo config=
 
       - name: List env
         shell: bash
