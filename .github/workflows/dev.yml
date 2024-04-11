@@ -207,15 +207,12 @@ jobs:
       - name: Add env
         shell: bash
         run: |
-          json='{"key1": "value1", "key2": "value2", "key3": "value3"}'
-          # Extract key-value pairs and append to GitHub environment file
-          echo "$json" | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> $GITHUB_ENV
-
+          echo "${{ toJSON(matrix.config) }}" | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> $GITHUB_ENV
 
       - name: List env
         shell: bash
         run: |
-          echo ${{ env.name }}
+          echo ${{ env.key1 }}
       - name: UI
         uses: './.github/workflows/modules/ui/build'
       - uses: ./.github/workflows/utils/setup-base-libs
