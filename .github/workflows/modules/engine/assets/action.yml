@@ -29,16 +29,16 @@ runs:
 
     - uses: actions/cache/restore@v4
       with:
-        path: ${{ env.projectRoot }}/dreich/game/.cache
+        path: ${{ env.projectRoot }}/dreich/game/data
         key: ${{ runner.os }}-assets-manager
 
     - name: Build assets
       run:   |
         cd game/assets
-        wind-asset-bundler --build ../.cache/
+        wind-asset-bundler -b main
       shell: bash
 
     - uses: actions/cache/save@v4
       with:
-        path: ${{ env.projectRoot }}/dreich/game/.cache
+        path: ${{ env.projectRoot }}/dreich/game/data
         key: ${{ runner.os }}-assets-manager
