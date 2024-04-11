@@ -6,7 +6,7 @@ runs:
   steps:
     - name: here
       shell: bash
-      run: ls -a
+      run: pwd
     - name: Install dependencies
       shell: bash
       run: cd ${{ env.uiRoot }} && pnpm install
