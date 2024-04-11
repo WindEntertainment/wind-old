@@ -12,6 +12,9 @@ runs:
         echo 'DOTNET_ROOT=${{ env.DOTNET_PATH }}' >> .env
 
         if [ "$RUNNER_OS" == "Linux" ]; then
+          ls -a ${{ env.DOTNET_PATH }}/packs
+          ls -a ${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64
+          ls -a ${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/8.0.4
           ls -a ${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/8.0.4/runtimes
           ls -a ${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/8.0.4/runtimes/linux-x64
           ls -a ${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/8.0.4/runtimes/linux-x64/native
