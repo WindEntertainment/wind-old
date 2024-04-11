@@ -1,15 +1,11 @@
 #pragma once
 #include "includes.h"
 
-#ifndef __APPLE__
-#include <bits/ranges_algo.h>
-#endif
-
-#include <ranges>
-
 namespace wind {
 
 namespace chrono = std::chrono;
+
+using uint = unsigned int;
 
 template <typename C, typename T>
 concept Container = requires(C c, T t) {
@@ -31,7 +27,11 @@ void verify(auto value) {
     throw new Error();
 }
 
-static auto forEach = std::ranges::for_each;
+// static auto forEach = std::ranges::for_each;
+template <typename Range, typename Func>
+static auto forEach(const Range& range, Func func) {
+  std::for_each(std::begin(range), std::end(range), func);
+}
 
 class Stopwatch {
 public:
