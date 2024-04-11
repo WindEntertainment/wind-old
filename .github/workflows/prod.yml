@@ -18,31 +18,10 @@ jobs:
   #       uses: actions/checkout@v4
   #       with:
   #         fetch-depth: 0
-  #     - name: Add env
-  #       shell: bash
-  #       run: |
-  #         echo "name=Ubuntu" >> $GITHUB_ENV
-  #         echo "projectRoot=/home/runner/work/dreich" >> $GITHUB_ENV
-  #         echo "artifact=linux.tar.xz" >> $GITHUB_ENV
-  #         echo "os=ubuntu-latest" >> $GITHUB_ENV
-  #         echo "scriptBuildType=publish" >> $GITHUB_ENV
-  #         echo "engineBuildType=Release" >> $GITHUB_ENV
-  #         echo "uiRoot=game/assets/UI" >> $GITHUB_ENV
-  #         echo "scriptRoot=game/assets/scripts" >> $GITHUB_ENV
-  #         echo "engineRoot=/" >> $GITHUB_ENV
-  #         echo "cc=clang" >> $GITHUB_ENV
-  #         echo "cxx=clang++" >> $GITHUB_ENV
-  #     - name: List env
-  #       shell: bash
-  #       run: |
-  #         echo ${{ env.name }}
-  #         echo ${{ env.artifact }}
-  #         echo ${{ env.os }}
-  #         echo ${{ env.scriptBuildType }}
-  #         echo ${{ env.engineBuildType }}
-  #         echo ${{ env.uiRoot }}
-  #         echo ${{ env.scriptRoot }}
-  #         echo ${{ env.engineRoot }}
+      # - name: Env
+      #   uses: './.github/workflows/utils/json-to-env'
+      #   with:
+      #     json: ${{ toJSON(matrix.config) }}
   #     - name: UI
   #       uses: './.github/workflows/modules/ui/lint'
   #     - name: Scripts
@@ -103,31 +82,10 @@ jobs:
   #       uses: actions/checkout@v4
   #       with:
   #         fetch-depth: 0
-  #     - name: Add env
-  #       shell: bash
-  #       run: |
-  #         echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
-  #         echo "projectRoot=${{ matrix.config.projectRoot }}" >> $GITHUB_ENV
-  #         echo "artifact=${{ matrix.config.artifact }}" >> $GITHUB_ENV
-  #         echo "os=${{ matrix.config.os }}" >> $GITHUB_ENV
-  #         echo "scriptBuildType=${{ matrix.config.scriptBuildType }}" >> $GITHUB_ENV
-  #         echo "engineBuildType=${{ matrix.config.engineBuildType }}" >> $GITHUB_ENV
-  #         echo "uiRoot=${{ matrix.config.uiRoot }}" >> $GITHUB_ENV
-  #         echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
-  #         echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
-  #         echo "cc=${{ matrix.config.cc }}" >> $GITHUB_ENV
-  #         echo "cxx=${{ matrix.config.cxx }}" >> $GITHUB_ENV
-  #     - name: List env
-  #       shell: bash
-  #       run: |
-  #         echo ${{ env.name }}
-  #         echo ${{ env.artifact }}
-  #         echo ${{ env.os }}
-  #         echo ${{ env.scriptBuildType }}
-  #         echo ${{ env.engineBuildType }}
-  #         echo ${{ env.uiRoot }}
-  #         echo ${{ env.scriptRoot }}
-  #         echo ${{ env.engineRoot }}
+      # - name: Env
+      #   uses: './.github/workflows/utils/json-to-env'
+      #   with:
+      #     json: ${{ toJSON(matrix.config) }}
   #     - uses: ./.github/workflows/utils/setup-base-libs
   #     - name: Scripts
   #       uses: './.github/workflows/modules/scripts/test'
@@ -188,31 +146,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Add env
-        shell: bash
-        run: |
-          echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
-          echo "projectRoot=${{ matrix.config.projectRoot }}" >> $GITHUB_ENV
-          echo "artifact=${{ matrix.config.artifact }}" >> $GITHUB_ENV
-          echo "os=${{ matrix.config.os }}" >> $GITHUB_ENV
-          echo "scriptBuildType=${{ matrix.config.scriptBuildType }}" >> $GITHUB_ENV
-          echo "engineBuildType=${{ matrix.config.engineBuildType }}" >> $GITHUB_ENV
-          echo "uiRoot=${{ matrix.config.uiRoot }}" >> $GITHUB_ENV
-          echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
-          echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
-          echo "cc=${{ matrix.config.cc }}" >> $GITHUB_ENV
-          echo "cxx=${{ matrix.config.cxx }}" >> $GITHUB_ENV
-      - name: List env
-        shell: bash
-        run: |
-          echo ${{ env.name }}
-          echo ${{ env.artifact }}
-          echo ${{ env.os }}
-          echo ${{ env.scriptBuildType }}
-          echo ${{ env.engineBuildType }}
-          echo ${{ env.uiRoot }}
-          echo ${{ env.scriptRoot }}
-          echo ${{ env.engineRoot }}
+      - name: Env
+        uses: './.github/workflows/utils/json-to-env'
+        with:
+          json: ${{ toJSON(matrix.config) }}
       - name: UI
         uses: './.github/workflows/modules/ui/build'
       - uses: ./.github/workflows/utils/setup-base-libs

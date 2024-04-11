@@ -34,31 +34,10 @@ jobs:
   #       uses: actions/checkout@v4
   #       with:
   #         fetch-depth: 0
-  #     - name: Add env
-  #       shell: bash
-  #       run: |
-  #         echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
-  #         echo "projectRoot=${{ matrix.config.projectRoot }}" >> $GITHUB_ENV
-  #         echo "artifact=${{ matrix.config.artifact }}" >> $GITHUB_ENV
-  #         echo "os=${{ matrix.config.os }}" >> $GITHUB_ENV
-  #         echo "scriptBuildType=${{ matrix.config.scriptBuildType }}" >> $GITHUB_ENV
-  #         echo "engineBuildType=${{ matrix.config.engineBuildType }}" >> $GITHUB_ENV
-  #         echo "uiRoot=${{ matrix.config.uiRoot }}" >> $GITHUB_ENV
-  #         echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
-  #         echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
-  #         echo "cc=${{ matrix.config.cc }}" >> $GITHUB_ENV
-  #         echo "cxx=${{ matrix.config.cxx }}" >> $GITHUB_ENV
-  #     - name: List env
-  #       shell: bash
-  #       run: |
-  #         echo ${{ env.name }}
-  #         echo ${{ env.artifact }}
-  #         echo ${{ env.os }}
-  #         echo ${{ env.scriptBuildType }}
-  #         echo ${{ env.engineBuildType }}
-  #         echo ${{ env.uiRoot }}
-  #         echo ${{ env.scriptRoot }}
-  #         echo ${{ env.engineRoot }}
+      # - name: Env
+      #   uses: './.github/workflows/utils/json-to-env'
+      #   with:
+      #     json: ${{ toJSON(matrix.config) }}
   #     - name: UI
   #       uses: './.github/workflows/modules/ui/lint'
   #     - name: Scripts
@@ -119,31 +98,10 @@ jobs:
   #       uses: actions/checkout@v4
   #       with:
   #         fetch-depth: 0
-  #     - name: Add env
-  #       shell: bash
-  #       run: |
-  #         echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
-  #         echo "projectRoot=${{ matrix.config.projectRoot }}" >> $GITHUB_ENV
-  #         echo "artifact=${{ matrix.config.artifact }}" >> $GITHUB_ENV
-  #         echo "os=${{ matrix.config.os }}" >> $GITHUB_ENV
-  #         echo "scriptBuildType=${{ matrix.config.scriptBuildType }}" >> $GITHUB_ENV
-  #         echo "engineBuildType=${{ matrix.config.engineBuildType }}" >> $GITHUB_ENV
-  #         echo "uiRoot=${{ matrix.config.uiRoot }}" >> $GITHUB_ENV
-  #         echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
-  #         echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
-  #         echo "cc=${{ matrix.config.cc }}" >> $GITHUB_ENV
-  #         echo "cxx=${{ matrix.config.cxx }}" >> $GITHUB_ENV
-  #     - name: List env
-  #       shell: bash
-  #       run: |
-  #         echo ${{ env.name }}
-  #         echo ${{ env.artifact }}
-  #         echo ${{ env.os }}
-  #         echo ${{ env.scriptBuildType }}
-  #         echo ${{ env.engineBuildType }}
-  #         echo ${{ env.uiRoot }}
-  #         echo ${{ env.scriptRoot }}
-  #         echo ${{ env.engineRoot }}
+        # - name: Env
+        #   uses: './.github/workflows/utils/json-to-env'
+        #   with:
+        #     json: ${{ toJSON(matrix.config) }}
   #     - uses: ./.github/workflows/utils/setup-base-libs
   #     - name: Scripts
   #       uses: './.github/workflows/modules/scripts/test'
@@ -160,32 +118,32 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          # - {
-          #     name: 'Windows',
-          #     projectRoot: '/d/a/dreich',
-          #     artifact: 'windows.tar.xz',
-          #     os: 'windows-latest',
-          #     scriptBuildType: 'build',
-          #     engineBuildType: 'Debug',
-          #     uiRoot: '/d/a/dreich/dreich/game/assets/UI',
-          #     scriptRoot: '/d/a/dreich/dreich/game/assets/scripts',
-          #     engineRoot: '/d/a/dreich/dreich',
-          #     cc: 'clang',
-          #     cxx: 'clang++',
-          #   }
-          # - {
-          #     name: 'Ubuntu',
-          #     projectRoot: '/home/runner/work/dreich',
-          #     artifact: 'linux.tar.xz',
-          #     os: 'ubuntu-latest',
-          #     scriptBuildType: 'build',
-          #     engineBuildType: 'Debug',
-          #     uiRoot: '/home/runner/work/dreich/dreich/game/assets/UI',
-          #     scriptRoot: '/home/runner/work/dreich/dreich/game/assets/scripts',
-          #     engineRoot: '/home/runner/work/dreich/dreich',
-          #     cc: 'clang',
-          #     cxx: 'clang++',
-          #   }
+          - {
+              name: 'Windows',
+              projectRoot: '/d/a/dreich',
+              artifact: 'windows.tar.xz',
+              os: 'windows-latest',
+              scriptBuildType: 'build',
+              engineBuildType: 'Debug',
+              uiRoot: '/d/a/dreich/dreich/game/assets/UI',
+              scriptRoot: '/d/a/dreich/dreich/game/assets/scripts',
+              engineRoot: '/d/a/dreich/dreich',
+              cc: 'clang',
+              cxx: 'clang++',
+            }
+          - {
+              name: 'Ubuntu',
+              projectRoot: '/home/runner/work/dreich',
+              artifact: 'linux.tar.xz',
+              os: 'ubuntu-latest',
+              scriptBuildType: 'build',
+              engineBuildType: 'Debug',
+              uiRoot: '/home/runner/work/dreich/dreich/game/assets/UI',
+              scriptRoot: '/home/runner/work/dreich/dreich/game/assets/scripts',
+              engineRoot: '/home/runner/work/dreich/dreich',
+              cc: 'clang',
+              cxx: 'clang++',
+            }
           - {
               name: 'MacOS',
               projectRoot: '/Users/runner/work/dreich',
@@ -204,19 +162,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      # - name: Add env
-      #   shell: bash
-      #   run: |
-      #     json='${{ toJSON(matrix.config) }}'
-      #     jq -r 'to_entries[] | "\(.key)=\(.value)"' <<< "$json" | while IFS='=' read -r key value; do
-      #       echo "$key=$value"
-      #       echo "$key=$value" >> $GITHUB_ENV
-      #     done
       - name: Env
+        uses: './.github/workflows/utils/json-to-env'
         with:
           json: ${{ toJSON(matrix.config) }}
-        uses: './.github/workflows/utils/json-to-env'
-
       - name: UI
         uses: './.github/workflows/modules/ui/build'
       - uses: ./.github/workflows/utils/setup-base-libs
@@ -224,15 +173,3 @@ jobs:
         uses: './.github/workflows/modules/scripts/build'
       - name: Engine
         uses: './.github/workflows/modules/engine/build'
-
-          # echo ${{ env.name }}
-          # echo ${{ env.artifact }}
-          # echo ${{ env.os }}
-          # echo ${{ env.scriptBuildType }}
-          # echo ${{ env.engineBuildType }}
-          # echo ${{ env.uiRoot }}
-          # echo ${{ env.scriptRoot }}
-          # echo ${{ env.engineRoot }}
-
-          #           json=${{ toJSON(matrix.config) }}
-          # config=${{ toJSON(matrix.config) }}
