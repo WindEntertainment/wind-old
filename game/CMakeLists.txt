@@ -24,4 +24,4 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/res/Assets.bundle" "${ASSETS_PATH}")
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-COMMAND ${CMAKE_COMMAND} -E copy-directory "${CMAKE_CURRENT_SOURCE_DIR}/res/Managed" "${ASSETS_PATH}")
+COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/res/Managed" "${ASSETS_PATH}")
