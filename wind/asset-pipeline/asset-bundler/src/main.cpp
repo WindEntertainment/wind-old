@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
   using namespace wind;
   using namespace wind::asset_pipeline;
 
-  AssetPipeline pipeline;
+  asset_pipeline::AssetPipeline pipeline;
   setting();
 
   bool useBuild = options.count("build");
