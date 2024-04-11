@@ -36,6 +36,7 @@ runs:
       run:   |
         cd game/data
         wind-asset-bundler -b main
+        wind-asset-bundler -b resources
       shell: bash
 
     - uses: actions/cache/save@v4
