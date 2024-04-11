@@ -11,7 +11,24 @@ permissions:
 jobs:
   # linting:
   #   name: Linting
-  #   runs-on: ubuntu-latest
+  #   runs-on: ${{ matrix.config.os }}
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       config:
+  #         - {
+  #             name: 'Ubuntu',
+  #             projectRoot: '/home/runner/work/dreich',
+  #             artifact: 'linux.tar.xz',
+  #             os: 'ubuntu-latest',
+  #             scriptBuildType: 'build',
+  #             engineBuildType: 'Debug',
+  #             uiRoot: '/home/runner/work/dreich/dreich/game/assets/UI',
+  #             scriptRoot: '/home/runner/work/dreich/dreich/game/assets/scripts',
+  #             engineRoot: '/home/runner/work/dreich/dreich',
+  #             cc: 'clang',
+  #             cxx: 'clang++',
+  #           }
   #   steps:
   #     - name: Checkout code
   #       uses: actions/checkout@v4
@@ -20,17 +37,17 @@ jobs:
   #     - name: Add env
   #       shell: bash
   #       run: |
-  #         echo "name=Ubuntu" >> $GITHUB_ENV
-  #         echo "projectRoot=/home/runner/work/dreich" >> $GITHUB_ENV
-  #         echo "artifact=linux.tar.xz" >> $GITHUB_ENV
-  #         echo "os=ubuntu-latest" >> $GITHUB_ENV
-  #         echo "scriptBuildType=build" >> $GITHUB_ENV
-  #         echo "engineBuildType=Debug" >> $GITHUB_ENV
-  #         echo "uiRoot=game/assets/UI" >> $GITHUB_ENV
-  #         echo "scriptRoot=game/assets/scripts" >> $GITHUB_ENV
-  #         echo "engineRoot=/" >> $GITHUB_ENV
-  #         echo "cc=clang" >> $GITHUB_ENV
-  #         echo "cxx=clang++" >> $GITHUB_ENV
+  #         echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
+  #         echo "projectRoot=${{ matrix.config.projectRoot }}" >> $GITHUB_ENV
+  #         echo "artifact=${{ matrix.config.artifact }}" >> $GITHUB_ENV
+  #         echo "os=${{ matrix.config.os }}" >> $GITHUB_ENV
+  #         echo "scriptBuildType=${{ matrix.config.scriptBuildType }}" >> $GITHUB_ENV
+  #         echo "engineBuildType=${{ matrix.config.engineBuildType }}" >> $GITHUB_ENV
+  #         echo "uiRoot=${{ matrix.config.uiRoot }}" >> $GITHUB_ENV
+  #         echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
+  #         echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
+  #         echo "cc=${{ matrix.config.cc }}" >> $GITHUB_ENV
+  #         echo "cxx=${{ matrix.config.cxx }}" >> $GITHUB_ENV
   #     - name: List env
   #       shell: bash
   #       run: |
@@ -60,14 +77,14 @@ jobs:
   #       config:
   #         - {
   #             name: 'Windows',
-  #             projectRoot: 'D:\a\dreich',
+  #             projectRoot: '/d/a/dreich',
   #             artifact: 'windows.tar.xz',
   #             os: 'windows-latest',
   #             scriptBuildType: 'build',
   #             engineBuildType: 'Debug',
-  #             uiRoot: 'D:\a\dreich\game\assets/UI',
-  #             scriptRoot: 'D:\a\dreich\game\assets\scripts',
-  #             engineRoot: 'D:\a\dreich\',
+  #             uiRoot: '/d/a/dreich/dreich/game/assets/UI',
+  #             scriptRoot: '/d/a/dreich/dreich/game/assets/scripts',
+  #             engineRoot: '/d/a/dreich/dreich',
   #             cc: 'clang',
   #             cxx: 'clang++',
   #           }
@@ -143,32 +160,32 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {
-              name: 'Windows',
-              projectRoot: '/d/a/dreich',
-              artifact: 'windows.tar.xz',
-              os: 'windows-latest',
-              scriptBuildType: 'build',
-              engineBuildType: 'Debug',
-              uiRoot: '/d/a/dreich/dreich/game/assets/UI',
-              scriptRoot: '/d/a/dreich/dreich/game/assets/scripts',
-              engineRoot: '/d/a/dreich/dreich',
-              cc: 'clang',
-              cxx: 'clang++',
-            }
-          - {
-              name: 'Ubuntu',
-              projectRoot: '/home/runner/work/dreich',
-              artifact: 'linux.tar.xz',
-              os: 'ubuntu-latest',
-              scriptBuildType: 'build',
-              engineBuildType: 'Debug',
-              uiRoot: '/home/runner/work/dreich/dreich/game/assets/UI',
-              scriptRoot: '/home/runner/work/dreich/dreich/game/assets/scripts',
-              engineRoot: '/home/runner/work/dreich/dreich',
-              cc: 'clang',
-              cxx: 'clang++',
-            }
+          # - {
+          #     name: 'Windows',
+          #     projectRoot: '/d/a/dreich',
+          #     artifact: 'windows.tar.xz',
+          #     os: 'windows-latest',
+          #     scriptBuildType: 'build',
+          #     engineBuildType: 'Debug',
+          #     uiRoot: '/d/a/dreich/dreich/game/assets/UI',
+          #     scriptRoot: '/d/a/dreich/dreich/game/assets/scripts',
+          #     engineRoot: '/d/a/dreich/dreich',
+          #     cc: 'clang',
+          #     cxx: 'clang++',
+          #   }
+          # - {
+          #     name: 'Ubuntu',
+          #     projectRoot: '/home/runner/work/dreich',
+          #     artifact: 'linux.tar.xz',
+          #     os: 'ubuntu-latest',
+          #     scriptBuildType: 'build',
+          #     engineBuildType: 'Debug',
+          #     uiRoot: '/home/runner/work/dreich/dreich/game/assets/UI',
+          #     scriptRoot: '/home/runner/work/dreich/dreich/game/assets/scripts',
+          #     engineRoot: '/home/runner/work/dreich/dreich',
+          #     cc: 'clang',
+          #     cxx: 'clang++',
+          #   }
           - {
               name: 'MacOS',
               projectRoot: '/Users/runner/work/dreich',
@@ -190,17 +207,21 @@ jobs:
       - name: Add env
         shell: bash
         run: |
-          echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
-          echo "projectRoot=${{ matrix.config.projectRoot }}" >> $GITHUB_ENV
-          echo "artifact=${{ matrix.config.artifact }}" >> $GITHUB_ENV
-          echo "os=${{ matrix.config.os }}" >> $GITHUB_ENV
-          echo "scriptBuildType=${{ matrix.config.scriptBuildType }}" >> $GITHUB_ENV
-          echo "engineBuildType=${{ matrix.config.engineBuildType }}" >> $GITHUB_ENV
-          echo "uiRoot=${{ matrix.config.uiRoot }}" >> $GITHUB_ENV
-          echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
-          echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
-          echo "cc=${{ matrix.config.cc }}" >> $GITHUB_ENV
-          echo "cxx=${{ matrix.config.cxx }}" >> $GITHUB_ENV
+          # echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
+          # echo "projectRoot=${{ matrix.config.projectRoot }}" >> $GITHUB_ENV
+          # echo "artifact=${{ matrix.config.artifact }}" >> $GITHUB_ENV
+          # echo "os=${{ matrix.config.os }}" >> $GITHUB_ENV
+          # echo "scriptBuildType=${{ matrix.config.scriptBuildType }}" >> $GITHUB_ENV
+          # echo "engineBuildType=${{ matrix.config.engineBuildType }}" >> $GITHUB_ENV
+          # echo "uiRoot=${{ matrix.config.uiRoot }}" >> $GITHUB_ENV
+          # echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
+          # echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
+          # echo "cc=${{ matrix.config.cc }}" >> $GITHUB_ENV
+          # echo "cxx=${{ matrix.config.cxx }}" >> $GITHUB_ENV
+          for key in "${!matrix.config[@]}"; do
+            echo "${key}=${matrix.config[$key]}" >> $GITHUB_ENV
+          done
+
       - name: List env
         shell: bash
         run: |
