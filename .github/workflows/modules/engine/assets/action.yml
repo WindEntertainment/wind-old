@@ -34,7 +34,7 @@ runs:
 
     - name: Build assets
       run:   |
-        cd game/assets
+        cd game/data
         wind-asset-bundler -b main
       shell: bash
 
