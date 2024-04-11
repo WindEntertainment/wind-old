@@ -2,7 +2,7 @@
 #include "pipe.hpp"
 
 namespace wind {
-namespace asset_pipeline {
+namespace assets {
 
 class DefaultPipe : public AssetPipe {
 public:
@@ -78,5 +78,5 @@ public:
       : AssetPipe("default"){};
 };
 
-} // namespace asset_pipeline
+} // namespace assets
 } // namespace wind

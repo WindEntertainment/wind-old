@@ -10,13 +10,10 @@ namespace chrono = std::chrono;
 using uint = unsigned int;
 
 template <typename C, typename T>
-concept Container = requires(C c, T t) {
-  c.find(t);
-  c.end();
-};
-
-template <typename C, typename T>
-  requires Container<C, T>
+  requires requires(C c, T t) {
+    c.find(t);
+    c.end();
+  }
 bool contains(C _container, T _value) {
   auto it = _container.find(_value);
   return it != _container.end();

@@ -11,7 +11,7 @@
 #endif
 
 namespace wind {
-namespace asset_pipeline {
+namespace assets {
 
 class ImagePipe : public AssetPipe {
 public:
@@ -64,5 +64,5 @@ public:
       : AssetPipe("image"){};
 };
 
-} // namespace asset_pipeline
+} // namespace assets
 } // namespace wind
