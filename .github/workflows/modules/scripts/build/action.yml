@@ -12,4 +12,4 @@ runs:
 
     - name: Build
       shell: bash
-      run: cd {{ env.scriptRoot }} && dotnet ${{ env.scriptBuildType }}
+      run: cd ${{ env.scriptRoot }} && dotnet ${{ env.scriptBuildType }}
