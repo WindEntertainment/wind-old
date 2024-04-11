@@ -1,0 +1,10 @@
+exports:
+  - path: "scripts"
+    output:
+      path: "Managed"
+      type: directory
+
+  - path: "[^\/]*"
+    output:
+      path: "Assets"
+      type: bundle

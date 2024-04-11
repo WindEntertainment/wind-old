@@ -6,7 +6,7 @@
 #endif
 
 namespace wind {
-namespace asset_pipeline {
+namespace assets {
 
 class ShaderPipe : public AssetPipe {
 public:
@@ -103,5 +103,5 @@ public:
       : AssetPipe("shader"){};
 };
 
-} // namespace asset_pipeline
+} // namespace assets
 } // namespace wind

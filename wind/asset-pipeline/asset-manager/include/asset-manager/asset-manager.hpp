@@ -99,7 +99,7 @@ private:
     asset_id pipe_id = 0;
 
     if (_bundle->determinatePipe(begin, size, pipe_id)) {
-      AssetPipe* pipe = asset_pipeline::PipeRegister::getPipe(pipe_id);
+      assets::AssetPipe* pipe = assets::PipeRegister::getPipe(pipe_id);
       if (!pipe)
         spdlog::error("Failed load asset. unknow pipe:  {}. asset id: {}", pipe_id, _id);
 
@@ -139,8 +139,8 @@ public:
       return;
 
     m_preloads.insert(std::make_pair(
-        id,
-        std::make_any(std::make_shared(getAsset<T>(_key)))));
+      id,
+      std::make_any(std::make_shared(getAsset<T>(_key)))));
   }
 
   template <typename T>
