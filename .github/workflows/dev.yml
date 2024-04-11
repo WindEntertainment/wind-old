@@ -207,8 +207,12 @@ jobs:
       - name: Add env
         shell: bash
         run: |
-          echo "${{ toJson(matrix.config) }}" | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> $GITHUB_ENV
+          config_json=$(echo "${{ toJson(matrix.config) }}")
 
+          # Loop over key-value pairs and append to GitHub environment file
+          while IFS='=' read -r key value; do
+              echo "$key=$value" >> $GITHUB_ENV
+          done <<< "$(jq -r 'to_entries[] | "\(.key)=\(.value)"' <<< "$config_json")"
 
       - name: List env
         shell: bash
