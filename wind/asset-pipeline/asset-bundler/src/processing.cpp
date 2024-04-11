@@ -21,7 +21,7 @@ void AssetBundler::processDirectory(const fs::path& _source, const fs::path& _de
 
   YAML::Node config;
   try {
-    config = YAML::LoadFile(configPath);
+    config = YAML::LoadFile(configPath.string());
   } catch (std::exception& ex) {
     spdlog::error("Failed open export config: {}", _source.string());
     return;
