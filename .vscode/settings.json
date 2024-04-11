@@ -118,6 +118,7 @@
     "source_location": "cpp",
     "filesystem": "cpp",
     "version": "cpp",
-    "ranges": "cpp"
+    "ranges": "cpp",
+    "locale": "cpp"
   }
 }
