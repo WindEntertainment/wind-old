@@ -17,7 +17,7 @@ runs:
           echo 'set(ENV{DOTNET_ROOT} "${{ env.DOTNET_PATH }}")' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/8.0.3/runtimes/osx-arm64/native")' >> CMakeEnv.txt
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          echo 'set(ENV{ULTRALIGHT_PATH} "D:\\a\\dreich\\ultralight\\ultralight\\SDK")' >> CMakeEnv.txt
+          echo 'set(ENV{ULTRALIGHT_PATH} "${{ env.ULTRALIGHT_PATH }}")' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_ROOT} "${{ env.DOTNET_PATH }}")' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}\\packs\\Microsoft.NETCore.App.Host.win-x64\\7.0.3\\runtimes\\win-x64\\native")' >> CMakeEnv.txt
         else
@@ -28,3 +28,5 @@ runs:
 
 # C:\\Program\ Files\\dotnet
 # C:\\Program\ Files\\dotnet
+
+# D:\\a\\dreich\\ultralight\\ultralight\\SDK
