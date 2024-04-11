@@ -4,9 +4,6 @@ description: Install dependencies UI
 runs:
   using: 'composite'
   steps:
-    - name: here
-      shell: bash
-      run: pwd
     - name: Install dependencies
       shell: bash
       run: cd ${{ env.uiRoot }} && pnpm install
