@@ -207,7 +207,7 @@ jobs:
       - name: Add env
         shell: bash
         run: |
-          json=${{ toJSON(matrix.config) }}
+          json='{"key1": "value1", "key2": "value2", "key3": "value3"}'
           # Extract key-value pairs and append to GitHub environment file
           echo "$json" | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> $GITHUB_ENV
 
@@ -216,13 +216,6 @@ jobs:
         shell: bash
         run: |
           echo ${{ env.name }}
-          echo ${{ env.artifact }}
-          echo ${{ env.os }}
-          echo ${{ env.scriptBuildType }}
-          echo ${{ env.engineBuildType }}
-          echo ${{ env.uiRoot }}
-          echo ${{ env.scriptRoot }}
-          echo ${{ env.engineRoot }}
       - name: UI
         uses: './.github/workflows/modules/ui/build'
       - uses: ./.github/workflows/utils/setup-base-libs
@@ -230,3 +223,15 @@ jobs:
         uses: './.github/workflows/modules/scripts/build'
       - name: Engine
         uses: './.github/workflows/modules/engine/build'
+
+          # echo ${{ env.name }}
+          # echo ${{ env.artifact }}
+          # echo ${{ env.os }}
+          # echo ${{ env.scriptBuildType }}
+          # echo ${{ env.engineBuildType }}
+          # echo ${{ env.uiRoot }}
+          # echo ${{ env.scriptRoot }}
+          # echo ${{ env.engineRoot }}
+
+          #           json=${{ toJSON(matrix.config) }}
+          # config=${{ toJSON(matrix.config) }}
