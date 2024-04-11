@@ -4,7 +4,7 @@
 #include "utils/utils.h"
 #include <string.h>
 
-#ifdef WINDOWS
+#ifdef _WIN32
 #include <Windows.h>
 
 #else

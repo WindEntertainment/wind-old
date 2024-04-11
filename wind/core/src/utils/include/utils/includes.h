@@ -9,6 +9,8 @@
 #include <filesystem>      // IWYU pragma: export
 #include <list>            // IWYU pragma: export
 #include <map>             // IWYU pragma: export
+#include <algorithm>       // IWYU pragma: export
+#include <ranges>          // IWYU pragma: export
 #include <fstream>         // IWYU pragma: export
 
 #include <spdlog/spdlog.h> // IWYU pragma: export
