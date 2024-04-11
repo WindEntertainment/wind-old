@@ -9,22 +9,18 @@ runs:
         if [ "$RUNNER_OS" == "Linux" ]; then
           export CC=clang
           export CXX=clang++
-
-          cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=${{ env.engineBuildType }} -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/${{ env.engineBuildType }}/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/${{ env.engineBuildType }}
-          cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target wind-asset-bundler
+          cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=${{ env.engineBuildType }} -DCMAKE_TOOLCHAIN_FILE=${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}/generators/conan_toolchain.cmake -S${{ env.projectRoot }}/dreich -B${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=${{ env.engineBuildType }} -DCMAKE_TOOLCHAIN_FILE=$(pwd)/build/${{ env.engineBuildType }}/generators/conan_toolchain.cmake -S$(pwd) -B$(pwd)/build/${{ env.engineBuildType }}
-          cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target wind-asset-bundler
+          cmake -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "Unix Makefiles" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=${{ env.engineBuildType }} -DCMAKE_TOOLCHAIN_FILE=${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}/generators/conan_toolchain.cmake -S${{ env.projectRoot }}/dreich -B${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}
         elif [ "$RUNNER_OS" == "Windows" ]; then
           export CC=clang
           export CXX=clang++
-
           cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=${{ env.engineBuildType }} -DCMAKE_TOOLCHAIN_FILE="${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}/generators/conan_toolchain.cmake" -S "${{ env.projectRoot }}/dreich" -B "${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}"
-          cmake --build "${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}" --parallel 10 --target wind-asset-bundler
         else
           echo "$RUNNER_OS not supported"
           exit 1
         fi
+        cmake --build ${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }} --parallel 10 --target wind-asset-bundler
 
         cd build/${{ env.engineBuildType }}/wind/asset-pipeline
         sudo make install
