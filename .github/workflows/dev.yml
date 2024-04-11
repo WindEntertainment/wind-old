@@ -204,19 +204,19 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Add env
-        shell: bash
-        run: |
-          jq -r 'to_entries[] | "\(.key)=\(.value)"' <<< "${{ toJSON(matrix.config) }}" | while IFS='=' read -r key value; do
-            echo "$key=$value"
-            echo "$key=$value" >> $GITHUB_ENV
-          done
+      # - name: Add env
+      #   shell: bash
+      #   run: |
+      #     json='${{ toJSON(matrix.config) }}'
+      #     jq -r 'to_entries[] | "\(.key)=\(.value)"' <<< "$json" | while IFS='=' read -r key value; do
+      #       echo "$key=$value"
+      #       echo "$key=$value" >> $GITHUB_ENV
+      #     done
+      - name: Env
+        with:
+          json: ${{ toJSON(matrix.config) }}
+        uses: './.github/workflows/modules/scripts/build'
 
-
-      - name: List env
-        shell: bash
-        run: |
-          echo ${{ env.name }}
       - name: UI
         uses: './.github/workflows/modules/ui/build'
       - uses: ./.github/workflows/utils/setup-base-libs
