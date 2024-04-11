@@ -10,10 +10,6 @@ runs:
     - name: Install dependencies
       uses: ./.github/workflows/modules/ui/install-dependencies
 
-    - name: here
-      shell: bash
-      run: ls -a
-
     - name: Lint
       shell: bash
       run: cd ${{ env.uiRoot }} && pnpm lint:fix
