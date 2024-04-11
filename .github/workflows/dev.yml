@@ -150,7 +150,7 @@ jobs:
               os: 'windows-latest',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
-              uiRoot: "D:\\a\\dreich\\game\\assets/UI",
+              uiRoot: "D:\\a\\dreich\\game\\assets\\UI",
               scriptRoot: "D:\\a\\dreich\\game\\assets\\scripts",
               engineRoot: "D:\\a\\dreich",
               cc: 'clang',
