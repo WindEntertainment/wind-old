@@ -214,7 +214,7 @@ jobs:
       #     done
       - name: Env
         with:
-          json: ${{ toJSON(matrix.config) }}
+          json: '${{ toJSON(matrix.config) }}'
         uses: './.github/workflows/modules/scripts/build'
 
       - name: UI
