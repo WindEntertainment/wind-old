@@ -12,7 +12,7 @@ runs:
         chmod +x ./dotnet-install.sh
         ./dotnet-install.sh --version latest
         ./dotnet-install.sh --version latest --runtime aspnetcore
-        ./dotnet-install.sh --channel 8.0
+        ./dotnet-install.sh --channel 8.0.3
 
     - name: Set DOTNET_PATH
       shell: bash
