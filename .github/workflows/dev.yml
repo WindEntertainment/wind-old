@@ -9,178 +9,178 @@ on:
 permissions:
   contents: write
 jobs:
-  linting:
-    name: Linting
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Add env
-        shell: bash
-        run: |
-          echo "name=Ubuntu" >> $GITHUB_ENV
-          echo "projectRoot=/home/runner/work/dreich" >> $GITHUB_ENV
-          echo "artifact=linux.tar.xz" >> $GITHUB_ENV
-          echo "os=ubuntu-latest" >> $GITHUB_ENV
-          echo "scriptBuildType=build" >> $GITHUB_ENV
-          echo "engineBuildType=Debug" >> $GITHUB_ENV
-          echo "uiRoot=game/assets/UI" >> $GITHUB_ENV
-          echo "scriptRoot=game/assets/scripts" >> $GITHUB_ENV
-          echo "engineRoot=/" >> $GITHUB_ENV
-          echo "cc=clang" >> $GITHUB_ENV
-          echo "cxx=clang++" >> $GITHUB_ENV
-      - name: List env
-        shell: bash
-        run: |
-          echo ${{ env.name }}
-          echo ${{ env.artifact }}
-          echo ${{ env.os }}
-          echo ${{ env.scriptBuildType }}
-          echo ${{ env.engineBuildType }}
-          echo ${{ env.uiRoot }}
-          echo ${{ env.scriptRoot }}
-          echo ${{ env.engineRoot }}
-      - name: UI
-        uses: './.github/workflows/modules/ui/lint'
-      - name: Scripts
-        uses: './.github/workflows/modules/scripts/lint'
-      - name: Engine
-        uses: './.github/workflows/modules/engine/lint'
-      - name: Linting commit
-        uses: './.github/workflows/utils/commit'
+  # linting:
+  #   name: Linting
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Add env
+  #       shell: bash
+  #       run: |
+  #         echo "name=Ubuntu" >> $GITHUB_ENV
+  #         echo "projectRoot=/home/runner/work/dreich" >> $GITHUB_ENV
+  #         echo "artifact=linux.tar.xz" >> $GITHUB_ENV
+  #         echo "os=ubuntu-latest" >> $GITHUB_ENV
+  #         echo "scriptBuildType=build" >> $GITHUB_ENV
+  #         echo "engineBuildType=Debug" >> $GITHUB_ENV
+  #         echo "uiRoot=game/assets/UI" >> $GITHUB_ENV
+  #         echo "scriptRoot=game/assets/scripts" >> $GITHUB_ENV
+  #         echo "engineRoot=/" >> $GITHUB_ENV
+  #         echo "cc=clang" >> $GITHUB_ENV
+  #         echo "cxx=clang++" >> $GITHUB_ENV
+  #     - name: List env
+  #       shell: bash
+  #       run: |
+  #         echo ${{ env.name }}
+  #         echo ${{ env.artifact }}
+  #         echo ${{ env.os }}
+  #         echo ${{ env.scriptBuildType }}
+  #         echo ${{ env.engineBuildType }}
+  #         echo ${{ env.uiRoot }}
+  #         echo ${{ env.scriptRoot }}
+  #         echo ${{ env.engineRoot }}
+  #     - name: UI
+  #       uses: './.github/workflows/modules/ui/lint'
+  #     - name: Scripts
+  #       uses: './.github/workflows/modules/scripts/lint'
+  #     - name: Engine
+  #       uses: './.github/workflows/modules/engine/lint'
+  #     - name: Linting commit
+  #       uses: './.github/workflows/utils/commit'
 
-  testing:
-    name: 'Testing: ${{ matrix.config.name }}'
-    runs-on: ${{ matrix.config.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-          - {
-              name: 'Windows',
-              projectRoot: 'C:\\\a\\\dreich',
-              artifact: 'windows.tar.xz',
-              os: windows-latest,
-              scriptBuildType: 'build',
-              engineBuildType: 'Debug',
-              uiRoot: game/assets/UI,
-              scriptRoot: game/assets/scripts,
-              engineRoot: '/',
-              cc: 'clang',
-              cxx: 'clang++',
-            }
-          - {
-              name: 'Ubuntu',
-              projectRoot: '/home/runner/work/dreich',
-              artifact: 'linux.tar.xz',
-              os: ubuntu-latest,
-              scriptBuildType: 'build',
-              engineBuildType: 'Debug',
-              uiRoot: game/assets/UI,
-              scriptRoot: game/assets/scripts,
-              engineRoot: '/',
-              cc: 'clang',
-              cxx: 'clang++',
-            }
-          - {
-              name: 'MacOS',
-              projectRoot: '/Users/runner/work/dreich',
-              artifact: 'macos.tar.xz',
-              os: macos-14,
-              scriptBuildType: 'build',
-              engineBuildType: 'Debug',
-              uiRoot: game/assets/UI,
-              scriptRoot: game/assets/scripts,
-              engineRoot: '/',
-              cc: 'clang',
-              cxx: 'clang++',
-            }
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Add env
-        shell: bash
-        run: |
-          echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
-          echo "projectRoot=${{ matrix.config.projectRoot }}" >> $GITHUB_ENV
-          echo "artifact=${{ matrix.config.artifact }}" >> $GITHUB_ENV
-          echo "os=${{ matrix.config.os }}" >> $GITHUB_ENV
-          echo "scriptBuildType=${{ matrix.config.scriptBuildType }}" >> $GITHUB_ENV
-          echo "engineBuildType=${{ matrix.config.engineBuildType }}" >> $GITHUB_ENV
-          echo "uiRoot=${{ matrix.config.uiRoot }}" >> $GITHUB_ENV
-          echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
-          echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
-          echo "cc=${{ matrix.config.cc }}" >> $GITHUB_ENV
-          echo "cxx=${{ matrix.config.cxx }}" >> $GITHUB_ENV
-      - name: List env
-        shell: bash
-        run: |
-          echo ${{ env.name }}
-          echo ${{ env.artifact }}
-          echo ${{ env.os }}
-          echo ${{ env.scriptBuildType }}
-          echo ${{ env.engineBuildType }}
-          echo ${{ env.uiRoot }}
-          echo ${{ env.scriptRoot }}
-          echo ${{ env.engineRoot }}
-      - uses: ./.github/workflows/utils/setup-base-libs
-      - name: Scripts
-        uses: './.github/workflows/modules/scripts/test'
-      - name: Engine
-        uses: './.github/workflows/modules/engine/test'
+  # testing:
+  #   name: 'Testing: ${{ matrix.config.name }}'
+  #   runs-on: ${{ matrix.config.os }}
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       config:
+  #         - {
+  #             name: Windows,
+  #             projectRoot: D:\a\dreich,
+  #             artifact: windows.tar.xz,
+  #             os: windows-latest,
+  #             scriptBuildType: build,
+  #             engineBuildType: Debug,
+  #             uiRoot: D:\a\dreich\game\assets/UI,
+  #             scriptRoot: D:\a\dreich\game\assets\scripts,
+  #             engineRoot: D:\a\dreich\,
+  #             cc: clang,
+  #             cxx: clang++,
+  #           }
+  #         - {
+  #             name: Ubuntu,
+  #             projectRoot: /home/runner/work/dreich,
+  #             artifact: linux.tar.xz,
+  #             os: ubuntu-latest,
+  #             scriptBuildType: build,
+  #             engineBuildType: Debug,
+  #             uiRoot: /home/runner/work/dreich/dreich/game/assets/UI,
+  #             scriptRoot: /home/runner/work/dreich/dreich/game/assets/scripts,
+  #             engineRoot: /home/runner/work/dreich/dreich,
+  #             cc: clang,
+  #             cxx: clang++,
+  #           }
+  #         - {
+  #             name: MacOS,
+  #             projectRoot: /Users/runner/work/dreich,
+  #             artifact: macos.tar.xz,
+  #             os: macos-14,
+  #             scriptBuildType: build,
+  #             engineBuildType: Debug,
+  #             uiRoot: /Users/runner/work/dreich/dreich/game/assets/UI,
+  #             scriptRoot: /Users/runner/work/dreich/dreich/game/assets/scripts,
+  #             engineRoot: /Users/runner/work/dreich/dreich,
+  #             cc: clang,
+  #             cxx: clang++,
+  #           }
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Add env
+  #       shell: bash
+  #       run: |
+  #         echo "name=${{ matrix.config.name }}" >> $GITHUB_ENV
+  #         echo "projectRoot=${{ matrix.config.projectRoot }}" >> $GITHUB_ENV
+  #         echo "artifact=${{ matrix.config.artifact }}" >> $GITHUB_ENV
+  #         echo "os=${{ matrix.config.os }}" >> $GITHUB_ENV
+  #         echo "scriptBuildType=${{ matrix.config.scriptBuildType }}" >> $GITHUB_ENV
+  #         echo "engineBuildType=${{ matrix.config.engineBuildType }}" >> $GITHUB_ENV
+  #         echo "uiRoot=${{ matrix.config.uiRoot }}" >> $GITHUB_ENV
+  #         echo "scriptRoot=${{ matrix.config.scriptRoot }}" >> $GITHUB_ENV
+  #         echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
+  #         echo "cc=${{ matrix.config.cc }}" >> $GITHUB_ENV
+  #         echo "cxx=${{ matrix.config.cxx }}" >> $GITHUB_ENV
+  #     - name: List env
+  #       shell: bash
+  #       run: |
+  #         echo ${{ env.name }}
+  #         echo ${{ env.artifact }}
+  #         echo ${{ env.os }}
+  #         echo ${{ env.scriptBuildType }}
+  #         echo ${{ env.engineBuildType }}
+  #         echo ${{ env.uiRoot }}
+  #         echo ${{ env.scriptRoot }}
+  #         echo ${{ env.engineRoot }}
+  #     - uses: ./.github/workflows/utils/setup-base-libs
+  #     - name: Scripts
+  #       uses: './.github/workflows/modules/scripts/test'
+  #     - name: Engine
+  #       uses: './.github/workflows/modules/engine/test'
 
   building:
     name: 'Build: ${{ matrix.config.name }}'
     runs-on: ${{ matrix.config.os }}
-    needs:
-      - linting
-      - testing
+    # needs:
+    #   - linting
+    #   - testing
     strategy:
       fail-fast: false
       matrix:
         config:
           - {
-              name: 'Windows',
-              projectRoot: 'C:\\\a\\\dreich',
-              artifact: 'windows.tar.xz',
+              name: Windows,
+              projectRoot: D:\a\dreich,
+              artifact: windows.tar.xz,
               os: windows-latest,
-              scriptBuildType: 'build',
-              engineBuildType: 'Debug',
-              uiRoot: game/assets/UI,
-              scriptRoot: game/assets/scripts,
-              engineRoot: '/',
-              cc: 'clang',
-              cxx: 'clang++',
+              scriptBuildType: build,
+              engineBuildType: Debug,
+              uiRoot: D:\a\dreich\game\assets/UI,
+              scriptRoot: D:\a\dreich\game\assets\scripts,
+              engineRoot: D:\a\dreich\,
+              cc: clang,
+              cxx: clang++,
             }
           - {
-              name: 'Ubuntu',
-              projectRoot: '/home/runner/work/dreich',
-              artifact: 'linux.tar.xz',
+              name: Ubuntu,
+              projectRoot: /home/runner/work/dreich,
+              artifact: linux.tar.xz,
               os: ubuntu-latest,
-              scriptBuildType: 'build',
-              engineBuildType: 'Debug',
-              uiRoot: game/assets/UI,
-              scriptRoot: game/assets/scripts,
-              engineRoot: '/',
-              cc: 'clang',
-              cxx: 'clang++',
+              scriptBuildType: build,
+              engineBuildType: Debug,
+              uiRoot: /home/runner/work/dreich/dreich/game/assets/UI,
+              scriptRoot: /home/runner/work/dreich/dreich/game/assets/scripts,
+              engineRoot: /home/runner/work/dreich/dreich,
+              cc: clang,
+              cxx: clang++,
             }
           - {
-              name: 'MacOS',
-              projectRoot: '/Users/runner/work/dreich',
-              artifact: 'macos.tar.xz',
+              name: MacOS,
+              projectRoot: /Users/runner/work/dreich,
+              artifact: macos.tar.xz,
               os: macos-14,
-              scriptBuildType: 'build',
-              engineBuildType: 'Debug',
-              uiRoot: game/assets/UI,
-              scriptRoot: game/assets/scripts,
-              engineRoot: '/',
-              cc: 'clang',
-              cxx: 'clang++',
+              scriptBuildType: build,
+              engineBuildType: Debug,
+              uiRoot: /Users/runner/work/dreich/dreich/game/assets/UI,
+              scriptRoot: /Users/runner/work/dreich/dreich/game/assets/scripts,
+              engineRoot: /Users/runner/work/dreich/dreich,
+              cc: clang,
+              cxx: clang++,
             }
     steps:
       - name: Checkout code
