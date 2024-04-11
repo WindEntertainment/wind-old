@@ -11,8 +11,6 @@ namespace wind {
 using asset_id = unsigned int;
 
 class AssetPipe {
-  friend class AssetPipeline;
-
 protected:
   asset_id m_id;
 
