@@ -1,11 +1,8 @@
 /build/
 /install/
 /logs/
-/.cache/
-/**/*/.cache/
-/**/*/res/
-
-/**/*/icudt67l.dat
+.cache
+res
 
 *.bundle
 CMakeUserPresets.json
