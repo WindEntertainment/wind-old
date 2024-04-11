@@ -12,6 +12,9 @@ CMakeUserPresets.json
 .history
 
 CMakeEnv.txt
+.env
+
+*.sln
 
 ########## Javascript
 
