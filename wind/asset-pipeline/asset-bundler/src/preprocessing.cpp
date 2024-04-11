@@ -2,33 +2,32 @@
 #include <filesystem>
 
 namespace wind {
-namespace asset_pipeline {
+namespace assets {
 
-void AssetPipeline::build(const fs::path& _path) {
-  spdlog::info("===========================");
-  spdlog::info("Start build directory {}", _path.string());
+void AssetBundler::preprocessDirectory(const fs::path& _path, const YAML::Node& config) {
+  auto options = config["preprocessing"];
+  if (!options)
+    return;
 
-  clearUnusedCache(fs::current_path(), _path);
-  compileDirectory(fs::current_path(), _path);
-  linkDirectory(_path / "assets", "../assets.bundle");
-}
+  Stopwatch sw("Preprocessing");
 
-void AssetPipeline::preprocessing(const fs::path& _path, YAML::Node& _options) {
-  if (!_options.IsMap()) {
-    yamlError("Failed parsing '{}': preprocessing options must be map.", _options, _path.string());
+  spdlog::info("Run preprocessing commands...");
+
+  if (!options.IsMap()) {
+    yamlError("Failed parsing '{}': preprocessing options must be map.", options, _path.string());
     return;
   }
 
-  for (auto option : _options) {
+  for (auto option : options) {
     if (!option.first.IsScalar() || !option.second.IsScalar()) {
-      yamlError("Failed parsing '{}': preprocessing option must be scalar type.", _options, _path.string());
+      yamlError("Failed parsing '{}': preprocessing option must be scalar type.", options, _path.string());
       continue;
     }
 
     auto preprocessing_step = option.first.as<std::string>();
     if (preprocessing_step.compare("execute") == 0) {
       std::stringstream ss;
-      ss << "cd " << _path.parent_path() << " && " << option.second.as<std::string>();
+      ss << "cd " << _path << " && " << option.second.as<std::string>();
 
       auto command = ss.str();
       spdlog::info("Execute: {}", command);
@@ -45,5 +44,5 @@ void AssetPipeline::preprocessing(const fs::path& _path, YAML::Node& _options) {
   }
 }
 
-} // namespace asset_pipeline
+} // namespace assets
 } // namespace wind

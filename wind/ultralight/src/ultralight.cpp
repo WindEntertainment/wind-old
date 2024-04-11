@@ -86,9 +86,8 @@ public:
 
     spdlog::log(Ultralight::mapUltralightLogLevelToSpd(level), "[UL::Console]: [{}] {}", stringify(source), toUTF8(message));
 
-    if (source == ul::kMessageSource_JS) {
+    if (source == ul::kMessageSource_JS)
       spdlog::log(Ultralight::mapUltralightLogLevelToSpd(level), "[UL::Console]: ({}) @ line: {}, column: {})", toUTF8(source_id), line_number, column_number);
-    }
 
     std::cout << std::endl;
   }
@@ -115,17 +114,16 @@ public:
 
 class LoadLogger : public ul::LoadListener {
 public:
-  void OnBeginLoading(ul::View* caller, uint64_t frame_id, bool is_main_frame,
-    const ul::String& url) override {
-    spdlog::log(spdlog::level::info, "[UL::Loader]: Loading started, url: {}", url.utf8().data());
+  void OnBeginLoading(ul::View* caller, uint64_t frame_id, bool is_main_frame, const ul::String& url) override {
+    spdlog::info("[UL::Loader]: Loading started, url: {}", url.utf8().data());
   }
 
-  void OnFinishLoading(ul::View* caller, uint64_t frame_id, bool is_main_frame,
-    const ul::String& url) override {
-    spdlog::log(spdlog::level::info, "[UL::Loader]: Loading finished, url: {}", url.utf8().data());
+  void OnFinishLoading(ul::View* caller, uint64_t frame_id, bool is_main_frame, const ul::String& url) override {
+    spdlog::info("[UL::Loader]: Loading finished, url: {}", url.utf8().data());
   }
 
-  void OnFailLoading(ul::View* caller, uint64_t frame_id, bool is_main_frame,
+  void OnFailLoading(
+    ul::View* caller, uint64_t frame_id, bool is_main_frame,
     const ul::String& url, const ul::String& description,
     const ul::String& error_domain, int error_code) override {
     spdlog::log(
@@ -137,9 +135,8 @@ public:
       url.utf8().data());
   }
 
-  void OnDOMReady(ul::View* caller, uint64_t frame_id, bool is_main_frame,
-    const ul::String& url) override {
-    spdlog::log(spdlog::level::info, "[UL::Loader]: DOM ready, url: {}", url.utf8().data());
+  void OnDOMReady(ul::View* caller, uint64_t frame_id, bool is_main_frame, const ul::String& url) override {
+    spdlog::info("[UL::Loader]: DOM ready, url: {}", url.utf8().data());
   }
 };
 
@@ -147,8 +144,7 @@ public:
 class NetworkLogger : public ul::NetworkListener {
 public:
   bool OnNetworkRequest(ultralight::View* caller, ul::NetworkRequest& request) override {
-    spdlog::log(
-      spdlog::level::info, "[UL::Network]: {} request, url: {}", request.url().utf8().data(), request.httpMethod().utf8().data());
+    spdlog::info("[UL::Network]: {} request, url: {}", request.url().utf8().data(), request.httpMethod().utf8().data());
     return true;
   };
 };

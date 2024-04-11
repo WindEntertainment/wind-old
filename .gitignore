@@ -1,8 +1,9 @@
 /build/
 /install/
 /logs/
-.vscode/*
-*.cache*
+/.cache/
+/**/*/.cache/
+/**/*/res/
 
 /**/*/icudt67l.dat
 
