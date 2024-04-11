@@ -1,9 +1,11 @@
-name: Script lint
-description: Script lint
+name: Lint scripts
+description: Lint scripts
 
 runs:
   using: 'composite'
   steps:
-    - uses: ./.github/workflows/utils/setup-dotnet
+    - name: Setup dotnet base
+      uses: ./.github/workflows/utils/setup-dotnet
 
-    - uses: ./.github/workflows/modules/scripts/install-dependencies
+    - name: Install dependencies
+      uses: ./.github/workflows/modules/scripts/install-dependencies

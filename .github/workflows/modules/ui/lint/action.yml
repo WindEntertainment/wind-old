@@ -1,13 +1,14 @@
-name: UI lint
-description: UI lint
+name: Lint UI
+description: Lint UI
 
 runs:
   using: 'composite'
   steps:
-    - name: Setup base UI
+    - name: Setup node base
       uses: ./.github/workflows/utils/setup-node
 
-    - uses: ./.github/workflows/modules/ui/install-dependencies
+    - name: Dependencies installation
+      uses: ./.github/workflows/modules/ui/install-dependencies
 
     - name: Lint
       shell: bash

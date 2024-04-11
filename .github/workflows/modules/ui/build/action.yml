@@ -1,13 +1,14 @@
-name: UI build
-description: UI build
+name: Build UI
+description: Build UI
 
 runs:
   using: 'composite'
   steps:
-    - name: Setup base UI
+    - name: Setup node base
       uses: ./.github/workflows/utils/setup-node
 
-    - uses: ./.github/workflows/modules/ui/install-dependencies
+    - name: Install dependencies
+      uses: ./.github/workflows/modules/ui/install-dependencies
 
     - name: Build
       shell: bash

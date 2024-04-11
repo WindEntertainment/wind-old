@@ -1,10 +1,11 @@
-name: Engine lint
-description: Engine lint
+name: Lint engine
+description: Lint engine
 
 runs:
   using: 'composite'
   steps:
-    - uses: DoozyX/clang-format-lint-action@v0.17
+    - name: Lint
+      uses: DoozyX/clang-format-lint-action@v0.17
       with:
         source: '.'
         exclude: './game/assets'

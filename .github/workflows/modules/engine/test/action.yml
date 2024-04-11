@@ -1,15 +1,17 @@
-name: Engine test
-description: Engine test
+name: Test engine
+description: Test engine
 
 runs:
   using: 'composite'
   steps:
-    - uses: ./.github/workflows/utils/setup-conan
+    - name: Setup conan base
+      uses: ./.github/workflows/utils/setup-conan
 
-    - uses: ./.github/workflows/modules/engine/install-dependencies
+    - name: Install dependencies
+      uses: ./.github/workflows/modules/engine/install-dependencies
 
-    - name: Setup ultralight
+    - name: Setup ultralight base
       uses: ./.github/workflows/utils/setup-ultralight
 
-    - name: Setup ultralight
+    - name: Prepare engine env
       uses: ./.github/workflows/modules/engine/setup-env

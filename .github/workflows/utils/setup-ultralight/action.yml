@@ -4,7 +4,7 @@ description: Setup ultralight
 runs:
   using: 'composite'
   steps:
-    - name: Install ultralight
+    - name: Set ULTRALIGHT_PATH
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
@@ -18,26 +18,6 @@ runs:
           exit 1
         fi
 
-    # - name: Check if cache exists
-    #   id: cache-check
-    #   uses: actions/cache@v4
-    #   with:
-    #     lookup-only: true
-    #     path: |
-    #       ${{ env.ULTRALIGHT_PATH }}
-    #     key: ${{ runner.os }}-ultralight
-
-    # - name: Restore cache
-    #   if: steps.cache-check.outputs.cache-hit == 'true'
-    #   uses: actions/cache@v4
-    #   with:
-    #     path: |
-    #       ${{ env.ULTRALIGHT_PATH }}
-    #     key: ${{ runner.os }}-ultralight
-    #     restore-keys: |
-
-    #       ${{ runner.os }}-ultralight
-
     - uses: actions/cache/restore@v4
       id: restore-cache
       with:
@@ -49,22 +29,14 @@ runs:
       shell: bash
       if: steps.restore-cache.outputs.cache-hit != 'true' && env.os != 'windows-latest'
       run: |
+        cd ../
+        mkdir ultralight
+        cd ultralight
+
         if [ "$RUNNER_OS" == "Linux" ]; then
-          cd ../
-          mkdir ultralight
-          cd ultralight
-
-          pwd
-
           wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.3.0-linux-x64.7z
           7za x ultralight-sdk-1.3.0-linux-x64.7z
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          cd ../
-          mkdir ultralight
-          cd ultralight
-
-          pwd
-
           wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-mac-arm64.7z
           7za x ultralight-sdk-1.4.0a-mac-arm64.7z
 
@@ -75,7 +47,6 @@ runs:
         fi
 
     - name: Install ultralight
-    # // && steps.cache-check.outputs.cache-hit != 'true'
       if: steps.restore-cache.outputs.cache-hit != 'true' && env.os == 'windows-latest'
       shell: powershell
       run: |
@@ -85,13 +56,6 @@ runs:
 
         Invoke-WebRequest -Uri https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-1.4.0a-win-x64.7z -OutFile ultralight-sdk.7z
         7z x ultralight-sdk.7z -o"ultralight"
-
-    # - name: Save cache
-    #   uses: actions/cache@v4
-    #   with:
-    #     path: |
-    #       ${{ env.ULTRALIGHT_PATH }}
-    #     key: ${{ runner.os }}-ultralight
 
     - uses: actions/cache/save@v4
       if: steps.restore-cache.outputs.cache-hit != 'true'

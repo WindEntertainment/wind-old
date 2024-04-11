@@ -48,6 +48,7 @@ int main(int argc, char** argv) {
   using namespace wind;
   using namespace wind::asset_pipeline;
 
+  // tyt
   asset_pipeline::AssetPipeline pipeline;
   setting();
 
