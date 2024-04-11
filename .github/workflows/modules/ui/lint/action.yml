@@ -7,7 +7,7 @@ runs:
     - name: Setup node base
       uses: ./.github/workflows/utils/setup-node
 
-    - name: Dependencies installation
+    - name: Install dependencies
       uses: ./.github/workflows/modules/ui/install-dependencies
 
     - name: Lint
