@@ -14,10 +14,14 @@ runs:
         ./dotnet-install.sh --version latest --runtime aspnetcore
         ./dotnet-install.sh --channel 8.0
 
+    - name: Set DOTNET_PATH
+      shell: bash
+      run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           echo "DOTNET_PATH=/usr/share/dotnet" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          echo "DOTNET_PATH=C:\\\Program Files\\\dotnet" >> $GITHUB_ENV
+          echo "DOTNET_PATH=C:\\Program\ Files\\dotnet" >> $GITHUB_ENV
+          # C:\\\Program\\ Files\\\dotnet
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo "DOTNET_PATH=/Users/runner/.dotnet" >> $GITHUB_ENV
         else

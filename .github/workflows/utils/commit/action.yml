@@ -1,5 +1,5 @@
-name: Push
-description: Pull last changes and push
+name: Commit changes
+description: Pull last changes and push commit
 
 inputs:
   message:

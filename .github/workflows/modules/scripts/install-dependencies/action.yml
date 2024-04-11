@@ -1,10 +1,10 @@
-name: Install scripts dependencies
-description: Install scripts dependencies
+name: Install dependencies scripts
+description: Install dependencies scripts
 
 runs:
   using: 'composite'
   steps:
-    - name: Hello world
+    - name: Install dependencies
       shell: bash
       run: |
         echo "Hello world!"

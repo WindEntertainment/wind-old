@@ -5,35 +5,26 @@ runs:
   using: 'composite'
   steps:
     - name: Add env file
-      if:  env.os == 'ubuntu-latest' || env.os == 'macos-14'
       run:   |
+        touch CMakeEnv.txt
+
         if [ "$RUNNER_OS" == "Linux" ]; then
-          touch CMakeEnv.txt
           echo 'set(ENV{ULTRALIGHT_PATH} ${{ env.ULTRALIGHT_PATH }})' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_ROOT} ${{ env.DOTNET_PATH }})' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/8.0.3/runtimes/linux-x64/native")' >> CMakeEnv.txt
-
-          cat CMakeEnv.txt
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          touch CMakeEnv.txt
           echo 'set(ENV{ULTRALIGHT_PATH} "${{ env.ULTRALIGHT_PATH }}")' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_ROOT} "${{ env.DOTNET_PATH }}")' >> CMakeEnv.txt
           echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/8.0.3/runtimes/osx-arm64/native")' >> CMakeEnv.txt
-
-          cat CMakeEnv.txt
+        elif [ "$RUNNER_OS" == "Windows" ]; then
+          echo 'set(ENV{ULTRALIGHT_PATH} "D:\\a\\dreich\\ultralight\\ultralight\\SDK")' >> CMakeEnv.txt
+          echo 'set(ENV{DOTNET_ROOT} "${{ env.DOTNET_PATH }}")' >> CMakeEnv.txt
+          echo 'set(ENV{DOTNET_INCLUDES} "${{ env.DOTNET_PATH }}\\packs\\Microsoft.NETCore.App.Host.win-x64\\7.0.3\\runtimes\\win-x64\\native")' >> CMakeEnv.txt
         else
           echo "$RUNNER_OS not supported"
           exit 1
         fi
       shell: bash
 
-    - name: Add env file
-      if: env.os == 'windows-latest'
-      run:   |
-        touch CMakeEnv.txt
-        echo 'set(ENV{ULTRALIGHT_PATH} "D:\\a\\dreich\\ultralight\\ultralight\\SDK")' >> CMakeEnv.txt
-        echo 'set(ENV{DOTNET_ROOT} "C:\\Program\ Files\\dotnet")' >> CMakeEnv.txt
-        echo 'set(ENV{DOTNET_INCLUDES} "C:\\Program\ Files\\dotnet\\packs\\Microsoft.NETCore.App.Host.win-x64\\7.0.3\\runtimes\\win-x64\\native")' >> CMakeEnv.txt
-
-        cat CMakeEnv.txt
-      shell: bash
+# C:\\Program\ Files\\dotnet
+# C:\\Program\ Files\\dotnet

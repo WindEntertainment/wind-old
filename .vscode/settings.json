@@ -25,9 +25,13 @@
   "i18n-ally.sourceLanguage": "en",
   "cSpell.words": [
     "choco",
+    "DCMAKE",
+    "dreich",
+    "elif",
     "glfw",
     "hostfxr",
     "KEYCODES",
+    "Makefiles",
     "opengl",
     "spdlog",
     "timepoint",
