@@ -218,9 +218,11 @@ jobs:
           # echo "engineRoot=${{ matrix.config.engineRoot }}" >> $GITHUB_ENV
           # echo "cc=${{ matrix.config.cc }}" >> $GITHUB_ENV
           # echo "cxx=${{ matrix.config.cxx }}" >> $GITHUB_ENV
-          for key in name projectRoot artifact os scriptBuildType engineBuildType uiRoot scriptRoot engineRoot cc cxx; do
-              echo "${key}=${matrix.config[$key]}" >> $GITHUB_ENV
-          done
+          config=${{ toJSON(matrix.config) }}
+          echo config
+          # for key in name projectRoot artifact os scriptBuildType engineBuildType uiRoot scriptRoot engineRoot cc cxx; do
+          #     echo "${key}=${{ matrix.config[$key] }}" >> $GITHUB_ENV
+          # done
 
       - name: List env
         shell: bash
