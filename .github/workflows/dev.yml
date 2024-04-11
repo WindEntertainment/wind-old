@@ -145,14 +145,14 @@ jobs:
         config:
           - {
               name: 'Windows',
-              projectRoot: "D:\\a\\dreich",
+              projectRoot: "D:\\\\a\\\\dreich",
               artifact: 'windows.tar.xz',
               os: 'windows-latest',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
-              uiRoot: "D:\\a\\dreich\\game\\assets\\UI",
-              scriptRoot: "D:\\a\\dreich\\game\\assets\\scripts",
-              engineRoot: "D:\\a\\dreich",
+              uiRoot: "D:\\\\a\\\\dreich\\\\game\\\\assets\\\\UI",
+              scriptRoot: "D:\\\\a\\\\dreich\\\\game\\\\assets\\\\scripts",
+              engineRoot: "D:\\\\a\\\\dreich",
               cc: 'clang',
               cxx: 'clang++',
             }
