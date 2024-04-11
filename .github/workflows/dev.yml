@@ -211,7 +211,7 @@ jobs:
 
           # Iterate over key-value pairs
           jq -r 'to_entries[] | "\(.key)=\(.value)"' <<< "$json" | while IFS='=' read -r key value; do
-              echo "Key: $key, Value: $value"
+              echo "$value $key=$value"
           done
 
 
