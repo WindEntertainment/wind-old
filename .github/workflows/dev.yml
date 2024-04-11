@@ -211,14 +211,14 @@ jobs:
 
           # Iterate over key-value pairs
           jq -r 'to_entries[] | "\(.key)=\(.value)"' <<< "$json" | while IFS='=' read -r key value; do
-              echo "$value $key=$value"
+              echo "$value $key=$value" >> $GITHUB_ENV
           done
 
 
       - name: List env
         shell: bash
         run: |
-          echo ${{ env.key }}
+          echo ${{ env.name }}
       - name: UI
         uses: './.github/workflows/modules/ui/build'
       - uses: ./.github/workflows/utils/setup-base-libs
