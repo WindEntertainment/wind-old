@@ -3,6 +3,7 @@
 /logs/
 /.cache/
 /**/*/.cache/
+/**/*/res/
 
 /**/*/icudt67l.dat
 
