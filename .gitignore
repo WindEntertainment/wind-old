@@ -27,6 +27,6 @@ dist
 *.local
 
 ########## C#
-dotnet-install.sh
+# dotnet-install.sh
 bin
 obj
