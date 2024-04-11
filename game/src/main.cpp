@@ -60,7 +60,7 @@ int main(int argc, char** argv) {
 
   //============Script System==============//
 
-  // auto scriptsPath = fs::path("./assets/scripts/bin/Release/");
+  // auto scriptsPath = fs::path("./data/main/scripts/bin/Release/");
   // auto hostfxr = new ScriptSystemHostfxr();
 
   // hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
