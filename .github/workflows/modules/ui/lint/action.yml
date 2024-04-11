@@ -10,7 +10,9 @@ runs:
     - name: Install dependencies
       uses: ./.github/workflows/modules/ui/install-dependencies
 
-    - run: ls -a
+    - name: here
+      shell: bash
+      run: ls -a
 
     - name: Lint
       shell: bash
