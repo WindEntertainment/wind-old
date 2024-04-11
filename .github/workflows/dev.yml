@@ -221,7 +221,7 @@ jobs:
           # for key in $(echo "${!matrix_config[@]}"); do
           #     echo "${key}=${matrix_config[$key]}" >> $GITHUB_ENV
           # done
-          array=${{ matrix.config }}
+          array=${{ !matrix.config }}
           for i in "${!array[@]}"
           do
             echo "key  : $i"
