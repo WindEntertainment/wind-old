@@ -1,4 +1,5 @@
-from conans import ConanFile, CMake, tools
+from conan import ConanFile
+from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout, CMakeDeps
 
 class MyConanFile(ConanFile):
     name = "dreich"
@@ -16,7 +17,7 @@ class MyConanFile(ConanFile):
         "glfw/3.3.8",
         "glm/cci.20230113"
     ]
-    layout = "cmake_layout"
+    layout = cmake_layout
 
     def build(self):
         cmake = CMake(self)
