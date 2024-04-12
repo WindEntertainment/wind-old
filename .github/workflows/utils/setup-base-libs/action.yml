@@ -18,7 +18,7 @@ runs:
       name: Install dependencies macos
       if: env.os == 'macos-14'
       with:
-        run: 'brew install p7zip llvm cmake conan && brew install dotnet@8.0.3 && which dotnet'
+        run: 'brew install p7zip llvm cmake conan && brew install dotnet@8 && which dotnet'
         path: $(brew --prefix)
         cache: yes
         key: '${{ runner.os }}-brew'
