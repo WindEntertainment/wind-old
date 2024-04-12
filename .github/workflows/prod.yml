@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+
 jobs:
   linting:
     name: 'Linting ${{ matrix.config.name }}'

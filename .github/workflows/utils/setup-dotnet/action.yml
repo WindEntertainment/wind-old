@@ -5,7 +5,7 @@ runs:
   using: 'composite'
   steps:
     - name: Install .Net
-      if: env.os == 'ubuntu-latest' || env.os == 'macos-14'
+      if: env.os == 'ubuntu-latest'
       shell: bash
       run: |
         wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh

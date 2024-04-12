@@ -13,6 +13,4 @@
 - CI
 1. hardcode dotnet
 2. windows
-3. stop prev builds
-4. dotnet-install.sh
-5. artifacts
+3. artifacts

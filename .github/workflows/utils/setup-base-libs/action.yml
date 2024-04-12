@@ -18,7 +18,7 @@ runs:
       name: Install dependencies macos
       if: env.os == 'macos-14'
       with:
-        run: 'brew install p7zip llvm cmake conan'
+        run: 'brew install p7zip llvm cmake conan && brew install dotnet@8.0.3 && which dotnet'
         path: $(brew --prefix)
         cache: yes
         key: '${{ runner.os }}-brew'
@@ -45,7 +45,8 @@ runs:
       if: env.os == 'windows-latest'
       shell: powershell
       run: |
-        choco install make cmake llvm 7zip dotnet
+        choco install make cmake llvm 7zip
+        choco dotnet --version 8.0.3
 
     # - uses: ./.github/workflows/utils/test
     #   if: env.os == 'windows-latest'
