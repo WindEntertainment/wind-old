@@ -11,6 +11,5 @@
 3. code refactoring
 
 - CI
-1. hardcode dotnet
+1. artifacts
 2. windows
-3. artifacts
