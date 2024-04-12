@@ -45,7 +45,7 @@ runs:
       if: env.os == 'windows-latest'
       shell: powershell
       run: |
-        choco install make cmake llvm 7zip dotnet --version 8.0.3
+        choco install make cmake llvm 7zip && choco install dotnet --version 8.0.3 -y
 
     # - uses: ./.github/workflows/utils/test
     #   if: env.os == 'windows-latest'
