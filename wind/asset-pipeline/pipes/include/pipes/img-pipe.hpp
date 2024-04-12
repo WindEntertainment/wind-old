@@ -42,7 +42,7 @@ public:
     const uLong fileSize = width * height * channels + 1;
 
     uLongf zippedSize = compressBound(fileSize);
-    char zipped[zippedSize];
+    char* zipped = new char[zippedSize];
 
     auto result = compress(reinterpret_cast<Bytef*>(zipped), &zippedSize, reinterpret_cast<const Bytef*>(image), fileSize);
     if (result != Z_OK) {

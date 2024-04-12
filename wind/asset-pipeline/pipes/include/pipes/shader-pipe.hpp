@@ -57,12 +57,12 @@ public:
     const uLong vtxSize = strlen(vtxShader) + 1;
 
     uLongf vtxZippedSize = compressBound(vtxSize);
-    char vtxZipped[vtxZippedSize];
+    char* vtxZipped = new char[vtxZippedSize];
 
     const uLong fgtSize = strlen(fgtShader) + 1;
 
     uLongf fgtZippedSize = compressBound(fgtSize);
-    char fgtZipped[fgtZippedSize];
+    char* fgtZipped = new char[fgtZippedSize];
 
     // vtx
     {
