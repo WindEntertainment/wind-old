@@ -26,8 +26,3 @@ runs:
           exit 1
         fi
       shell: bash
-
-# C:\\Program\ Files\\dotnet
-# C:\\Program\ Files\\dotnet
-
-# D:\\a\\dreich\\ultralight\\ultralight\\SDK
