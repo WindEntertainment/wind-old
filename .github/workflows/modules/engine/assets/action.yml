@@ -20,10 +20,14 @@ runs:
           echo "$RUNNER_OS not supported"
           exit 1
         fi
+
         cmake --build ${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }} --parallel 10 --target wind-asset-bundler
 
         cd build/${{ env.engineBuildType }}/wind/asset-pipeline
-        make install
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          msbuild
+        else
+          sudo make install
         wind-asset-bundler -h
       shell: bash
 
