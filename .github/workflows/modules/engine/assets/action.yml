@@ -28,6 +28,8 @@ runs:
           msbuild
         else
           sudo make install
+        fi
+
         wind-asset-bundler -h
       shell: bash
 
