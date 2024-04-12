@@ -17,8 +17,9 @@ add_library(${PROJECT_NAME} STATIC ${HEADERS} ${SOURCES})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
 
-include_directories("$ENV{DOTNET_INCLUDES}")
-target_link_libraries(${PROJECT_NAME} PUBLIC "$ENV{DOTNET_INCLUDES}/libnethost.a")
+# include_directories("$ENV{DOTNET_INCLUDES}")
+# target_link_libraries(${PROJECT_NAME} PUBLIC "$ENV{DOTNET_INCLUDES}/libnethost.lib")
+message($ENV{DOTNET_INCLUDES})
 
 # internal depencencies
 
