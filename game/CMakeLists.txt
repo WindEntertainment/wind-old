@@ -14,7 +14,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE wind-script-system)
 
 
 include_directories("$ENV{DOTNET_INCLUDES}")
-target_link_libraries(${PROJECT_NAME} PUBLIC "$ENV{DOTNET_INCLUDES}/libnethost.a")
+target_link_libraries(${PROJECT_NAME} PUBLIC "$ENV{DOTNET_INCLUDES}/libnethost.lib")
 
 set(ASSETS_PATH "$<TARGET_FILE_DIR:${PROJECT_NAME}>/")
 set(ULTRALIGHT_RESOURCES_DIR "$ENV{ULTRALIGHT_PATH}/resources")

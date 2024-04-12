@@ -2,6 +2,7 @@ project(wind-ultralight)
 
 set(ULTRALIGHT_INCLUDE_DIR "$ENV{ULTRALIGHT_PATH}/include")
 set(ULTRALIGHT_BINARY_DIR "$ENV{ULTRALIGHT_PATH}/bin")
+set(ULTRALIGHT_LIBRARY_DIR "$ENV{ULTRALIGHT_PATH}/lib")
 set(ULTRALIGHT_INSPECTOR_DIR "$ENV{ULTRALIGHT_PATH}/inspector")
 set(ULTRALIGHT_RESOURCES_DIR "$ENV{ULTRALIGHT_PATH}/resources")
 
@@ -27,7 +28,8 @@ target_link_libraries(${PROJECT_NAME} PUBLIC wind-input-system)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-asset-manager)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_INCLUDE_DIR}")
-target_link_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_BINARY_DIR}")
+target_link_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_LIBRARY_DIR}")
+message(${ULTRALIGHT_LIBRARY_DIR})
 target_link_libraries(${PROJECT_NAME} PUBLIC UltralightCore AppCore Ultralight WebCore)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
