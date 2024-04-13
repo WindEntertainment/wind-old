@@ -24,7 +24,7 @@ void AssetBundler::compileFile(const fs::path& _source, const fs::path& _destina
   }
 
   fs::path destination = _destination;
-  destination += c_cacheExtentsion;
+  destination += c_cacheExtension;
 
   try {
     auto parent_path = destination.parent_path();
