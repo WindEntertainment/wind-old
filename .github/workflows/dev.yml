@@ -24,7 +24,7 @@ jobs:
           - {
               name: 'Ubuntu',
               projectRoot: '/home/runner/work/dreich',
-              artifact: 'linux.tar.xz',
+              artifact: '${{ github.event.pull_request.title }}-linux.tar.xz',
               os: 'ubuntu-latest',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
@@ -62,7 +62,7 @@ jobs:
           - {
               name: 'Windows',
               projectRoot: '/d/a/dreich',
-              artifact: 'windows.tar.xz',
+              artifact: '${{ github.event.pull_request.title }}-windows.tar.xz',
               os: 'windows-latest',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
@@ -75,7 +75,7 @@ jobs:
           - {
               name: 'Ubuntu',
               projectRoot: '/home/runner/work/dreich',
-              artifact: 'linux.tar.xz',
+              artifact: '${{ github.event.pull_request.title }}-linux.tar.xz',
               os: 'ubuntu-latest',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
@@ -88,7 +88,7 @@ jobs:
           - {
               name: 'MacOS',
               projectRoot: '/Users/runner/work/dreich',
-              artifact: 'macos.tar.xz',
+              artifact: '${{ github.event.pull_request.title }}-macos.tar.xz',
               os: 'macos-14',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
@@ -126,7 +126,7 @@ jobs:
           - {
               name: 'Windows',
               projectRoot: '/d/a/dreich',
-              artifact: 'windows.tar.xz',
+              artifact: '${{ github.event.pull_request.title }}-windows.tar.xz',
               os: 'windows-latest',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
@@ -139,7 +139,7 @@ jobs:
           - {
               name: 'Ubuntu',
               projectRoot: '/home/runner/work/dreich',
-              artifact: 'linux.tar.xz',
+              artifact: '${{ github.event.pull_request.title }}-linux.tar.xz',
               os: 'ubuntu-latest',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
@@ -152,7 +152,7 @@ jobs:
           - {
               name: 'MacOS',
               projectRoot: '/Users/runner/work/dreich',
-              artifact: 'macos.tar.xz',
+              artifact: '${{ github.event.pull_request.title }}-macos.tar.xz',
               os: 'macos-14',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',

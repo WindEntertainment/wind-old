@@ -47,6 +47,7 @@ runs:
     - name: Upload package as artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ runner.os }}-${{ github.event.pull_request.title }}
+        name: ${{ env.artifact }}
         path: build/${{ env.engineBuildType }}
         retention-days: 1
+        overwrite: true
