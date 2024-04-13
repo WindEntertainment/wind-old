@@ -32,19 +32,19 @@ int main(int argc, char** argv) {
   //=========Assest Pipeline===============//
 
   AssetManager::loadBundle("res/Ultralight.bundle");
-  // AssetManager::loadBundle("res/Assets.bundle");
+  AssetManager::loadBundle("res/Assets.bundle");
 
   //=========Input System==================//
 
-  // InputSystem::createTriggersFromFile("main/configs/triggers.yml");
-  // InputSystem::addTriggerCallbacks("ultralightMouseMove", &Ultralight::triggerMoveEvent);
-  // InputSystem::addTriggerCallbacks("ultralightMouseScroll", &Ultralight::triggerScrollEvent);
-  // InputSystem::addTriggerCallbacks("ultralightMousePress", &Ultralight::triggerMousePressEvent);
-  // InputSystem::addTriggerCallbacks("ultralightMouseRelease", &Ultralight::triggerMouseReleaseEvent);
-  // InputSystem::addTriggerCallbacks("ultralightKeyPress", &Ultralight::triggerKeyPressEvent);
-  // InputSystem::addTriggerCallbacks("ultralightKeyHold", &Ultralight::triggerKeyHoldEvent);
-  // InputSystem::addTriggerCallbacks("ultralightKeyRelease", &Ultralight::triggerKeyReleaseEvent);
-  // InputSystem::addTriggerCallbacks("ultralightChars", &Ultralight::triggerCharEvent);
+  InputSystem::createTriggersFromFile("main/configs/triggers.yml");
+  InputSystem::addTriggerCallbacks("ultralightMouseMove", &Ultralight::triggerMoveEvent);
+  InputSystem::addTriggerCallbacks("ultralightMouseScroll", &Ultralight::triggerScrollEvent);
+  InputSystem::addTriggerCallbacks("ultralightMousePress", &Ultralight::triggerMousePressEvent);
+  InputSystem::addTriggerCallbacks("ultralightMouseRelease", &Ultralight::triggerMouseReleaseEvent);
+  InputSystem::addTriggerCallbacks("ultralightKeyPress", &Ultralight::triggerKeyPressEvent);
+  InputSystem::addTriggerCallbacks("ultralightKeyHold", &Ultralight::triggerKeyHoldEvent);
+  InputSystem::addTriggerCallbacks("ultralightKeyRelease", &Ultralight::triggerKeyReleaseEvent);
+  InputSystem::addTriggerCallbacks("ultralightChars", &Ultralight::triggerCharEvent);
 
   //===============Window==================//
 
