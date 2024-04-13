@@ -30,7 +30,7 @@ void AssetBundler::clearUnusedCache(const fs::path& _source, const fs::path& _ca
       continue;
 
     fs::path sourceFile = "./" / fs::relative(entry, _cache);
-    if (sourceFile.extension().string() != c_cacheExtentsion)
+    if (sourceFile.extension().string() != c_cacheExtension)
       return;
 
     sourceFile.replace_extension();

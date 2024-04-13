@@ -1,5 +1,6 @@
 #include "input-system/keys.h"
 #include "utils/includes.h"
+#include <GLFW/glfw3.h>
 
 namespace wind {
 
