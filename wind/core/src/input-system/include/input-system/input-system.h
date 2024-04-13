@@ -3,6 +3,7 @@
 #include "input-system/trigger.h"
 #include "keys.h"
 #include "utils/includes.h"
+#include <GLFW/glfw3.h>
 #include <vector>
 
 namespace wind {

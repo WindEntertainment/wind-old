@@ -4,7 +4,7 @@ namespace wind {
 namespace assets {
 
 void AssetBundler::exportDirectory(const fs::path& _source, const fs::path& _destination) {
-  Stopwatch sw("Exportred");
+  Stopwatch sw("Exported");
 
   spdlog::info("Export directory {} to {}", _source.string(), _destination.string());
 
@@ -21,7 +21,7 @@ void AssetBundler::exportDirectory(const fs::path& _source, const fs::path& _des
       continue;
 
     auto ext = entry.path().extension().string();
-    if (ext != c_cacheExtentsion)
+    if (ext != c_cacheExtension)
       continue;
 
     auto name = entry.path().filename().replace_extension();
