@@ -17,7 +17,10 @@ class MyConanFile(ConanFile):
         "glfw/3.3.8",
         "glm/cci.20230113"
     ]
-    layout = cmake_layout
+    exports_sources = "CMakeLists.txt", "*"
+
+    def layout(self):
+        cmake_layout(self)
 
     def build(self):
         cmake = CMake(self)
@@ -29,4 +32,4 @@ class MyConanFile(ConanFile):
         cmake.install()
 
     def package_info(self):
-        self.cpp_info.set_property("cmake_file_name", "MyLibrary")
+        self.cpp_info.libs = ["Dreich"]
