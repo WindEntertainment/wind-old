@@ -21,7 +21,7 @@ jobs:
           - {
               name: 'Ubuntu',
               projectRoot: '/home/runner/work/dreich',
-              artifact: 'linux.tar.xz',
+              artifact: '${{ github.event.pull_request.title }}-linux.tar.xz',
               os: 'ubuntu-latest',
               scriptBuildType: 'publish',
               engineBuildType: 'Release',
@@ -59,7 +59,7 @@ jobs:
           - {
               name: 'Windows',
               projectRoot: 'C:\\\a\\\dreich',
-              artifact: 'windows.tar.xz',
+              artifact: '${{ github.event.pull_request.title }}-windows.tar.xz',
               os: 'windows-latest',
               scriptBuildType: 'publish',
               engineBuildType: 'Release',
@@ -72,7 +72,7 @@ jobs:
           - {
               name: 'Ubuntu',
               projectRoot: '/home/runner/work/dreich',
-              artifact: 'linux.tar.xz',
+              artifact: '${{ github.event.pull_request.title }}-linux.tar.xz',
               os: 'ubuntu-latest',
               scriptBuildType: 'publish',
               engineBuildType: 'Release',
@@ -85,7 +85,7 @@ jobs:
           - {
               name: 'MacOS',
               projectRoot: '/Users/runner/work/dreich',
-              artifact: 'macos.tar.xz',
+              artifact: '${{ github.event.pull_request.title }}-macos.tar.xz',
               os: 'macos-14',
               scriptBuildType: 'publish',
               engineBuildType: 'Release',
@@ -123,7 +123,7 @@ jobs:
           - {
               name: 'Windows',
               projectRoot: 'D:\a\dreich',
-              artifact: 'windows.tar.xz',
+              artifact: '${{ github.event.pull_request.title }}-windows.tar.xz',
               os: 'windows-latest',
               scriptBuildType: 'publish',
               engineBuildType: 'Release',
@@ -136,7 +136,7 @@ jobs:
           - {
               name: 'Ubuntu',
               projectRoot: '/home/runner/work/dreich',
-              artifact: 'linux.tar.xz',
+              artifact: '${{ github.event.pull_request.title }}-linux.tar.xz',
               os: 'ubuntu-latest',
               scriptBuildType: 'publish',
               engineBuildType: 'Release',
@@ -149,7 +149,7 @@ jobs:
           - {
               name: 'MacOS',
               projectRoot: '/Users/runner/work/dreich',
-              artifact: 'macos.tar.xz',
+              artifact: '${{ github.event.pull_request.title }}-macos.tar.xz',
               os: 'macos-14',
               scriptBuildType: 'publish',
               engineBuildType: 'Release',
