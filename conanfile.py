@@ -9,6 +9,7 @@ class MyConanFile(ConanFile):
     version = "1.0"
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeDeps", "CMakeToolchain"
+    exports_sources = "*"
     requires = [
         "spdlog/1.13.0",
         "yaml-cpp/0.8.0",
@@ -20,7 +21,6 @@ class MyConanFile(ConanFile):
         "glfw/3.3.8",
         "glm/cci.20230113"
     ]
-    exports_sources = "*"
 
     def layout(self):
         cmake_layout(self)
@@ -31,16 +31,10 @@ class MyConanFile(ConanFile):
         cmake.build()
 
     def package(self):
-        # copy(self, pattern="*.h", src=os.path.join(self.source_folder, "include"), dst=os.path.join(self.package_folder, "include"))
-        # copy(self, pattern="*.a", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
-        # copy(self, pattern="*.lib", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
-        # copy(self, pattern="*.so", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
-        # copy(self, pattern="*.dll", src=self.build_folder, dst=os.path.join(self.package_folder, "bin"), keep_path=False)
-        # copy(self, pattern="*.dylib", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
+        cmake = CMake(self)
         copy(self, "LICENSE.txt", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
         copy(self, pattern="*", src=os.path.join(self.build_folder, "game", "res"), dst=os.path.join(self.package_folder, "res"))
         copy(self, pattern="game", src=os.path.join(self.build_folder, "game"), dst=os.path.join(self.package_folder), keep_path=False)
-        cmake = CMake(self)
         cmake.install()
 
     def package_info(self):
