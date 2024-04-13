@@ -104,5 +104,8 @@
     "filesystem": "cpp",
     "version": "cpp",
     "ranges": "cpp"
-  }
+  },
+  "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
+    "clang-diagnostic-error"
+  ]
 }
