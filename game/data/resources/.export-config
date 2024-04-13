@@ -1,0 +1,6 @@
+exports:
+  - path: "icudt67l.dat"
+    pipe: default
+    output:
+      path: "Ultralight"
+      type: bundle
