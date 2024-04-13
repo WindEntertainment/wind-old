@@ -27,7 +27,7 @@ void AssetBundler::build(const fs::path& _path) {
   if (!fs::exists(outputPath))
     fs::create_directory(outputPath);
 
-  clearUnusedCache(_path, cachePath);
+  // clearUnusedCache(_path, cachePath);
   processDirectory(_path, cachePath);
 
   fs::directory_iterator it;

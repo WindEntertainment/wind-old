@@ -10,7 +10,7 @@ glm::vec2 MouseEventHandler::s_offset;
 glm::vec2 MouseEventHandler::s_scroll;
 
 void MouseEventHandler::mousePressCallback(GLFWwindow*, int _button,
-                                           int _action, int _mods) {
+  int _action, int _mods) {
   switch (_action) {
 
   case GLFW_PRESS:
@@ -33,7 +33,7 @@ void MouseEventHandler::mouseScrollCallback(GLFWwindow*, double _x, double _y) {
 
 void MouseEventHandler::mouseMoveCallback(GLFWwindow*, double _x, double _y) {
   s_offset = {static_cast<float>(_x) - s_position.x,
-              s_position.y - static_cast<float>(_y)};
+    s_position.y - static_cast<float>(_y)};
 
   s_position = {(float)_x, (float)_y};
 }

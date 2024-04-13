@@ -1,9 +1,10 @@
+#include <glad/glad.h>
+
 #include "input-system/context.h"
 #include "input-system/keys.h"
 #include "script-system/hostfxr.h"
 #include "script-system/script-system.h"
 #include "utils/includes.h"
-#include <GLFW/glfw3.h>
 
 #include <algorithm>
 #include <asset-manager/asset-manager.hpp>
@@ -30,11 +31,12 @@ int main(int argc, char** argv) {
 
   //=========Assest Pipeline===============//
 
-  AssetManager::loadBundle("assets.bundle");
+  AssetManager::loadBundle("res/Ultralight.bundle");
+  AssetManager::loadBundle("res/Assets.bundle");
 
   //=========Input System==================//
 
-  InputSystem::createTriggersFromFile("configs/triggers.yml");
+  InputSystem::createTriggersFromFile("main/configs/triggers.yml");
   InputSystem::addTriggerCallbacks("ultralightMouseMove", &Ultralight::triggerMoveEvent);
   InputSystem::addTriggerCallbacks("ultralightMouseScroll", &Ultralight::triggerScrollEvent);
   InputSystem::addTriggerCallbacks("ultralightMousePress", &Ultralight::triggerMousePressEvent);
@@ -56,7 +58,7 @@ int main(int argc, char** argv) {
   //=============Ultralight================//
 
   Ultralight::init();
-  const auto uiTexture = Ultralight::loadView("UI/dist/index.html", {800, 600});
+  const auto uiTexture = Ultralight::loadView("main/UI/dist/index.html", {800, 600});
 
   //============Script System==============//
 

@@ -1,4 +1,5 @@
-#include <utils/utils.h>
+#pragma once
+#include "utils.h"
 
 namespace wind {
 namespace renderer {

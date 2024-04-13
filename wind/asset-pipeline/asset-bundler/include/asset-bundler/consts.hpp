@@ -3,7 +3,7 @@
 namespace wind {
 namespace assets {
 
-static const char* c_cacheExtentsion = ".wind-asset-cache";
+static const char* c_cacheExtension = ".wind-asset-cache";
 
 }
 } // namespace wind

@@ -5,8 +5,6 @@
 /**/*/.cache/
 /**/*/res/
 
-/**/*/icudt67l.dat
-
 *.bundle
 CMakeUserPresets.json
 

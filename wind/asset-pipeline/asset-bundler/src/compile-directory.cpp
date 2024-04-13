@@ -78,9 +78,10 @@ void AssetBundler::compileDirectory(const fs::path& _source, const fs::path& _de
 
         pipe->config(exportNode);
 
+        fs::path sourceFile = sourceParentPath.empty() ? entry.path() : fs::relative(entry, sourceParentPath);
         compileFile(
-          fs::relative(entry, sourceParentPath),
-          _destination / fs::relative(entry, sourceParentPath),
+          sourceFile,
+          _destination / sourceFile,
           pipe);
       }
   } catch (std::exception& ex) {
