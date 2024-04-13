@@ -18,3 +18,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE pugixml::pugixml)
 
 find_package(glm CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
+
+find_package(ZLIB REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE ZLIB::ZLIB)
