@@ -19,7 +19,7 @@
 #include <wind-ultralight/ultralight.h>
 #include <window/window.h>
 
-int main(int argc, char** argv) {
+int main() {
 #ifndef NDEBUG
 #define SPDLOG
   spdlog::set_level(spdlog::level::debug);
@@ -49,28 +49,17 @@ int main(int argc, char** argv) {
   //===============Window==================//
 
   Window::init([](Window::Config* self) {
-    self->title = "Game";
+    self->title = "Editor";
     self->fullScreen = false;
-    self->size = {800, 600};
+    self->size = {1200, 800};
     self->vSync = false;
+    self->resizable = true;
   });
 
   //=============Ultralight================//
 
   Ultralight::init();
-  const auto uiTexture = Ultralight::loadView("main/UI/dist/index.html", {800, 600});
-
-  //============Script System==============//
-
-  // auto scriptsPath = fs::path("./assets/scripts/bin/Release/");
-  // auto hostfxr = new ScriptSystemHostfxr();
-
-  // hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
-
-  // ScriptSystem* scriptSystem = hostfxr->createScriptSystem(scriptsPath, scriptsPath / "Scripts.dll");
-
-  // scriptSystem->run("Scripts.Lib, Scripts", "HelloAgain", "from host!", 1);
-  // scriptSystem->run("Scripts.Lib, Scripts", "Hello", "from host!", 1);
+  const auto uiTexture = Ultralight::loadView("main/UI/dist/index.html", {1200, 800});
 
   //=============Main loop=================//
 
@@ -80,12 +69,10 @@ int main(int argc, char** argv) {
     Ultralight::update();
     Ultralight::render();
 
-    Renderer::drawTexture(uiTexture, {1, 1}, {0, 0, 0}, {0, 0, 0}, {800, 600, 1});
+    Renderer::drawTexture(uiTexture, {1, 1}, {0, 0, 0}, {0, 0, 0}, {1200, 800, 1});
 
     Window::show();
   }
-
-  // hostfxr->stop();
 
   return EXIT_SUCCESS;
 }
