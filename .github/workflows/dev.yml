@@ -24,7 +24,7 @@ jobs:
           - {
               name: 'Ubuntu',
               projectRoot: '/home/runner/work/dreich',
-              artifact: 'linux.tar.xz',
+              artifact: 'linux',
               os: 'ubuntu-latest',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
@@ -33,6 +33,7 @@ jobs:
               engineRoot: '/home/runner/work/dreich/dreich',
               cc: 'clang',
               cxx: 'clang++',
+              isRelease: false,
             }
     steps:
       - name: Checkout code
@@ -62,7 +63,7 @@ jobs:
           - {
               name: 'Windows',
               projectRoot: '/d/a/dreich',
-              artifact: 'windows.tar.xz',
+              artifact: 'windows',
               os: 'windows-latest',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
@@ -71,11 +72,12 @@ jobs:
               engineRoot: '/d/a/dreich/dreich',
               cc: 'clang',
               cxx: 'clang++',
+              isRelease: false,
             }
           - {
               name: 'Ubuntu',
               projectRoot: '/home/runner/work/dreich',
-              artifact: 'linux.tar.xz',
+              artifact: 'linux',
               os: 'ubuntu-latest',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
@@ -84,11 +86,12 @@ jobs:
               engineRoot: '/home/runner/work/dreich/dreich',
               cc: 'clang',
               cxx: 'clang++',
+              isRelease: false,
             }
           - {
               name: 'MacOS',
               projectRoot: '/Users/runner/work/dreich',
-              artifact: 'macos.tar.xz',
+              artifact: 'macos',
               os: 'macos-14',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
@@ -97,6 +100,7 @@ jobs:
               engineRoot: '/Users/runner/work/dreich/dreich',
               cc: 'clang',
               cxx: 'clang++',
+              isRelease: false,
             }
     steps:
       - name: Checkout code
@@ -126,7 +130,7 @@ jobs:
           - {
               name: 'Windows',
               projectRoot: '/d/a/dreich',
-              artifact: 'windows.tar.xz',
+              artifact: 'windows',
               os: 'windows-latest',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
@@ -135,11 +139,12 @@ jobs:
               engineRoot: '/d/a/dreich/dreich',
               cc: 'clang',
               cxx: 'clang++',
+              isRelease: false,
             }
           - {
               name: 'Ubuntu',
               projectRoot: '/home/runner/work/dreich',
-              artifact: 'linux.tar.xz',
+              artifact: 'linux',
               os: 'ubuntu-latest',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
@@ -148,11 +153,12 @@ jobs:
               engineRoot: '/home/runner/work/dreich/dreich',
               cc: 'clang',
               cxx: 'clang++',
+              isRelease: false,
             }
           - {
               name: 'MacOS',
               projectRoot: '/Users/runner/work/dreich',
-              artifact: 'macos.tar.xz',
+              artifact: 'macos',
               os: 'macos-14',
               scriptBuildType: 'build',
               engineBuildType: 'Debug',
@@ -161,6 +167,7 @@ jobs:
               engineRoot: '/Users/runner/work/dreich/dreich',
               cc: 'clang',
               cxx: 'clang++',
+              isRelease: false,
             }
     steps:
       - name: Checkout code

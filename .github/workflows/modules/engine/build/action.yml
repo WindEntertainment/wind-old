@@ -28,10 +28,10 @@ runs:
           cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game
         elif [ "$RUNNER_OS" == "macOS" ]; then
           cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game
-          # pwd
-          # ls -a
-          # conan create .
-          # ls -a
+          pwd
+          ls -a
+          conan create .
+          ls -a
         elif [ "$RUNNER_OS" == "Windows" ]; then
           export CC=clang
           export CXX=clang++
@@ -45,6 +45,16 @@ runs:
       shell: bash
 
     - name: Upload package as artifact
+      if: ${{ env.isRelease == false }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.artifact }}
+        path: build/${{ env.engineBuildType }}
+        retention-days: 1
+        overwrite: true
+
+    - name: Upload package as artifact
+      if: ${{ env.isRelease == true }}
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.artifact }}
