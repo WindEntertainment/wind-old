@@ -27,9 +27,3 @@ target_link_libraries(${PROJECT_NAME} PUBLIC glad::glad)
 
 find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
-
-find_package(pugixml REQUIRED)
-target_link_libraries(${PROJECT_NAME} PUBLIC pugixml::pugixml)
-
-find_package(ZLIB REQUIRED)
-target_link_libraries(${PROJECT_NAME} PUBLIC ZLIB::ZLIB)
