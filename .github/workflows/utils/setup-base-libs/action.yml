@@ -58,6 +58,8 @@ runs:
         mkdir bin
         cd "C:/"
         setx /M path "%path%;C:/usr/local/bin/"
+        echo "%path%;C:/usr/local/bin" >> $GITHUB_PATH
+
 
     # - uses: ./.github/workflows/utils/test
     #   if: env.os == 'windows-latest'
