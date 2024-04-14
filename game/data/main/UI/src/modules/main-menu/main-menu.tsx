@@ -63,7 +63,7 @@ export const MainMenu = () => {
         <Link to="/settings">Go to Settings</Link>
         <div className="h-32 w-20 overflow-scroll bg-black">
           {Array.from({ length: 100 }).map(() => {
-            return <p className="bg-red-200 m-0.5 h-4">Some text for scroll</p>;
+            return <p className="m-0.5 h-4 bg-red-200">Some text for scroll</p>;
           })}
         </div>
       </Card>

@@ -5,7 +5,11 @@
 4. Better error handling(status/message)
 5. Input system removal of binds/callbacks
 
-- Asset pipeline 
-1. clearing unused cache bag 
+- Asset pipeline
+1. clearing unused cache bag
 2. clearing only *.obj files (otherwise there is a danger of clearing the necessary files)
-3. code refactoring 
+3. code refactoring
+
+- CI
+1. artifacts
+2. windows

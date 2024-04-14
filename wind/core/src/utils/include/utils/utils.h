@@ -30,6 +30,32 @@ static auto forEach(const Range& range, Func func) {
   std::for_each(std::begin(range), std::end(range), func);
 }
 
+#ifdef _WIN32
+static auto stringToWindowsString(std::string input) {
+  std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>, wchar_t> converter;
+  std::wstring wide_string = converter.from_bytes(input);
+  return wide_string;
+}
+
+static auto windowsStringToChar(std::wstring input) {
+  std::locale utf8_locale(std::locale(), new std::codecvt_utf8<wchar_t>);
+
+  std::string narrowString = std::wstring_convert<std::codecvt_utf8<wchar_t>>{}.to_bytes(input);
+
+  const char* charPtr = narrowString.c_str();
+  return charPtr;
+}
+#endif
+
+static auto replaceAll(std::string input, const std::string& searched, const std::string& replacement) {
+  size_t pos = 0;
+  while ((pos = input.find(searched, pos)) != std::string::npos) {
+    input.replace(pos, searched.length(), replacement);
+    pos += replacement.length();
+  }
+  return input;
+}
+
 class Stopwatch {
 public:
   Stopwatch(const std::string& message)

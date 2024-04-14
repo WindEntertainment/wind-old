@@ -1,6 +1,6 @@
 "use client";
-import { Label } from "@radix-ui/react-context-menu";
 import { tw } from "@/tw";
+import { Label } from "@radix-ui/react-context-menu";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
 export const ContextMenuLabel = forwardRef<

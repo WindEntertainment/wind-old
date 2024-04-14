@@ -1,0 +1,3 @@
+exports:
+  - path: "icudt67l.dat"
+    pipe: default

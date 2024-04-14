@@ -20,8 +20,8 @@
 #include <window/window.h>
 
 int main(int argc, char** argv) {
+
 #ifndef NDEBUG
-#define SPDLOG
   spdlog::set_level(spdlog::level::debug);
   spdlog::debug("----Debug configuration!----");
 #endif
@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
   using namespace wind;
   using namespace wind::assets;
 
-  //=========Assest Pipeline===============//
+  //=========Assets Pipeline===============//
 
   AssetManager::loadBundle("res/Ultralight.bundle");
   AssetManager::loadBundle("res/Main.bundle");

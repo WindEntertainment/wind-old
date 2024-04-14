@@ -1,0 +1,58 @@
+name: Build assets
+description: Build assets
+# riznia
+runs:
+  using: 'composite'
+  steps:
+    - name: Build assets bundler
+      run:   |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          export CC=clang
+          export CXX=clang++
+          cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=${{ env.engineBuildType }} -DCMAKE_TOOLCHAIN_FILE=${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}/generators/conan_toolchain.cmake -S${{ env.projectRoot }}/dreich -B${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=${{ env.engineBuildType }} -DCMAKE_TOOLCHAIN_FILE=${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}/generators/conan_toolchain.cmake -S${{ env.projectRoot }}/dreich -B${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}
+        elif [ "$RUNNER_OS" == "Windows" ]; then
+          export CC=clang
+          export CXX=clang++
+          cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=${{ env.engineBuildType }} -DCMAKE_TOOLCHAIN_FILE=${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}/generators/conan_toolchain.cmake -S${{ env.projectRoot }}/dreich -B${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
+        fi
+
+        cmake --build ${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }} --parallel 10 --target wind-asset-bundler
+
+        cd build/${{ env.engineBuildType }}/wind/asset-pipeline
+
+        make install
+
+        wind-asset-bundler -h
+      shell: bash
+
+    - uses: actions/cache/restore@v4
+      with:
+        path: ${{ env.projectRoot }}/dreich/game/data
+        key: ${{ runner.os }}-assets-manager
+
+    - name: Build assets
+      run:   |
+        cd "C:/"
+        mkdir -p "C:\usr\local\bin"
+        ls -a
+        ls -a "C:\usr\local"
+        cd "C:/"
+        echo "C:\usr\local\bin" >> $GITHUB_PATH
+
+        # setx /M path "%path%;C:\usr\local\bin"
+        # echo "C:\usr\local\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        cd game/data
+
+        wind-asset-bundler -b main
+        wind-asset-bundler -b resources
+      shell: bash
+
+    - uses: actions/cache/save@v4
+      with:
+        path: ${{ env.projectRoot }}/dreich/game/data
+        key: ${{ runner.os }}-assets-manager
