@@ -6,5 +6,5 @@ exports:
 
   - path: "[^\/]*"
     output:
-      path: "Assets"
+      path: "Main"
       type: bundle
