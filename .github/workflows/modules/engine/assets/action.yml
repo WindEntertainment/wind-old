@@ -27,6 +27,13 @@ runs:
 
         make install
 
+        cd "C:/"
+        mkdir -p "C:\usr\local\bin"
+        ls -a
+        ls -a "C:\usr\local"
+        cd "C:/"
+        echo "C:\usr\local\bin" >> $GITHUB_PATH
+
         wind-asset-bundler -h
       shell: bash
 
@@ -37,11 +44,7 @@ runs:
 
     - name: Build assets
       run:   |
-        cd "C:/"
-        mkdir -p "C:\usr\local\bin"
-        ls -a
-        ls -a "C:\usr\local"
-        cd "C:/"
+
         echo "C:\usr\local\bin" >> $GITHUB_PATH
 
         # setx /M path "%path%;C:\usr\local\bin"
