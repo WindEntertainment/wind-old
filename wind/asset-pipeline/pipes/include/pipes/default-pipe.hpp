@@ -8,7 +8,7 @@ class DefaultPipe : public AssetPipe {
 public:
 #ifdef WIND_PIPE_WRITE
   void compile(const fs::path& _source, const fs::path& _destination) override {
-    std::ifstream input(_source, std::ios_base::in);
+    std::ifstream input(_source, std::ios_base::binary);
     std::ofstream output(_destination, std::ios_base::binary);
 
     if (!input.is_open()) {

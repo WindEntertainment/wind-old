@@ -29,12 +29,14 @@ class AssetManager {
 
       asset_id count = (header_size - sizeof(asset_id)) / (2 * sizeof(asset_id));
 
+      spdlog::debug("Load header. Header size: {}, count: {}", header_size, count);
+
       for (asset_id i = 0; i < count; ++i) {
         asset_id id;
         asset_id offset;
 
-        m_file.read(reinterpret_cast<char*>(&id), sizeof(asset_id));
-        m_file.read(reinterpret_cast<char*>(&offset), sizeof(asset_id));
+        m_file.read(reinterpret_cast<char*>(&id), sizeof(id));
+        m_file.read(reinterpret_cast<char*>(&offset), sizeof(offset));
 
         spdlog::debug("Load meta-resource. id: {}, offset: {}", id, offset);
         m_assets.insert(std::make_pair(id, offset));
@@ -116,7 +118,7 @@ private:
 
 public:
   static void loadBundle(const fs::path& _path) {
-    std::ifstream file(_path);
+    std::ifstream file(_path, std::ios_base::binary);
     if (!file.is_open()) {
       spdlog::error("Fail load bundle: fail open file by path: {}", _path.string());
       return;
