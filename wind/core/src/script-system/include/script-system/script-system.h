@@ -25,7 +25,7 @@ public:
 
 #ifdef _WIN32
     int rc = functionPointer(
-      stringToWindowsString(dllPath).c_str(),
+      stringToWindowsString(dllPath.string()).c_str(),
       stringToWindowsString(dotnetType).c_str(),
       stringToWindowsString(methodName).c_str(),
       nullptr,
@@ -59,19 +59,14 @@ public:
     return EXIT_SUCCESS;
   };
 
-  ScriptSystem(std::string rootPath, std::string dllPath, ScriptSystemHostfxr hostfxr);
+  ScriptSystem(const fs::path& rootPath, const fs::path& dllPath, ScriptSystemHostfxr hostfxr);
 
 private:
   ScriptSystemHostfxr hostfxr;
-  std::string rootPath;
-  std::string dllPath;
+  fs::path rootPath;
+  fs::path dllPath;
 
   load_assembly_and_get_function_pointer_fn getFunctionPointerFromAssembly();
-
-  template <typename... Args>
-  std::tuple<Args...>* getArgsPointer(Args... args) {
-    return new std::tuple<Args...>(args...);
-  }
 
   ~ScriptSystem();
 };
