@@ -26,7 +26,7 @@ load_assembly_and_get_function_pointer_fn ScriptSystem::getFunctionPointerFromAs
   return (load_assembly_and_get_function_pointer_fn)functionPointer;
 }
 
-ScriptSystem::ScriptSystem(std::string rootPath, std::string dllPath, ScriptSystemHostfxr hostfxr) {
+ScriptSystem::ScriptSystem(const fs::path& rootPath, const fs::path& dllPath, ScriptSystemHostfxr hostfxr) {
   this->rootPath = rootPath;
   this->dllPath = dllPath;
   this->hostfxr = hostfxr;

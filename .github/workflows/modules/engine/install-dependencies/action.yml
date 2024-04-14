@@ -1,0 +1,10 @@
+name: Install dependencies engine
+description: Install dependencies engine
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install dependencies
+      shell: bash
+      run: |
+        conan install . --update --build=missing

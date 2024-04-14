@@ -53,7 +53,7 @@ void AssetBundler::linkDirectory(const fs::path& _source, const fs::path& _desti
 
   std::hash<std::string> hasher;
   for (auto& pair : files) {
-    asset_id id = hasher(pair.first.string());
+    asset_id id = hasher(replaceAll(pair.first.string(), "\\", "/"));
 
     spdlog::info("Write meta-resource. name: '{}', id: {}, offset: {}", pair.first.string(), id, offset);
 

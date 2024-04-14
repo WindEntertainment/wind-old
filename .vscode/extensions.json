@@ -7,6 +7,15 @@
     "SimonSiefke.svg-preview",
     "dbaeumer.vscode-eslint",
     "streetsidesoftware.code-spell-checker",
-    "lokalise.i18n-ally"
+    "lokalise.i18n-ally",
+    "ms-dotnettools.vscode-dotnet-runtime",
+    "ms-vscode.cpptools",
+    "ms-vscode.cpptools-extension-pack",
+    "ms-vscode.cpptools-themes",
+    "ms-dotnettools.csharp",
+    "twxs.cmake",
+    "ms-vscode.cmake-tools",
+    "redhat.vscode-yaml",
+    "esbenp.prettier-vscode"
   ]
 }

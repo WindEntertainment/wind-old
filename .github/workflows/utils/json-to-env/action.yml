@@ -1,0 +1,19 @@
+name: JSON to env
+description: Write JSON to github env
+
+inputs:
+  json:
+    required: true
+    description: JSON
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Create default profile
+      shell: bash
+      run: |
+          json='${{ inputs.json }}'
+          jq -r 'to_entries[] | "\(.key)=\(.value)"' <<< "$json" | while IFS='=' read -r key value; do
+            echo "$key=$value"
+            echo "$key=$value" >> $GITHUB_ENV
+          done

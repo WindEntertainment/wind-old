@@ -7,33 +7,33 @@
 #include <stddef.h>
 
 #ifdef _WIN32
-    #ifdef NETHOST_EXPORT
-        #define NETHOST_API __declspec(dllexport)
-    #else
-        // Consuming the nethost as a static library
-        // Shouldn't export attempt to dllimport.
-        #ifdef NETHOST_USE_AS_STATIC
-            #define NETHOST_API 
-        #else
-            #define NETHOST_API __declspec(dllimport)
-        #endif
-    #endif
-
-    #define NETHOST_CALLTYPE __stdcall
-    #ifdef _WCHAR_T_DEFINED
-        typedef wchar_t char_t;
-    #else
-        typedef unsigned short char_t;
-    #endif
+#ifdef NETHOST_EXPORT
+#define NETHOST_API __declspec(dllexport)
 #else
-    #ifdef NETHOST_EXPORT
-        #define NETHOST_API __attribute__((__visibility__("default")))
-    #else
-        #define NETHOST_API
-    #endif
+// Consuming the nethost as a static library
+// Shouldn't export attempt to dllimport.
+#ifdef NETHOST_USE_AS_STATIC
+#define NETHOST_API
+#else
+#define NETHOST_API __declspec(dllimport)
+#endif
+#endif
 
-    #define NETHOST_CALLTYPE
-    typedef char char_t;
+#define NETHOST_CALLTYPE __stdcall
+#ifdef _WCHAR_T_DEFINED
+typedef wchar_t char_t;
+#else
+typedef unsigned short char_t;
+#endif
+#else
+#ifdef NETHOST_EXPORT
+#define NETHOST_API __attribute__((__visibility__("default")))
+#else
+#define NETHOST_API
+#endif
+
+#define NETHOST_CALLTYPE
+typedef char char_t;
 #endif
 
 #ifdef __cplusplus
@@ -57,9 +57,9 @@ extern "C" {
 //     path and the assembly_path is ignored.
 //
 struct get_hostfxr_parameters {
-    size_t size;
-    const char_t *assembly_path;
-    const char_t *dotnet_root;
+  size_t size;
+  const char_t* assembly_path;
+  const char_t* dotnet_root;
 };
 
 //
@@ -88,9 +88,9 @@ struct get_hostfxr_parameters {
 //   to call this function multiple times, pass a large buffer (e.g. PATH_MAX).
 //
 NETHOST_API int NETHOST_CALLTYPE get_hostfxr_path(
-    char_t * buffer,
-    size_t * buffer_size,
-    const struct get_hostfxr_parameters *parameters);
+  char_t* buffer,
+  size_t* buffer_size,
+  const struct get_hostfxr_parameters* parameters);
 
 #ifdef __cplusplus
 } // extern "C"

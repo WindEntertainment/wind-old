@@ -10,7 +10,7 @@ glfw/3.3.8
 glm/cci.20230113
 
 [generators]
-CMakeDeps 
+CMakeDeps
 CMakeToolchain
 
 [layout]
