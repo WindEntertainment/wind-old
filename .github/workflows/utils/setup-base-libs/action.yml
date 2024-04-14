@@ -56,6 +56,7 @@ runs:
         mkdir local
         cd local
         mkdir bin
+        cd "C:/"
         set PATH=%PATH%;C:/usr/local/bin
 
     # - uses: ./.github/workflows/utils/test
