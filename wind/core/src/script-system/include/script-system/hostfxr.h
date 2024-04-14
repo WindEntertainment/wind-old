@@ -22,13 +22,13 @@ public:
   std::list<ScriptSystem*> scriptSystems;
   hostfxr_get_runtime_delegate_fn fptrGetDelegate;
 
-  void init(std::string configPath);
+  void init(const fs::path& configPath);
   hostfxr_handle getConfig();
-  ScriptSystem* createScriptSystem(std::string rootPath, std::string dllPath);
+  ScriptSystem* createScriptSystem(const fs::path& rootPath, const fs::path& dllPath);
   void stop();
 
 private:
-  std::string configPath;
+  fs::path configPath;
   hostfxr_initialize_for_dotnet_command_line_fn fptrInitCmd;
   hostfxr_initialize_for_runtime_config_fn fptrInitConfig;
   hostfxr_handle context = nullptr;

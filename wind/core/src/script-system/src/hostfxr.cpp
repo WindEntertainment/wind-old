@@ -41,7 +41,7 @@ void ScriptSystemHostfxr::initConfig() {
     return;
 
 #ifdef _WIN32
-  int rc = fptrInitConfig(stringToWindowsString(configPath).c_str(), nullptr, &context);
+  int rc = fptrInitConfig(stringToWindowsString(configPath.string()).c_str(), nullptr, &context);
 #else
   int rc = fptrInitConfig(configPath.c_str(), nullptr, &context);
 #endif
@@ -60,7 +60,7 @@ hostfxr_handle ScriptSystemHostfxr::getConfig() {
   return context;
 }
 
-void ScriptSystemHostfxr::init(std::string configPath) {
+void ScriptSystemHostfxr::init(const fs::path& configPath) {
   this->configPath = configPath;
   loadPointers();
   initConfig();
@@ -74,7 +74,7 @@ void ScriptSystemHostfxr::stop() {
   fptrClose(context);
 }
 
-ScriptSystem* ScriptSystemHostfxr::createScriptSystem(std::string rootPath, std::string dllPath) {
+ScriptSystem* ScriptSystemHostfxr::createScriptSystem(const fs::path& rootPath, const fs::path& dllPath) {
   auto scriptSystem = new ScriptSystem(rootPath, dllPath, *this);
   scriptSystems.push_back(scriptSystem);
   return scriptSystem;

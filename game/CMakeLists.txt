@@ -10,10 +10,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE wind-core)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-ultralight)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-asset-manager)
 
-include_directories("$ENV{DOTNET_INCLUDES}")
-target_link_directories(${PROJECT_NAME} PUBLIC $ENV{DOTNET_INCLUDES})
-target_link_libraries(${PROJECT_NAME} PUBLIC nethost)
-
 set(ASSETS_PATH "$<TARGET_FILE_DIR:${PROJECT_NAME}>/res")
 
 # Copy assets to assets directory
