@@ -50,6 +50,12 @@ runs:
       run: |
         choco install make cmake llvm 7zip
         choco install dotnet --version 8.0.3 -y
+        cd "C:/"
+        mkdir usr
+        cd usr
+        mkdir local
+        cd local
+        mkdir bin
         set PATH=%PATH%;C:/usr/local/bin
 
     # - uses: ./.github/workflows/utils/test
