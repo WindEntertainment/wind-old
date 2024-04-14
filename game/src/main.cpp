@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
   using namespace wind;
   using namespace wind::assets;
 
-  //=========Assest Pipeline===============//
+  //=========Assets Pipeline===============//
 
   AssetManager::loadBundle("res/Ultralight.bundle");
   AssetManager::loadBundle("res/Assets.bundle");
@@ -62,15 +62,15 @@ int main(int argc, char** argv) {
 
   //============Script System==============//
 
-  // auto scriptsPath = fs::path("./data/main/scripts/bin/Release/");
-  // auto hostfxr = new ScriptSystemHostfxr();
+  auto scriptsPath = fs::path("./res/Managed/");
+  auto hostfxr = new ScriptSystemHostfxr();
 
-  // hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
+  hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
 
-  // ScriptSystem* scriptSystem = hostfxr->createScriptSystem(scriptsPath, scriptsPath / "Scripts.dll");
+  ScriptSystem* scriptSystem = hostfxr->createScriptSystem(scriptsPath, scriptsPath / "Scripts.dll");
 
-  // scriptSystem->run("Scripts.Lib, Scripts", "HelloAgain", "from host!", 1);
-  // scriptSystem->run("Scripts.Lib, Scripts", "Hello", "from host!", 1);
+  scriptSystem->run("Scripts.Lib, Scripts", "HelloAgain", "from host!", 1);
+  scriptSystem->run("Scripts.Lib, Scripts", "Hello", "from host!", 1);
 
   //=============Main loop=================//
 
@@ -85,7 +85,7 @@ int main(int argc, char** argv) {
     Window::show();
   }
 
-  // hostfxr->stop();
+  hostfxr->stop();
 
   return EXIT_SUCCESS;
 }
