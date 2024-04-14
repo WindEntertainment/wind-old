@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
   //=========Assest Pipeline===============//
 
   AssetManager::loadBundle("res/Ultralight.bundle");
-  AssetManager::loadBundle("res/Assets.bundle");
+  AssetManager::loadBundle("res/Main.bundle");
 
   //=========Input System==================//
 
