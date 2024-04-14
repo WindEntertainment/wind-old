@@ -24,11 +24,8 @@ runs:
         cmake --build ${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }} --parallel 10 --target wind-asset-bundler
 
         cd build/${{ env.engineBuildType }}/wind/asset-pipeline
-        if [ "$RUNNER_OS" == "Windows" ]; then
-          msbuild
-        else
-          sudo make install
-        fi
+
+        make install
 
         wind-asset-bundler -h
       shell: bash
