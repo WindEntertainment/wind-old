@@ -69,7 +69,7 @@ class AssetManager {
 
       size_t ind = std::distance(m_ids.begin(), std::find(m_ids.begin(), m_ids.end(), _id));
       _offset = m_offsets[ind];
-      _end = m_ends[ind];
+      _end = m_ends[ind] - 12;
 
       // if (_id + 1 < m_assets.size())
       //   _end = m_assets[_id + 1];
