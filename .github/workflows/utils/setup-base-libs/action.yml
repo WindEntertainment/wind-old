@@ -52,7 +52,7 @@ runs:
         choco install dotnet --version 8.0.3 -y
         mkdir -p "C:/usr/local/bin"
         cd "C:/"
-        # setx /M path "%path%;C:/usr/local/bin/"
+        setx /M path "%path%;C:\usr\local\bin"
         echo "C:\usr\local\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
 
