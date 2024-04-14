@@ -57,7 +57,7 @@ runs:
         cd local
         mkdir bin
         cd "C:/"
-        set PATH=%PATH%;C:/usr/local/bin
+        setx /M path "%path%;C:/usr/local/bin"
 
     # - uses: ./.github/workflows/utils/test
     #   if: env.os == 'windows-latest'
