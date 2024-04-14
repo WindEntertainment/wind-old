@@ -67,7 +67,7 @@ public:
 
     auto rc = uncompress(unzipData, &orgSizeT, zipData, (uLong)zipSize);
     if (rc != Z_OK)
-      throw std::invalid_argument("Failed uncompress data");
+      throw std::invalid_argument(fmt::format("Failed uncompress data: {}", zError(rc)));
 
     delete[] zipData;
 
