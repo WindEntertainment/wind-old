@@ -29,6 +29,7 @@ public:
     }
 
     uLongf zippedSize = compressBound(fileContent.size());
+
     auto zipped = new Bytef[zippedSize];
 
     auto result = compress(zipped, &zippedSize, reinterpret_cast<const Bytef*>(fileContent.c_str()), static_cast<uLongf>(fileContent.size()));
@@ -37,11 +38,14 @@ public:
       return;
     }
 
-    auto fileSize = (uLongf)fileContent.size();
+    spdlog::info("size: {}, zipped size: {}", static_cast<asset_id>(fileContent.size()), zippedSize);
+
+    auto fileSize32 = (asset_id)fileContent.size();
+    auto zippedSize32 = (asset_id)zippedSize;
 
     output.write(reinterpret_cast<char*>(&m_id), sizeof(m_id));
-    output.write(reinterpret_cast<char*>(&fileSize), sizeof(fileSize));
-    output.write(reinterpret_cast<char*>(&zippedSize), sizeof(zippedSize));
+    output.write(reinterpret_cast<char*>(&fileSize32), sizeof(fileSize32));
+    output.write(reinterpret_cast<char*>(&zippedSize32), sizeof(zippedSize32));
     output.write(reinterpret_cast<const char*>(zipped), zippedSize);
 
     input.close();
@@ -52,8 +56,8 @@ public:
 #endif
 
   void* load(std::ifstream& file) override {
-    uLongf orgSize;
-    uLongf zipSize;
+    asset_id orgSize;
+    asset_id zipSize;
 
     file.read(reinterpret_cast<char*>(&orgSize), sizeof(orgSize));
     file.read(reinterpret_cast<char*>(&zipSize), sizeof(zipSize));
@@ -61,11 +65,14 @@ public:
     auto zipData = new Bytef[zipSize];
     file.read(reinterpret_cast<char*>(zipData), zipSize);
 
+    uLongf orgSizeT = static_cast<uLongf>(orgSize);
     auto unzipData = new Bytef[orgSize];
 
-    auto rc = uncompress(unzipData, &orgSize, zipData, zipSize);
+    auto rc = uncompress(unzipData, &orgSizeT, zipData, static_cast<uLongf>(zipSize));
     if (rc != Z_OK)
       throw std::invalid_argument(fmt::format("Failed uncompress data: {}", zError(rc)));
+
+    spdlog::info("orgSize: {}, zipSize: {}, orgSizeT: {}", orgSize, zipSize, orgSizeT);
 
     delete[] zipData;
 
