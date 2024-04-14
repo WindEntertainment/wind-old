@@ -28,22 +28,21 @@ public:
       fileContent = buffer.str();
     }
 
-    size_t zippedSize = compressBound(fileContent.size());
-    char* zipped = new char[zippedSize];
+    uLongf zippedSize = compressBound(fileContent.size());
+    auto zipped = new Bytef[zippedSize];
 
-    auto result = compress(reinterpret_cast<Bytef*>(zipped), &zippedSize, reinterpret_cast<const Bytef*>(fileContent.c_str()), fileContent.size());
+    auto result = compress(zipped, &zippedSize, reinterpret_cast<const Bytef*>(fileContent.c_str()), static_cast<uLongf>(fileContent.size()));
     if (result != Z_OK) {
       spdlog::error("Cannot compress data");
       return;
     }
 
-    auto fileSize = (asset_id)fileContent.size();
+    auto fileSize = (uLongf)fileContent.size();
 
-    output.write(reinterpret_cast<char*>(&m_id), sizeof(asset_id));
-    output.write(reinterpret_cast<char*>(&fileSize), sizeof(asset_id));
-    output.write(reinterpret_cast<char*>(&zippedSize), sizeof(asset_id));
-
-    output.write(zipped, zippedSize);
+    output.write(reinterpret_cast<char*>(&m_id), sizeof(m_id));
+    output.write(reinterpret_cast<char*>(&fileSize), sizeof(fileSize));
+    output.write(reinterpret_cast<char*>(&zippedSize), sizeof(zippedSize));
+    output.write(reinterpret_cast<const char*>(zipped), zippedSize);
 
     input.close();
     output.close();
@@ -53,19 +52,18 @@ public:
 #endif
 
   void* load(std::ifstream& file) override {
-    asset_id orgSize;
-    asset_id zipSize;
+    uLongf orgSize;
+    uLongf zipSize;
 
-    file.read(reinterpret_cast<char*>(&orgSize), sizeof(asset_id));
-    file.read(reinterpret_cast<char*>(&zipSize), sizeof(asset_id));
+    file.read(reinterpret_cast<char*>(&orgSize), sizeof(orgSize));
+    file.read(reinterpret_cast<char*>(&zipSize), sizeof(zipSize));
 
-    auto zipData = new unsigned char[zipSize];
+    auto zipData = new Bytef[zipSize];
     file.read(reinterpret_cast<char*>(zipData), zipSize);
 
-    size_t orgSizeT = (size_t)orgSize;
-    auto unzipData = new unsigned char[orgSize];
+    auto unzipData = new Bytef[orgSize];
 
-    auto rc = uncompress(unzipData, &orgSizeT, zipData, (size_t)zipSize);
+    auto rc = uncompress(unzipData, &orgSize, zipData, zipSize);
     if (rc != Z_OK)
       throw std::invalid_argument("Failed uncompress data");
 
