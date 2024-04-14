@@ -32,10 +32,18 @@ public:
 
     verify<ScriptSystemError>(rc == 0 && function != nullptr);
 
-    std::tuple<FunctionArgs...>
-      argsTuple = std::make_tuple(args...);
+    // Adjust for proper alignment by adding the size of a void pointer,
+    // and round up to the nearest multiple of the size of a void pointer.
+    size_t bufferSize = ((sizeof(args) + ...) + sizeof(void*) - 1) / sizeof(void*) * sizeof(void*);
+    
+    unsigned char* buffer = new unsigned char[bufferSize];
 
-    function(&argsTuple, sizeof(argsTuple));
+    size_t offset = 0;
+    ((std::memcpy(buffer + offset, &args, sizeof(args)), offset += sizeof(args)), ...);
+
+    function(buffer, bufferSize);
+
+    delete[] buffer;
 
     return EXIT_SUCCESS;
   };
