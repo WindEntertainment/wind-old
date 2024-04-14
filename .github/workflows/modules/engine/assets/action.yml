@@ -27,11 +27,11 @@ runs:
 
         make install
 
-        cd "C:/"
-        mkdir -p "C:\usr\local\bin"
-        ls -a
-        ls -a "C:\usr\local"
-        cd "C:/"
+        # cd "C:/"
+        # mkdir -p "C:\usr\local\bin"
+        # ls -a
+        ls -a "C:\usr\local\bin"
+        # cd "C:/"
         echo "C:\usr\local\bin" >> $GITHUB_PATH
 
         wind-asset-bundler -h
