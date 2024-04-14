@@ -50,6 +50,7 @@ runs:
       run: |
         choco install make cmake llvm 7zip
         choco install dotnet --version 8.0.3 -y
+        set PATH=%PATH%;C:/usr/local/bin
 
     # - uses: ./.github/workflows/utils/test
     #   if: env.os == 'windows-latest'
