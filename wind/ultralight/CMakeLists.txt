@@ -27,12 +27,17 @@ target_link_libraries(${PROJECT_NAME} PUBLIC wind-input-system)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-asset-manager)
 
-# WIN FIX
 target_include_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_INCLUDE_DIR}")
-# target_link_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_BINARY_DIR}")
-# message(${ULTRALIGHT_BINARY_DIR})
-target_link_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_LIBRARY_DIR}")
-message(${ULTRALIGHT_LIBRARY_DIR})
+
+IF (WIN32)
+  target_link_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_LIBRARY_DIR}")
+  message(${ULTRALIGHT_LIBRARY_DIR})
+ELSE()
+  target_link_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_BINARY_DIR}")
+  message(${ULTRALIGHT_BINARY_DIR})
+ENDIF()
+
+
 target_link_libraries(${PROJECT_NAME} PUBLIC UltralightCore AppCore Ultralight WebCore)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
