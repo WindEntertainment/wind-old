@@ -22,6 +22,16 @@ public:
     verify<ScriptSystemError>(functionPointer != nullptr);
 
     component_entry_point_fn function = nullptr;
+
+#ifdef _WIN32
+    int rc = functionPointer(
+      windowsStringToChar(dllPath),
+      dotnetType.c_str(),
+      methodName.c_str(),
+      nullptr,
+      nullptr,
+      (void**)&function);
+#else
     int rc = functionPointer(
       dllPath.c_str(),
       dotnetType.c_str(),
@@ -29,6 +39,7 @@ public:
       nullptr,
       nullptr,
       (void**)&function);
+#endif
 
     verify<ScriptSystemError>(rc == 0 && function != nullptr);
 
