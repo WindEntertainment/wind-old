@@ -29,13 +29,11 @@ target_link_libraries(${PROJECT_NAME} PRIVATE wind-asset-manager)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_INCLUDE_DIR}")
 
-IF (WIN32)
+if (WIN32)
   target_link_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_LIBRARY_DIR}")
-  message(${ULTRALIGHT_LIBRARY_DIR})
-ELSE()
+else()
   target_link_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_BINARY_DIR}")
-  message(${ULTRALIGHT_BINARY_DIR})
-ENDIF()
+endif()
 
 
 target_link_libraries(${PROJECT_NAME} PUBLIC UltralightCore AppCore Ultralight WebCore)
