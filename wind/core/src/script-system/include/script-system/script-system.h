@@ -35,7 +35,7 @@ public:
     // Adjust for proper alignment by adding the size of a void pointer,
     // and round up to the nearest multiple of the size of a void pointer.
     size_t bufferSize = ((sizeof(args) + ...) + sizeof(void*) - 1) / sizeof(void*) * sizeof(void*);
-    
+
     unsigned char* buffer = new unsigned char[bufferSize];
 
     size_t offset = 0;
