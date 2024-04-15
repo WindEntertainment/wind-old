@@ -35,7 +35,7 @@ runs:
         # cd "C:/"
         # echo "C:\usr\local\bin" >> $GITHUB_PATH
 
-        installed_path=$(find / -name "wind-asset-bundler.exe")
+        installed_path=$(find "C:\" -name "wind-asset-bundler.exe")
 
         echo "Installed path: $installed_path"
         echo "$installed_path" >> $GITHUB_PATH
