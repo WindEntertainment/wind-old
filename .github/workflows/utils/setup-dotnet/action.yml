@@ -10,7 +10,7 @@ runs:
         if [ "$RUNNER_OS" == "Linux" ]; then
           echo "DOTNET_PATH=/usr/share/dotnet" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          echo "DOTNET_PATH=/c/Program\ Files/dotnet" >> $GITHUB_ENV
+          echo "DOTNET_PATH=C:\Program Files\dotnet" >> $GITHUB_ENV
           # echo "DOTNET_PATH=C:\\Program\ Files\\dotnet" >> $GITHUB_ENV
           # C:\\\Program\\ Files\\\dotnet
         elif [ "$RUNNER_OS" == "macOS" ]; then
