@@ -12,7 +12,7 @@ CMakeUserPresets.json
 ########## C++
 CMakeEnv.txt
 .env
-
+*.dll
 *.sln
 
 ########## Javascript
