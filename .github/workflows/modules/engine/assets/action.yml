@@ -27,7 +27,7 @@ runs:
 
         mkdir ${{ env.projectRoot }}/apps
         make install DESTDIR=${{ env.projectRoot }}/apps
-        echo "${{ env.projectRoot }}/apps" >> $GITHUB_PATH
+        echo "${{ env.projectRoot }}/apps/usr/local/bin" >> $GITHUB_PATH
 
         wind-asset-bundler -h
 
