@@ -58,7 +58,7 @@ runs:
 
     - name: Build assets
       run:   |
-        ls -a /d/a/dreich/ultralight/ultralight/SDK/include
+        ls -a /d/a/dreich/ultralight/ultralight/SDK/include/Ultralight
 
         cd game/data
 
