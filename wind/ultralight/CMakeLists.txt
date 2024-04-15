@@ -30,6 +30,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE wind-asset-manager)
 target_include_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_INCLUDE_DIR}")
 
 if (WIN32)
+  message("${ULTRALIGHT_LIBRARY_DIR} --------------------------------------------------------------------------------------------------------------------------------------------------------")
   target_link_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_LIBRARY_DIR}")
 else()
   target_link_directories(${PROJECT_NAME} PUBLIC "${ULTRALIGHT_BINARY_DIR}")
