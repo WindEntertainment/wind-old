@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
   //=========Assets Pipeline===============//
 
   AssetManager::loadBundle("res/Ultralight.bundle");
-  AssetManager::loadBundle("res/Assets.bundle");
+  AssetManager::loadBundle("res/Main.bundle");
 
   //=========Input System==================//
 
@@ -50,6 +50,7 @@ int main(int argc, char** argv) {
 
   Window::init([](Window::Config* self) {
     self->title = "Game";
+
     self->fullScreen = false;
     self->size = {800, 600};
     self->vSync = false;
@@ -58,19 +59,20 @@ int main(int argc, char** argv) {
   //=============Ultralight================//
 
   Ultralight::init();
+
   const auto uiTexture = Ultralight::loadView("main/UI/dist/index.html", {800, 600});
 
   //============Script System==============//
 
-  auto scriptsPath = fs::path("./res/Managed/");
-  auto hostfxr = new ScriptSystemHostfxr();
+  // auto scriptsPath = fs::path("./res/Managed/");
+  // auto hostfxr = new ScriptSystemHostfxr();
 
-  hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
+  // hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
 
-  ScriptSystem* scriptSystem = hostfxr->createScriptSystem(scriptsPath, scriptsPath / "Scripts.dll");
+  // ScriptSystem* scriptSystem = hostfxr->createScriptSystem(scriptsPath, scriptsPath / "Scripts.dll");
 
-  scriptSystem->run("Scripts.Lib, Scripts", "HelloAgain", "from host!", 1);
-  scriptSystem->run("Scripts.Lib, Scripts", "Hello", "from host!", 1);
+  // scriptSystem->run("Scripts.Lib, Scripts", "HelloAgain", "from host!", 1);
+  // scriptSystem->run("Scripts.Lib, Scripts", "Hello", "from host!", 1);
 
   //=============Main loop=================//
 
@@ -78,6 +80,7 @@ int main(int argc, char** argv) {
     Renderer::clear({1.f, 0.f, 0.f, 1});
 
     Ultralight::update();
+
     Ultralight::render();
 
     Renderer::drawTexture(uiTexture, {1, 1}, {0, 0, 0}, {0, 0, 0}, {800, 600, 1});
@@ -85,7 +88,7 @@ int main(int argc, char** argv) {
     Window::show();
   }
 
-  hostfxr->stop();
+  // hostfxr->stop();
 
   return EXIT_SUCCESS;
 }

@@ -8,7 +8,7 @@ class DefaultPipe : public AssetPipe {
 public:
 #ifdef WIND_PIPE_WRITE
   void compile(const fs::path& _source, const fs::path& _destination) override {
-    std::ifstream input(_source, std::ios_base::in);
+    std::ifstream input(_source, std::ios_base::binary);
     std::ofstream output(_destination, std::ios_base::binary);
 
     if (!input.is_open()) {
@@ -29,21 +29,24 @@ public:
     }
 
     uLongf zippedSize = compressBound(fileContent.size());
-    char* zipped = new char[zippedSize];
 
-    auto result = compress(reinterpret_cast<Bytef*>(zipped), &zippedSize, reinterpret_cast<const Bytef*>(fileContent.c_str()), static_cast<uLong>(fileContent.size()));
+    auto zipped = new Bytef[zippedSize];
+
+    auto result = compress(zipped, &zippedSize, reinterpret_cast<const Bytef*>(fileContent.c_str()), static_cast<uLongf>(fileContent.size()));
     if (result != Z_OK) {
       spdlog::error("Cannot compress data");
       return;
     }
 
-    auto fileSize = (asset_id)fileContent.size();
+    spdlog::info("size: {}, zipped size: {}", static_cast<asset_id>(fileContent.size()), zippedSize);
 
-    output.write(reinterpret_cast<char*>(&m_id), sizeof(asset_id));
-    output.write(reinterpret_cast<char*>(&fileSize), sizeof(asset_id));
-    output.write(reinterpret_cast<char*>(&zippedSize), sizeof(asset_id));
+    auto fileSize32 = (asset_id)fileContent.size();
+    auto zippedSize32 = (asset_id)zippedSize;
 
-    output.write(zipped, zippedSize);
+    output.write(reinterpret_cast<char*>(&m_id), sizeof(m_id));
+    output.write(reinterpret_cast<char*>(&fileSize32), sizeof(fileSize32));
+    output.write(reinterpret_cast<char*>(&zippedSize32), sizeof(zippedSize32));
+    output.write(reinterpret_cast<const char*>(zipped), zippedSize);
 
     input.close();
     output.close();
@@ -56,18 +59,20 @@ public:
     asset_id orgSize;
     asset_id zipSize;
 
-    file.read(reinterpret_cast<char*>(&orgSize), sizeof(asset_id));
-    file.read(reinterpret_cast<char*>(&zipSize), sizeof(asset_id));
+    file.read(reinterpret_cast<char*>(&orgSize), sizeof(orgSize));
+    file.read(reinterpret_cast<char*>(&zipSize), sizeof(zipSize));
 
-    auto zipData = new unsigned char[zipSize];
+    auto zipData = new Bytef[zipSize];
     file.read(reinterpret_cast<char*>(zipData), zipSize);
 
-    uLongf orgSizeT = (uLongf)orgSize;
-    auto unzipData = new unsigned char[orgSize];
+    uLongf orgSizeT = static_cast<uLongf>(orgSize);
+    auto unzipData = new Bytef[orgSize];
 
-    auto rc = uncompress(unzipData, &orgSizeT, zipData, (uLong)zipSize);
+    auto rc = uncompress(unzipData, &orgSizeT, zipData, static_cast<uLongf>(zipSize));
     if (rc != Z_OK)
       throw std::invalid_argument(fmt::format("Failed uncompress data: {}", zError(rc)));
+
+    spdlog::info("orgSize: {}, zipSize: {}, orgSizeT: {}", orgSize, zipSize, orgSizeT);
 
     delete[] zipData;
 
