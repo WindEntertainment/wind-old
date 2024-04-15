@@ -11,5 +11,5 @@
 3. code refactoring
 
 - CI
-1. artifacts
+1. artifacts + releases
 2. windows
