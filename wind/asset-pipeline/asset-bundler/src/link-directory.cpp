@@ -47,7 +47,7 @@ void AssetBundler::linkDirectory(const fs::path& _source, const fs::path& _desti
   asset_id header_size = files.size() * sizeof(asset_id) * 2 + sizeof(asset_id);
   asset_id offset = header_size;
 
-  bundle.write(reinterpret_cast<const char*>(&header_size), sizeof(asset_id));
+  bundle.write(reinterpret_cast<const char*>(&header_size), sizeof(header_size));
 
   spdlog::info("Write bundle header. header size: {}", header_size);
 
@@ -57,8 +57,8 @@ void AssetBundler::linkDirectory(const fs::path& _source, const fs::path& _desti
 
     spdlog::info("Write meta-resource. name: '{}', id: {}, offset: {}", pair.first.string(), id, offset);
 
-    bundle.write(reinterpret_cast<const char*>(&id), sizeof(asset_id));
-    bundle.write(reinterpret_cast<const char*>(&offset), sizeof(asset_id));
+    bundle.write(reinterpret_cast<const char*>(&id), sizeof(id));
+    bundle.write(reinterpret_cast<const char*>(&offset), sizeof(offset));
 
     pair.second.seekg(0, std::ios::end);
     offset += pair.second.tellg();
