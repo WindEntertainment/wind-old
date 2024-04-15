@@ -30,10 +30,15 @@ runs:
         # cd "C:/"
         # mkdir -p "C:\usr\local\bin"
         # ls -a
-        which wind-asset-bundler
+        # which wind-asset-bundler
         # ls -a "/usr/local/bin"
         # cd "C:/"
         # echo "C:\usr\local\bin" >> $GITHUB_PATH
+
+        installed_path=$(find / -name "wind-asset-bundler")
+
+        echo "Installed path: $installed_path"
+        echo "$installed_path"" >> $GITHUB_PATH
 
         wind-asset-bundler -h
       shell: bash
