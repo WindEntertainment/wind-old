@@ -25,4 +25,6 @@ runs:
           echo "$RUNNER_OS not supported"
           exit 1
         fi
+
+        cat .env
       shell: bash
