@@ -37,13 +37,18 @@ runs:
 
         # installed_path=$(find "C:\\" -name "wind-asset-bundler.exe")
 
-        dir c: d: /s | findstr /i wind-asset-bundler.exe
+        # dir c: d: /s | findstr /i wind-asset-bundler.exe
 
         # echo "Installed path: $installed_path"
         # echo "$installed_path" >> $GITHUB_PATH
 
-        wind-asset-bundler -h
+        # wind-asset-bundler -h
       shell: bash
+
+    - name: Build assets bundler
+      shell: powershell
+      run:   |
+        dir c: d: /s | findstr /i wind-asset-bundler.exe
 
     - uses: actions/cache/restore@v4
       with:
