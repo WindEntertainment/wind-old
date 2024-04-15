@@ -46,11 +46,6 @@ runs:
         # echo "Installed path: $installed_path"
       shell: bash
 
-    # - name: Build assets bundler
-    #   shell: powershell
-    #   run:   |
-    #     dir c: d: /s | findstr /i wind-asset-bundler.exe
-
     - uses: actions/cache/restore@v4
       with:
         path: ${{ env.projectRoot }}/dreich/game/data
@@ -58,8 +53,6 @@ runs:
 
     - name: Build assets
       run:   |
-        ls -a /d/a/dreich/ultralight/ultralight/SDK/include/Ultralight
-
         cd game/data
 
         wind-asset-bundler -b main
