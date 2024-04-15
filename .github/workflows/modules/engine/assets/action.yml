@@ -30,8 +30,8 @@ runs:
         # cd "C:/"
         # mkdir -p "C:\usr\local\bin"
         # ls -a
-        ls -a "/usr/local/bin"
         which wind-asset-bundler
+        # ls -a "/usr/local/bin"
         # cd "C:/"
         # echo "C:\usr\local\bin" >> $GITHUB_PATH
 
