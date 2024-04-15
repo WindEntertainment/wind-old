@@ -11,6 +11,7 @@ runs:
           echo "ULTRALIGHT_PATH=${{ env.projectRoot }}/ultralight" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo "ULTRALIGHT_PATH=${{ env.projectRoot }}/ultralight/ultralight/SDK" >> $GITHUB_ENV
+          ls -a ${{ env.projectRoot }}/ultralight/ultralight/SDK
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo "ULTRALIGHT_PATH=${{ env.projectRoot }}/ultralight/SDK" >> $GITHUB_ENV
         else
