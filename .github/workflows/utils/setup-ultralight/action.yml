@@ -60,7 +60,7 @@ runs:
     - name: Install ultralight
       shell: bash
       run: |
-        ls -a ../ultralight/ultralight
+        ls -a ../ultralight
         pwd
 
     - uses: actions/cache/save@v4
