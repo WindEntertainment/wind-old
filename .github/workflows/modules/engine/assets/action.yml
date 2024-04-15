@@ -24,14 +24,16 @@ runs:
         cmake --build ${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }} --parallel 10 --target wind-asset-bundler
 
         cd build/${{ env.engineBuildType }}/wind/asset-pipeline
-        mkdir ${{ env.projectRoot }}/apps
 
-        make install DESTDIR=${{ env.projectRoot }}/apps
-        echo "${{ env.projectRoot }}/apps/usr/local/bin"
-        echo "${{ env.projectRoot }}/apps/usr/local/bin" >> $GITHUB_PATH
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          mkdir ${{ env.projectRoot }}/apps
+          make install DESTDIR=${{ env.projectRoot }}/apps
+          echo "${{ env.projectRoot }}/apps/usr/local/bin" >> $GITHUB_PATH
+        else
+          make install
+        fi
 
-        "D:/a/dreich/apps/usr/local/bin/wind-asset-bundler.exe" -h
-
+        # "D:/a/dreich/apps/usr/local/bin/wind-asset-bundler.exe" -h
         # cd "C:/"
         # mkdir -p "C:\usr\local\bin"
         # ls -a
