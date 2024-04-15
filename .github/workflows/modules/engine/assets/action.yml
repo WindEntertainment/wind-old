@@ -6,8 +6,6 @@ runs:
   steps:
     - name: Build assets bundler
       run:   |
-        ls -a ${{ env.projectRoot }}/ultralight/ultralight/SDK
-
         if [ "$RUNNER_OS" == "Linux" ]; then
           export CC=clang
           export CXX=clang++
