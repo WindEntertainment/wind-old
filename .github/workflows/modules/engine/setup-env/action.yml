@@ -8,7 +8,7 @@ runs:
       run:   |
         touch .env
 
-        echo 'ULTRALIGHT_PATH=D:\\a\\dreich\\ultralight\\ultralight\\SDK' >> .env
+        echo 'ULTRALIGHT_PATH=D:\a\dreich\ultralight\ultralight\SDK' >> .env
         echo 'DOTNET_ROOT=${{ env.DOTNET_PATH }}' >> .env
 
         if [ "$RUNNER_OS" == "Linux" ]; then
