@@ -1,6 +1,6 @@
 name: Build assets
 description: Build assets
-# riznia
+
 runs:
   using: 'composite'
   steps:
@@ -32,18 +32,6 @@ runs:
         else
           make install
         fi
-
-        # "D:/a/dreich/apps/usr/local/bin/wind-asset-bundler.exe" -h
-        # cd "C:/"
-        # mkdir -p "C:\usr\local\bin"
-        # ls -a
-        # which wind-asset-bundler
-        # ls -a "/usr/local/bin"
-        # cd "C:/"
-        # echo "C:\usr\local\bin" >> $GITHUB_PATH
-        # installed_path=$(find /c/ -name "wind-asset-bundler.exe")
-        # dir c: d: /s | findstr /i wind-asset-bundler.exe
-        # echo "Installed path: $installed_path"
       shell: bash
 
     - uses: actions/cache/restore@v4

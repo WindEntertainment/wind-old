@@ -12,4 +12,3 @@
 
 - CI
 1. artifacts + releases
-2. windows
