@@ -56,6 +56,21 @@ static auto replaceAll(std::string input, const std::string& searched, const std
   return input;
 }
 
+static fs::path removeFirstDirectory(const fs::path& filePath) {
+  fs::path sourceFile;
+
+  bool first = true;
+  for (const auto& part : filePath) {
+    if (first) {
+      first = false;
+      continue;
+    }
+    sourceFile /= part;
+  }
+
+  return sourceFile;
+}
+
 class Stopwatch {
 public:
   Stopwatch(const std::string& message)

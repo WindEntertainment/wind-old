@@ -38,7 +38,7 @@ public:
       return;
     }
 
-    spdlog::info("size: {}, zipped size: {}", static_cast<asset_id>(fileContent.size()), zippedSize);
+    // spdlog::info("size: {}, zipped size: {}", static_cast<asset_id>(fileContent.size()), zippedSize);
 
     auto fileSize32 = (asset_id)fileContent.size();
     auto zippedSize32 = (asset_id)zippedSize;
@@ -72,7 +72,7 @@ public:
     if (rc != Z_OK)
       throw std::invalid_argument(fmt::format("Failed uncompress data: {}", zError(rc)));
 
-    spdlog::info("orgSize: {}, zipSize: {}, orgSizeT: {}", orgSize, zipSize, orgSizeT);
+    // spdlog::info("orgSize: {}, zipSize: {}, orgSizeT: {}", orgSize, zipSize, orgSizeT);
 
     delete[] zipData;
 

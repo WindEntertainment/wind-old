@@ -2,5 +2,5 @@ preprocessing:
   execute: "dotnet publish"
 
 exports:
-  - path: "(bin\\\\Release).*"
+  - path: "(bin[\/\\\\]Release).*"
     pipe: copy
