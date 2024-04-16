@@ -28,11 +28,11 @@ runs:
         sudo: false
 
     - run: Set-MpPreference -DisableRealtimeMonitoring $true
-      if: env.os == 'windows-2019'
+      if: env.os == 'windows-latest'
       shell: powershell
 
     - name: Install dependencies windows
-      if: env.os == 'windows-2019'
+      if: env.os == 'windows-latest'
       shell: powershell
       run: |
         choco install make cmake llvm 7zip
