@@ -21,7 +21,6 @@ runs:
     - uses: actions/cache/restore@v4
       id: restore-cache
       with:
-        # needs recheck
         key: ${{ env.envHash }}-${{ env.os }}-ultralight
         path: ${{ env.ULTRALIGHT_PATH }}
 
