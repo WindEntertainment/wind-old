@@ -22,6 +22,8 @@ runs:
     - name: Build game
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
+          export CC=clang
+          export CXX=clang++
           cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game
         elif [ "$RUNNER_OS" == "macOS" ]; then
           cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game

@@ -7,6 +7,8 @@ runs:
     - name: Build asset bundler
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
+          export CC=clang
+          export CXX=clang++
           cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=${{ env.engineBuildType }} -DCMAKE_TOOLCHAIN_FILE=${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}/generators/conan_toolchain.cmake -S${{ env.projectRoot }}/dreich -B${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}
         elif [ "$RUNNER_OS" == "macOS" ]; then
           cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=${{ env.engineBuildType }} -DCMAKE_TOOLCHAIN_FILE=${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}/generators/conan_toolchain.cmake -S${{ env.projectRoot }}/dreich -B${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}
