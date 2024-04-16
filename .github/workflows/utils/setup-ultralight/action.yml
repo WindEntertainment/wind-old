@@ -22,7 +22,7 @@ runs:
       id: restore-cache
       with:
         # needs recheck
-        key: ${{ env.artifact }}-ultralight
+        key: ${{ env.envHash }}-${{ env.os }}-ultralight
         path: ${{ env.ULTRALIGHT_PATH }}
 
     - name: Install ultralight
@@ -60,5 +60,5 @@ runs:
     - uses: actions/cache/save@v4
       if: steps.restore-cache.outputs.cache-hit != 'true'
       with:
-        key: ${{ env.artifact }}-ultralight
+        key: ${{ env.envHash }}-${{ env.os }}-ultralight
         path: ${{ env.ULTRALIGHT_PATH }}
