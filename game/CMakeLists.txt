@@ -9,22 +9,8 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-core)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-ultralight)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-asset-manager)
-target_link_libraries(${PROJECT_NAME} PRIVATE wind-input-system)
-target_link_libraries(${PROJECT_NAME} PRIVATE wind-script-system)
-
-
-include_directories("$ENV{DOTNET_INCLUDES}")
-target_link_libraries(${PROJECT_NAME} PUBLIC "$ENV{DOTNET_INCLUDES}/libnethost.a")
-
-#  Ultralight staff
-# if (APPLE)
-#   set(ASSETS_PATH "$<TARGET_FILE_DIR:${PROJECT_NAME}>/../Resources/assets")
-# else ()
-# set(ASSETS_PATH "$<TARGET_FILE_DIR:${PROJECT_NAME}>/assets")
-# endif ()
 
 set(ASSETS_PATH "$<TARGET_FILE_DIR:${PROJECT_NAME}>/res")
-set(ULTRALIGHT_RESOURCES_DIR "$ENV{ULTRALIGHT_PATH}/resources")
 
 # Copy assets to assets directory
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD

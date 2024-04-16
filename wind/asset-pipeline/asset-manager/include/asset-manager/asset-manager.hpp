@@ -11,7 +11,11 @@ namespace wind {
 class AssetManager {
   struct Bundle {
   private:
-    std::map<asset_id, asset_id> m_assets;
+    // std::map<asset_id, asset_id> m_assets;
+    // std::map<asset_id, asset_id> m_assetsSizes;
+    std::vector<asset_id> m_ids;
+    std::vector<asset_id> m_offsets;
+    std::vector<asset_id> m_ends;
     asset_id m_fileSize;
 
   public:
@@ -29,15 +33,29 @@ class AssetManager {
 
       asset_id count = (header_size - sizeof(asset_id)) / (2 * sizeof(asset_id));
 
+      spdlog::debug("Load header. Header size: {}, count: {}", header_size, count);
+
       for (asset_id i = 0; i < count; ++i) {
         asset_id id;
         asset_id offset;
 
-        m_file.read(reinterpret_cast<char*>(&id), sizeof(asset_id));
-        m_file.read(reinterpret_cast<char*>(&offset), sizeof(asset_id));
+        m_file.read(reinterpret_cast<char*>(&id), sizeof(id));
+        m_file.read(reinterpret_cast<char*>(&offset), sizeof(offset));
 
         spdlog::debug("Load meta-resource. id: {}, offset: {}", id, offset);
-        m_assets.insert(std::make_pair(id, offset));
+        // m_assets.insert(std::make_pair(id, offset));
+        m_ids.push_back(id);
+        m_offsets.push_back(offset);
+      }
+
+      for (asset_id i = 0; i < count; ++i) {
+        asset_id size = 0;
+        if (i + 1 < m_offsets.size())
+          size = m_offsets[i + 1];
+        else
+          size = m_fileSize;
+
+        m_ends.push_back(size);
       }
     }
 
@@ -46,15 +64,17 @@ class AssetManager {
     }
 
     bool tryGetOffsetById(asset_id _id, asset_id& _offset, asset_id& _end) {
-      if (!m_assets.contains(_id))
+      if (std::find(m_ids.begin(), m_ids.end(), _id) == m_ids.end())
         return false;
 
-      _offset = m_assets[_id];
+      size_t ind = std::distance(m_ids.begin(), std::find(m_ids.begin(), m_ids.end(), _id));
+      _offset = m_offsets[ind];
+      _end = m_ends[ind] - 12;
 
-      if (_id + 1 < m_assets.size())
-        _end = m_assets[_id + 1];
-      else
-        _end = m_fileSize;
+      // if (_id + 1 < m_assets.size())
+      //   _end = m_assets[_id + 1];
+      // else
+      //   _end = m_fileSize;
 
       return true;
     }
@@ -116,7 +136,7 @@ private:
 
 public:
   static void loadBundle(const fs::path& _path) {
-    std::ifstream file(_path);
+    std::ifstream file(_path, std::ios_base::binary);
     if (!file.is_open()) {
       spdlog::error("Fail load bundle: fail open file by path: {}", _path.string());
       return;
