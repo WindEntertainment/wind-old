@@ -13,4 +13,4 @@ runs:
       name: Setup pnpm cache
       with:
         path: "${{ env.pnpmPath }}"
-        key: ${{ env.artifact }}-pnpm-store
+        key: ${{ hashFiles('**/pnpm-lock.yaml') }}-${{ env.artifact }}-pnpm-store

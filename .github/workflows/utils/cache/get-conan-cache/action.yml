@@ -17,4 +17,4 @@ runs:
       name: Setup conan cache
       with:
         path: ${{ env.conanPath }}
-        key: ${{ env.artifact }}-pnpm-store-conan-store
+        key: ${{ hashFiles('conanfile.py') }}-${{ env.artifact }}-conan-store
