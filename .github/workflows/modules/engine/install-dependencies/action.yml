@@ -7,4 +7,6 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
+        export CC=clang
+        export CXX=clang++
         conan install . --update --build=missing
