@@ -18,5 +18,10 @@ runs:
           echo "$key=$value" >> $GITHUB_ENV
         done
 
-        envHash=$(echo -n "$json" | shasum -a 256 | cut -d ' ' -f1)
-        echo "envHash=$envHash" >> $GITHUB_ENV
+        if [ "$RUNNER_OS" == "macOS" ]; then
+          envHash=$(echo -n "$json" | shasum -a 256 | cut -d ' ' -f1)
+          echo "envHash=$envHash" >> $GITHUB_ENV
+        else
+          envHash=$(echo -n "$json" | sha256sum | cut -d ' ' -f1)
+          echo "envHash=$envHash" >> $GITHUB_ENV
+        fi

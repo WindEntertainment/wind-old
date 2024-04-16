@@ -34,7 +34,6 @@ runs:
 
     - uses: actions/cache/restore@v4
       with:
-        # needs recheck
         path: ${{ env.projectRoot }}/dreich/game/data/.cache
         key: ${{ env.envHash }}-${{ hashFiles('${{ env.projectRoot }}/dreich/game/data/**/.export-config') }}-${{ env.os }}-asset-manager
 
