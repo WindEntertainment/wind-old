@@ -29,11 +29,11 @@ runs:
 
 # riznia
 
-    # - uses: actions/cache/restore@v4
-    #   if: env.os == 'windows-latest'
-    #   with:
-    #     path: C:\ProgramData\chocolatey\lib
-    #     key: ${{ runner.os }}-choco
+    - uses: actions/cache/restore@v4
+      if: env.os == 'windows-latest'
+      with:
+        path: C:\ProgramData\chocolatey\lib
+        key: ${{ runner.os }}-choco
 
     # - uses: ./.github/workflows/utils/test
     #   if: env.os == 'windows-latest'
@@ -72,11 +72,11 @@ runs:
     #     key: ${{ runner.os }}-choco
     #     sudo: false
 
-    # - uses: actions/cache/save@v4
-    #   if: env.os == 'windows-latest'
-    #   with:
-    #     path: C:\ProgramData\chocolatey\lib
-    #     key: ${{ runner.os }}-choco
+    - uses: actions/cache/save@v4
+      if: env.os == 'windows-latest'
+      with:
+        path: C:\ProgramData\chocolatey\lib
+        key: ${{ runner.os }}-choco
 
 
     # - uses: tecolicom/actions-install-and-cache@v1
