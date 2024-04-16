@@ -26,7 +26,7 @@ runs:
             build_type=${{ env.engineBuildType }}
             compiler=clang
             compiler.cppstd=20
-            compiler.libcxx=libstdc++
+            compiler.libcxx=libc++
             compiler.version=14
             os=Linux
             [conf]
