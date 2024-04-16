@@ -30,17 +30,17 @@ runs:
 # riznia
 
     - run: Set-MpPreference -DisableRealtimeMonitoring $true
-      if: env.os == 'windows-latest'
+      if: env.os == 'windows-2019'
       shell: powershell
 
     - uses: actions/cache/restore@v4
-      if: env.os == 'windows-latest'
+      if: env.os == 'windows-2019'
       with:
         path: C:\ProgramData\chocolatey\lib
         key: ${{ runner.os }}-choco
 
     # - uses: ./.github/workflows/utils/test
-    #   if: env.os == 'windows-latest'
+    #   if: env.os == 'windows-2019'
     #   with:
     #     run: 'echo here'
     #     path: /c/ProgramData/chocolatey/lib
@@ -49,7 +49,7 @@ runs:
     #     sudo: false
 
     - name: test
-      if: env.os == 'windows-latest'
+      if: env.os == 'windows-2019'
       shell: powershell
       run: |
         choco install make cmake llvm 7zip
@@ -59,7 +59,7 @@ runs:
 
 
     # - uses: ./.github/workflows/utils/test
-    #   if: env.os == 'windows-latest'
+    #   if: env.os == 'windows-2019'
     #   with:
     #     run: 'echo 1'
     #     path: C:\ProgramData\chocolatey\lib
@@ -68,7 +68,7 @@ runs:
     #     sudo: false
 
     # - uses: tecolicom/actions-install-and-cache@v1
-    #   if: env.os == 'windows-latest'
+    #   if: env.os == 'windows-2019'
     #   with:
     #     run: 'echo 1'
     #     path: c/ProgramData/chocolatey/lib
@@ -77,14 +77,14 @@ runs:
     #     sudo: false
 
     - uses: actions/cache/save@v4
-      if: env.os == 'windows-latest'
+      if: env.os == 'windows-2019'
       with:
         path: C:\ProgramData\chocolatey\lib
         key: ${{ runner.os }}-choco
 
 
     # - uses: tecolicom/actions-install-and-cache@v1
-    #   if: env.os == 'windows-latest'
+    #   if: env.os == 'windows-2019'
     #   with:
     #     run: 'choco install make cmake llvm 7zip dotnet'
     #     path: '/c/ProgramData/chocolatey/lib'
