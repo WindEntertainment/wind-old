@@ -27,7 +27,7 @@ runs:
 
     - name: Install ultralight
       shell: bash
-      if: steps.restore-cache.outputs.cache-hit != 'true' && env.os != 'windows-latest'
+      if: steps.restore-cache.outputs.cache-hit != 'true' && env.os != 'windows-2019'
       run: |
         cd ../
         mkdir ultralight
@@ -47,7 +47,7 @@ runs:
         fi
 
     - name: Install ultralight
-      if: steps.restore-cache.outputs.cache-hit != 'true' && env.os == 'windows-latest'
+      if: steps.restore-cache.outputs.cache-hit != 'true' && env.os == 'windows-2019'
       shell: powershell
       run: |
         cd ../
