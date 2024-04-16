@@ -1,0 +1,6 @@
+preprocessing:
+  execute: "dotnet publish"
+
+exports:
+  - path: "(bin\\\\Release).*"
+    pipe: copy

@@ -1,7 +1,7 @@
 #pragma once
 
 // clang-format off
-#include <utils/utils.h>
+#include "utils.h"
 
 #include "window/events/keyboard.h" // IWYU pragma: export
 #include "window/events/mouse.h"    // IWYU pragma: export

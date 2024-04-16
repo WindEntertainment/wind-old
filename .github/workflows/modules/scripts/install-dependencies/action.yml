@@ -1,0 +1,10 @@
+name: Install dependencies scripts
+description: Install dependencies scripts
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install dependencies
+      shell: bash
+      run: |
+        echo "Hello world!"

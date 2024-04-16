@@ -1,9 +1,10 @@
+#include <glad/glad.h>
+
 #include "input-system/context.h"
 #include "input-system/keys.h"
 #include "script-system/hostfxr.h"
 #include "script-system/script-system.h"
 #include "utils/includes.h"
-#include <GLFW/glfw3.h>
 
 #include <algorithm>
 #include <asset-manager/asset-manager.hpp>
@@ -19,40 +20,23 @@
 #include <window/window.h>
 
 int main(int argc, char** argv) {
+
 #ifndef NDEBUG
-#define SPDLOG
   spdlog::set_level(spdlog::level::debug);
-  spdlog::info("----Debug configuration!----");
+  spdlog::debug("----Debug configuration!----");
 #endif
 
   using namespace wind;
+  using namespace wind::assets;
 
-  using namespace wind::asset_pipeline;
+  //=========Assets Pipeline===============//
 
-  PipeRegister::regPipe(new DefaultPipe());
-  PipeRegister::regPipe(new ShaderPipe());
-  PipeRegister::regPipe(new ImagePipe());
+  AssetManager::loadBundle("res/Ultralight.bundle");
+  AssetManager::loadBundle("res/Main.bundle");
 
-  AssetManager::loadBundle("assets.bundle");
+  //=========Input System==================//
 
-  auto rootPath = fs::absolute(argv[0]).parent_path();
-  auto scriptsPath = rootPath / "assets/scripts/bin/Release/";
-
-  InputSystem::createTriggersFromFile("configs/triggers.yml");
-
-  Window::init([](Window::Config* self) {
-    self->title = "Game";
-    self->fullScreen = false;
-    self->size = {800, 600};
-    self->vSync = false;
-  });
-
-  Ultralight::init();
-  const auto uiTexture = Ultralight::loadView("UI/dist/index.html", {800, 600});
-
-  float scope = 1.f;
-  glm::vec2 camera = {};
-
+  InputSystem::createTriggersFromFile("main/configs/triggers.yml");
   InputSystem::addTriggerCallbacks("ultralightMouseMove", &Ultralight::triggerMoveEvent);
   InputSystem::addTriggerCallbacks("ultralightMouseScroll", &Ultralight::triggerScrollEvent);
   InputSystem::addTriggerCallbacks("ultralightMousePress", &Ultralight::triggerMousePressEvent);
@@ -62,6 +46,25 @@ int main(int argc, char** argv) {
   InputSystem::addTriggerCallbacks("ultralightKeyRelease", &Ultralight::triggerKeyReleaseEvent);
   InputSystem::addTriggerCallbacks("ultralightChars", &Ultralight::triggerCharEvent);
 
+  //===============Window==================//
+
+  Window::init([](Window::Config* self) {
+    self->title = "Game";
+
+    self->fullScreen = false;
+    self->size = {800, 600};
+    self->vSync = false;
+  });
+
+  //=============Ultralight================//
+
+  Ultralight::init();
+
+  const auto uiTexture = Ultralight::loadView("main/UI/dist/index.html", {800, 600});
+
+  //============Script System==============//
+
+  // auto scriptsPath = fs::path("./res/Managed/");
   // auto hostfxr = new ScriptSystemHostfxr();
 
   // hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
@@ -71,19 +74,16 @@ int main(int argc, char** argv) {
   // scriptSystem->run("Scripts.Lib, Scripts", "HelloAgain", "from host!", 1);
   // scriptSystem->run("Scripts.Lib, Scripts", "Hello", "from host!", 1);
 
-  while (Window::update()) {
-    if (Keyboard::isKeyDown(GLFW_KEY_ESCAPE))
-      Window::close();
+  //=============Main loop=================//
 
+  while (Window::update()) {
     Renderer::clear({1.f, 0.f, 0.f, 1});
 
     Ultralight::update();
+
     Ultralight::render();
 
     Renderer::drawTexture(uiTexture, {1, 1}, {0, 0, 0}, {0, 0, 0}, {800, 600, 1});
-
-    Renderer::updateCamera(camera);
-    Renderer::setScope(scope);
 
     Window::show();
   }

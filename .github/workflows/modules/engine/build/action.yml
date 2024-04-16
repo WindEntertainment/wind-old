@@ -1,0 +1,55 @@
+name: Build engine
+description: Build engine
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup conan base
+      uses: ./.github/workflows/utils/setup-conan
+
+    - name: Install dependencies
+      uses: ./.github/workflows/modules/engine/install-dependencies
+
+    - name: Setup ultralight base
+      uses: ./.github/workflows/utils/setup-ultralight
+
+    - name: Prepare engine env
+      uses: ./.github/workflows/modules/engine/setup-env
+
+    - name: Prepare assets
+      uses: ./.github/workflows/modules/engine/assets
+
+    - name: Build game
+      run:   |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          export CC=${{ env.cc }}
+          export CXX=${{ env.cxx }}
+          cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game
+        elif [ "$RUNNER_OS" == "Windows" ]; then
+          cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=${{ env.engineBuildType }} -DCMAKE_TOOLCHAIN_FILE="${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}/generators/conan_toolchain.cmake" -S "${{ env.projectRoot }}/dreich" -B "${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}"
+          cmake --build "${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}" --parallel 10 --target game
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
+        fi
+      shell: bash
+
+    # - name: Upload package as artifact
+    #   if: ${{ env.isRelease == false }}
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: ${{ env.envHash }}
+    #     path: build/${{ env.engineBuildType }}
+    #     retention-days: 1
+    #     overwrite: true
+
+    # - name: Upload package as artifact
+    #   if: ${{ env.isRelease == true }}
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: ${{ env.envHash }}
+    #     path: build/${{ env.engineBuildType }}
+    #     retention-days: 1
+    #     overwrite: true

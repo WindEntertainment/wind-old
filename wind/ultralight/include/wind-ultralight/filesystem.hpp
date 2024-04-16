@@ -38,9 +38,9 @@ public:
   ul::RefPtr<ul::Buffer> OpenFile(const ul::String& filePath) override {
     auto bytes = AssetManager::getAsset<unsigned char>(filePath.utf8().data());
     ul::RefPtr<ul::Buffer> buffer = ul::Buffer::Create(bytes,
-                                                       strlen(reinterpret_cast<const char*>(bytes)),
-                                                       nullptr,
-                                                       nullptr);
+      strlen(reinterpret_cast<const char*>(bytes)),
+      nullptr,
+      nullptr);
 
     return buffer;
   }

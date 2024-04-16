@@ -10,9 +10,9 @@ namespace wind {
 
 using asset_id = unsigned int;
 
-class AssetPipe {
-  friend class AssetPipeline;
+namespace assets {
 
+class AssetPipe {
 protected:
   asset_id m_id;
 
@@ -32,6 +32,9 @@ public:
     std::hash<std::string> hasher;
     m_id = hasher(_id);
   }
+
+  virtual ~AssetPipe() = default;
 };
 
+} // namespace assets
 } // namespace wind
