@@ -4,7 +4,7 @@ description: Build assets
 runs:
   using: 'composite'
   steps:
-    - name: Build assets bundler
+    - name: Build asset bundler
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
           export CC=clang
@@ -36,8 +36,8 @@ runs:
 
     - uses: actions/cache/restore@v4
       with:
-        path: ${{ env.projectRoot }}/dreich/game/data
-        key: ${{ runner.os }}-assets-manager
+        path: ${{ env.projectRoot }}/dreich/game/data/.cache
+        key: ${{ env.artifact }}-asset-manager
 
     - name: Build assets
       run:   |
@@ -55,5 +55,5 @@ runs:
 
     - uses: actions/cache/save@v4
       with:
-        path: ${{ env.projectRoot }}/dreich/game/data
-        key: ${{ runner.os }}-assets-manager
+        path: ${{ env.projectRoot }}/dreich/game/data/.cache
+        key: ${{ env.artifact }}-asset-manager

@@ -21,7 +21,7 @@ jobs:
           - {
               name: 'Ubuntu',
               projectRoot: '/home/runner/work/dreich',
-              artifact: '${{ github.event.pull_request.title }}-linux',
+              artifact: 'dreich-linux-${{ github.event.pull_request.title }}',
               os: 'ubuntu-latest',
               scriptBuildType: 'publish',
               engineBuildType: 'Release',
@@ -60,7 +60,7 @@ jobs:
           - {
               name: 'Windows',
               projectRoot: '/d/a/dreich',
-              artifact: '${{ github.event.pull_request.title }}-windows',
+              artifact: 'dreich-windows-${{ github.event.pull_request.title }}',
               os: 'windows-2019',
               scriptBuildType: 'publish',
               engineBuildType: 'Release',
@@ -74,7 +74,7 @@ jobs:
           - {
               name: 'Ubuntu',
               projectRoot: '/home/runner/work/dreich',
-              artifact: '${{ github.event.pull_request.title }}-linux',
+              artifact: 'dreich-linux-${{ github.event.pull_request.title }}',
               os: 'ubuntu-latest',
               scriptBuildType: 'publish',
               engineBuildType: 'Release',
@@ -88,7 +88,7 @@ jobs:
           - {
               name: 'MacOS',
               projectRoot: '/Users/runner/work/dreich',
-              artifact: '${{ github.event.pull_request.title }}-macos',
+              artifact: 'dreich-macos-${{ github.event.pull_request.title }}',
               os: 'macos-14',
               scriptBuildType: 'publish',
               engineBuildType: 'Release',
@@ -127,7 +127,7 @@ jobs:
           - {
               name: 'Windows',
               projectRoot: 'D:\a\dreich',
-              artifact: '${{ github.event.pull_request.title }}-windows',
+              artifact: 'dreich-windows-${{ github.event.pull_request.title }}',
               os: 'windows-2019',
               scriptBuildType: 'publish',
               engineBuildType: 'Release',
@@ -141,7 +141,7 @@ jobs:
           - {
               name: 'Ubuntu',
               projectRoot: '/home/runner/work/dreich',
-              artifact: '${{ github.event.pull_request.title }}-linux',
+              artifact: 'dreich-linux-${{ github.event.pull_request.title }}',
               os: 'ubuntu-latest',
               scriptBuildType: 'publish',
               engineBuildType: 'Release',
@@ -155,7 +155,7 @@ jobs:
           - {
               name: 'MacOS',
               projectRoot: '/Users/runner/work/dreich',
-              artifact: '${{ github.event.pull_request.title }}-macos',
+              artifact: 'dreich-macos-${{ github.event.pull_request.title }}',
               os: 'macos-14',
               scriptBuildType: 'publish',
               engineBuildType: 'Release',

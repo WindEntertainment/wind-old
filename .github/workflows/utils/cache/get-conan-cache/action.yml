@@ -13,15 +13,8 @@ runs:
           echo "conanPath=~/.conan2/p/" >> $GITHUB_ENV
         fi
 
-    - name: Get conan keys prefix
-      shell: bash
-      run: |
-        echo "conanKeysPrefix=${{ runner.os }}-conan-store-" >> $GITHUB_ENV
-
     - uses: actions/cache@v4
       name: Setup conan cache
       with:
         path: ${{ env.conanPath }}
-        key: ${{ env.conanKeysPrefix }}${{ hashFiles('conanfile.txt') }}
-        restore-keys: |
-          ${{ env.conanKeysPrefix }}
+        key: ${{ env.artifact }}-pnpm-store-conan-store

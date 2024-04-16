@@ -21,9 +21,8 @@ runs:
     - uses: actions/cache/restore@v4
       id: restore-cache
       with:
-        path: |
-          ${{ env.ULTRALIGHT_PATH }}
-        key: ${{ runner.os }}-ultralight
+        key: ${{ env.artifact }}-ultralight
+        path: ${{ env.ULTRALIGHT_PATH }}
 
     - name: Install ultralight
       shell: bash
@@ -60,6 +59,5 @@ runs:
     - uses: actions/cache/save@v4
       if: steps.restore-cache.outputs.cache-hit != 'true'
       with:
-        path: |
-          ${{ env.ULTRALIGHT_PATH }}
-        key: ${{ runner.os }}-ultralight
+        key: ${{ env.artifact }}-ultralight
+        path: ${{ env.ULTRALIGHT_PATH }}

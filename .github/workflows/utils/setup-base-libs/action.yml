@@ -13,7 +13,7 @@ runs:
           apt-get install -y dotnet-sdk-8.0
         path: '/var/cache/apt/archives'
         cache: yes
-        key: '${{ runner.os }}-apt-store'
+        key: ${{ env.artifact }}-apt-store
         sudo: true
 
     - uses: tecolicom/actions-install-and-cache@v1
@@ -24,7 +24,7 @@ runs:
           brew install p7zip llvm cmake conan dotnet@8
         path: $(brew --prefix)
         cache: yes
-        key: '${{ runner.os }}-brew'
+        key: ${{ env.artifact }}-brew
         sudo: false
 
     - run: Set-MpPreference -DisableRealtimeMonitoring $true
