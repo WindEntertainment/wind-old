@@ -29,6 +29,10 @@ runs:
 
 # riznia
 
+    - run: Set-MpPreference -DisableRealtimeMonitoring $true
+      if: env.os == 'windows-latest'
+      shell: powershell
+
     - uses: actions/cache/restore@v4
       if: env.os == 'windows-latest'
       with:
