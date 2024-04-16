@@ -119,9 +119,9 @@ jobs:
   building:
     name: 'Build: ${{ matrix.config.name }}'
     runs-on: ${{ matrix.config.os }}
-    # needs:
-    #   - linting
-    #   - testing
+    needs:
+      - linting
+      - testing
     strategy:
       fail-fast: false
       matrix:
