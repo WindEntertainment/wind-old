@@ -10,6 +10,15 @@
 #include <algorithm>       // IWYU pragma: export
 #include <ranges>          // IWYU pragma: export
 #include <fstream>         // IWYU pragma: export
+#include <algorithm>       // IWYU pragma: export
+#include <ranges>          // IWYU pragma: export
+#include <sstream>         // IWYU pragma: export
+#include <codecvt>         // IWYU pragma: export
+#include <locale>          // IWYU pragma: export
+
+// #ifndef __APPLE__
+// #include <bits/ranges_algo.h> // IWYU pragma: export
+// #endif
 
 #include <spdlog/spdlog.h> // IWYU pragma: export
 #include <glm/glm.hpp>     // IWYU pragma: export

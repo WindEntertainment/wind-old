@@ -99,7 +99,7 @@ public:
     const ul::String& message,
     uint32_t line_number,
     uint32_t column_number,
-    const ul::String& source_id) override {
+    const ul::String& source_id) {
 
     spdlog::log(Ultralight::mapUltralightLogLevelToSpd(level), "[Console]: [{}] {}", stringify(source), toUTF8(message));
 

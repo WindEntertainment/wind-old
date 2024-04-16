@@ -1,0 +1,11 @@
+name: Test scripts
+description: Test scripts
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup dotnet base
+      uses: ./.github/workflows/utils/setup-dotnet
+
+    - name: Install dependencies
+      uses: ./.github/workflows/modules/scripts/install-dependencies
