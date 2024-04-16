@@ -46,6 +46,8 @@ runs:
             [conf]
             tools.system.package_manager:mode=install
             tools.system.package_manager:sudo=True
+            tools.microsoft.msbuild:vs_version=17
+            tools.microsoft.msbuild:toolset=ClangCl
           " > C:\\Users\\runneradmin\\.conan2\\profiles\\default
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo "
