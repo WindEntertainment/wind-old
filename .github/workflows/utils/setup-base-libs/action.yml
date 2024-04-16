@@ -13,7 +13,7 @@ runs:
         path: '/var/cache/apt/archives'
         cache: yes
         key: ${{ env.envHash }}-${{ env.os }}-apt-store
-        sudo: false
+        sudo: true
         verbose: false
 
     - uses: tecolicom/actions-install-and-cache@v1
