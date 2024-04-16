@@ -8,7 +8,7 @@ runs:
       run:   |
         touch .env
 
-        echo 'ULTRALIGHT_PATH=D:\a\dreich\ultralight\ultralight\SDK' >> .env
+        echo 'ULTRALIGHT_PATH=${{ ULTRALIGHT_PATH }}' >> .env
         echo 'DOTNET_ROOT=${{ env.DOTNET_PATH }}' >> .env
 
         if [ "$RUNNER_OS" == "Linux" ]; then
@@ -16,7 +16,7 @@ runs:
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/8.0.3/runtimes/osx-arm64/native' >> .env
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          echo 'DOTNET_INCLUDES=C:/Program Files/dotnet/packs/Microsoft.NETCore.App.Host.win-x64/8.0.4/runtimes/win-x64/native' >> .env
+          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.win-x64/8.0.4/runtimes/win-x64/native' >> .env
         else
           echo "$RUNNER_OS not supported"
           exit 1
