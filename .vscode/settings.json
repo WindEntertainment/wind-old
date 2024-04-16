@@ -39,14 +39,15 @@
   ],
   "C_Cpp.errorSquiggles": "disabled",
   "files.associations": {
-    "action.yaml": "yaml",
-    "**/.github/workflows/**/*.yaml": "yaml",
-    "**/.github/workflows/**/*.yml": "yaml",
     "*.prefab": "xml",
     "*.uss": "scss",
     ".import-config": "yaml",
     "*.import": "yaml",
     "*.import-config": "yaml",
+    ".export-config": "yaml",
+    "action.yaml": "yaml",
+    "**/.github/workflows/**/*.yaml": "yaml",
+    "**/.github/workflows/**/*.yml": "yaml",
     "*.tcc": "cpp",
     "iosfwd": "cpp",
     "chrono": "cpp",
@@ -138,6 +139,10 @@
     "xstring": "cpp",
     "xtr1common": "cpp",
     "xtree": "cpp",
-    "xutility": "cpp"
+    "xutility": "cpp",
+    "__bit_reference": "cpp",
+    "__hash_table": "cpp",
+    "__split_buffer": "cpp",
+    "__tree": "cpp"
   }
 }

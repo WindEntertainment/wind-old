@@ -21,13 +21,13 @@ void AssetBundler::build(const fs::path& _path) {
   spdlog::info("===========================");
   spdlog::info("Start build directory {}", _path.string());
 
-  auto cachePath = fs::current_path() / ".cache";
+  auto cachePath = fs::current_path() / ".cache" / _path.filename();
   auto outputPath = fs::current_path().parent_path() / "res";
 
   if (!fs::exists(outputPath))
     fs::create_directory(outputPath);
 
-  // clearUnusedCache(_path, cachePath);
+  clearUnusedCache(_path, cachePath);
   processDirectory(_path, cachePath);
 
   fs::directory_iterator it;
