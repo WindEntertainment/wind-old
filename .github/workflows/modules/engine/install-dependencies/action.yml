@@ -7,6 +7,6 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        export CC=clang
-        export CXX=clang++
+        export CC=${{ env.cc }}
+        export CXX=${{ env.cxx }}
         conan install . --update --build=missing

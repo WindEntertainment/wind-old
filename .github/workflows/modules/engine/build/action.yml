@@ -22,8 +22,8 @@ runs:
     - name: Build game
       run:   |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          export CC=clang
-          export CXX=clang++
+          export CC=${{ env.cc }}
+          export CXX=${{ env.cxx }}
           cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game
         elif [ "$RUNNER_OS" == "macOS" ]; then
           cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game
@@ -40,7 +40,7 @@ runs:
     #   if: ${{ env.isRelease == false }}
     #   uses: actions/upload-artifact@v4
     #   with:
-    #     name: ${{ env.artifact }}
+    #     name: ${{ env.envHash }}
     #     path: build/${{ env.engineBuildType }}
     #     retention-days: 1
     #     overwrite: true
@@ -49,7 +49,7 @@ runs:
     #   if: ${{ env.isRelease == true }}
     #   uses: actions/upload-artifact@v4
     #   with:
-    #     name: ${{ env.artifact }}
+    #     name: ${{ env.envHash }}
     #     path: build/${{ env.engineBuildType }}
     #     retention-days: 1
     #     overwrite: true

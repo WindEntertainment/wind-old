@@ -12,3 +12,4 @@
 
 - CI
 1. artifacts + releases
+2. ultralight version in matrix for caching
