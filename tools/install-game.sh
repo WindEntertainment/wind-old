@@ -43,6 +43,4 @@ cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="$build_type" -DCMAKE_TOOLCHAIN_FIL
 
 cmake --build "$root_dir/build/$build_type" --parallel 10 --target game
 
-cd build/$build_type/wind/asset-pipeline
-
 cd $initial_root_dir
