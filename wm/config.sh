@@ -29,4 +29,6 @@ else
   ln -sf "$(pwd)/wm" /usr/local/bin/wm
 fi
 
+source ~/.bashrc
+
 echo "wm configured!"
