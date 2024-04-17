@@ -33,4 +33,6 @@ runs:
 
         echo "ULTRALIGHT_PATH=${{ env.ULTRALIGHT_PATH }}" >> .env
         echo "DOTNET_ROOT=${{ env.DOTNET_PATH }}" >> .env
+
+        cat .env
       shell: bash
