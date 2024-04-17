@@ -26,10 +26,16 @@ void AssetBundler::clearUnusedCache(const fs::path& _source, const fs::path& _ca
 
   const fs::path cacheParentPath = _source.parent_path();
   for (const auto& entry : cache_it) {
-    if (entry.is_directory())
-      continue;
+    if (entry.is_directory()) {
+      if (fs::is_empty(entry))
+        fs::remove(entry);
+      else
+        continue;
+    }
 
-    fs::path sourceFile = "./" / fs::relative(entry, _cache);
+    fs::path sourceFile = fs::relative(entry, _cache);
+    sourceFile = "." / removeFirstDirectory(sourceFile);
+
     if (sourceFile.extension().string() != c_cacheExtension)
       return;
 
@@ -38,6 +44,7 @@ void AssetBundler::clearUnusedCache(const fs::path& _source, const fs::path& _ca
     if (fs::exists(sourceFile))
       continue;
 
+    spdlog::info("Remove cache value: {}", sourceFile.string());
     fs::remove(entry);
   }
 }
