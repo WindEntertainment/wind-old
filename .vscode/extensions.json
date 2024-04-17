@@ -16,6 +16,7 @@
     "twxs.cmake",
     "ms-vscode.cmake-tools",
     "redhat.vscode-yaml",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "timonwong.shellcheck"
   ]
 }

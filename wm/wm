@@ -1,0 +1,45 @@
+#!/bin/bash
+
+find_wm() {
+  path="$(dirname "$(readlink -f "$0")")"
+  echo "$path"
+}
+
+source "$(find_wm)/global.sh"
+
+run() {
+  local command="$1"
+  shift
+  local options=("$@")
+
+  root=$(find_config)
+
+  tool_script="$(get_scripts_folder "$root")/$command.sh"
+
+  if [ ! -f "$tool_script" ]; then
+    echo "Error: Script with name '$command' not found in '$tool_script' folder. Run 'wh health' to check if wh configured"
+    exit 1
+  fi
+
+  $tool_script -r "$root" "${options[@]}"
+}
+
+wm_command="$1"
+command="$2"
+shift
+shift
+options=("$@")
+
+case "$wm_command" in
+  "run")
+    run $command "${options[@]}" ;;
+
+  "init")
+    "$(find_wm)/init.sh" ;;
+
+  "config-path")
+    echo "Config: $(find_config)" ;;
+
+  *)
+    echo "Invalid option: $wm_command" ;;
+esac

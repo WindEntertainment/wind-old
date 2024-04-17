@@ -11,6 +11,7 @@ CMakeUserPresets.json
 
 ########## C++
 CMakeEnv.txt
+releases
 .env
 *.dll
 *.sln
