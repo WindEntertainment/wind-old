@@ -7,7 +7,7 @@ fi
 
 echo "$OS"
 if echo "$OS" | grep -qi "Windows"; then
-  new_path="$(pwd)\wm"
+  new_path="$(pwd)/wm"
   echo "$new_path"
 
   user_home="$HOME"
@@ -20,7 +20,9 @@ if echo "$OS" | grep -qi "Windows"; then
     echo "export PATH=\$PATH$new_path" >> "$bashrc_file"
     echo "Updated PATH in $bashrc_file"
   else
-    echo "Error: .bashrc not found in $user_home"
+    touch .bashrc
+    echo "export PATH=\$PATH$new_path" >> "$bashrc_file"
+    echo "Created PATH in $bashrc_file"
   fi
 else
   sudo chmod +x wm
