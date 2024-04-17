@@ -36,3 +36,11 @@ runs:
       run: |
         choco install make cmake llvm 7zip
         choco install dotnet --version 8.0.3 -y
+
+    - name: Setup wm
+      shell: bash
+      run: |
+        cd wm
+        sudo chmod +x config.sh
+        sudo ./config.sh
+        wm config-path
