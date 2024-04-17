@@ -15,23 +15,23 @@ runs:
           cd "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64"
           version="$(ls | grep -E '^8\.0' | head -n 1 | cut -d '/' -f 1)"
           echo $version
-          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/${{ $version }}/runtimes/linux-x64/native'
-          ls -a 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/${{ $version }}/runtimes/linux-x64/native'
-          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/${{ $version }}/runtimes/linux-x64/native' >> .env
+          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/{{ $version }}/runtimes/linux-x64/native'
+          ls -a 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/{{ $version }}/runtimes/linux-x64/native'
+          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/{{ $version }}/runtimes/linux-x64/native' >> .env
         elif [ "$RUNNER_OS" == "macOS" ]; then
           cd "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64"
           version="$(ls | grep -E '^8\.0' | head -n 1 | cut -d '/' -f 1)"
           echo $version
-          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/${{ $version }}/runtimes/osx-arm64/native'
-          ls -a 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/${{ $version }}/runtimes/osx-arm64/native'
-          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/${{ $version }}/runtimes/osx-arm64/native' >> .env
+          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/{{ $version }}/runtimes/osx-arm64/native'
+          ls -a 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/{{ $version }}/runtimes/osx-arm64/native'
+          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/{{ $version }}/runtimes/osx-arm64/native' >> .env
         elif [ "$RUNNER_OS" == "Windows" ]; then
           cd "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.win-x64"
           version="$(ls | grep -E '^8\.0' | head -n 1 | cut -d '/' -f 1)"
           echo $version
-          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.win-x64/${{ $version }}/runtimes/win-x64/native'
-          ls -a 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.win-x64/${{ $version }}/runtimes/win-x64/native'
-          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.win-x64/${{ $version }}/runtimes/win-x64/native' >> .env
+          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.win-x64/{{ $version }}/runtimes/win-x64/native'
+          ls -a 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.win-x64/{{ $version }}/runtimes/win-x64/native'
+          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.win-x64/{{ $version }}/runtimes/win-x64/native' >> .env
         else
           echo "$RUNNER_OS not supported"
           exit 1
