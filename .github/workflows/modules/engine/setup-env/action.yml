@@ -13,13 +13,19 @@ runs:
 
         if [ "$RUNNER_OS" == "Linux" ]; then
           ls -a "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64"
-          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/8.0.3/runtimes/linux-x64/native' >> .env
+          version=$(find . -maxdepth 1 -type d -name "8.0*" | head -n 1)
+          echo $version
+          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/$version/runtimes/linux-x64/native' >> .env
         elif [ "$RUNNER_OS" == "macOS" ]; then
           ls -a "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64"
-          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/8.0.3/runtimes/osx-arm64/native' >> .env
+          version=$(find . -maxdepth 1 -type d -name "8.0*" | head -n 1)
+          echo $version
+          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/$version/runtimes/osx-arm64/native' >> .env
         elif [ "$RUNNER_OS" == "Windows" ]; then
           ls -a "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.win-x64"
-          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.win-x64/8.0.4/runtimes/win-x64/native' >> .env
+          version=$(find . -maxdepth 1 -type d -name "8.0*" | head -n 1)
+          echo $version
+          echo 'DOTNET_INCLUDES=${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.win-x64/$version/runtimes/win-x64/native' >> .env
         else
           echo "$RUNNER_OS not supported"
           exit 1
