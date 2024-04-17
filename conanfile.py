@@ -23,20 +23,13 @@ class MyConanFile(ConanFile):
         "catch2/3.5.4"
     ]
 
-    def layout(self):
-        cmake_layout(self)
+  def layout(self):
+    cmake_layout(self)
 
-    def build(self):
-        cmake = CMake(self)
-        cmake.configure()
-        cmake.build()
+  def build(self):
+    cmake = CMake(self)
+    cmake.configure()
+    cmake.build()
 
-    def package(self):
-        cmake = CMake(self)
-        copy(self, "LICENSE.txt", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
-        copy(self, pattern="*", src=os.path.join(self.build_folder, "game", "res"), dst=os.path.join(self.package_folder, "res"))
-        copy(self, pattern="game", src=os.path.join(self.build_folder, "game"), dst=os.path.join(self.package_folder), keep_path=False)
-        cmake.install()
-
-    def package_info(self):
-        self.cpp_info.libs = ["Dreich"]
+  def package_info(self):
+    self.cpp_info.libs = ["Dreich"]

@@ -7,8 +7,6 @@ runs:
     - name: Setup conan base
       uses: ./.github/workflows/utils/setup-conan
 
-    - name: Install dependencies
-      uses: ./.github/workflows/modules/engine/install-dependencies
 
     - name: Setup ultralight base
       uses: ./.github/workflows/utils/setup-ultralight
@@ -16,25 +14,40 @@ runs:
     - name: Prepare engine env
       uses: ./.github/workflows/modules/engine/setup-env
 
-    - name: Prepare assets
-      uses: ./.github/workflows/modules/engine/assets
+    - name: Install dependencies
+      uses: ./.github/workflows/modules/engine/install-dependencies
 
-    - name: Build game
-      run:   |
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          export CC=${{ env.cc }}
-          export CXX=${{ env.cxx }}
-          cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-          cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game
-        elif [ "$RUNNER_OS" == "Windows" ]; then
-          cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=${{ env.engineBuildType }} -DCMAKE_TOOLCHAIN_FILE="${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}/generators/conan_toolchain.cmake" -S "${{ env.projectRoot }}/dreich" -B "${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}"
-          cmake --build "${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}" --parallel 10 --target game
-        else
-          echo "$RUNNER_OS not supported"
-          exit 1
-        fi
+    - name: Build game with wm
       shell: bash
+      run: |
+        export CC=${{ env.cc }}
+        export CXX=${{ env.cxx }}
+        wm run install -w
+        wm run build-game -o releases
+        ls -a releases
+
+    # - name: Prepare assets
+    #   uses: ./.github/workflows/modules/engine/assets
+
+    # - name: Build game
+    #   run:   |
+    #     if [ "$RUNNER_OS" == "Linux" ]; then
+    #       export CC=${{ env.cc }}
+    #       export CXX=${{ env.cxx }}
+    #       cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game
+    #     elif [ "$RUNNER_OS" == "macOS" ]; then
+    #       cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game
+    #     elif [ "$RUNNER_OS" == "Windows" ]; then
+    #       cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=${{ env.engineBuildType }} -DCMAKE_TOOLCHAIN_FILE="${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}/generators/conan_toolchain.cmake" -S "${{ env.projectRoot }}/dreich" -B "${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}"
+    #       cmake --build "${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}" --parallel 10 --target game
+    #     else
+    #       echo "$RUNNER_OS not supported"
+    #       exit 1
+    #     fi
+
+    #     cd build/${{ env.engineBuildType }}
+    #     cpack
+    #   shell: bash
 
     # - name: Upload package as artifact
     #   if: ${{ env.isRelease == false }}
