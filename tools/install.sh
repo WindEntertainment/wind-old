@@ -18,8 +18,8 @@ done
 cd "$root" || exit
 
 if [[ $with_asset_bundler ]]; then
-  wm run install-asset-bundler root "$root" -b "$build_type"
-  wm run run-asset-bundler root "$root" -b "$build_type"
+  wm run install-asset-bundler --root "$root" -b "$build_type"
+  wm run run-asset-bundler --root "$root" -b "$build_type"
 fi
 
-wm run install-game root "$root" -b "$build_type"
+wm run install-game --root "$root" -b "$build_type"
