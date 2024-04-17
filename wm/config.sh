@@ -6,7 +6,7 @@ if [ ! -f "wm" ]; then
 fi
 
 echo "$OS"
-if [ "$OS" = "windows" ]; then
+if echo "$OS" | grep -qi "Windows"; then
   new_path="$(pwd)\wm"
   echo "$new_path"
 
