@@ -32,7 +32,8 @@ runs:
         ls -a releases
 
     - name: Upload package as artifact
-      if: ${{ env.isRelease == false }}
+      # wrong if condition
+      # if: ${{ env.isRelease == false }}
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.artifact }}
