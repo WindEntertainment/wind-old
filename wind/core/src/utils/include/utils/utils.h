@@ -1,24 +1,17 @@
 #pragma once
 #include "includes.h"
 
-#ifndef __APPLE__
-#include <bits/ranges_algo.h>
-#endif
-
-#include <ranges>
-
 namespace wind {
 
 namespace chrono = std::chrono;
 
-template <typename C, typename T>
-concept Container = requires(C c, T t) {
-  c.find(t);
-  c.end();
-};
+using uint = unsigned int;
 
 template <typename C, typename T>
-  requires Container<C, T>
+  requires requires(C c, T t) {
+    c.find(t);
+    c.end();
+  }
 bool contains(C _container, T _value) {
   auto it = _container.find(_value);
   return it != _container.end();
@@ -31,7 +24,52 @@ void verify(auto value) {
     throw new Error();
 }
 
-static auto forEach = std::ranges::for_each;
+// static auto forEach = std::ranges::for_each;
+template <typename Range, typename Func>
+static auto forEach(const Range& range, Func func) {
+  std::for_each(std::begin(range), std::end(range), func);
+}
+
+#ifdef _WIN32
+static auto stringToWindowsString(std::string input) {
+  std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>, wchar_t> converter;
+  std::wstring wide_string = converter.from_bytes(input);
+  return wide_string;
+}
+
+static auto windowsStringToChar(std::wstring input) {
+  std::locale utf8_locale(std::locale(), new std::codecvt_utf8<wchar_t>);
+
+  std::string narrowString = std::wstring_convert<std::codecvt_utf8<wchar_t>>{}.to_bytes(input);
+
+  const char* charPtr = narrowString.c_str();
+  return charPtr;
+}
+#endif
+
+static auto replaceAll(std::string input, const std::string& searched, const std::string& replacement) {
+  size_t pos = 0;
+  while ((pos = input.find(searched, pos)) != std::string::npos) {
+    input.replace(pos, searched.length(), replacement);
+    pos += replacement.length();
+  }
+  return input;
+}
+
+static fs::path removeFirstDirectory(const fs::path& filePath) {
+  fs::path sourceFile;
+
+  bool first = true;
+  for (const auto& part : filePath) {
+    if (first) {
+      first = false;
+      continue;
+    }
+    sourceFile /= part;
+  }
+
+  return sourceFile;
+}
 
 class Stopwatch {
 public:
