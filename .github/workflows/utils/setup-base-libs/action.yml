@@ -34,7 +34,7 @@ runs:
       if: env.os == 'windows-latest'
       shell: powershell
       run: |
-        choco install make cmake llvm 7zip
+        choco install make cmake llvm 7zip yq
         choco install dotnet --version 8.0.3 -y
 
     - name: Setup wm
@@ -43,10 +43,4 @@ runs:
         cd wm
         chmod +x config.sh
         ./config.sh
-        ls -a $(pwd)
         echo "$(pwd)" >> $GITHUB_PATH
-
-    - name: Setup wm
-      shell: bash
-      run: |
-        wm config-path
