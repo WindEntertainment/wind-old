@@ -44,5 +44,4 @@ runs:
         chmod +x config.sh
         ./config.sh
         echo "$(pwd)/wm" >> $GITHUB_PATH
-        source ~/.bashrc
         wm config-path
