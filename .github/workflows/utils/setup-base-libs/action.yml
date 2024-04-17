@@ -43,5 +43,10 @@ runs:
         cd wm
         chmod +x config.sh
         ./config.sh
+        ls -a $(pwd)
         echo "$(pwd)/wm" >> $GITHUB_PATH
+
+    - name: Setup wm
+      shell: bash
+      run: |
         wm config-path
