@@ -64,7 +64,7 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.artifact }}
-        path: ${{ env.projectRoot }}/releases/dreich.zip
+        path: ${{ env.projectRoot }}/dreich/releases/dreich.zip
         retention-days: 1
         overwrite: true
 
