@@ -17,9 +17,11 @@ done
 
 cd "$root" || exit
 
+conan install . --build=missing -s build_type="$build_type"
+
 if [[ $with_asset_bundler ]]; then
-  wm run install-asset-bundler --root "$root" -b "$build_type"
+  wm run build-asset-bundler --root "$root" -b "$build_type"
   wm run run-asset-bundler --root "$root"
 fi
 
-wm run install-game --root "$root" -b "$build_type"
+wm run build-game --root "$root" -b "$build_type"

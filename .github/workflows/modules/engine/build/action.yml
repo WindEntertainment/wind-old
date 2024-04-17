@@ -28,7 +28,7 @@ runs:
         export CC=${{ env.cc }}
         export CXX=${{ env.cxx }}
         wm run install -w
-        wm run build-game -o releases
+        wm run release-game -o releases
         ls -a releases
 
     - uses: actions/cache/save@v4
@@ -60,7 +60,7 @@ runs:
     #   shell: bash
 
     - name: Upload package as artifact
-      # if: ${{ env.isRelease == false }}
+      if: ${{ env.isRelease == false }}
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.artifact }}

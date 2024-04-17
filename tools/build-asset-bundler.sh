@@ -16,8 +16,6 @@ done
 
 cd "$root" || exit
 
-conan install . --build=missing -s build_type="$build_type"
-
 cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="$build_type" -DCMAKE_TOOLCHAIN_FILE="$root/build/$build_type/generators/conan_toolchain.cmake" -S"$root" -B"$root/build/$build_type"
 
 cmake --build "$root/build/$build_type" --parallel 10 --target wind-asset-bundler
