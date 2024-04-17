@@ -14,6 +14,7 @@ if echo "$OS" | grep -qi "Windows"; then
     echo "export PATH=\$PATH$new_path" >> ~/.bashrc
     echo "Updated PATH in ~/.bashrc"
   else
+    cd ~/ || exit
     touch .bashrc
     echo "export PATH=\$PATH$new_path" >> ~/.bashrc
     echo "Created PATH in ~/.bashrc"
