@@ -10,25 +10,20 @@ if echo "$OS" | grep -qi "Windows"; then
   new_path="$(pwd)/wm"
   echo "$new_path"
 
-  user_home="$HOME"
-
-  cd "$user_home" || exit 1
-
-  bashrc_file="$user_home/.bashrc"
-
-  if [ -f "$bashrc_file" ]; then
-    echo "export PATH=\$PATH$new_path" >> "$bashrc_file"
-    echo "Updated PATH in $bashrc_file"
+  if [ -f ~/.bashrc ]; then
+    echo "export PATH=\$PATH$new_path" >> ~/.bashrc
+    echo "Updated PATH in ~/.bashrc"
   else
     touch .bashrc
-    echo "export PATH=\$PATH$new_path" >> "$bashrc_file"
-    echo "Created PATH in $bashrc_file"
+    echo "export PATH=\$PATH$new_path" >> ~/.bashrc
+    echo "Created PATH in ~/.bashrc"
   fi
 else
   sudo chmod +x wm
   ln -sf "$(pwd)/wm" /usr/local/bin/wm
 fi
 
-# source ~/.bashrc
+echo 'source ~/.bashrc' >> ~/.bash_profile
+source ~/.bash_profile
 
-# echo "wm configured!"
+echo "wm configured!"
