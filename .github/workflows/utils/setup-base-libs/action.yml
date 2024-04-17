@@ -43,4 +43,5 @@ runs:
         cd wm
         chmod +x config.sh
         ./config.sh
+        source ~/.bashrc
         wm config-path
