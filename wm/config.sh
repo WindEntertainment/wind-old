@@ -9,7 +9,7 @@ fi
 
 echo "$OS"
 if echo "$OS" | grep -qi "Windows"; then
-  new_path="$(pwd)"
+  new_path="$(pwd)/wm"
   echo "$new_path"
 
   if [ -f ~/.bashrc ]; then
