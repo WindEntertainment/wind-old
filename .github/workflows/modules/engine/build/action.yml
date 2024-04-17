@@ -31,6 +31,15 @@ runs:
         wm run release-game -o releases
         ls -a releases
 
+    - name: Upload package as artifact
+      if: ${{ env.isRelease == false }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.artifact }}
+        path: ${{ env.projectRoot }}/dreich/releases/dreich.zip
+        retention-days: 1
+        overwrite: true
+
     - uses: actions/cache/save@v4
       with:
         path: ${{ env.projectRoot }}/dreich/game/data/.cache
@@ -59,14 +68,7 @@ runs:
     #     cpack
     #   shell: bash
 
-    - name: Upload package as artifact
-      if: ${{ env.isRelease == false }}
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.artifact }}
-        path: ${{ env.projectRoot }}/dreich/releases/dreich.zip
-        retention-days: 1
-        overwrite: true
+
 
     # - name: Upload package as artifact
     #   if: ${{ env.isRelease == true }}
