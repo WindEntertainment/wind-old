@@ -22,6 +22,13 @@ cmake --build "$root/build/$build_type" --parallel 10 --target wind-asset-bundle
 
 cd build/"$build_type"/wind/asset-pipeline || exit
 
-make install
+if echo "$OS" | grep -qi "Windows"; then
+  mkdir "$root"/apps
+  make install DESTDIR="$root"/apps
+else
+  make install
+fi
+
+
 
 cd "$call_dir" || exit
