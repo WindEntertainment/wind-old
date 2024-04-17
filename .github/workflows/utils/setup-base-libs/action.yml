@@ -14,7 +14,6 @@ runs:
         cache: yes
         key: ${{ env.envHash }}-${{ env.os }}-apt-store
         sudo: true
-        verbose: false
 
     - uses: tecolicom/actions-install-and-cache@v1
       name: Install dependencies macos
@@ -26,7 +25,6 @@ runs:
         cache: yes
         key: ${{ env.envHash }}-${{ env.os }}-brew
         sudo: false
-        verbose: false
 
     - run: Set-MpPreference -DisableRealtimeMonitoring $true
       if: env.os == 'windows-latest'
