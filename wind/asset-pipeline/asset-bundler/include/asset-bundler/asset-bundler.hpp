@@ -28,7 +28,7 @@ public:
 private:
   void clearUnusedCache(const fs::path& source, const fs::path& cache);
 
-  void processDirectory(const fs::path& source, const fs::path& destination);
+  void processDirectory(const fs::path& source, fs::path destination);
   void processChildDirectories(const fs::path& source, const fs::path& destination, const YAML::Node& config);
   void compileDirectory(const fs::path& source, const fs::path& destination, const YAML::Node& config);
   void preprocessDirectory(const fs::path& path, const YAML::Node& config);

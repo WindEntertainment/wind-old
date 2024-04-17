@@ -4,7 +4,7 @@
 #include "utils/utils.h"
 #include <algorithm>
 
-#ifdef WINDOWS
+#ifdef _WIN32
 #include <Windows.h>
 #else
 #include <dlfcn.h>
@@ -40,7 +40,11 @@ void ScriptSystemHostfxr::initConfig() {
   if (context)
     return;
 
+#ifdef _WIN32
+  int rc = fptrInitConfig(stringToWindowsString(configPath.string()).c_str(), nullptr, &context);
+#else
   int rc = fptrInitConfig(configPath.c_str(), nullptr, &context);
+#endif
 
   if (rc != 0 || context == nullptr) {
     std::stringstream ss;
@@ -56,7 +60,7 @@ hostfxr_handle ScriptSystemHostfxr::getConfig() {
   return context;
 }
 
-void ScriptSystemHostfxr::init(std::string configPath) {
+void ScriptSystemHostfxr::init(const fs::path& configPath) {
   this->configPath = configPath;
   loadPointers();
   initConfig();
@@ -70,17 +74,17 @@ void ScriptSystemHostfxr::stop() {
   fptrClose(context);
 }
 
-ScriptSystem* ScriptSystemHostfxr::createScriptSystem(std::string rootPath, std::string dllPath) {
+ScriptSystem* ScriptSystemHostfxr::createScriptSystem(const fs::path& rootPath, const fs::path& dllPath) {
   auto scriptSystem = new ScriptSystem(rootPath, dllPath, *this);
   scriptSystems.push_back(scriptSystem);
   return scriptSystem;
 }
 
-void* ScriptSystemHostfxr::loadLibrary(const std::string path) {
-#ifdef WINDOWS
+void* ScriptSystemHostfxr::loadLibrary(const char_t* path) {
+#ifdef _WIN32
   HMODULE h = ::LoadLibraryW(path);
 #else
-  void* h = dlopen(path.c_str(), RTLD_LAZY | RTLD_LOCAL);
+  void* h = dlopen(path, RTLD_LAZY | RTLD_LOCAL);
 #endif
 
   verify<ScriptSystemError>(h != nullptr);
@@ -88,7 +92,7 @@ void* ScriptSystemHostfxr::loadLibrary(const std::string path) {
 };
 
 void* ScriptSystemHostfxr::getExport(void* h, const char* name) {
-#ifdef WINDOWS
+#ifdef _WIN32
   void* f = ::GetProcAddress((HMODULE)h, name);
 #else
   void* f = dlsym(h, name);

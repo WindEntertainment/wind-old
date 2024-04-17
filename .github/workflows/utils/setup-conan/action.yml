@@ -1,0 +1,72 @@
+name: Setup conan
+description: Setup conan
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install conan
+      if:  env.os != 'macos-14'
+      uses: turtlebrowser/get-conan@main
+      with:
+        version: 2.1.0
+
+    - name: Create default profile
+      shell: bash
+      run: |
+        conan profile detect
+
+    - name: Config profile
+      run:   |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          echo "
+            [settings]
+            arch=x86_64
+            build_type=${{ env.engineBuildType }}
+            compiler=clang
+            compiler.cppstd=20
+            compiler.libcxx=libc++
+            compiler.version=14
+            os=Linux
+            [conf]
+            tools.system.package_manager:mode=install
+            tools.system.package_manager:sudo=True
+          " > /home/runner/.conan2/profiles/default
+        elif [ "$RUNNER_OS" == "Windows" ]; then
+          echo "
+            [settings]
+            arch=x86_64
+            build_type=${{ env.engineBuildType }}
+            compiler=clang
+            compiler.cppstd=gnu23
+            compiler.runtime=dynamic
+            compiler.runtime_type=${{ env.engineBuildType }}
+            compiler.runtime_version=v143
+            compiler.version=16
+            os=Windows
+            [conf]
+            tools.system.package_manager:mode=install
+            tools.system.package_manager:sudo=True
+            tools.microsoft.msbuild:vs_version=17
+          " > C:\\Users\\runneradmin\\.conan2\\profiles\\default
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          echo "
+            [settings]
+            arch=armv8
+            build_type=${{ env.engineBuildType }}
+            compiler=apple-clang
+            compiler.cppstd=gnu23
+            compiler.libcxx=libc++
+            compiler.version=15
+            os=Macos
+            [conf]
+            tools.system.package_manager:mode=install
+            tools.system.package_manager:sudo=True
+          " > /Users/runner/.conan2/profiles/default
+        else
+          echo "$RUNNER_OS not supported"
+          exit 1
+        fi
+      shell: bash
+
+    - name: Setup conan cache
+      uses: ./.github/workflows/utils/cache/get-conan-cache

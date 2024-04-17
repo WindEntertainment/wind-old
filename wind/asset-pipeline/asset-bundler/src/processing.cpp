@@ -10,7 +10,7 @@ namespace wind {
 
 namespace assets {
 
-void AssetBundler::processDirectory(const fs::path& _source, const fs::path& _destination) {
+void AssetBundler::processDirectory(const fs::path& _source, fs::path _destination) {
   Stopwatch sw("Processed");
 
   auto configPath = _source / ".export-config";
@@ -21,10 +21,29 @@ void AssetBundler::processDirectory(const fs::path& _source, const fs::path& _de
 
   YAML::Node config;
   try {
-    config = YAML::LoadFile(configPath);
+    config = YAML::LoadFile(configPath.string());
   } catch (std::exception& ex) {
     spdlog::error("Failed open export config: {}", _source.string());
     return;
+  }
+
+  auto output = config["output"];
+  if (output && output.IsMap()) {
+    if (!output["path"] || !output["path"].IsScalar()) {
+      spdlog::error("Invalid output configuration: missing path option");
+      return;
+    }
+
+    if (!output["type"] || !output["type"].IsScalar()) {
+      spdlog::error("Invalid output configuration: missing type option");
+      return;
+    }
+
+    auto path = output["path"].as<std::string>();
+    auto type = output["type"].as<std::string>();
+
+    _destination /= path;
+    _destination += "." + type;
   }
 
   preprocessDirectory(_source, config);
