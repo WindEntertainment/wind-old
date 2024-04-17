@@ -8,8 +8,8 @@ runs:
       run:   |
         touch .env
 
-        echo 'ULTRALIGHT_PATH=${{ env.ULTRALIGHT_PATH }}' >> .env
-        echo 'DOTNET_ROOT=${{ env.DOTNET_PATH }}' >> .env
+        echo "ULTRALIGHT_PATH=${{ env.ULTRALIGHT_PATH }}" >> .env
+        echo "DOTNET_ROOT=${{ env.DOTNET_PATH }}" >> .env
 
         if [ "$RUNNER_OS" == "Linux" ]; then
           cd "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64"
