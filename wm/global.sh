@@ -22,7 +22,7 @@ find_config() {
 get_scripts_folder() {
   config_folder="$1"
 
-  scripts_folder=$(yq e .$SCRIPTS_FOLDER_CONFIG_KEY "$(find_config)/$CONFIG_NAME")
+  scripts_folder=$(yq e .$SCRIPTS_FOLDER_CONFIG_KEY "$config_folder/$CONFIG_NAME")
 
   if [ ! -d "$config_folder/$scripts_folder" ]; then
     echo "Error: Scripts folder '$config_folder/$CONFIG_NAME' not found"
