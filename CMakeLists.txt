@@ -20,35 +20,3 @@ add_subdirectory(./game/)
 add_subdirectory(./wind/)
 
 include(cpack/cpack.cmake)
-
-
-
-#  with ETC
-# install (DIRECTORY $ENV{DOTNET_INCLUDES}/ DESTINATION lib)
-# install (DIRECTORY $ENV{ULTRALIGHT_PATH}/bin/ DESTINATION lib)
-
-# set_target_properties(game PROPERTIES INSTALL_RPATH "@executable_path/../lib")
-# install (DIRECTORY game/res DESTINATION etc)
-
-
-
-
-# set(CMAKE_INSTALL_RPATH $LIBRARY_OUTPUT_PATH)
-
-# set(EXTERNAL_LIBRARIES glfw3)
-
-# foreach(library ${EXTERNAL_LIBRARIES})
-#     find_package(${library} REQUIRED)
-#     target_link_libraries(game PRIVATE ${library}::${library})
-#     endforeach()
-
-# find_library(LIB )
-# find_directory(GLFW3_LIBRARY "libglfw3.a")
-
-# Library
-# Note: may not work on windows
-# install (TARGETS glfw LIBRARY DESTINATION lib)
-
-# Config
-# install (FILES cmake-examples.conf
-#     DESTINATION etc)

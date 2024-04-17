@@ -29,6 +29,11 @@ int main(int argc, char** argv) {
   using namespace wind;
   using namespace wind::assets;
 
+  //=========Configure path===============//
+
+  fs::path root = fs::path(argv[0]).parent_path();
+  fs::current_path(root);
+
   //=========Assets Pipeline===============//
 
   AssetManager::loadBundle("res/Ultralight.bundle");
@@ -53,7 +58,7 @@ int main(int argc, char** argv) {
 
     self->fullScreen = false;
     self->size = {800, 600};
-    self->vSync = false;
+    self->vSync = true;
   });
 
   //=============Ultralight================//
