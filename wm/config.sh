@@ -9,7 +9,7 @@ fi
 
 echo "$OS"
 if echo "$OS" | grep -qi "Windows"; then
-  new_path="$(pwd)/wm"
+  new_path="$(pwd)"
   echo "$new_path"
 
   if [ -f ~/.bashrc ]; then
@@ -25,8 +25,6 @@ else
   sudo chmod +x wm
   ln -sf "$(pwd)/wm" /usr/local/bin/wm
 fi
-
-source ~/.bashrc
 
 echo "wm configured!"
 
