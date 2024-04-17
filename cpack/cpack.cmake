@@ -1,5 +1,6 @@
 set(CPACK_BUNDLE_NAME "Dreich")
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Dreich Inc")
+set(CPACK_PACKAGE_FILE_NAME "dreich")
 
 set_target_properties(game PROPERTIES INSTALL_RPATH "@executable_path")
 
