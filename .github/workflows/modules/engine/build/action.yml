@@ -34,6 +34,9 @@ runs:
           echo "$RUNNER_OS not supported"
           exit 1
         fi
+
+        cd build/${{ env.engineBuildType }}
+        cpack
       shell: bash
 
     # - name: Upload package as artifact
