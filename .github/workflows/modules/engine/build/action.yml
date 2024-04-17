@@ -60,11 +60,11 @@ runs:
     #   shell: bash
 
     - name: Upload package as artifact
-      if: ${{ env.isRelease == false }}
+      # if: ${{ env.isRelease == false }}
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.artifact }}
-        path: releases/dreich.zip
+        path: ${{ env.projectRoot }}/releases/dreich.zip
         retention-days: 1
         overwrite: true
 
