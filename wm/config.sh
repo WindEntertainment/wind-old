@@ -23,7 +23,6 @@ else
   ln -sf "$(pwd)/wm" /usr/local/bin/wm
 fi
 
-echo 'source ~/.bashrc' >> ~/.bash_profile
-source ~/.bash_profile
+source ~/.bashrc
 
 echo "wm configured!"
