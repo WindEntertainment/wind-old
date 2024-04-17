@@ -20,10 +20,7 @@ fi
 
 cd game/data
 
-rm -rf .cache
 wind-asset-bundler -b main
-rm -rf .cache
 wind-asset-bundler -b resources
-rm -rf .cache
 
 cd $initial_root_dir
