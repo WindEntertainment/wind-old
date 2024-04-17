@@ -41,6 +41,6 @@ runs:
       shell: bash
       run: |
         cd wm
-        sudo chmod +x config.sh
-        sudo ./config.sh
+        chmod +x config.sh
+        ./config.sh
         wm config-path
