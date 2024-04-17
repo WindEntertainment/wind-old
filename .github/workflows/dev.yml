@@ -6,10 +6,6 @@ on:
       - '**'
       - '!master'
 
-concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
-
 permissions:
   contents: write
 
