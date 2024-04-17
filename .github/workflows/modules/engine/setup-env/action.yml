@@ -13,15 +13,23 @@ runs:
 
         if [ "$RUNNER_OS" == "Linux" ]; then
           path="${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/$(ls | grep -E '^8\.0' | head -n 1 | cut -d '/' -f 1)/runtimes/linux-x64/native"
+          echo $path
+          ls -a $path
           echo "DOTNET_INCLUDES=$path" >> .env
         elif [ "$RUNNER_OS" == "macOS" ]; then
           path="${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/$(ls | grep -E '^8\.0' | head -n 1 | cut -d '/' -f 1)/runtimes/osx-arm64/native"
+          echo $path
+          ls -a $path
           echo "DOTNET_INCLUDES=$path" >> .env
         elif [ "$RUNNER_OS" == "Windows" ]; then
           path="${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.win-x64/$(ls | grep -E '^8\.0' | head -n 1 | cut -d '/' -f 1)/runtimes/win-x64/native"
+          echo $path
+          ls -a $path
           echo "DOTNET_INCLUDES=$path" >> .env
         else
           echo "$RUNNER_OS not supported"
           exit 1
         fi
+
+        cat .env
       shell: bash
