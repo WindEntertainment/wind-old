@@ -1,5 +1,7 @@
 #!/bin/bash
 
+initial_path=$(pwd)
+
 if [ ! -f "wm" ]; then
   echo "Error: The 'wm' script does not exist in the directory."
   exit 1
@@ -27,3 +29,5 @@ fi
 source ~/.bashrc
 
 echo "wm configured!"
+
+cd "$initial_path" || exit
