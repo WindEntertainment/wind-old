@@ -44,6 +44,11 @@ private:
   std::map<size_t, Entity> m_indexToEntity;
 };
 
+template <typename... Components>
+class Filter {
+public:
+};
+
 class World {
 public:
   Entity createEntity() {
@@ -68,6 +73,8 @@ public:
 
     return component;
   }
+
+  // const Filter&
 
 private:
   std::vector<Entity> m_availableIds;
