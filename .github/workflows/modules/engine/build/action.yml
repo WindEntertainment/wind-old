@@ -29,7 +29,9 @@ runs:
         export CXX=${{ env.cxx }}
         wm run install -w
         wm run release-game -o releases
-        ls -a releases
+        cd releases
+        7z x -y $(pwd)/dreich.zip -o$(pwd)
+        ls -a
 
     - name: Upload package as artifact
       # wrong if condition
