@@ -2,25 +2,25 @@
 
 namespace wind {
 
-class Node {};
+using Entity = unsigned int;
 
-class CompositeNode : public Node {
+class World {
 private:
-  std::vector<Component*> m_components;
+  std::vector<Entity> m_entities;
+  std::map<Entity, std::vector<void*>> m_components;
+
+  Entity last_index = 0;
 
 public:
-  void addComponent(Component* _component);
-};
+  template <typename T>
+  T* addComponent(Entity entity, T component) {
+    m_components[entity].push_back(component);
+  }
 
-class RenderTree : public Node {
-private:
-  std::vector<Renderable*> m_renderables;
-};
-
-class Component {
-};
-
-class Renderable : public Component {
+  Entity createEntity() {
+    m_entities.push_back(last_index++);
+    return m_entities.back();
+  }
 };
 
 } // namespace wind
