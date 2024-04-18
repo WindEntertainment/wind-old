@@ -8,31 +8,28 @@ find_wm() {
 source "$(find_wm)/global.sh"
 
 run() {
-  local command="$1"
-  shift
-  local options=("$@")
+  local args=("$@")
+  local command="${args[0]}"
+  local options=("${args[@]:1}")
 
   root=$(find_config)
 
   tool_script="$(get_scripts_folder "$root")/$command.sh"
 
-  if [ ! -f "$tool_script" ]; then
-    echo "Error: Script with name '$command' not found in '$tool_script' folder. Run 'wh health' to check if wh configured"
-    exit 1
-  fi
+  [ ! -f "$tool_script" ] && throw 1 "Script with name '$command' not found in '$tool_script' folder."
 
-  $tool_script -r "$root" "${options[@]}"
+  $tool_script --root "$root" "${options[@]}"
 }
 
-wm_command="$1"
-command="$2"
-shift
-shift
-options=("$@")
+commands=("$@")
+
+wm_command="${commands[0]}"
+script="${commands[1]}"
+script_options=("${commands[@]:2}")
 
 case "$wm_command" in
   "run")
-    run $command "${options[@]}" ;;
+    run $script "${script_options[@]}" ;;
 
   "init")
     "$(find_wm)/init.sh" ;;
@@ -41,5 +38,5 @@ case "$wm_command" in
     echo "Config: $(find_config)" ;;
 
   *)
-    echo "Invalid option: $wm_command" ;;
+    throw 1 "Unknown wm command: '$wm_command'" ;;
 esac
