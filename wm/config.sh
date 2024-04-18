@@ -11,6 +11,7 @@ echo "$OS"
 symlink_origin_path="$(pwd)/wm"
 if echo "$OS" | grep -qi "Windows"; then
   symlink_path='C:\Program Files\wm\'
+
   if [ ! -d "$symlink_path" ]; then
     mkdir -p "$symlink_path"
   fi
@@ -20,20 +21,24 @@ if echo "$OS" | grep -qi "Windows"; then
   bash_path="/c/Program Files/wm"
   bash_profile="$HOME/.bash_profile"
   if [ -f "$bash_profile" ]; then
-      # Append the export PATH line to the .bash_profile file
       echo "export PATH=\"\$PATH:$bash_path\"" >> "$bash_profile"
       echo "Updated PATH variable in $bash_profile"
   else
-      # If the .bash_profile file does not exist, create it and add the export PATH line
       echo "export PATH=\"\$PATH:$bash_path\"" > "$bash_profile"
       echo "Created $bash_profile with updated PATH variable"
   fi
 
-  # Source the .bash_profile file to apply the changes to the current session
   source "$bash_profile"
 else
   sudo chmod +x wm
-  ln -sf "$symlink_origin_path" /usr/local/bin/wm
+
+  symlink_path='/usr/local/bin/wm'
+
+  if [ ! -d "$symlink_path" ]; then
+    mkdir -p "$symlink_path"
+  fi
+
+  ln -sf "$symlink_origin_path"  $symlink_path
 fi
 
 echo "wm configured!"
