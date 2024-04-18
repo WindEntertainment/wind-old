@@ -30,6 +30,4 @@ else
   make install
 fi
 
-
-
 cd "$call_dir" || exit
