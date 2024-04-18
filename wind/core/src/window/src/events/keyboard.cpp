@@ -8,7 +8,7 @@ int KeyEventHandler::s_keysMask;
 int KeyEventHandler::s_clickMask;
 
 void KeyEventHandler::keyCallback(GLFWwindow*, int _key, int _scancode,
-                                  int _action, int _mods) {
+  int _action, int _mods) {
   switch (_action) {
   case GLFW_PRESS:
     s_keysMask ^= (1 << _key);

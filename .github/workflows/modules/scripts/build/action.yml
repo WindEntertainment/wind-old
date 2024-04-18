@@ -1,0 +1,15 @@
+name: Build scripts
+description: Build scripts
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup dotnet base
+      uses: ./.github/workflows/utils/setup-dotnet
+
+    - name: Install dependencies
+      uses: ./.github/workflows/modules/scripts/install-dependencies
+
+    - name: Build
+      shell: bash
+      run: cd ${{ env.scriptRoot }} && dotnet ${{ env.scriptBuildType }}

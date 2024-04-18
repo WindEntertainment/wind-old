@@ -4,7 +4,7 @@ exports:
       path: "Managed"
       type: directory
 
-  - path: "[^\/]*"
+  - path: "[^\/\\\\]*"
     output:
-      path: "Assets"
+      path: "Main"
       type: bundle

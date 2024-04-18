@@ -1,7 +1,4 @@
 {
-  "files.exclude": {
-    "CMakeUserPresets.json": true
-  },
   "clangd.checkUpdates": false,
   "clangd.arguments": [
     "--compile-commands-dir",
@@ -10,20 +7,36 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
   },
+  "yaml.schemas": {
+    "http://json.schemastore.org/github-workflow": [
+      "**/.github/workflows/*.yaml",
+      "**/.github/workflows/*.yml"
+    ],
+    "http://json.schemastore.org/github-action": [
+      "**/action.yaml",
+      "**/action.yml"
+    ]
+  },
   "editor.formatOnSave": true,
   "editor.formatOnType": false,
   "i18n-ally.keystyle": "nested",
   "i18n-ally.enabledFrameworks": ["i18next"],
-  "i18n-ally.localesPaths": ["./game/assets/UI/public/translations"],
+  "i18n-ally.localesPaths": ["./game/data/main/UI/public/translations"],
   "i18n-ally.sourceLanguage": "en",
   "cSpell.words": [
+    "choco",
+    "conanfile",
+    "DCMAKE",
+    "dreich",
+    "elif",
     "glfw",
+    "hostfxr",
     "KEYCODES",
+    "Makefiles",
     "opengl",
     "spdlog",
     "timepoint",
-    "vsync",
-    "hostfxr"
+    "vsync"
   ],
   "C_Cpp.errorSquiggles": "disabled",
   "files.associations": {
@@ -32,6 +45,10 @@
     ".import-config": "yaml",
     "*.import": "yaml",
     "*.import-config": "yaml",
+    ".export-config": "yaml",
+    "action.yaml": "yaml",
+    "**/.github/workflows/**/*.yaml": "yaml",
+    "**/.github/workflows/**/*.yml": "yaml",
     "*.tcc": "cpp",
     "iosfwd": "cpp",
     "chrono": "cpp",
@@ -103,9 +120,30 @@
     "source_location": "cpp",
     "filesystem": "cpp",
     "version": "cpp",
-    "ranges": "cpp"
-  },
-  "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
-    "clang-diagnostic-error"
-  ]
+    "ranges": "cpp",
+    "locale": "cpp",
+    "forward_list": "cpp",
+    "format": "cpp",
+    "ios": "cpp",
+    "span": "cpp",
+    "xfacet": "cpp",
+    "xhash": "cpp",
+    "xiosbase": "cpp",
+    "xlocale": "cpp",
+    "xlocbuf": "cpp",
+    "xlocinfo": "cpp",
+    "xlocmes": "cpp",
+    "xlocmon": "cpp",
+    "xlocnum": "cpp",
+    "xloctime": "cpp",
+    "xmemory": "cpp",
+    "xstring": "cpp",
+    "xtr1common": "cpp",
+    "xtree": "cpp",
+    "xutility": "cpp",
+    "__bit_reference": "cpp",
+    "__hash_table": "cpp",
+    "__split_buffer": "cpp",
+    "__tree": "cpp"
+  }
 }

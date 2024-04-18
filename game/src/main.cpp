@@ -20,8 +20,8 @@
 #include <window/window.h>
 
 int main(int argc, char** argv) {
+
 #ifndef NDEBUG
-#define SPDLOG
   spdlog::set_level(spdlog::level::debug);
   spdlog::debug("----Debug configuration!----");
 #endif
@@ -29,10 +29,15 @@ int main(int argc, char** argv) {
   using namespace wind;
   using namespace wind::assets;
 
-  //========= Asset Pipeline===============//
+  //=========Configure path===============//
+
+  fs::path root = fs::path(argv[0]).parent_path();
+  fs::current_path(root);
+
+  //=========Assets Pipeline===============//
 
   AssetManager::loadBundle("res/Ultralight.bundle");
-  AssetManager::loadBundle("res/Assets.bundle");
+  AssetManager::loadBundle("res/Main.bundle");
 
   //=========Input System==================//
 
@@ -50,19 +55,21 @@ int main(int argc, char** argv) {
 
   Window::init([](Window::Config* self) {
     self->title = "Game";
+
     self->fullScreen = false;
     self->size = {800, 600};
-    self->vSync = false;
+    self->vSync = true;
   });
 
   //=============Ultralight================//
 
   Ultralight::init();
+
   const auto uiTexture = Ultralight::loadView("main/UI/dist/index.html", {800, 600});
 
   //============Script System==============//
 
-  // auto scriptsPath = fs::path("./assets/scripts/bin/Release/");
+  // auto scriptsPath = fs::path("./res/Managed/");
   // auto hostfxr = new ScriptSystemHostfxr();
 
   // hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
@@ -78,6 +85,7 @@ int main(int argc, char** argv) {
     Renderer::clear({1.f, 0.f, 0.f, 1});
 
     Ultralight::update();
+
     Ultralight::render();
 
     Renderer::drawTexture(uiTexture, {1, 1}, {0, 0, 0}, {0, 0, 0}, {800, 600, 1});

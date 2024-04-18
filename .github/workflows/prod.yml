@@ -1,0 +1,189 @@
+name: prod
+
+on:
+  push:
+    branches:
+      - 'master'
+
+permissions:
+  contents: write
+
+jobs:
+  linting:
+    name: 'Linting ${{ matrix.config.name }}'
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {
+              name: 'Ubuntu',
+              projectRoot: '/home/runner/work/dreich',
+              artifact: 'dreich-linux-${{ github.event.pull_request.title }}',
+              os: 'ubuntu-latest',
+              scriptBuildType: 'publish',
+              engineBuildType: 'Release',
+              uiRoot: '/home/runner/work/dreich/dreich/game/data/main/UI',
+              scriptRoot: '/home/runner/work/dreich/dreich/game/data/main/scripts',
+              engineRoot: '/home/runner/work/dreich/dreich',
+              ultralightVersion: '1.3.0',
+              cc: 'clang',
+              cxx: 'clang++',
+              isRelease: true,
+            }
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Env
+        uses: './.github/workflows/utils/json-to-env'
+        with:
+          json: ${{ toJSON(matrix.config) }}
+      - name: UI
+        uses: './.github/workflows/modules/ui/lint'
+      - name: Scripts
+        uses: './.github/workflows/modules/scripts/lint'
+      - name: Engine
+        uses: './.github/workflows/modules/engine/lint'
+      - name: Linting commit
+        uses: './.github/workflows/utils/commit'
+
+  testing:
+    name: 'Testing: ${{ matrix.config.name }}'
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {
+              name: 'Windows',
+              projectRoot: 'D:/a/dreich',
+              artifact: 'dreich-windows-${{ github.event.pull_request.title }}',
+              os: 'windows-latest',
+              scriptBuildType: 'publish',
+              engineBuildType: 'Release',
+              uiRoot: 'D:/a/dreich/dreich/game/data/main/UI',
+              scriptRoot: 'D:/a/dreich/dreich/game/data/main/scripts',
+              engineRoot: 'D:/a/dreich/dreich',
+              ultralightVersion: '1.4.0a',
+              cc: 'clang',
+              cxx: 'clang++',
+              isRelease: true,
+            }
+          - {
+              name: 'Ubuntu',
+              projectRoot: '/home/runner/work/dreich',
+              artifact: 'dreich-linux-${{ github.event.pull_request.title }}',
+              os: 'ubuntu-latest',
+              scriptBuildType: 'publish',
+              engineBuildType: 'Release',
+              uiRoot: '/home/runner/work/dreich/dreich/game/data/main/UI',
+              scriptRoot: '/home/runner/work/dreich/dreich/game/data/main/scripts',
+              engineRoot: '/home/runner/work/dreich/dreich',
+              ultralightVersion: '1.3.0',
+              cc: 'clang',
+              cxx: 'clang++',
+              isRelease: true,
+            }
+          - {
+              name: 'MacOS',
+              projectRoot: '/Users/runner/work/dreich',
+              artifact: 'dreich-macos-${{ github.event.pull_request.title }}',
+              os: 'macos-14',
+              scriptBuildType: 'publish',
+              engineBuildType: 'Release',
+              uiRoot: '/Users/runner/work/dreich/dreich/game/data/main/UI',
+              scriptRoot: '/Users/runner/work/dreich/dreich/game/data/main/scripts',
+              engineRoot: '/Users/runner/work/dreich/dreich',
+              ultralightVersion: '1.4.0a',
+              cc: 'clang',
+              cxx: 'clang++',
+              isRelease: true,
+            }
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Env
+        uses: './.github/workflows/utils/json-to-env'
+        with:
+          json: ${{ toJSON(matrix.config) }}
+      - uses: ./.github/workflows/utils/setup-base-libs
+      - name: Scripts
+        uses: './.github/workflows/modules/scripts/test'
+      - name: Engine
+        uses: './.github/workflows/modules/engine/test'
+
+  building:
+    name: 'Build: ${{ matrix.config.name }}'
+    runs-on: ${{ matrix.config.os }}
+    needs:
+      - linting
+      - testing
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {
+              name: 'Windows',
+              projectRoot: 'D:/a/dreich',
+              artifact: 'dreich-windows-${{ github.event.pull_request.title }}',
+              os: 'windows-latest',
+              scriptBuildType: 'publish',
+              engineBuildType: 'Release',
+              uiRoot: 'D:/a/dreich/dreich/game/data/main/UI',
+              scriptRoot: 'D:/a/dreich/dreich/game/data/main/scripts',
+              engineRoot: 'D:/a/dreich/dreich',
+              ultralightVersion: '1.4.0a',
+              cc: 'clang',
+              cxx: 'clang++',
+              isRelease: true,
+            }
+          - {
+              name: 'Ubuntu',
+              projectRoot: '/home/runner/work/dreich',
+              artifact: 'dreich-linux-${{ github.event.pull_request.title }}',
+              os: 'ubuntu-latest',
+              scriptBuildType: 'publish',
+              engineBuildType: 'Release',
+              uiRoot: '/home/runner/work/dreich/dreich/game/data/main/UI',
+              scriptRoot: '/home/runner/work/dreich/dreich/game/data/main/scripts',
+              engineRoot: '/home/runner/work/dreich/dreich',
+              ultralightVersion: '1.3.0',
+              cc: 'clang',
+              cxx: 'clang++',
+              isRelease: true,
+            }
+          - {
+              name: 'MacOS',
+              projectRoot: '/Users/runner/work/dreich',
+              artifact: 'dreich-macos-${{ github.event.pull_request.title }}',
+              os: 'macos-14',
+              scriptBuildType: 'publish',
+              engineBuildType: 'Release',
+              uiRoot: '/Users/runner/work/dreich/dreich/game/data/main/UI',
+              scriptRoot: '/Users/runner/work/dreich/dreich/game/data/main/scripts',
+              engineRoot: '/Users/runner/work/dreich/dreich',
+              ultralightVersion: '1.4.0a',
+              cc: 'clang',
+              cxx: 'clang++',
+              isRelease: true,
+            }
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Env
+        uses: './.github/workflows/utils/json-to-env'
+        with:
+          json: ${{ toJSON(matrix.config) }}
+      - name: UI
+        uses: './.github/workflows/modules/ui/build'
+      - uses: ./.github/workflows/utils/setup-base-libs
+      - name: Scripts
+        uses: './.github/workflows/modules/scripts/build'
+      - name: Engine
+        uses: './.github/workflows/modules/engine/build'

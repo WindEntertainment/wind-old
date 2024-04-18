@@ -32,7 +32,7 @@ void Renderer::drawRectangle(glm::vec4 _rect, glm::vec4 _color) {
 }
 
 void Renderer::drawTexture(Texture* texture, glm::vec2 tiling, glm::vec3 position,
-                           glm::vec3 rotation, glm::vec3 scale) {
+  glm::vec3 rotation, glm::vec3 scale) {
   static const Mesh* mesh = DefaultRes::getRectangle();
   static Shader* shader = DefaultRes::get2DShader();
 
