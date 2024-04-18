@@ -1,4 +1,4 @@
-#include "renderer/mesh.h"
+#include "renderer/mesh.hpp"
 
 namespace wind {
 

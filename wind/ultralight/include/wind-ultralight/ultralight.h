@@ -7,7 +7,7 @@
 #include "input-system/keys.h"
 #include "logger.h"
 
-#include <renderer/texture.h>
+#include <renderer/texture.hpp>
 
 #include <Ultralight/RefPtr.h>
 #include <Ultralight/Renderer.h>

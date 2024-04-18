@@ -1,6 +1,6 @@
 // clang-format off
-#include <renderer/renderer.h>
-#include <renderer/particle.h>
+#include <renderer/renderer.hpp>
+#include <renderer/particle.hpp>
 #include <window/window.h>
 #include <utils/utils.h>
 // clang-format on

@@ -1,5 +1,5 @@
-#include "renderer/particle.h"
-#include "renderer/shader.h"
+#include "renderer/particle.hpp"
+#include "renderer/shader.hpp"
 #include "resources/default.h"
 
 // clang-format off

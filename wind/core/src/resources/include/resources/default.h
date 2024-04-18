@@ -1,6 +1,6 @@
 #pragma once
-#include <renderer/mesh.h>
-#include <renderer/shader.h>
+#include <renderer/mesh.hpp>
+#include <renderer/shader.hpp>
 
 namespace wind {
 

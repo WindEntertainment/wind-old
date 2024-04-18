@@ -1,4 +1,4 @@
-#include "renderer/shader.h"
+#include "renderer/shader.hpp"
 
 // clang-format off
 #include <glm/gtc/type_ptr.hpp>

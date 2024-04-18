@@ -1,6 +1,6 @@
 // clang-format off
 
-#include "renderer/renderer.h"
+#include "renderer/renderer.hpp"
 
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_float4x4.hpp>

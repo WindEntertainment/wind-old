@@ -8,11 +8,12 @@
 
 #include <algorithm>
 #include <asset-manager/asset-manager.hpp>
+#include <breeze/breeze.hpp>
 #include <functional>
 #include <input-system/input-system.h>
 #include <ostream>
-#include <renderer/particle.h>
-#include <renderer/renderer.h>
+#include <renderer/particle.hpp>
+#include <renderer/renderer.hpp>
 #include <spdlog/spdlog.h>
 #include <utils/includes.h>
 #include <utils/utils.h>
@@ -62,17 +63,17 @@ int main(int argc, char** argv) {
 
   const auto uiTexture = Ultralight::loadView("main/UI/dist/index.html", {800, 600});
 
-  //============Script System==============//
+  //============= ECS =================//
 
-  // auto scriptsPath = fs::path("./res/Managed/");
-  // auto hostfxr = new ScriptSystemHostfxr();
+  struct Position {
+    int x;
+    int y;
+  };
 
-  // hostfxr->init(scriptsPath / "Scripts.runtimeconfig.json");
+  World world;
 
-  // ScriptSystem* scriptSystem = hostfxr->createScriptSystem(scriptsPath, scriptsPath / "Scripts.dll");
-
-  // scriptSystem->run("Scripts.Lib, Scripts", "HelloAgain", "from host!", 1);
-  // scriptSystem->run("Scripts.Lib, Scripts", "Hello", "from host!", 1);
+  auto entity = world.createEntity();
+  world.attachComponent(entity, 5);
 
   //=============Main loop=================//
 

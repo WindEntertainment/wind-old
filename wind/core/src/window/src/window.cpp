@@ -5,7 +5,7 @@
 #include <ctime>
 
 #include <resources/default.h>
-#include <renderer/renderer.h>
+#include <renderer/renderer.hpp>
 
 #include "window/window.h"
 #include "window/events/keyboard.h"

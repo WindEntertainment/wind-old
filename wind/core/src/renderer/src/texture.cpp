@@ -15,7 +15,7 @@ _image = new unsigned char[11*3]{
 };
 */
 
-#include "renderer/texture.h"
+#include "renderer/texture.hpp"
 
 // clang-format off
 #include <glm/ext/scalar_uint_sized.hpp>
