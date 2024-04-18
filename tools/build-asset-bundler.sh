@@ -25,6 +25,7 @@ cd build/"$build_type"/wind/asset-pipeline || exit
 if echo "$OS" | grep -qi "Windows"; then
   mkdir -p "$root"/apps
   make install DESTDIR="$root"/apps
+  ls -a "$root"/apps/usr/local/bin
 else
   make install
 fi

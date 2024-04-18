@@ -41,6 +41,7 @@ runs:
       shell: bash
       run: |
         mkdir -p $(pwd)/apps/usr/local/bin
+        ls -a $(pwd)/apps/usr/local/bin
         echo "$(pwd)/apps/usr/local/bin" >> $GITHUB_PATH
         cd wm
         chmod +x config.sh
