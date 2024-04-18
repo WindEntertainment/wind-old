@@ -24,7 +24,7 @@ runs:
         cd build/${{ env.engineBuildType }}/wind/asset-pipeline
 
         if [ "$RUNNER_OS" == "Windows" ]; then
-          mkdir ${{ env.projectRoot }}/apps
+          mkdir -p ${{ env.projectRoot }}/apps
           make install DESTDIR=${{ env.projectRoot }}/apps
           echo "${{ env.projectRoot }}/apps/usr/local/bin" >> $GITHUB_PATH
         else

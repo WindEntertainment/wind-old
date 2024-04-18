@@ -11,22 +11,16 @@ runs:
         if [ "$RUNNER_OS" == "Linux" ]; then
           cd "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64"
           path="${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.linux-x64/$(ls | grep -E '^8\.0' | head -n 1 | cut -d '/' -f 1)/runtimes/linux-x64/native"
-          echo "$path"
-          ls -a "$path"
           cd ${{ env.engineRoot }}
           echo "DOTNET_INCLUDES=$path" >> .env
         elif [ "$RUNNER_OS" == "macOS" ]; then
           cd "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64"
           path="${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.osx-arm64/$(ls | grep -E '^8\.0' | head -n 1 | cut -d '/' -f 1)/runtimes/osx-arm64/native"
-          echo "$path"
-          ls -a "$path"
           cd ${{ env.engineRoot }}
           echo "DOTNET_INCLUDES=$path" >> .env
         elif [ "$RUNNER_OS" == "Windows" ]; then
           cd "${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.win-x64"
           path="${{ env.DOTNET_PATH }}/packs/Microsoft.NETCore.App.Host.win-x64/$(ls | grep -E '^8\.0' | head -n 1 | cut -d '/' -f 1)/runtimes/win-x64/native"
-          echo "$path"
-          ls -a "$path"
           cd ${{ env.engineRoot }}
           echo "DOTNET_INCLUDES=$path" >> .env
         else
