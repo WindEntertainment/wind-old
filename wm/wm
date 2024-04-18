@@ -10,7 +10,7 @@ source "$(find_wm)/global.sh"
 run() {
   local args=("$@")
   local command="${args[0]}"
-  local options="${args[*]:1}"
+  local options=("${args[@]:1}")
 
   root=$(find_config)
 
@@ -18,18 +18,18 @@ run() {
 
   [ ! -f "$tool_script" ] && throw 1 "Script with name '$command' not found in '$tool_script' folder."
 
-  $tool_script -r "$root" "${options[@]}"
+  $tool_script --root "$root" "${options[@]}"
 }
 
 commands=("$@")
 
 wm_command="${commands[0]}"
 script="${commands[1]}"
-script_options="${commands[*]:2}"
+script_options=("${commands[@]:2}")
 
 case "$wm_command" in
   "run")
-    run $script "$script_options" ;;
+    run $script "${script_options[@]}" ;;
 
   "init")
     "$(find_wm)/init.sh" ;;

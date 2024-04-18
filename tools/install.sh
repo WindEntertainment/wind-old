@@ -9,10 +9,10 @@ root=""
 
 while [[ "$#" -gt 0 ]]; do
   case $1 in
-    -b|--build-type) build_type="$2"; shift ;;
-    -w|--with-asset-bundler) with_asset_bundler=true; shift ;;
-    -r|--root) root="$2"; shift ;;
-    *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    -b|--build-type) build_type="$2"; shift; ;;
+    -w|--with-asset-bundler) with_asset_bundler=true; shift; ;;
+    -r|--root) root="$2"; shift; ;;
+    *) echo "Unknown parameter passed: $1"; exit; ;;
   esac
   shift
 done
