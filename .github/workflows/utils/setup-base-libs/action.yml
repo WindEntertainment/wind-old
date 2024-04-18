@@ -40,8 +40,8 @@ runs:
     - name: Setup wm
       shell: bash
       run: |
-        mkdir -p apps
-        echo "$(pwd)/apps" >> $GITHUB_PATH
+        mkdir -p $(pwd)/apps/usr/local/bin
+        echo "$(pwd)/apps/usr/local/bin" >> $GITHUB_PATH
         cd wm
         chmod +x config.sh
         ./config.sh
