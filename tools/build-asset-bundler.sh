@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$(dirname "$0")/global.sh"
+
 build_type="Release"
 
 call_dir=$(pwd)
@@ -14,13 +16,13 @@ while [[ "$#" -gt 0 ]]; do
   shift
 done
 
-cd "$root" || exit
+cd "$root" || exit 2
 
 cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="$build_type" -DCMAKE_TOOLCHAIN_FILE="$root/build/$build_type/generators/conan_toolchain.cmake" -S"$root" -B"$root/build/$build_type"
 
 cmake --build "$root/build/$build_type" --parallel 10 --target wind-asset-bundler
 
-cd build/"$build_type"/wind/asset-pipeline || exit
+cd build/"$build_type"/wind/asset-pipeline || exit 2
 
 if echo "$OS" | grep -qi "Windows"; then
   mkdir -p "$root"/apps
@@ -30,4 +32,4 @@ else
   make install
 fi
 
-cd "$call_dir" || exit
+cd "$call_dir" || exit 2

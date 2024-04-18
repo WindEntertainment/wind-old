@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$(dirname "$0")/global.sh"
+
 initial_path=$(pwd)
 
 if [ ! -f "wm" ]; then

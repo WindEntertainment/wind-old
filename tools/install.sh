@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$(dirname "$0")/global.sh"
+
 with_asset_bundler=false
 build_type="Release"
 

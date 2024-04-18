@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$(dirname "$0")/global.sh"
+
 build_type="Release"
 
 call_dir=$(pwd)
