@@ -1,7 +1,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <map>
-#include <renderer/renderer.hpp>
+#include <memory>
 #include <stdexcept>
 #include <utility>
 #include <vector>
@@ -13,6 +13,7 @@ using Entity = std::uint8_t;
 class IComponentPool {
 public:
   virtual void destroyEntity(Entity) = 0;
+  virtual bool hasEntity(Entity) = 0;
 };
 
 template <typename Component>
@@ -38,15 +39,26 @@ public:
     m_indexToEntity.erase(m_indexToEntity.find(index));
   }
 
+  bool hasEntity(Entity entity) override {
+    return m_entityToIndex.count(entity);
+  }
+
 private:
   std::vector<Component> m_components;
   std::map<Entity, size_t> m_entityToIndex;
   std::map<size_t, Entity> m_indexToEntity;
 };
 
+class IFilter {};
+
 template <typename... Components>
-class Filter {
+class Filter : public IFilter {
+private:
+    std::vector<std::tuple<Entity, Components...>> m_components;
 public:
+    void addEntity(Entity entity) {
+
+    }
 };
 
 class World {
@@ -58,6 +70,8 @@ public:
 
     auto entity = m_availableIds.back();
     m_availableIds.pop_back();
+
+    m_entities.push_back(entity);
 
     return entity;
   }
@@ -74,13 +88,48 @@ public:
     return component;
   }
 
-  // const Filter&
+  template <typename Component>
+  bool hasComponent(Entity entity) {
+    const char* type = typeid(Component).name();
+    
+    if (!m_components.count(type))
+        return false;
+
+    return m_components[type]->hasEntity(entity);
+  }
+
+  template<typename ...Components>
+  const Filter<Components...>& createFilter() {
+    auto filter = new Filter<Components...>();
+    
+    std::vector<const char*> types;
+    (types.push_back(typeid(Components).name()), ...);
+
+    for (const auto& type : types) 
+        m_filters.insert(std::make_pair(type, filter));
+
+    for (const auto& entity : m_entities) {
+        bool valid = true;
+        for (const auto& type : types) 
+            if (!m_components[type]->hasEntity(entity)) {
+                valid = false;
+                break;
+            }
+
+        if (!valid)
+            continue;
+
+        filter->addEntity(entity);
+    }
+  }
 
 private:
+  std::vector<Entity> m_entities;
   std::vector<Entity> m_availableIds;
   Entity m_lastEntity;
 
   std::map<const char*, std::shared_ptr<IComponentPool>> m_components;
+  std::map<const char*, std::shared_ptr<IFilter>> m_filters;
 };
 
 } // namespace wind
