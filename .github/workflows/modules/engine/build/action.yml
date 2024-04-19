@@ -17,14 +17,36 @@ runs:
     - name: Install dependencies
       uses: ./.github/workflows/modules/engine/install-dependencies
 
+    - uses: actions/cache/restore@v4
+      with:
+        path: ${{ env.projectRoot }}/dreich/game/data/.cache
+        key: ${{ env.envHash }}-${{ hashFiles('${{ env.projectRoot }}/dreich/game/data/**/.export-config') }}-${{ env.os }}-asset-manager
+
     - name: Build game with wm
       shell: bash
       run: |
         export CC=${{ env.cc }}
         export CXX=${{ env.cxx }}
         wm run install -w
-        wm run build-game -o releases
-        ls -a releases
+        wm run release-game -o releases
+        cd releases
+        7z x -y $(pwd)/dreich.zip -o$(pwd)
+        ls -a
+
+    - name: Upload package as artifact
+      # wrong if condition
+      if: ${{ env.isRelease == 'false' }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.artifact }}
+        path: ${{ env.projectRoot }}/dreich/releases/dreich
+        retention-days: 1
+        overwrite: true
+
+    - uses: actions/cache/save@v4
+      with:
+        path: ${{ env.projectRoot }}/dreich/game/data/.cache
+        key: ${{ env.envHash }}-${{ hashFiles('${{ env.projectRoot }}/dreich/game/data/**/.export-config') }}-${{ env.os }}-asset-manager
 
     # - name: Prepare assets
     #   uses: ./.github/workflows/modules/engine/assets
@@ -49,14 +71,7 @@ runs:
     #     cpack
     #   shell: bash
 
-    # - name: Upload package as artifact
-    #   if: ${{ env.isRelease == false }}
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: ${{ env.envHash }}
-    #     path: build/${{ env.engineBuildType }}
-    #     retention-days: 1
-    #     overwrite: true
+
 
     # - name: Upload package as artifact
     #   if: ${{ env.isRelease == true }}
