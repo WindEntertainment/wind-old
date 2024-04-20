@@ -85,23 +85,20 @@ int main(int argc, char** argv) {
     world.attachComponent(entity, Renderable{player});
   }
 
-  auto transformFilter = world.createFilter<Transform>();
-  auto renderFilter = world.createFilter<Renderable, Transform>();
-
   //=============Main loop=================//
 
   while (Window::update()) {
 
-    for (auto [transform] : *transformFilter) {
+    world.forEachWith<Transform>([](auto& transform) {
       transform.position.x += (-5 + rand() % 11) / 5.f;
       transform.position.y += (-5 + rand() % 11) / 5.f;
-    }
+    });
 
     Renderer::clear({0.f, 0.f, 0.f, 1});
 
-    for (auto [renderable, transform] : *renderFilter) {
+    world.forEachWith<Renderable, Transform>([](const auto& renderable, const auto& transform) {
       Renderer::drawTexture(renderable.texture, {1, 1}, transform.position, {0, 0, 0}, {64, 64, 1});
-    }
+    });
 
     Ultralight::update();
     Ultralight::render();

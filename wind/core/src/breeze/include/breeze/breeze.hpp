@@ -56,29 +56,6 @@ private:
   std::map<size_t, Entity> m_indexToEntity;
 };
 
-class IFilter {};
-
-template <typename... Components>
-class Filter : public IFilter {
-private:
-  std::vector<std::tuple<Components&...>> m_components;
-  std::vector<Entity> m_entities;
-
-public:
-  void addEntity(Entity entity, std::tuple<Components&...> components) {
-    m_entities.push_back(entity);
-    m_components.push_back(components);
-  }
-
-  auto begin() {
-    return m_components.begin();
-  }
-
-  auto end() {
-    return m_components.end();
-  }
-};
-
 class World {
 public:
   Entity createEntity() {
@@ -128,48 +105,12 @@ public:
     return std::static_pointer_cast<ComponentPool<Component>>(m_components[type])->getByEntity(entity);
   }
 
-  // template <typename... Components>
-  // auto createFilter() {
-  //   auto filter = std::make_shared<Filter<Components...>>();
-
-  //   std::vector<const char*> types;
-  //   (types.push_back(typeid(Components).name()), ...);
-
-  //   for (const char* type : types)
-  //     m_filters.insert(std::make_pair(type, filter));
-
-  //   for (const auto& entity : m_entities) {
-  //     bool valid = true;
-  //     for (const auto& type : types)
-  //       if (!m_components[type]->hasEntity(entity)) {
-  //         valid = false;
-  //         break;
-  //       }
-
-  //     if (!valid)
-  //       continue;
-
-  //     // std::tuple<Components...> components;
-  //     auto components = std::make_tuple();
-  //     // (components = std::tuple_cat(components, std::make_tuple(std::static_pointer_cast<ComponentPool<Components>>(m_components[typeid(Components).name()])->getByEntity(entity))), ...);
-
-  //     // ((modifedTuple(std::make_tuple(std::static_pointer_cast<ComponentPool<Components>>(m_components[typeid(Components).name()])->getByEntity(entity))))), ...);
-
-  //     filter->addEntity(entity, components);
-  //   }
-
-  //   return filter;
-  // }
-
-  template <typename... Components>
-  auto createFilter() {
-    auto filter = std::make_shared<Filter<Components...>>();
+  template <typename... Components, typename Func>
+  void forEachWith(Func function) {
+    std::vector<std::tuple<Components&...>> filter;
 
     std::vector<const char*> types;
     ((types.push_back(typeid(Components).name())), ...);
-
-    for (const char* type : types)
-      m_filters.insert(std::make_pair(type, filter));
 
     for (const auto& entity : m_entities) {
       bool valid = true;
@@ -182,18 +123,10 @@ public:
       if (!valid)
         continue;
 
-      std::tuple<Components*...> components;
-      std::apply([&](auto&... args) {
-        ((args = &(std::static_pointer_cast<ComponentPool<Components>>(m_components[typeid(Components).name()])->getByEntity(entity))), ...);
-      },
-        components);
-
-      auto n = std::tuple<Components&...>(*std::get<Components*>(components)...);
-
-      filter->addEntity(entity, n);
+      // clang-format off
+      function(std::static_pointer_cast<ComponentPool<Components>>(m_components[typeid(Components).name()])->getByEntity(entity)...);
+      // clang-format on
     }
-
-    return filter;
   }
 
 private:
@@ -202,7 +135,6 @@ private:
   Entity m_lastEntity;
 
   std::map<const char*, std::shared_ptr<IComponentPool>> m_components;
-  std::map<const char*, std::shared_ptr<IFilter>> m_filters;
 };
 
 } // namespace wind
