@@ -21,7 +21,7 @@ InputSystemContext* InputSystem::context = new InputSystemContext();
 
 inline void InputSystem::groupedEventToCycle(Key keycode) {
   if (keycodeTriggers.contains(keycode)) {
-    std::for_each(keycodeTriggers[keycode].begin(), keycodeTriggers[keycode].end(), [](Callback* callback) { callback(context); });
+    std::for_each(keycodeTriggers[keycode].begin(), keycodeTriggers[keycode].end(), [](Callback* callback) { (*callback)(context); });
   };
 }
 
@@ -235,9 +235,9 @@ void InputSystem::addTriggerCallbacks(std::string groupName, Callbacks callbacks
   addKeycodeTriggerCallbacks(groupName, callbacks);
 }
 
-void InputSystem::addTriggerCallbacks(std::string groupName, Callback* callback) {
-  addGroupedTriggerCallbacks(groupName, callback);
-  addKeycodeTriggerCallbacks(groupName, callback);
+void InputSystem::addTriggerCallbacks(std::string groupName, Callback callback) {
+  addGroupedTriggerCallbacks(groupName, &callback);
+  addKeycodeTriggerCallbacks(groupName, &callback);
 }
 
 //

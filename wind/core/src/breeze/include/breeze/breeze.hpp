@@ -74,15 +74,13 @@ public:
   }
 
   template <typename Component>
-  Component attachComponent(Entity entity, Component component) {
+  Component& attachComponent(Entity entity, Component component) {
     const char* type = typeid(Component).name();
 
     if (!m_components.count(type))
       m_components.insert(std::make_pair(type, std::make_shared<ComponentPool<Component>>()));
 
-    std::static_pointer_cast<ComponentPool<Component>>(m_components[type])->attachComponent(entity, component);
-
-    return component;
+    return std::static_pointer_cast<ComponentPool<Component>>(m_components[type])->attachComponent(entity, component);
   }
 
   template <typename Component>
@@ -100,7 +98,7 @@ public:
     const char* type = typeid(Component).name();
 
     if (!m_components.count(type))
-      return false;
+      throw std::invalid_argument("ComponentPool doesn't have an entity");
 
     return std::static_pointer_cast<ComponentPool<Component>>(m_components[type])->getByEntity(entity);
   }
@@ -131,6 +129,9 @@ private:
   Entity m_lastEntity;
 
   std::map<const char*, std::shared_ptr<IComponentPool>> m_components;
+};
+
+class SystemManager {
 };
 
 } // namespace wind

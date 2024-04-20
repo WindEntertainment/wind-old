@@ -7,7 +7,7 @@
 #include <set>
 
 namespace wind {
-using Callback = void(InputSystemContext*);
+using Callback = std::function<void(InputSystemContext*)>;
 using Callbacks = std::set<Callback*>;
 
 struct Trigger {

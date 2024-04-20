@@ -26,7 +26,7 @@ public:
   static void addTriggerBindings(std::string groupName, Key binding);
 
   static void addTriggerCallbacks(std::string groupName, Callbacks callbacks);
-  static void addTriggerCallbacks(std::string groupName, Callback* callback);
+  static void addTriggerCallbacks(std::string groupName, Callback callback);
 
   static void removeTriggerBindings(std::string groupName, Keys bindings);
   static void removeTriggerBindings(std::string groupName, Key binding);

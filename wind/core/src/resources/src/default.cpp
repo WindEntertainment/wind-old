@@ -40,7 +40,10 @@ void DefaultRes::load() {
             uniform vec4 color;
 
             void main() {
-                FragColor = texture(tex0, TexCoord);
+                vec4 c = texture(tex0, TexCoord);
+                if (c == vec4(0, 0, 0, 0))
+                    discard;
+                FragColor = c;
             }
         )"
     );

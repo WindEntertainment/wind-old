@@ -32,14 +32,14 @@ void Renderer::drawRectangle(glm::vec4 _rect, glm::vec4 _color) {
 }
 
 void Renderer::drawTexture(Texture* texture, glm::vec2 tiling, glm::vec3 position,
-  glm::vec3 rotation, glm::vec3 scale) {
+  glm::vec3 rotation, glm::vec2 scale) {
   static const Mesh* mesh = DefaultRes::getRectangle();
   static Shader* shader = DefaultRes::get2DShader();
 
   glm::mat4 model = glm::mat4(1);
 
   model = glm::translate(model, position);
-  model = glm::scale(model, scale);
+  model = glm::scale(model, {scale.x, scale.y, 1});
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, texture->id());
