@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
     self->title = "Game";
     self->fullScreen = false;
     self->size = {800, 600};
-    self->vSync = false;
+    self->vSync = true;
   });
 
   //=============Ultralight================//
@@ -79,28 +79,29 @@ int main(int argc, char** argv) {
 
   World world;
 
-  auto entity = world.createEntity();
-  world.attachComponent(entity, Transform{});
-  world.attachComponent(entity, Renderable{player});
+  for (int i = 0; i < 100; ++i) {
+    auto entity = world.createEntity();
+    world.attachComponent(entity, Transform{{-400 + rand() % 800, -300 + rand() % 600, 0}});
+    world.attachComponent(entity, Renderable{player});
+  }
 
   auto filter = world.createFilter<Renderable, Transform>();
 
   //=============Main loop=================//
 
   while (Window::update()) {
-    Renderer::clear({1.f, 0.f, 0.f, 1});
+    Renderer::clear({0.f, 0.f, 0.f, 1});
 
     Ultralight::update();
     Ultralight::render();
 
     for (auto [renderable, transform] : *filter) {
-      Renderer::drawTexture(renderable->texture, {1, 1}, transform->position, {0, 0, 0}, {32, 32, 1});
-      transform->position.x += 0.01f;
+      Renderer::drawTexture(renderable->texture, {1, 1}, transform->position, {0, 0, 0}, {64, 64, 1});
+      transform->position.x += (-5 + rand() % 11) / 5.f;
+      transform->position.y += (-5 + rand() % 11) / 5.f;
     }
 
     // Renderer::drawTexture(uiTexture, {1, 1}, {0, 0, 0}, {0, 0, 0}, {800, 600, 1});
-
-    // Renderer::drawTexture(player, {1, 1}, {0, 0, 0}, {0, 0, 0}, {32, 32, 1});
 
     Window::show();
   }
