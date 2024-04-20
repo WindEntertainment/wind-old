@@ -130,7 +130,6 @@ void InputSystem::init(GLFWwindow* window) {
 
 void InputSystem::createTriggersFromFile(fs::path path) {
   auto triggersData = AssetManager::getAsset<unsigned char>(path.string().c_str());
-  std::cout << triggersData;
   if (!triggersData) {
     spdlog::error("Failed to open the file {}", path.string());
     return;

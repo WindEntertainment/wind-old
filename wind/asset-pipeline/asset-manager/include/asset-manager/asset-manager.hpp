@@ -176,7 +176,7 @@ public:
         return asset;
     }
 
-    spdlog::debug("Failed get asset. name: '{}', hash: {}", _key, id);
+    spdlog::error("Failed get asset. name: '{}', hash: {}", _key, id);
     return nullptr;
   }
 

@@ -43,6 +43,13 @@ public:
     return m_entityToIndex.count(entity);
   }
 
+  Component& getByEntity(Entity entity) {
+    if (!m_entityToIndex.count(entity))
+      throw std::invalid_argument("ComponentPool doesn't have an entity");
+
+    return m_components[m_entityToIndex[entity]];
+  }
+
 private:
   std::vector<Component> m_components;
   std::map<Entity, size_t> m_entityToIndex;
@@ -54,26 +61,39 @@ class IFilter {};
 template <typename... Components>
 class Filter : public IFilter {
 private:
-    std::vector<std::tuple<Entity, Components...>> m_components;
-public:
-    void addEntity(Entity entity) {
+  std::vector<std::tuple<std::shared_ptr<Components>...>> m_components;
+  std::vector<Entity> m_entities;
 
-    }
+public:
+  void addEntity(Entity entity, std::tuple<std::shared_ptr<Components>...> components) {
+    m_entities.push_back(entity);
+    m_components.push_back(components);
+  }
+
+  auto begin() {
+    return m_components.begin();
+  }
+
+  auto end() {
+    return m_components.end();
+  }
 };
 
 class World {
 public:
   Entity createEntity() {
+    Entity newEntity;
+
     if (m_availableIds.empty()) {
-      return m_lastEntity++;
+      newEntity = m_lastEntity++;
+    } else {
+      newEntity = m_availableIds.back();
+      m_availableIds.pop_back();
     }
 
-    auto entity = m_availableIds.back();
-    m_availableIds.pop_back();
+    m_entities.push_back(newEntity);
 
-    m_entities.push_back(entity);
-
-    return entity;
+    return newEntity;
   }
 
   template <typename Component>
@@ -91,36 +111,87 @@ public:
   template <typename Component>
   bool hasComponent(Entity entity) {
     const char* type = typeid(Component).name();
-    
+
     if (!m_components.count(type))
-        return false;
+      return false;
 
     return m_components[type]->hasEntity(entity);
   }
 
-  template<typename ...Components>
-  const Filter<Components...>& createFilter() {
-    auto filter = new Filter<Components...>();
-    
-    std::vector<const char*> types;
-    (types.push_back(typeid(Components).name()), ...);
+  template <typename Component>
+  Component& getComponent(Entity entity) {
+    const char* type = typeid(Component).name();
 
-    for (const auto& type : types) 
-        m_filters.insert(std::make_pair(type, filter));
+    if (!m_components.count(type))
+      return false;
+
+    return std::static_pointer_cast<ComponentPool<Component>>(m_components[type])->getByEntity(entity);
+  }
+
+  // template <typename... Components>
+  // auto createFilter() {
+  //   auto filter = std::make_shared<Filter<Components...>>();
+
+  //   std::vector<const char*> types;
+  //   (types.push_back(typeid(Components).name()), ...);
+
+  //   for (const char* type : types)
+  //     m_filters.insert(std::make_pair(type, filter));
+
+  //   for (const auto& entity : m_entities) {
+  //     bool valid = true;
+  //     for (const auto& type : types)
+  //       if (!m_components[type]->hasEntity(entity)) {
+  //         valid = false;
+  //         break;
+  //       }
+
+  //     if (!valid)
+  //       continue;
+
+  //     // std::tuple<Components...> components;
+  //     auto components = std::make_tuple();
+  //     // (components = std::tuple_cat(components, std::make_tuple(std::static_pointer_cast<ComponentPool<Components>>(m_components[typeid(Components).name()])->getByEntity(entity))), ...);
+
+  //     // ((modifedTuple(std::make_tuple(std::static_pointer_cast<ComponentPool<Components>>(m_components[typeid(Components).name()])->getByEntity(entity))))), ...);
+
+  //     filter->addEntity(entity, components);
+  //   }
+
+  //   return filter;
+  // }
+
+  template <typename... Components>
+  auto createFilter() {
+    auto filter = std::make_shared<Filter<Components...>>();
+
+    std::vector<const char*> types;
+    ((types.push_back(typeid(Components).name())), ...);
+
+    for (const char* type : types)
+      m_filters.insert(std::make_pair(type, filter));
 
     for (const auto& entity : m_entities) {
-        bool valid = true;
-        for (const auto& type : types) 
-            if (!m_components[type]->hasEntity(entity)) {
-                valid = false;
-                break;
-            }
+      bool valid = true;
+      for (const auto& type : types)
+        if (!m_components[type]->hasEntity(entity)) {
+          valid = false;
+          break;
+        }
 
-        if (!valid)
-            continue;
+      if (!valid)
+        continue;
 
-        filter->addEntity(entity);
+      std::tuple<std::shared_ptr<Components>...> components;
+      std::apply([&](auto&... args) {
+        ((args = std::make_shared<Components>(std::static_pointer_cast<ComponentPool<Components>>(m_components[typeid(Components).name()])->getByEntity(entity))), ...);
+      },
+        components);
+
+      filter->addEntity(entity, components);
     }
+
+    return filter;
   }
 
 private:

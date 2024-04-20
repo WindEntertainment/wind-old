@@ -13,6 +13,11 @@
 namespace wind {
 namespace assets {
 
+struct Image {
+  unsigned char* pixels;
+  glm::ivec2 size;
+};
+
 class ImagePipe : public AssetPipe {
 public:
 #ifdef WIND_PIPE_WRITE
@@ -66,18 +71,20 @@ public:
 
     orgSize = width * height * channels + 1;
 
-    auto zipData = new Bytef[zipSize];
-    file.read(reinterpret_cast<char*>(zipData), zipSize);
+    auto zipData = new Bytef[zippedSize];
+    file.read(reinterpret_cast<char*>(zipData), zippedSize);
 
     auto unzipData = new Bytef[orgSize];
 
-    auto rc = uncompress(unzipData, &orgSizeT, zipData, static_cast<uLongf>(zipSize));
+    auto rc = uncompress(unzipData, &orgSize, zipData, static_cast<uLongf>(zippedSize));
     if (rc != Z_OK)
       throw std::invalid_argument(fmt::format("Failed uncompress data: {}", zError(rc)));
 
     delete[] zipData;
 
-    return (void*)(unzipData);
+    return (void*)(new Image{
+      unzipData,
+      glm::ivec2{width, height}});
   }
 
   ImagePipe()

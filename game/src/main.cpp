@@ -51,7 +51,6 @@ int main(int argc, char** argv) {
 
   Window::init([](Window::Config* self) {
     self->title = "Game";
-
     self->fullScreen = false;
     self->size = {800, 600};
     self->vSync = false;
@@ -65,15 +64,26 @@ int main(int argc, char** argv) {
 
   //============= ECS =================//
 
-  struct Position {
-    int x;
-    int y;
+  auto player_img = AssetManager::getAsset<Image>("main/art/player.png");
+  auto player = new Texture(player_img->pixels, player_img->size);
+
+  struct Transform {
+    glm::vec3 position = {};
+    glm::vec2 rotation = {};
+    glm::vec2 scale = {1, 1};
+  };
+
+  struct Renderable {
+    Texture* texture;
   };
 
   World world;
 
   auto entity = world.createEntity();
-  world.attachComponent(entity, 5);
+  world.attachComponent(entity, Transform{});
+  world.attachComponent(entity, Renderable{player});
+
+  auto filter = world.createFilter<Renderable, Transform>();
 
   //=============Main loop=================//
 
@@ -81,15 +91,25 @@ int main(int argc, char** argv) {
     Renderer::clear({1.f, 0.f, 0.f, 1});
 
     Ultralight::update();
-
     Ultralight::render();
 
-    Renderer::drawTexture(uiTexture, {1, 1}, {0, 0, 0}, {0, 0, 0}, {800, 600, 1});
+    for (auto [renderable, transform] : *filter) {
+      Renderer::drawTexture(renderable->texture, {1, 1}, transform->position, {0, 0, 0}, {32, 32, 1});
+      transform->position.x += 0.01f;
+    }
+
+    // Renderer::drawTexture(uiTexture, {1, 1}, {0, 0, 0}, {0, 0, 0}, {800, 600, 1});
+
+    // Renderer::drawTexture(player, {1, 1}, {0, 0, 0}, {0, 0, 0}, {32, 32, 1});
 
     Window::show();
   }
 
   // hostfxr->stop();
+
+  delete player_img;
+  delete player;
+  Window::destroy();
 
   return EXIT_SUCCESS;
 }

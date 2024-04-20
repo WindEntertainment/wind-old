@@ -66,8 +66,6 @@ void Window::init(void (*buildConfig)(Config*)) {
   m_vsync = config.vSync;
   m_title = config.title.c_str();
 
-  atexit(destroy);
-
   glfwMakeContextCurrent(m_window);
   setVsync(m_vsync);
 

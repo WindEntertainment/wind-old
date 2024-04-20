@@ -19,7 +19,6 @@ namespace ul = ultralight;
 class Ultralight {
 public:
   static void init();
-  static void dispose();
 
   static void update();
   static void render();
