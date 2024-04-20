@@ -16,8 +16,7 @@ namespace assets {
 class ImagePipe : public AssetPipe {
 public:
 #ifdef WIND_PIPE_WRITE
-  void compile(const fs::path& _source,
-    const fs::path& _destination) override {
+  void compile(const fs::path& _source, const fs::path& _destination) override {
     int width, height, channels;
 
     unsigned char* image =
@@ -33,12 +32,6 @@ public:
       return;
     }
 
-    output.write(reinterpret_cast<char*>(&m_id), sizeof(asset_id));
-
-    output.write(reinterpret_cast<char*>(&width), sizeof(int));
-    output.write(reinterpret_cast<char*>(&height), sizeof(int));
-    output.write(reinterpret_cast<char*>(&channels), sizeof(int));
-
     const uLong fileSize = width * height * channels + 1;
 
     uLongf zippedSize = compressBound(fileSize);
@@ -50,6 +43,12 @@ public:
       return;
     }
 
+    output.write(reinterpret_cast<char*>(&m_id), sizeof(m_id));
+    output.write(reinterpret_cast<char*>(&width), sizeof(width));
+    output.write(reinterpret_cast<char*>(&height), sizeof(height));
+    output.write(reinterpret_cast<char*>(&channels), sizeof(channels));
+    output.write(reinterpret_cast<char*>(&zippedSize), sizeof(zippedSize));
+
     output.write(zipped, zippedSize);
 
     output.close();
@@ -57,7 +56,28 @@ public:
 #endif
 
   void* load(std::ifstream& file) override {
-    return nullptr;
+    int width, height, channels;
+    uLongf orgSize, zippedSize;
+
+    file.read(reinterpret_cast<char*>(&width), sizeof(width));
+    file.read(reinterpret_cast<char*>(&height), sizeof(height));
+    file.read(reinterpret_cast<char*>(&channels), sizeof(channels));
+    file.read(reinterpret_cast<char*>(&zippedSize), sizeof(zippedSize));
+
+    orgSize = width * height * channels + 1;
+
+    auto zipData = new Bytef[zipSize];
+    file.read(reinterpret_cast<char*>(zipData), zipSize);
+
+    auto unzipData = new Bytef[orgSize];
+
+    auto rc = uncompress(unzipData, &orgSizeT, zipData, static_cast<uLongf>(zipSize));
+    if (rc != Z_OK)
+      throw std::invalid_argument(fmt::format("Failed uncompress data: {}", zError(rc)));
+
+    delete[] zipData;
+
+    return (void*)(unzipData);
   }
 
   ImagePipe()
