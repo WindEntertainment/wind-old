@@ -61,11 +61,11 @@ class IFilter {};
 template <typename... Components>
 class Filter : public IFilter {
 private:
-  std::vector<std::tuple<Components*...>> m_components;
+  std::vector<std::tuple<Components&...>> m_components;
   std::vector<Entity> m_entities;
 
 public:
-  void addEntity(Entity entity, std::tuple<Components*...> components) {
+  void addEntity(Entity entity, std::tuple<Components&...> components) {
     m_entities.push_back(entity);
     m_components.push_back(components);
   }
@@ -188,7 +188,9 @@ public:
       },
         components);
 
-      filter->addEntity(entity, components);
+      auto n = std::tuple<Components&...>(*std::get<Components*>(components)...);
+
+      filter->addEntity(entity, n);
     }
 
     return filter;

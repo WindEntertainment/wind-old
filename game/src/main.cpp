@@ -93,14 +93,14 @@ int main(int argc, char** argv) {
   while (Window::update()) {
 
     for (auto [transform] : *transformFilter) {
-      transform->position.x += (-5 + rand() % 11) / 5.f;
-      transform->position.y += (-5 + rand() % 11) / 5.f;
+      transform.position.x += (-5 + rand() % 11) / 5.f;
+      transform.position.y += (-5 + rand() % 11) / 5.f;
     }
 
     Renderer::clear({0.f, 0.f, 0.f, 1});
 
     for (auto [renderable, transform] : *renderFilter) {
-      Renderer::drawTexture(renderable->texture, {1, 1}, transform->position, {0, 0, 0}, {64, 64, 1});
+      Renderer::drawTexture(renderable.texture, {1, 1}, transform.position, {0, 0, 0}, {64, 64, 1});
     }
 
     Ultralight::update();
