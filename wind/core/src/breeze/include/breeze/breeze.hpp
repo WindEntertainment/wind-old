@@ -105,28 +105,24 @@ public:
     return std::static_pointer_cast<ComponentPool<Component>>(m_components[type])->getByEntity(entity);
   }
 
+  template <typename Func>
+  void forEach(Func function) {
+    for (const auto& entity : m_entities)
+      function(entity);
+  }
+
+  template <typename... Components, typename Func>
+  void forEach(Func function) {
+    for (const auto& entity : m_entities)
+      if ((m_components[typeid(Components).name()]->hasEntity(entity) && ...))
+        function(entity, std::static_pointer_cast<ComponentPool<Components>>(m_components[typeid(Components).name()])->getByEntity(entity)...);
+  }
+
   template <typename... Components, typename Func>
   void forEachWith(Func function) {
-    std::vector<std::tuple<Components&...>> filter;
-
-    std::vector<const char*> types;
-    ((types.push_back(typeid(Components).name())), ...);
-
-    for (const auto& entity : m_entities) {
-      bool valid = true;
-      for (const auto& type : types)
-        if (!m_components[type]->hasEntity(entity)) {
-          valid = false;
-          break;
-        }
-
-      if (!valid)
-        continue;
-
-      // clang-format off
-      function(std::static_pointer_cast<ComponentPool<Components>>(m_components[typeid(Components).name()])->getByEntity(entity)...);
-      // clang-format on
-    }
+    for (const auto& entity : m_entities)
+      if ((m_components[typeid(Components).name()]->hasEntity(entity) && ...))
+        function(std::static_pointer_cast<ComponentPool<Components>>(m_components[typeid(Components).name()])->getByEntity(entity)...);
   }
 
 private:
