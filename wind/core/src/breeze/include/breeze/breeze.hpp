@@ -61,11 +61,11 @@ class IFilter {};
 template <typename... Components>
 class Filter : public IFilter {
 private:
-  std::vector<std::tuple<std::shared_ptr<Components>...>> m_components;
+  std::vector<std::tuple<Components*...>> m_components;
   std::vector<Entity> m_entities;
 
 public:
-  void addEntity(Entity entity, std::tuple<std::shared_ptr<Components>...> components) {
+  void addEntity(Entity entity, std::tuple<Components*...> components) {
     m_entities.push_back(entity);
     m_components.push_back(components);
   }
@@ -182,9 +182,9 @@ public:
       if (!valid)
         continue;
 
-      std::tuple<std::shared_ptr<Components>...> components;
+      std::tuple<Components*...> components;
       std::apply([&](auto&... args) {
-        ((args = std::make_shared<Components>(std::static_pointer_cast<ComponentPool<Components>>(m_components[typeid(Components).name()])->getByEntity(entity))), ...);
+        ((args = &(std::static_pointer_cast<ComponentPool<Components>>(m_components[typeid(Components).name()])->getByEntity(entity))), ...);
       },
         components);
 
