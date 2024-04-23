@@ -10,7 +10,7 @@ if [ ! -f "wm" ]; then
 fi
 
 echo "$OS"
-symlink_origin_path="$(pwd)/wm"
+
 if echo "$OS" | grep -qi "Windows"; then
   bash_profile="$HOME/.bash_profile"
   if [ -f "$bash_profile" ]; then
@@ -23,6 +23,7 @@ if echo "$OS" | grep -qi "Windows"; then
 
   source "$bash_profile"
 else
+  symlink_origin_path="$(pwd)/wm"
   sudo chmod +x wm
 
   symlink_path='/usr/local/bin/wm'
@@ -32,6 +33,13 @@ else
   fi
 
   ln -sf "$symlink_origin_path"  $symlink_path
+
+  for file in "$(dirname "$0")"/*.sh; do
+    if [ -f "$file" ]; then
+      sudo chmod +x "$file"
+      echo "Added execute permission to: $file"
+    fi
+  done
 fi
 
 echo "wm configured!"
