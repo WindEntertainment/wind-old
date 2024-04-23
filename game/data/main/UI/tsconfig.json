@@ -19,6 +19,7 @@
     "resolveJsonModule": true,
 
     "strict": true,
+    "allowUnreachableCode": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
