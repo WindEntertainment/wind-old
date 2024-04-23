@@ -14,11 +14,11 @@ symlink_origin_path="$(pwd)/wm"
 if echo "$OS" | grep -qi "Windows"; then
   bash_profile="$HOME/.bash_profile"
   if [ -f "$bash_profile" ]; then
-      echo "export PATH=\"\$PATH:$(pwd)\"" >> "$bash_profile"
-      echo "Updated PATH variable in $bash_profile"
+    echo "export PATH=\"\$PATH:$(pwd)\"" >> "$bash_profile"
+    echo "Updated PATH variable in $bash_profile"
   else
-      echo "export PATH=\"\$PATH:$(pwd)\"" > "$bash_profile"
-      echo "Created $bash_profile with updated PATH variable"
+    echo "export PATH=\"\$PATH:$(pwd)\"" > "$bash_profile"
+    echo "Created $bash_profile with updated PATH variable"
   fi
 
   source "$bash_profile"
