@@ -66,12 +66,12 @@ public:
 
     orgSize = width * height * channels + 1;
 
-    auto zipData = new Bytef[zipSize];
-    file.read(reinterpret_cast<char*>(zipData), zipSize);
+    auto zipData = new Bytef[zippedSize];
+    file.read(reinterpret_cast<char*>(zipData), zippedSize);
 
     auto unzipData = new Bytef[orgSize];
 
-    auto rc = uncompress(unzipData, &orgSizeT, zipData, static_cast<uLongf>(zipSize));
+    auto rc = uncompress(unzipData, &orgSize, zipData, static_cast<uLongf>(zippedSize));
     if (rc != Z_OK)
       throw std::invalid_argument(fmt::format("Failed uncompress data: {}", zError(rc)));
 
