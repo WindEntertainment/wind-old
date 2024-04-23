@@ -4,9 +4,6 @@
     "--compile-commands-dir",
     "${workspaceFolder}/build/Debug/"
   ],
-  "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
-  },
   "yaml.schemas": {
     "http://json.schemastore.org/github-workflow": [
       "**/.github/workflows/*.yaml",
