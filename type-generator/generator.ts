@@ -1,31 +1,35 @@
-import yargs from "yargs";
+import yargs from 'yargs';
 
-import { parse } from "./parser/parser";
-import { Language } from "./shared";
+import { parse } from './parser/parser';
+import { Language } from './shared';
 
 const { language, output, schema } = yargs
   .options({
     language: {
-      alias: "l",
+      alias: 'l',
       choices: Object.values(Language),
       demandOption: true,
-      describe: "Target language",
+      describe: 'Target language',
     },
     output: {
-      alias: "o",
+      alias: 'o',
       demandOption: true,
-      describe: "Output file name",
-      type: "string",
+      describe: 'Output file name',
+      type: 'string',
     },
     schema: {
-      alias: "s",
+      alias: 's',
       demandOption: true,
-      describe: "Path to the schema file",
-      type: "string",
+      describe: 'Path to the schema file',
+      type: 'string',
     },
   })
   .help()
-  .alias("help", "h")
+  .alias('help', 'h')
   .parseSync();
 
-parse({ language: language as Language, outputPath: output, schemaPath: schema });
+parse({
+  language: language as Language,
+  outputPath: output,
+  schemaPath: schema,
+});

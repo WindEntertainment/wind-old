@@ -1,7 +1,8 @@
-import { MethodSchema, SchemaObject, SchemaPlainObject, capitalizeFirstLetter, mappers } from "../shared";
+import { MethodSchema, SchemaObject, SchemaPlainObject, SchemaTypes, capitalizeFirstLetter, mappers } from "../shared";
 
-const mapTypeToCpp = (type: string) => {
-  return mappers.cpp[type] ?? type;
+const mapTypeToCpp = (type: SchemaTypes | string) => {
+  // @ts-expect-error
+  return mappers.cpp?.[type] ?? type;
 };
 
 const generateStruct = (name: string, fields: SchemaPlainObject) => {

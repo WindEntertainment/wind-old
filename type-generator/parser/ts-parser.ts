@@ -1,7 +1,8 @@
-import { MethodSchema, SchemaObject, SchemaPlainObject, capitalizeFirstLetter, mappers } from "../shared";
+import { MethodSchema, SchemaObject, SchemaPlainObject, SchemaTypes, capitalizeFirstLetter, mappers } from "../shared";
 
-const mapTypeToTS = (type: string) => {
-  return mappers.ts[type] ?? type;
+const mapTypeToTS = (type: SchemaTypes | string) => {
+  // @ts-expect-error
+  return mappers.ts?.[type] ?? type;
 };
 
 const generateType = (name: string, fields: SchemaPlainObject) => {

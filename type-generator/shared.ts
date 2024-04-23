@@ -1,5 +1,5 @@
-export type SchemaObject = { [paramName: string]: SchemaObject | string };
-export type SchemaPlainObject = { [paramName: string]: string };
+export type SchemaObject = { [paramName: string]: SchemaObject | string | SchemaTypes };
+export type SchemaPlainObject = { [paramName: string]: string | SchemaTypes };
 
 export type MethodSchema = {
   [className: string]: {
@@ -27,15 +27,15 @@ export enum SchemaTypes {
   STRING = "string",
 }
 
-export const mappers: Record<Language, Record<string, SchemaTypes>> = {
+export const mappers: Record<Language, Record<SchemaTypes, string>> = {
   cpp: {
-    bool: SchemaTypes.BOOLEAN,
-    int: SchemaTypes.NUMBER,
-    "std::string": SchemaTypes.STRING,
+    [SchemaTypes.BOOLEAN]: "bool" ,
+    [SchemaTypes.NUMBER]: "int" ,
+    [SchemaTypes.STRING]: "std::string" ,
   },
   ts: {
-    boolean: SchemaTypes.BOOLEAN,
-    number: SchemaTypes.NUMBER,
-    string: SchemaTypes.STRING,
+    [SchemaTypes.BOOLEAN]: "boolean" ,
+    [SchemaTypes.NUMBER]: "number" ,
+    [SchemaTypes.STRING]: "string" ,
   },
 };
