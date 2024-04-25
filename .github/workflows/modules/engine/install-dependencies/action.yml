@@ -2,7 +2,7 @@ name: Install dependencies engine
 description: Install dependencies engine
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Install dependencies
       shell: bash

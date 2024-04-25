@@ -2,10 +2,10 @@ name: Setup conan
 description: Setup conan
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Install conan
-      if:  env.os != 'macos-14'
+      if: env.os != 'macos-14'
       uses: turtlebrowser/get-conan@main
       with:
         version: 2.1.0
@@ -16,7 +16,7 @@ runs:
         conan profile detect
 
     - name: Config profile
-      run:   |
+      run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           echo "
             [settings]

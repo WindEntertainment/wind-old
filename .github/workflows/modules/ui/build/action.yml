@@ -2,7 +2,7 @@ name: Build UI
 description: Build UI
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Setup node base
       uses: ./.github/workflows/utils/setup-node

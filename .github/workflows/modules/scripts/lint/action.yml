@@ -2,7 +2,7 @@ name: Lint scripts
 description: Lint scripts
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Setup dotnet base
       uses: ./.github/workflows/utils/setup-dotnet

@@ -7,7 +7,7 @@ inputs:
     description: JSON
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Create default profile
       shell: bash

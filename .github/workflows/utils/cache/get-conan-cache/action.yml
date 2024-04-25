@@ -2,7 +2,7 @@ name: Get conan cache
 description: Getting conan cache
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Get conan path
       shell: bash

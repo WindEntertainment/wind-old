@@ -2,7 +2,7 @@ name: Setup ultralight
 description: Setup ultralight
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Set ULTRALIGHT_PATH
       shell: bash

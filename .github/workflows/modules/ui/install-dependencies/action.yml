@@ -2,7 +2,7 @@ name: Install dependencies UI
 description: Install dependencies UI
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Install dependencies
       shell: bash

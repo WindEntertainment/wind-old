@@ -2,13 +2,13 @@ name: Lint engine
 description: Lint engine
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Lint
       uses: DoozyX/clang-format-lint-action@v0.17
       with:
-        source: '.'
-        exclude: './game/data'
-        extensions: 'h,cpp'
+        source: "."
+        exclude: "./game/data"
+        extensions: "h,cpp"
         clangFormatVersion: 17
         inplace: true

@@ -2,10 +2,10 @@ name: Build assets
 description: Build assets
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Build asset bundler
-      run:   |
+      run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           export CC=${{ env.cc }}
           export CXX=${{ env.cxx }}
@@ -38,7 +38,7 @@ runs:
         key: ${{ env.envHash }}-${{ hashFiles('${{ env.projectRoot }}/dreich/game/data/**/.export-config') }}-${{ env.os }}-asset-manager
 
     - name: Build assets
-      run:   |
+      run: |
         cd game/data
 
         rm -rf .cache

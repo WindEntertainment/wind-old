@@ -2,7 +2,7 @@ name: Build scripts
 description: Build scripts
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Setup dotnet base
       uses: ./.github/workflows/utils/setup-dotnet

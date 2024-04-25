@@ -2,7 +2,7 @@ name: Setup .Net
 description: Setup .Net
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Set DOTNET_PATH
       shell: bash

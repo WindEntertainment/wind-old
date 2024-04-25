@@ -2,7 +2,7 @@ name: Test engine
 description: Test engine
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Setup conan base
       uses: ./.github/workflows/utils/setup-conan

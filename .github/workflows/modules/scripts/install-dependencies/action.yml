@@ -2,7 +2,7 @@ name: Install dependencies scripts
 description: Install dependencies scripts
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Install dependencies
       shell: bash

@@ -2,10 +2,10 @@ name: Setup env
 description: Setup env
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Add env file
-      run:   |
+      run: |
         touch .env
 
         if [ "$RUNNER_OS" == "Linux" ]; then
