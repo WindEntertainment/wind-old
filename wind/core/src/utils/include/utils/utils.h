@@ -17,12 +17,16 @@ bool contains(C _container, T _value) {
   return it != _container.end();
 }
 
-template <class Error>
-  requires std::derived_from<Error, std::exception>
-void verify(auto value) {
-  if (!value)
-    throw new Error();
-}
+// template <class Error, typename... T>
+//   requires std::derived_from<Error, std::exception>
+// void verify(bool _value, const char* _message, T&&... _args) {
+//   if (!_value)
+//     throw new Error(fmt::vformat(_message, fmt::make_format_args(_args...)).c_str());
+// }
+
+#define verify(errorType, condition) \
+  if (!(condition))                  \
+  throw (errorType)(fmt::format("{}: {}", #errorType, #condition))
 
 // static auto forEach = std::ranges::for_each;
 template <typename Range, typename Func>

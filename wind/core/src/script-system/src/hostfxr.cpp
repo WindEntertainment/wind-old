@@ -25,7 +25,7 @@ void ScriptSystemHostfxr::loadPointers() {
 
   int rc = get_hostfxr_path(buffer, &buffer_size, &params);
 
-  verify<ScriptSystemError>(rc == 0);
+  verify(ScriptSystemError, rc == 0);
 
   void* lib = loadLibrary(buffer);
   fptrInitCmd = (hostfxr_initialize_for_dotnet_command_line_fn)getExport(lib, "hostfxr_initialize_for_dotnet_command_line");
@@ -33,7 +33,7 @@ void ScriptSystemHostfxr::loadPointers() {
   fptrGetDelegate = (hostfxr_get_runtime_delegate_fn)getExport(lib, "hostfxr_get_runtime_delegate");
   fptrClose = (hostfxr_close_fn)getExport(lib, "hostfxr_close");
 
-  verify<ScriptSystemError>(fptrInitConfig && fptrGetDelegate && fptrClose);
+  verify(ScriptSystemError, fptrInitConfig && fptrGetDelegate && fptrClose);
 }
 
 void ScriptSystemHostfxr::initConfig() {
@@ -87,7 +87,7 @@ void* ScriptSystemHostfxr::loadLibrary(const char_t* path) {
   void* h = dlopen(path, RTLD_LAZY | RTLD_LOCAL);
 #endif
 
-  verify<ScriptSystemError>(h != nullptr);
+  verify(ScriptSystemError, h != nullptr);
   return (void*)h;
 };
 
@@ -98,7 +98,7 @@ void* ScriptSystemHostfxr::getExport(void* h, const char* name) {
   void* f = dlsym(h, name);
 #endif
 
-  verify<ScriptSystemError>(f != nullptr);
+  verify(ScriptSystemError, f != nullptr);
   return f;
 };
 } // namespace wind

@@ -4,7 +4,6 @@ function(wind_entry TARGET_NAME BUNDLE_LIST)
     add_executable(${TARGET_NAME} ${CURRENT_LIST_DIR}/main.cpp)
     
     set(BUNDLES_TARGETS "")
-
     foreach(BUNDLE ${BUNDLE_LIST})
         add_custom_target(
             ${BUNDLE}_bundle ALL

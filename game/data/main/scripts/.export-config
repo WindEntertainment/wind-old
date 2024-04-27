@@ -1,5 +1,5 @@
 preprocessing:
-  execute: "dotnet publish"
+  execute: "rm -rf ./bin && dotnet publish"
 
 exports:
   - path: "(bin[\/\\\\]Release).*"

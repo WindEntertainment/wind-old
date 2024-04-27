@@ -1,3 +1,3 @@
 project(game)
 
-wind_entry(${PROJECT_NAME} "main")
+wind_entry(${PROJECT_NAME} "main;resources")

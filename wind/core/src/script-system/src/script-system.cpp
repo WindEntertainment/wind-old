@@ -18,11 +18,7 @@ load_assembly_and_get_function_pointer_fn ScriptSystem::getFunctionPointerFromAs
     hdt_load_assembly_and_get_function_pointer,
     &functionPointer);
 
-  if (rc != 0 || functionPointer == nullptr) {
-    std::cerr << "Get delegate failed: " << std::hex << std::showbase << rc << std::endl;
-    throw new ScriptSystemError();
-  }
-
+  verify(ScriptSystemError, rc == 0 && functionPointer != nullptr);
   return (load_assembly_and_get_function_pointer_fn)functionPointer;
 }
 

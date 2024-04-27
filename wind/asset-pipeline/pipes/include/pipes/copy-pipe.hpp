@@ -9,9 +9,9 @@ public:
 #ifdef WIND_PIPE_WRITE
   void compile(const fs::path& _source, const fs::path& _destination) override {
     try {
-      fs::copy_file(_source, _destination);
+      fs::copy_file(_source, _destination, fs::copy_options::overwrite_existing);
     } catch (fs::filesystem_error& ex) {
-      spdlog::error("Failed copy file from {} to {}", _source.string(), _destination.string());
+      spdlog::error("Failed copy file from {} to {} because: {}", _source.string(), _destination.string(), ex.what());
       return;
     }
   }

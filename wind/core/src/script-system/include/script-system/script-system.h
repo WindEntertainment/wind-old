@@ -19,7 +19,7 @@ public:
   int run(std::string dotnetType, std::string methodName, FunctionArgs... args) {
     load_assembly_and_get_function_pointer_fn functionPointer = nullptr;
     functionPointer = getFunctionPointerFromAssembly();
-    verify<ScriptSystemError>(functionPointer != nullptr);
+    verify(ScriptSystemError, functionPointer != nullptr);
 
     component_entry_point_fn function = nullptr;
 
@@ -41,11 +41,11 @@ public:
       (void**)&function);
 #endif
 
-    verify<ScriptSystemError>(rc == 0 && function != nullptr);
+    verify(ScriptSystemError, rc == 0 && function != nullptr);
 
     // Adjust for proper alignment by adding the size of a void pointer,
     // and round up to the nearest multiple of the size of a void pointer.
-    size_t bufferSize = ((sizeof(args) + ...) + sizeof(void*) - 1) / sizeof(void*) * sizeof(void*);
+    size_t bufferSize = ((sizeof(args) + ... + 0) + sizeof(void*) - 1) / sizeof(void*) * sizeof(void*);
 
     unsigned char* buffer = new unsigned char[bufferSize];
 

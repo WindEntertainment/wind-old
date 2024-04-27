@@ -38,6 +38,7 @@
     "KEYCODES",
     "Makefiles",
     "opengl",
+    "runtimeconfig",
     "spdlog",
     "timepoint",
     "vsync"
