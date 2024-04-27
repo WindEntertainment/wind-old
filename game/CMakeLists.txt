@@ -1,10 +1,17 @@
 project(game)
 
+set(HEADERS
+  ./app/include/game/worlds/game-world.hpp
+  ./app/include/game/utils.hpp
+)
+
 set(SOURCES
-    ./src/main.cpp
+    ./app/src/main.cpp
+    ./app/src/worlds/game-world.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+include_directories(./app/include/)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-core)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-ultralight)
