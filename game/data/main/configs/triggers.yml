@@ -3,6 +3,7 @@ triggers:
     bindings:
       - key: KEYCODES::KEY_W
         action: KEY_ACTIONS::PRESSED
+
   - name: playerMoveDownPressed
     bindings:
       - key: KEYCODES::KEY_S
