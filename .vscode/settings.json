@@ -36,6 +36,7 @@
     "glfw",
     "hostfxr",
     "KEYCODES",
+    "libwind",
     "Makefiles",
     "opengl",
     "runtimeconfig",

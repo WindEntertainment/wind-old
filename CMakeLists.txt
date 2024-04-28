@@ -18,6 +18,7 @@ message("Building with CMake version: ${CMAKE_VERSION}")
 
 add_subdirectory(./wind/)
 add_subdirectory(./game/)
+add_subdirectory(./examples/)
 
 ############################################################
 # Install

@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
     hostfxr->init(dotnetPath / "Game.runtimeconfig.json");
     ScriptSystem* scriptSystem = hostfxr->createScriptSystem(dotnetPath, dotnetPath / "Game.dll");
 
-    scriptSystem->run("Wind.Game, Game", "Entry", "from host!", 1);
+    scriptSystem->run("Wind.Game, Game", "Entry");
 
     hostfxr->stop();
   } catch (const std::exception& ex) {

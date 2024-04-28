@@ -32,10 +32,19 @@ static timepoint m_perSecond;
 //===========================================//
 // Lifecycle
 
+void Window::init() {
+  spdlog::info("============WINDOW INIT=============");
+  init(Config());
+}
+
 void Window::init(void (*buildConfig)(Config*)) {
   Config config;
   buildConfig(&config);
 
+  init(config);
+}
+
+void Window::init(Config config) {
   if (!glfwInit()) {
     spdlog::error("Cannot glfw init: {}", getGLFWError());
     return;
