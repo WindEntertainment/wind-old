@@ -49,6 +49,8 @@ jobs:
         uses: "./.github/workflows/modules/engine/lint"
       - name: Linting commit
         uses: "./.github/workflows/utils/commit"
+        with:
+          message: "Linting fixes"
 
   testing:
     name: "Testing: ${{ matrix.config.name }}"
