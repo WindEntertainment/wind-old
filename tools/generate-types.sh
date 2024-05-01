@@ -42,11 +42,11 @@ cd "$root/$project" || exit
   case $project in
     game)
       generate_folder_schemas "$(pwd)/schemas" "$(pwd)/data/main/UI/src/generated" ts;
-      generate_folder_schemas "$(pwd)/schemas" "$(pwd)/includes/game/generated" cpp;
+      generate_folder_schemas "$(pwd)/schemas" "$(pwd)/include/game/generated" cpp;
       ;;
     editor)
       generate_folder_schemas "$(pwd)/schemas" "$(pwd)/data/main/UI/src/generated" ts;
-      generate_folder_schemas "$(pwd)/schemas" "$(pwd)/includes/editor/generated" cpp;
+      generate_folder_schemas "$(pwd)/schemas" "$(pwd)/include/editor/generated" cpp;
       ;;
     *) echo "Unknown project: $project"; exit 1 ;;
   esac
