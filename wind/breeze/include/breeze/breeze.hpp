@@ -10,6 +10,7 @@
 namespace wind {
 
 using Entity = std::uint8_t;
+class World;
 
 class IComponentPool {
 public:
@@ -55,6 +56,12 @@ private:
   std::vector<Component> m_components;
   std::map<Entity, size_t> m_entityToIndex;
   std::map<size_t, Entity> m_indexToEntity;
+};
+
+class ISystem {
+public:
+  virtual ~ISystem(){};
+  virtual void update(World&) {};
 };
 
 class World {
@@ -124,15 +131,22 @@ public:
         function(std::static_pointer_cast<ComponentPool<Components>>(m_components[typeid(Components).name()])->getByEntity(entity)...);
   }
 
+  void addSystem(std::unique_ptr<ISystem> system) {
+    m_systems.push_back(std::move(system));
+  }
+
+  void update() {
+    for (auto& system : m_systems)
+      system->update(*this);
+  }
+
 private:
   std::vector<Entity> m_entities;
   std::vector<Entity> m_availableIds;
   Entity m_lastEntity;
 
   std::map<const char*, std::shared_ptr<IComponentPool>> m_components;
-};
-
-class SystemManager {
+  std::vector<std::unique_ptr<ISystem>> m_systems;
 };
 
 } // namespace wind

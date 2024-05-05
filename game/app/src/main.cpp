@@ -1,4 +1,4 @@
-#include "game/worlds/game-world.hpp"
+#include "game/worlds.hpp"
 
 int main(int argc, char** argv) {
 #ifndef NDEBUG
@@ -16,15 +16,14 @@ int main(int argc, char** argv) {
     self->vSync = true;
   });
 
-  GameWorld gameWorld;
-  gameWorld.load();
+  World* world = loadGameWorld();
 
   while (Window::update()) {
-    gameWorld.update();
+    world->update();
     Window::show();
   }
 
-  gameWorld.unload();
+  delete world;
   Window::destroy();
 
   return EXIT_SUCCESS;
