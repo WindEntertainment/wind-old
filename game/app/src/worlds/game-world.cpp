@@ -16,41 +16,26 @@ namespace game {
 World* loadGameWorld() {
   World* world = new World();
 
-  // clang-format off
-
   auto background = world->createEntity();
   world->attachComponent(background, Transform{.scale = {800, 600}});
-  world->attachComponent(background, Renderable{
-    .texture = AssetManager::getAsset<Texture>("main/art/background.png")
-  });
+  world->attachComponent(background, Renderable{.texture = AssetManager::getAsset<Texture>("main/art/background.png")});
 
   auto player = world->createEntity();
   world->attachComponent(player, Player{});
   world->attachComponent(player, Transform{.scale = {128, 128}});
   world->attachComponent(player, Moveable{});
-  world->attachComponent(player, Renderable{
-    .texture = AssetManager::getAsset<Texture>("main/art/player.png")
-  });
+  world->attachComponent(player, Renderable{.texture = AssetManager::getAsset<Texture>("main/art/player.png")});
 
   auto enemy = world->createEntity();
-  world->attachComponent(enemy, Enemy{
-    .target = player
-  });
+  world->attachComponent(enemy, Enemy{.target = player});
   world->attachComponent(enemy, Moveable{});
-  world->attachComponent(enemy, Transform{
-    .position = {0, -300, 0},
-    .scale = {128, 128}
-  });
-  world->attachComponent(enemy, Renderable{
-    .texture = AssetManager::getAsset<Texture>("main/art/enemy.png")
-  });
+  world->attachComponent(enemy, Transform{.position = {0, -300, 0}, .scale = {128, 128}});
+  world->attachComponent(enemy, Renderable{.texture = AssetManager::getAsset<Texture>("main/art/enemy.png")});
 
   world->addSystem(std::make_unique<RenderSystem>());
   world->addSystem(std::make_unique<MoveSystem>());
   world->addSystem(std::make_unique<ControllSystem>());
   world->addSystem(std::make_unique<FollowingSystem>());
-
-  // clang-format on
 
   return world;
 }
