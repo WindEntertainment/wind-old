@@ -18,7 +18,7 @@
           "world": "string"
         },
         "output": {
-          "world": "string"
+          "world": "number"
         }
       }
     }

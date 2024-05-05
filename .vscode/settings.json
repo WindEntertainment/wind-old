@@ -4,16 +4,6 @@
     "--compile-commands-dir",
     "${workspaceFolder}/build/Debug/"
   ],
-  "yaml.schemas": {
-    "http://json.schemastore.org/github-workflow": [
-      "**/.github/workflows/*.yaml",
-      "**/.github/workflows/*.yml"
-    ],
-    "http://json.schemastore.org/github-action": [
-      "**/action.yaml",
-      "**/action.yml"
-    ]
-  },
   "editor.formatOnSave": true,
   "editor.formatOnType": false,
   "i18n-ally.keystyle": "nested",

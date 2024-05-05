@@ -318,7 +318,9 @@ Texture* Ultralight::loadView(const std::string& _path, const glm::ivec2 _size) 
   view->set_network_listener(new NetworkLogger());
 #endif
 
-  view->LoadURL(("file:///" + _path).c_str());
+  // view->LoadURL(("file:///" + _path).c_str());
+  ultralight::String url("http://localhost:5174"); // Change the URL to match your custom server
+  view->LoadURL(url);
 
   m_views.push_back(view);
 

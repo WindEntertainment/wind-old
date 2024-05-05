@@ -12,3 +12,229 @@
 
 - CI
 1. artifacts + releases
+
+
+JS event manager
+
+```javascript
+// Define an event manager class in JavaScript
+class EventManager {
+  constructor() {
+    this.callbacks = {};
+  }
+
+  // Register a callback for a specific event
+  registerCallback(eventName, callback) {
+    if (!this.callbacks[eventName]) {
+      this.callbacks[eventName] = [];
+    }
+    this.callbacks[eventName].push(callback);
+  }
+
+  // Trigger an event and call the associated callbacks (if registered)
+  triggerEvent(eventName, eventData) {
+    const callbacks = this.callbacks[eventName];
+    if (callbacks) {
+      callbacks.forEach(callback => {
+        callback(eventData);
+      });
+    }
+  }
+}
+
+// Create an instance of the event manager
+const eventManager = new EventManager();
+
+// Example usage:
+// Register a callback for the "myEvent" event
+eventManager.registerCallback('myEvent', eventData => {
+  console.log('Event received:', eventData);
+});
+
+// Trigger the "myEvent" event with some data
+eventManager.triggerEvent('myEvent', 'Hello from C++!');
+```
+
+In your C++ application, you would need to expose a mechanism for calling JavaScript functions, such as using a JavaScript engine like V8. When you need to trigger an event from C++, you would call a function in the JavaScript environment that then calls the appropriate method on the event manager instance.
+
+This approach allows you to handle communication between your C++ application and React components using a centralized event manager in JavaScript.
+
+
+CPP calling events
+#include <iostream>
+#include <JavaScriptCore/JavaScriptCore.h>
+#include <string>
+
+// Function to create a JavaScript object with the specified schema
+JSObjectRef createJSObject(JSContextRef ctx, const std::string& eventName, const std::string& eventData, const std::string& meta) {
+    // Convert C++ strings to JS strings
+    JSStringRef jsEventName = JSStringCreateWithUTF8CString(eventName.c_str());
+    JSStringRef jsEventData = JSStringCreateWithUTF8CString(eventData.c_str());
+    JSStringRef jsMeta = JSStringCreateWithUTF8CString(meta.c_str());
+
+    // Parse eventData and meta as JSON objects
+    JSValueRef jsEventDataObj = JSValueMakeFromJSONString(ctx, jsEventData);
+    JSValueRef jsMetaObj = JSValueMakeFromJSONString(ctx, jsMeta);
+
+    // Check if JSON parsing was successful
+    if (!jsEventDataObj || !jsMetaObj) {
+        std::cerr << "Error: Unable to parse eventData or meta as JSON." << std::endl;
+        // Clean up and return nullptr
+        JSStringRelease(jsEventName);
+        JSStringRelease(jsEventData);
+        JSStringRelease(jsMeta);
+        return nullptr;
+    }
+
+    // Create an empty object
+    JSObjectRef jsObject = JSObjectMake(ctx, nullptr, nullptr);
+
+    // Check if setting properties on the object fails
+    if (!JSObjectSetProperty(ctx, jsObject, jsEventName, jsEventDataObj, kJSPropertyAttributeNone, nullptr) ||
+        !JSObjectSetProperty(ctx, jsObject, jsMeta, jsMetaObj, kJSPropertyAttributeNone, nullptr)) {
+        std::cerr << "Error: Unable to set properties on the JavaScript object." << std::endl;
+        // Clean up and return nullptr
+        JSStringRelease(jsEventName);
+        JSStringRelease(jsEventData);
+        JSStringRelease(jsMeta);
+        return nullptr;
+    }
+
+    // Clean up
+    JSStringRelease(jsEventName);
+    JSStringRelease(jsEventData);
+    JSStringRelease(jsMeta);
+
+    return jsObject;
+}
+
+int main() {
+    // Initialize JavaScript context
+    JSGlobalContextRef ctx = JSGlobalContextCreate(nullptr);
+
+    // Example data and meta objects (in JSON format)
+    std::string eventData = R"({"key1": "value1", "key2": "value2"})";
+    std::string meta = R"({"metaKey1": "metaValue1", "metaKey2": "metaValue2"})";
+
+    // Call the function to create the JavaScript object
+    JSObjectRef jsObject = createJSObject(ctx, "eventName", eventData, meta);
+
+    // Check if object creation was successful
+    if (jsObject) {
+        // Convert JS object to string for printing
+        JSStringRef jsString = JSValueToStringCopy(ctx, jsObject, nullptr);
+        size_t len = JSStringGetMaximumUTF8CStringSize(jsString);
+        char* buffer = new char[len];
+        JSStringGetUTF8CString(jsString, buffer, len);
+        std::cout << "JavaScript Object: " << buffer << std::endl;
+
+        // Clean up
+        delete[] buffer;
+        JSStringRelease(jsString);
+    }
+
+    // Release JavaScript context
+    JSGlobalContextRelease(ctx);
+
+    return 0;
+}
+
+JS handle CPP event
+function handleCppEvent(data) {
+    // Parse the received data
+    let eventData;
+    try {
+        eventData = JSON.parse(data);
+    } catch (error) {
+        console.error('Error parsing data from C++:', error);
+        return;
+    }
+
+    // Extract the event name, data, and meta from the parsed data
+    const eventName = eventData.name;
+    const eventPayload = eventData.data;
+    const eventMeta = eventData.meta;
+
+    // Call the event manager with the extracted information
+    eventManager.triggerEvent(eventName, eventPayload, eventMeta);
+}
+
+
+SHARED TYPES
+
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "eventName": { "type": "string" },
+        "eventData": { "type": "object" },
+        "meta": { "type": "object" }
+    },
+    "required": ["eventName"]
+}
+
+quicktype --lang cpp --namespace "Events" events.schema.json -o Events.hpp
+quicktype --lang ts events.schema.json -o events.ts
+
+
+
+#include <iostream>
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
+
+// Base case: Convert single argument to JSON
+template<typename T>
+json toJsonHelper(const T& arg) {
+    return arg;
+}
+
+// Recursive case: Convert multiple arguments to JSON
+template<typename T, typename... Args>
+json toJsonHelper(const T& arg, const Args&... args) {
+    json result;
+    result.push_back(arg); // Assuming JSON array representation
+
+    // Recursively process remaining arguments
+    json remaining = toJsonHelper(args...);
+    for (auto& item : remaining) {
+        result.push_back(item);
+    }
+
+    return result;
+}
+
+// Variadic template function to convert multiple arguments to JSON
+template<typename... Args>
+json toJson(const Args&... args) {
+    return toJsonHelper(args...);
+}
+
+int main() {
+    // Usage
+    json result = toJson(42, "hello", true, 3.14);
+    std::cout << result.dump() << std::endl;
+
+    return 0;
+}
+
+
+
+Event {
+  name: "LOAD_IMAGE",
+  data: {
+    "real_path": "/",
+    "inner_path": "./",
+    name: "",
+    width: 1,
+    height: 2
+  },
+  meta: {
+    pipiska: true,
+  }
+}
+
+
+JSON parse/stringify
+
+c++ nlohmenn

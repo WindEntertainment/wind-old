@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 3.22)
 
-# Start read .env file
 file(STRINGS ".env" ENV_VARS)
 foreach(ENV_VAR ${ENV_VARS})
     string(REGEX MATCH "([^=]+)=([^=]*)" _ ${ENV_VAR})
     set(ENV{${CMAKE_MATCH_1}} "${CMAKE_MATCH_2}")
+    # biba
+    add_definitions(-D${CMAKE_MATCH_1}="${CMAKE_MATCH_2}")
+    message(STATUS "Loaded environment variable: ${CMAKE_MATCH_1}=${CMAKE_MATCH_2}")
 endforeach()
-# End read .env file
 
 project(myproject)
 
