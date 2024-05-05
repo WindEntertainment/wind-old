@@ -18,7 +18,6 @@ private:
   static const char* getGLFWError();
 
 public:
-  extern "C" static void init();
   static void init(void (*)(Config* self));
   static void init(Config);
 

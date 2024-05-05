@@ -32,11 +32,6 @@ static timepoint m_perSecond;
 //===========================================//
 // Lifecycle
 
-void Window::init() {
-  spdlog::info("============WINDOW INIT=============");
-  init(Config());
-}
-
 void Window::init(void (*buildConfig)(Config*)) {
   Config config;
   buildConfig(&config);

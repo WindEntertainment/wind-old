@@ -1,6 +1,0 @@
-preprocessing:
-  execute: "rm -rf ./bin && dotnet publish"
-
-exports:
-  - path: "(bin[\/\\\\]Release).*"
-    pipe: copy

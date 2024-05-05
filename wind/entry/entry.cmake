@@ -1,7 +1,5 @@
-set(CURRENT_LIST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/entry/ PARENT_SCOPE)
-
-function(wind_entry TARGET_NAME BUNDLE_LIST)
-    add_executable(${TARGET_NAME} ${CURRENT_LIST_DIR}/main.cpp)
+function(add_wind_game TARGET_NAME BUNDLE_LIST)
+    add_executable(${TARGET_NAME} ${ARGN})
     
     set(BUNDLES_TARGETS "")
     foreach(BUNDLE ${BUNDLE_LIST})
