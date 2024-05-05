@@ -2,10 +2,7 @@
 
 source "$(dirname "$0")/global.sh"
 
-if [ -f "$CONFIG_NAME" ]; then
-  echo "Config file already exists: $(pwd)/$CONFIG_NAME"
-  exit 0
-fi
+[ -f "$CONFIG_NAME" ] && throw 0 "Config file already exists: $(pwd)/$CONFIG_NAME"
 
 config=$(cat <<EOF
 name: example
@@ -19,7 +16,7 @@ echo "Config initialised: $(pwd)/wm-config.yml"
 
 mkdir "$DEFAULT_SCRIPTS_FOLDER"
 
-cp" $(dirname "$0")/health.sh" "$(pwd)/$DEFAULT_SCRIPTS_FOLDER"
+cp "$(dirname "$0")/health.sh" "$(pwd)/$DEFAULT_SCRIPTS_FOLDER"
 
 for file in $DEFAULT_SCRIPTS_FOLDER/*.sh; do
   if [ -f "$file" ]; then

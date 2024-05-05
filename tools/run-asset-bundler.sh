@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$(dirname "$0")/global.sh"
+
 call_dir=$(pwd)
 root=""
 

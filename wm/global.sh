@@ -1,8 +1,25 @@
 #!/bin/bash
+set -e -o errtrace
+
+trap_error() {
+  echo "ERROR: ${BASH_SOURCE[1]} at ${BASH_LINENO[0]}"
+}
+trap trap_error ERR
 
 CONFIG_NAME="wm-config.yml"
 SCRIPTS_FOLDER_CONFIG_KEY="scriptsFolder"
 DEFAULT_SCRIPTS_FOLDER="tools"
+
+throw() {
+  local status=${1:-2}
+  local message="$2"
+
+  if [[ -n $message ]]; then
+    echo "Error: $message"
+  fi
+
+  exit "$status"
+}
 
 find_config() {
   start_dir="$(pwd)"
@@ -15,19 +32,15 @@ find_config() {
     start_dir=$(dirname "$start_dir")
   done
 
-  echo "Error: No $CONFIG_NAME found in or above the current directory" >&2
-  exit 1
+  throw 1 "No $CONFIG_NAME found in or above the current directory"
 }
 
 get_scripts_folder() {
   config_folder="$1"
 
-  scripts_folder=$(yq e .$SCRIPTS_FOLDER_CONFIG_KEY $CONFIG_NAME)
+  scripts_folder=$config_folder/$(yq e .$SCRIPTS_FOLDER_CONFIG_KEY "$config_folder/$CONFIG_NAME")
 
-  if [ ! -d "$scripts_folder" ]; then
-    echo "Error: Scripts folder '$config_folder/$CONFIG_NAME' not found"
-    exit 1
-  fi
+  [ ! -d "$scripts_folder" ] && throw 1 "Scripts folder '$scripts_folder' not found"
 
-  echo "$config_folder"/"$scripts_folder"
+  echo "$scripts_folder"
 }
