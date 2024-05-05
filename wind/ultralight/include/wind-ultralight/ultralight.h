@@ -7,7 +7,7 @@
 #include "input-system/keys.h"
 #include "logger.h"
 
-#include <renderer/texture.h>
+#include <renderer/texture.hpp>
 
 #include <Ultralight/RefPtr.h>
 #include <Ultralight/Renderer.h>
@@ -19,7 +19,6 @@ namespace ul = ultralight;
 class Ultralight {
 public:
   static void init();
-  static void dispose();
 
   static void update();
   static void render();

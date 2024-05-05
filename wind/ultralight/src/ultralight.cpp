@@ -7,7 +7,7 @@
 #include "Ultralight/MouseEvent.h"
 #include "input-system/keys.h"
 #include <algorithm>
-#include <renderer/texture.h>
+#include <renderer/texture.hpp>
 #include <spdlog/common.h>
 #include <spdlog/spdlog.h>
 #include <wind-ultralight/ultralight.h>

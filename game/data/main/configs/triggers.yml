@@ -1,33 +1,34 @@
 triggers:
-  - name: ultralightMouseMove
+  - name: playerMoveUpPressed
     bindings:
-      - key: KEYCODES::MOUSE_MOVE
-        action: KEY_ACTIONS::UNKNOWN
-  - name: ultralightMouseScroll
-    bindings:
-      - key: KEYCODES::MOUSE_SCROLL
-        action: KEY_ACTIONS::UNKNOWN
-  - name: ultralightMousePress
-    bindings:
-      - key: KEYCODES::ALL_MOUSE_KEYS
+      - key: KEYCODES::KEY_W
         action: KEY_ACTIONS::PRESSED
-  - name: ultralightMouseRelease
+  - name: playerMoveDownPressed
     bindings:
-      - key: KEYCODES::ALL_MOUSE_KEYS
-        action: KEY_ACTIONS::RELEASED
-  - name: ultralightKeyPress
-    bindings:
-      - key: KEYCODES::ALL_KEYBOARD_KEYS
+      - key: KEYCODES::KEY_S
         action: KEY_ACTIONS::PRESSED
-  - name: ultralightKeyHold
+  - name: playerMoveLeftPressed
     bindings:
-      - key: KEYCODES::ALL_KEYBOARD_KEYS
-        action: KEY_ACTIONS::HELD
-  - name: ultralightKeyRelease
+      - key: KEYCODES::KEY_A
+        action: KEY_ACTIONS::PRESSED
+  - name: playerMoveRightPressed
     bindings:
-      - key: KEYCODES::ALL_KEYBOARD_KEYS
+      - key: KEYCODES::KEY_D
+        action: KEY_ACTIONS::PRESSED
+
+  - name: playerMoveUpReleased
+    bindings:
+      - key: KEYCODES::KEY_W
         action: KEY_ACTIONS::RELEASED
-  - name: ultralightChars
+  - name: playerMoveDownReleased
     bindings:
-      - key: KEYCODES::ALL_KEYBOARD_CHARS
-        action: KEY_ACTIONS::UNKNOWN
+      - key: KEYCODES::KEY_S
+        action: KEY_ACTIONS::RELEASED
+  - name: playerMoveLeftReleased
+    bindings:
+      - key: KEYCODES::KEY_A
+        action: KEY_ACTIONS::RELEASED
+  - name: playerMoveRightReleased
+    bindings:
+      - key: KEYCODES::KEY_D
+        action: KEY_ACTIONS::RELEASED

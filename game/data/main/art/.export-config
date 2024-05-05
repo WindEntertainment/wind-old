@@ -1,0 +1,3 @@
+exports:
+  - path: ".*(.png)"
+    pipe: image
