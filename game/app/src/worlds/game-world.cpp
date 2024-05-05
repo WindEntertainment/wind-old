@@ -16,8 +16,6 @@ namespace game {
 World* loadGameWorld() {
   World* world = new World();
 
-  InputSystem::createTriggersFromFile("main/configs/triggers.yml");
-
   // clang-format off
 
   auto background = world->createEntity();
@@ -29,21 +27,22 @@ World* loadGameWorld() {
   auto player = world->createEntity();
   world->attachComponent(player, Player{});
   world->attachComponent(player, Transform{.scale = {128, 128}});
+  world->attachComponent(player, Moveable{});
   world->attachComponent(player, Renderable{
     .texture = AssetManager::getAsset<Texture>("main/art/player.png")
   });
 
   auto enemy = world->createEntity();
-  world->attachComponent(enemy, Enemy{});
+  world->attachComponent(enemy, Enemy{
+    .target = player
+  });
+  world->attachComponent(enemy, Moveable{});
   world->attachComponent(enemy, Transform{
     .position = {0, -300, 0},
     .scale = {128, 128}
   });
   world->attachComponent(enemy, Renderable{
     .texture = AssetManager::getAsset<Texture>("main/art/enemy.png")
-  });
-  world->attachComponent(enemy, Moveable{
-    .velocity = { 0.1f, 0.f, 0.f }
   });
 
   world->addSystem(std::make_unique<RenderSystem>());

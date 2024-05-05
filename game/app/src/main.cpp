@@ -16,6 +16,8 @@ int main(int argc, char** argv) {
     self->vSync = true;
   });
 
+  InputSystem::createTriggersFromFile("main/configs/triggers.yml");
+
   World* world = loadGameWorld();
 
   while (Window::update()) {
