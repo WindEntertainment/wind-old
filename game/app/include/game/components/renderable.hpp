@@ -1,5 +1,9 @@
-#include "game/utils.hpp"
+#include <renderer/renderer.hpp>
+
+namespace game {
 
 struct Renderable {
-  Texture* texture;
+  wind::Texture* texture;
 };
+
+} // namespace game

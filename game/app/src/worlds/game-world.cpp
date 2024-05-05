@@ -6,6 +6,8 @@
 #include "game/components/renderable.hpp"
 #include "game/components/transform.hpp"
 
+#include "game/systems/controll-system.hpp"
+#include "game/systems/following-system.hpp"
 #include "game/systems/move-system.hpp"
 #include "game/systems/render-system.hpp"
 
@@ -46,6 +48,8 @@ World* loadGameWorld() {
 
   world->addSystem(std::make_unique<RenderSystem>());
   world->addSystem(std::make_unique<MoveSystem>());
+  world->addSystem(std::make_unique<ControllSystem>());
+  world->addSystem(std::make_unique<FollowingSystem>());
 
   // clang-format on
 
