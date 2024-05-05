@@ -1,6 +1,7 @@
 project(wind-renderer)
 
 set(HEADERS
+    ./include/renderer/assets.hpp
     ./include/renderer/camera.hpp
     ./include/renderer/mesh.hpp
     ./include/renderer/renderer.hpp
@@ -10,6 +11,7 @@ set(HEADERS
 )
 
 set(SOURCES
+    ./src/assets.cpp
     ./src/mesh.cpp
     ./src/renderer.cpp
     ./src/shader.cpp
@@ -24,6 +26,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
 # internal depencencies
 target_link_libraries(${PROJECT_NAME} PUBLIC wind-utils)
 target_link_libraries(${PROJECT_NAME} PUBLIC wind-resources)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-asset-manager)
 
 # extrenal depencencies
 

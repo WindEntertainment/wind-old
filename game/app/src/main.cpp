@@ -29,11 +29,3 @@ int main(int argc, char** argv) {
 
   return EXIT_SUCCESS;
 }
-
-template <>
-Texture* AssetManager::getAsset(const char* _key) {
-  auto image = getAsset<Image>(_key);
-  auto texture = new Texture(image->pixels, image->size);
-  delete image;
-  return texture;
-}

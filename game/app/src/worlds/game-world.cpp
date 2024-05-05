@@ -5,6 +5,7 @@
 #include "game/components/player.hpp"
 #include "game/components/renderable.hpp"
 #include "game/components/transform.hpp"
+#include "renderer/renderer.hpp"
 
 namespace game {
 
@@ -43,13 +44,13 @@ void GameWorld::load() {
 }
 
 void GameWorld::update() {
-  world.forEachWith<Moveable, Transform>([](const auto& moveable, auto& transform) {
+  world.forEachWith<Moveable, Transform>([](const Moveable& moveable, Transform& transform) {
     transform.position += moveable.velocity;
   });
 
   Renderer::clear({0.f, 0.f, 0.f, 1});
 
-  world.forEachWith<Renderable, Transform>([](const auto& renderable, const auto& transform) {
+  world.forEachWith<Renderable, Transform>([](const Renderable& renderable, const Transform& transform) {
     Renderer::drawTexture(renderable.texture, {1, 1}, transform.position, {0, 0, 0}, transform.scale);
   });
 }
