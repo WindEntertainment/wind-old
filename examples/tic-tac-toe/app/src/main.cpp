@@ -19,6 +19,12 @@ int main(int argc, char** argv) {
   InputSystem::createTriggersFromFile("main/configs/triggers.yml");
 
   AssetManager::preload<Texture>("main/art/crosses_0.png");
+  AssetManager::preload<Texture>("main/art/crosses_1.png");
+  AssetManager::preload<Texture>("main/art/crosses_2.png");
+
+  AssetManager::preload<Texture>("main/art/toes_0.png");
+  AssetManager::preload<Texture>("main/art/toes_1.png");
+  AssetManager::preload<Texture>("main/art/toes_2.png");
 
   World* world = loadGameWorld();
 

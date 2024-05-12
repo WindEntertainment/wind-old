@@ -19,6 +19,11 @@ enum Sign {
   CROSSES
 };
 
+enum StepBy {
+  PLAYER,
+  ENEMY
+};
+
 static const int MAP_WIDTH = 3;
 static const int MAP_HEIGHT = 3;
 static const int CELL_SIZE = 168;
