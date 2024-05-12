@@ -18,6 +18,8 @@ int main(int argc, char** argv) {
 
   InputSystem::createTriggersFromFile("main/configs/triggers.yml");
 
+  AssetManager::preload<Texture>("main/art/crosses_0.png");
+
   World* world = loadGameWorld();
 
   while (Window::update()) {

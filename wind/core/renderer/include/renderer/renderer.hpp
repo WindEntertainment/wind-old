@@ -1,7 +1,6 @@
 #pragma once
 #include "renderer/particle.hpp"
 #include "renderer/texture.hpp"
-#include "utils.h"
 
 namespace wind {
 

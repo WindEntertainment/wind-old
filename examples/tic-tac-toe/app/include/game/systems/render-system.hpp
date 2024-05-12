@@ -1,3 +1,4 @@
+#pragma once
 #include "breeze/breeze.hpp"
 
 namespace game {

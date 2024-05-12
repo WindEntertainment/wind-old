@@ -3,5 +3,5 @@
 
 namespace wind {
 template <>
-Texture* AssetManager::getAsset(const char* _key);
+Texture* AssetManager::loadAsset(asset_id _id, Bundle* _bundle);
 }
