@@ -10,6 +10,7 @@ set(HEADERS
   ./app/include/game/systems/render-system.hpp
   ./app/include/game/systems/player-system.hpp
   ./app/include/game/systems/enemy-system.hpp
+  ./app/include/game/systems/tictactoe-system.hpp
 
   ./app/include/game/worlds.hpp
   ./app/include/game/utils.hpp
@@ -19,6 +20,7 @@ set(SOURCES
   ./app/src/systems/render-system.cpp
   ./app/src/systems/player-system.cpp
   ./app/src/systems/enemy-system.cpp
+  ./app/src/systems/tictactoe-system.cpp
 
   ./app/src/worlds/game-world.cpp
   ./app/src/main.cpp

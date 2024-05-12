@@ -10,6 +10,7 @@
 #include "game/systems/enemy-system.hpp"
 #include "game/systems/player-system.hpp"
 #include "game/systems/render-system.hpp"
+#include "game/systems/tictactoe-system.hpp"
 
 namespace game {
 
@@ -31,9 +32,9 @@ World* loadGameWorld() {
   for (int i = 0; i < MAP_WIDTH; ++i)
     for (int j = 0; j < MAP_HEIGHT; ++j) {
       map.cells[i][j] = world->createEntity();
-      // world->attachComponent(cells[i][j], Renderable{
-      //   .texture = AssetManager::getAsset<Texture>("main/art/crosses_0.png")
-      // });
+      world->attachComponent(map.cells[i][j], Renderable{
+        .texture = nullptr
+      });
       world->attachComponent(map.cells[i][j], Transform{
         .position = { -168 + i * 168, -178 + j * 168, 0 },
         .scale = {168, 168}
@@ -46,8 +47,9 @@ World* loadGameWorld() {
   });
 
   world->addSystem(std::make_unique<RenderSystem>());
-  world->addSystem(std::make_unique<PlayerSystem>());
+  world->addSystem(std::make_unique<TicTacToeSystem>());
   world->addSystem(std::make_unique<EnemySystem>());
+  world->addSystem(std::make_unique<PlayerSystem>());
 
   // clang-format on
 

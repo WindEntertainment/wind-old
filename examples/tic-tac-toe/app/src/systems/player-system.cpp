@@ -41,12 +41,12 @@ void PlayerSystem::update(wind::World& world) {
   map.map[clickPosition.x][clickPosition.y] = Sign::CROSSES;
 
   // clang-format off
-  world.attachComponent( map.cells[clickPosition.x][clickPosition.y], Renderable {
-    .texture = AssetManager::getAsset<Texture>(fmt::format("main/art/crosses_{}.png", rand() % 3).c_str())
-  });
+  world.getComponent<Renderable>( map.cells[clickPosition.x][clickPosition.y]).texture =
+    AssetManager::getAsset<Texture>(fmt::format("main/art/crosses_{}.png", rand() % 3).c_str());
   // clang-format on
 
   state.stepBy = StepBy::ENEMY;
+  clickPosition = glm::vec2(-1, -1);
 }
 
 } // namespace game
