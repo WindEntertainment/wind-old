@@ -10,9 +10,9 @@ int main(int argc, char** argv) {
   AssetManager::loadBundle("res/Main.bundle");
 
   Window::init([](Window::Config* self) {
-    self->title = "Game";
+    self->title = "Tic Tac Toe";
     self->fullScreen = false;
-    self->size = {800, 600};
+    self->size = {600, 600};
     self->vSync = true;
   });
 

@@ -12,5 +12,14 @@
 using namespace wind;
 using namespace wind::assets;
 
-namespace game {}
+namespace game {
+
+enum Sign {
+  EMPTY,
+  TOES,
+  CROSSES
+};
+
+}
+
 using namespace game;
