@@ -1,0 +1,9 @@
+output:
+  path: "Ultralight"
+  type: bundle
+
+exports:
+  - path: "icudt67l.dat"
+    pipe: default
+  - path: "triggers.yml"
+    pipe: default
