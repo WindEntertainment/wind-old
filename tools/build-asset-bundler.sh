@@ -22,7 +22,7 @@ cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="$build_type" -DCMAKE_TOOLCHAIN_FIL
 
 cmake --build "$root/build/$build_type" --parallel 10 --target wind-asset-bundler
 
-cd build/"$build_type"/wind/asset-pipeline || exit 2
+cd build/"$build_type"/wind/core/asset-pipeline || exit 2
 
 if echo "$OS" | grep -qi "Windows"; then
   mkdir -p "$root"/apps
