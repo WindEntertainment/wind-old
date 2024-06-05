@@ -1,7 +1,3 @@
-#ifdef __APPLE__
-#include "Ultralight/ConsoleMessage.h"
-#endif
-
 #include "Ultralight/KeyEvent.h"
 #include "Ultralight/Listener.h"
 #include "Ultralight/MouseEvent.h"
@@ -72,7 +68,6 @@ private:
   }
 
 public:
-#ifdef __APPLE__
   void OnAddConsoleMessage(
     ul::View* caller,
     const ul::ConsoleMessage& log) override {
@@ -91,25 +86,6 @@ public:
 
     std::cout << std::endl;
   }
-#else
-  void OnAddConsoleMessage(
-    ul::View* caller,
-    ul::MessageSource source,
-    ul::MessageLevel level,
-    const ul::String& message,
-    uint32_t line_number,
-    uint32_t column_number,
-    const ul::String& source_id) {
-
-    spdlog::log(Ultralight::mapUltralightLogLevelToSpd(level), "[Console]: [{}] {}", stringify(source), toUTF8(message));
-
-    if (source == ul::kMessageSource_JS) {
-      spdlog::log(Ultralight::mapUltralightLogLevelToSpd(level), "({}) @ line: {}, column: {})", toUTF8(source_id), line_number, column_number);
-    }
-
-    std::cout << std::endl;
-  }
-#endif
 };
 
 class LoadLogger : public ul::LoadListener {
@@ -140,7 +116,6 @@ public:
   }
 };
 
-#ifdef __APPLE__
 class NetworkLogger : public ul::NetworkListener {
 public:
   bool OnNetworkRequest(ultralight::View* caller, ul::NetworkRequest& request) override {
@@ -148,7 +123,6 @@ public:
     return true;
   };
 };
-#endif
 
 std::vector<ul::RefPtr<ul::View>>
   Ultralight::m_views;
@@ -314,9 +288,7 @@ Texture* Ultralight::loadView(const std::string& _path, const glm::ivec2 _size) 
 
   view->set_view_listener(new ViewLogger());
   view->set_load_listener(new LoadLogger());
-#ifdef __APPLE__
   view->set_network_listener(new NetworkLogger());
-#endif
 
   view->LoadURL(("file:///" + _path).c_str());
 

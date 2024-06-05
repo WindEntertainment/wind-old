@@ -18,7 +18,7 @@ export type CarouselProps = {
   setApi?: (api: CarouselApi) => void;
 };
 
-export const Carousel = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & CarouselProps>(
+export const Carousel = forwardRef<HTMLDivElement, CarouselProps & HTMLAttributes<HTMLDivElement>>(
   ({ children, className, opts, orientation = "horizontal", plugins, setApi, ...props }, ref) => {
     const [canScrollPrev, setCanScrollPrev] = useState(false);
     const [canScrollNext, setCanScrollNext] = useState(false);

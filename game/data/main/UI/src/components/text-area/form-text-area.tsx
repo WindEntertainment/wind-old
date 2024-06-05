@@ -6,11 +6,11 @@ import { TextArea, TextAreaProps } from "./text-area";
 export type FormTextAreaProps<
   TFieldValues extends FieldValues,
   TPath extends FieldPathByValue<TFieldValues, boolean | number | string>,
-> = Omit<TextAreaProps, "defaultValue" | "onBlur" | "onChange" | "value"> & {
+> = {
   control: Control<TFieldValues>;
   defaultValue?: PathValue<TFieldValues, TPath>;
   name: TPath;
-} & { containerClassName?: string };
+} & { containerClassName?: string } & Omit<TextAreaProps, "defaultValue" | "onBlur" | "onChange" | "value">;
 
 export const FormTextArea = <
   TFieldValues extends FieldValues,

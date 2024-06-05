@@ -2,11 +2,10 @@ name: Build engine
 description: Build engine
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Setup conan base
       uses: ./.github/workflows/utils/setup-conan
-
 
     - name: Setup ultralight base
       uses: ./.github/workflows/utils/setup-ultralight
@@ -70,8 +69,6 @@ runs:
     #     cd build/${{ env.engineBuildType }}
     #     cpack
     #   shell: bash
-
-
 
     # - name: Upload package as artifact
     #   if: ${{ env.isRelease == true }}

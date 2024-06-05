@@ -14,8 +14,8 @@ export type HeaderProps = {
   header?: ReactNode;
   headerClassName?: string;
   isHeaderShown?: boolean;
-} & HeaderLeftProps &
-  HeaderCenterProps &
+} & HeaderCenterProps &
+  HeaderLeftProps &
   HeaderRightProps;
 
 export const Header = memo(

@@ -2,7 +2,7 @@ name: Setup ultralight
 description: Setup ultralight
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Set ULTRALIGHT_PATH
       shell: bash
@@ -10,9 +10,9 @@ runs:
         if [ "$RUNNER_OS" == "Linux" ]; then
           echo "ULTRALIGHT_PATH=${{ env.projectRoot }}/ultralight" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          echo "ULTRALIGHT_PATH=${{ env.projectRoot }}/ultralight/ultralight/SDK" >> $GITHUB_ENV
+          echo "ULTRALIGHT_PATH=${{ env.projectRoot }}/ultralight/ultralight" >> $GITHUB_ENV
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          echo "ULTRALIGHT_PATH=${{ env.projectRoot }}/ultralight/SDK" >> $GITHUB_ENV
+          echo "ULTRALIGHT_PATH=${{ env.projectRoot }}/ultralight" >> $GITHUB_ENV
         else
           echo "$RUNNER_OS not supported"
           exit 1
@@ -33,13 +33,11 @@ runs:
         cd ultralight
 
         if [ "$RUNNER_OS" == "Linux" ]; then
-          wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-${{ env.ultralightVersion }}-linux-x64.7z
-          7za x ultralight-sdk-1.3.0-linux-x64.7z
+          wget https://ultralight-sdk-dev.sfo2.cdn.digitaloceanspaces.com/ultralight-sdk-${{ env.ultralightVersion }}.7z -O ultralight-sdk.7z
+          7za x ultralight-sdk.7z
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          wget https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-${{ env.ultralightVersion }}-mac-arm64.7z
-          7za x ultralight-sdk-1.4.0a-mac-arm64.7z
-
-          echo -e "#include <Ultralight/String.h>\n$(cat SDK/include/Ultralight/ConsoleMessage.h )" > SDK/include/Ultralight/ConsoleMessage.h
+          wget https://ultralight-sdk-dev.sfo2.cdn.digitaloceanspaces.com/ultralight-sdk-${{ env.ultralightVersion }}.7z -O ultralight-sdk.7z
+          7za x ultralight-sdk.7z
         else
           echo "$RUNNER_OS not supported"
           exit 1
@@ -53,7 +51,7 @@ runs:
         New-Item -ItemType Directory -Path ultralight
         cd ultralight
 
-        Invoke-WebRequest -Uri https://ultralight-files.sfo3.cdn.digitaloceanspaces.com/ultralight-sdk-${{ env.ultralightVersion }}-win-x64.7z -OutFile ultralight-sdk.7z
+        Invoke-WebRequest -Uri https://ultralight-sdk-dev.sfo2.cdn.digitaloceanspaces.com/ultralight-sdk-${{ env.ultralightVersion }}.7z -OutFile ultralight-sdk.7z
         7z x ultralight-sdk.7z -o"ultralight"
 
     - uses: actions/cache/save@v4

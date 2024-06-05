@@ -8,11 +8,11 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import { FormError } from "../form-error";
 import { Label } from "../label";
 
-export type CheckboxProps = ComponentPropsWithoutRef<typeof Root> & {
+export type CheckboxProps = {
   containerClassName?: string;
   error?: false | string;
   label?: string;
-};
+} & ComponentPropsWithoutRef<typeof Root>;
 
 export const Checkbox = forwardRef<ElementRef<typeof Root>, CheckboxProps>(
   ({ className, containerClassName, error, label, ...props }, ref) => (

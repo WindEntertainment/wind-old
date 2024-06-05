@@ -9,8 +9,8 @@ export type PageWrapperProps = {
   className?: string;
   contentWrapperClassName?: string;
   isShown?: boolean;
-} & HeaderProps &
-  FooterProps;
+} & FooterProps &
+  HeaderProps;
 
 export const PageWrapper: FC<PageWrapperProps> = ({
   children,
