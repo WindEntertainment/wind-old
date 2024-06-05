@@ -27,13 +27,7 @@ runs:
         export CC=${{ env.cc }}
         export CXX=${{ env.cxx }}
         wm run install -w
-
-        if [ "$RUNNER_OS" == "Windows" ]; then
-          wm run release-game -o releases
-        else
-          sudo wm run release-game -o releases
-        fi
-
+        wm run release-game -o releases
         cd releases
         7z x -y $(pwd)/dreich.zip -o$(pwd)
         ls -a
