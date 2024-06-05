@@ -25,5 +25,5 @@
     "noImplicitAny": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["*.ts", "parser/cpp-parser.ts", "parser/parser.ts", "parser/ts-parser.ts"]
+  "include": ["src"]
 }

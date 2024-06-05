@@ -5,7 +5,7 @@
   "description": "",
   "main": "generator.ts",
   "scripts": {
-    "generate": "tsx ./generator.ts"
+    "generate": "tsx ./src/generator.ts"
   },
   "author": "",
   "license": "ISC",
