@@ -22,10 +22,8 @@ jobs:
               projectRoot: "/home/runner/work/dreich",
               artifact: "dreich-linux",
               os: "ubuntu-latest",
-              # scriptBuildType: "build",
               engineBuildType: "Debug",
               uiRoot: "/home/runner/work/dreich/dreich/game/data/main/UI",
-              # scriptRoot: "/home/runner/work/dreich/dreich/game/data/main/scripts",
               engineRoot: "/home/runner/work/dreich/dreich",
               ultralightVersion: "latest-linux-x64",
               cc: "clang",
@@ -43,8 +41,6 @@ jobs:
           json: ${{ toJSON(matrix.config) }}
       - name: UI
         uses: "./.github/workflows/modules/ui/lint"
-      # - name: Scripts
-      #   uses: './.github/workflows/modules/scripts/lint'
       - name: Engine
         uses: "./.github/workflows/modules/engine/lint"
       - name: Linting commit
@@ -62,10 +58,8 @@ jobs:
               projectRoot: "D:/a/dreich",
               artifact: "dreich-windows",
               os: "windows-latest",
-              # scriptBuildType: "build",
               engineBuildType: "Debug",
               uiRoot: "D:/a/dreich/dreich/game/data/main/UI",
-              # scriptRoot: "D:/a/dreich/dreich/game/data/main/scripts",
               engineRoot: "D:/a/dreich/dreich",
               ultralightVersion: "latest-win-x64",
               cc: "clang",
@@ -77,10 +71,8 @@ jobs:
               projectRoot: "/home/runner/work/dreich",
               artifact: "dreich-linux",
               os: "ubuntu-latest",
-              # scriptBuildType: "build",
               engineBuildType: "Debug",
               uiRoot: "/home/runner/work/dreich/dreich/game/data/main/UI",
-              # scriptRoot: "/home/runner/work/dreich/dreich/game/data/main/scripts",
               engineRoot: "/home/runner/work/dreich/dreich",
               ultralightVersion: "latest-linux-x64",
               cc: "clang",
@@ -92,10 +84,8 @@ jobs:
               projectRoot: "/Users/runner/work/dreich",
               artifact: "dreich-macos",
               os: "macos-14",
-              # scriptBuildType: "build",
               engineBuildType: "Debug",
               uiRoot: "/Users/runner/work/dreich/dreich/game/data/main/UI",
-              # scriptRoot: "/Users/runner/work/dreich/dreich/game/data/main/scripts",
               engineRoot: "/Users/runner/work/dreich/dreich",
               ultralightVersion: "latest-mac-arm64",
               cc: "clang",
@@ -112,17 +102,13 @@ jobs:
         with:
           json: ${{ toJSON(matrix.config) }}
       - uses: ./.github/workflows/utils/setup-base-libs
-      # - name: Scripts
-      #   uses: "./.github/workflows/modules/scripts/test"
       - name: Engine
         uses: "./.github/workflows/modules/engine/test"
 
   building:
     name: "Build: ${{ matrix.config.name }}"
     runs-on: ${{ matrix.config.os }}
-    # needs:
-    # - linting
-    # - testing
+
     strategy:
       fail-fast: false
       matrix:
@@ -132,10 +118,8 @@ jobs:
               projectRoot: "D:/a/dreich",
               artifact: "dreich-windows",
               os: "windows-latest",
-              # scriptBuildType: "build",
               engineBuildType: "Debug",
               uiRoot: "D:/a/dreich/dreich/game/data/main/UI",
-              # scriptRoot: "D:/a/dreich/dreich/game/data/main/scripts",
               engineRoot: "D:/a/dreich/dreich",
               ultralightVersion: "latest-win-x64",
               cc: "clang",
@@ -147,10 +131,8 @@ jobs:
               projectRoot: "/home/runner/work/dreich",
               artifact: "dreich-linux",
               os: "ubuntu-latest",
-              # scriptBuildType: "build",
               engineBuildType: "Debug",
               uiRoot: "/home/runner/work/dreich/dreich/game/data/main/UI",
-              # scriptRoot: "/home/runner/work/dreich/dreich/game/data/main/scripts",
               engineRoot: "/home/runner/work/dreich/dreich",
               ultralightVersion: "latest-linux-x64",
               cc: "clang",
@@ -162,10 +144,8 @@ jobs:
               projectRoot: "/Users/runner/work/dreich",
               artifact: "dreich-macos",
               os: "macos-14",
-              # scriptBuildType: "build",
               engineBuildType: "Debug",
               uiRoot: "/Users/runner/work/dreich/dreich/game/data/main/UI",
-              # scriptRoot: "/Users/runner/work/dreich/dreich/game/data/main/scripts",
               engineRoot: "/Users/runner/work/dreich/dreich",
               ultralightVersion: "latest-mac-arm64",
               cc: "clang",
@@ -184,7 +164,5 @@ jobs:
       - name: UI
         uses: "./.github/workflows/modules/ui/build"
       - uses: ./.github/workflows/utils/setup-base-libs
-      # - name: Scripts
-      #   uses: "./.github/workflows/modules/scripts/build"
       - name: Engine
         uses: "./.github/workflows/modules/engine/build"
