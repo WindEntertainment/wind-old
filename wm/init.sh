@@ -18,12 +18,14 @@ mkdir "$DEFAULT_SCRIPTS_FOLDER"
 
 cp "$(dirname "$0")/health.sh" "$(pwd)/$DEFAULT_SCRIPTS_FOLDER"
 
-for file in $DEFAULT_SCRIPTS_FOLDER/*.sh; do
-  if [ -f "$file" ]; then
-    sudo chmod +x "$file"
-    echo "Added execute permission to: $file"
-  fi
-done
+if [ "$OS" != "Windows" ]; then
+  for file in "$DEFAULT_SCRIPTS_FOLDER"/*.sh; do
+    if [ -f "$file" ]; then
+      sudo chmod +x "$file"
+      echo "Added execute permission to: $file"
+    fi
+  done
+fi
 
 echo "Added base command to $(pwd)/$DEFAULT_SCRIPTS_FOLDER"
 
