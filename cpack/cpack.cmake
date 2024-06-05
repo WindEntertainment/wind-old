@@ -6,7 +6,6 @@ set_target_properties(game PROPERTIES INSTALL_RPATH "@executable_path")
 
 install (TARGETS game DESTINATION .)
 
-install (DIRECTORY $ENV{DOTNET_INCLUDES}/ DESTINATION .)
 install (DIRECTORY $ENV{ULTRALIGHT_PATH}/bin/ DESTINATION .)
 
 install (DIRECTORY game/res DESTINATION .)

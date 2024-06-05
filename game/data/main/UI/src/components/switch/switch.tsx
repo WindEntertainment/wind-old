@@ -7,11 +7,11 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import { FormError } from "../form-error";
 import { Label } from "../label";
 
-export type SwitchProps = ComponentPropsWithoutRef<typeof Root> & {
+export type SwitchProps = {
   containerClassName?: string;
   error?: false | string;
   label?: string;
-};
+} & ComponentPropsWithoutRef<typeof Root>;
 
 export const Switch = forwardRef<ElementRef<typeof Root>, SwitchProps>(
   ({ className, containerClassName, error, label, ...props }, ref) => (

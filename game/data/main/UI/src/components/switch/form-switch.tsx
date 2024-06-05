@@ -6,11 +6,11 @@ import { Switch, SwitchProps } from "./switch";
 export type FormSwitchProps<
   TFieldValues extends FieldValues,
   TPath extends FieldPathByValue<TFieldValues, boolean | number | string>,
-> = Omit<SwitchProps, "defaultValue" | "onBlur" | "onChange" | "value"> & {
+> = {
   control: Control<TFieldValues>;
   defaultValue?: PathValue<TFieldValues, TPath>;
   name: TPath;
-} & { containerClassName?: string };
+} & { containerClassName?: string } & Omit<SwitchProps, "defaultValue" | "onBlur" | "onChange" | "value">;
 
 export const FormSwitch = <
   TFieldValues extends FieldValues,

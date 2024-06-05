@@ -5,9 +5,9 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
 export const ContextMenuItem = forwardRef<
   ElementRef<typeof Item>,
-  ComponentPropsWithoutRef<typeof Item> & {
+  {
     inset?: boolean;
-  }
+  } & ComponentPropsWithoutRef<typeof Item>
 >(({ className, inset, ...props }, ref) => (
   <Item
     className={tw(

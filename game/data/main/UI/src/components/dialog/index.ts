@@ -1,3 +1,4 @@
+export * from "./dialog";
 export * from "./dialog-close";
 export * from "./dialog-content";
 export * from "./dialog-description";
@@ -7,4 +8,3 @@ export * from "./dialog-overlay";
 export * from "./dialog-portal";
 export * from "./dialog-title";
 export * from "./dialog-trigger";
-export * from "./dialog";
