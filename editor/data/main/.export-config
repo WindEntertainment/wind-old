@@ -1,5 +1,10 @@
 exports:
-  - path: "[^\/]*"
+  - path: "scripts"
+    output:
+      path: "Managed"
+      type: directory
+
+  - path: "[^\/\\\\]*"
     output:
       path: "Main"
       type: bundle

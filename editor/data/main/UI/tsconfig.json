@@ -19,11 +19,8 @@
     "resolveJsonModule": true,
 
     "strict": true,
-    "allowUnreachableCode": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictPropertyInitialization": true,
-    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@/tw": ["./src/tailwind/index.ts"],

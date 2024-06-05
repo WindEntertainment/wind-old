@@ -4,11 +4,11 @@ import { TextareaHTMLAttributes, forwardRef } from "react";
 import { FormError } from "../form-error";
 import { Label } from "../label";
 
-export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
+export type TextAreaProps = {
   containerClassName?: string;
   error?: false | string;
   label?: string;
-};
+} & TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ({ className, containerClassName, defaultValue = "", error, label, ...props }, ref) => {

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
+    "dev": "vite",
     "build": "tsc && vite build --base=./",
     "preview": "vite preview",
     "build:verify": "tsc --noEmit",
@@ -75,6 +75,6 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "^3.3.5",
     "typescript": "~5.2.2",
-    "vite": "^5.2.9"
+    "vite": "^3.2.8"
   }
 }

@@ -6,8 +6,8 @@ import { PaginationItem } from "./pagination-item";
 
 type PaginationLinkProps = {
   isActive?: boolean;
-} & Pick<ButtonProps, "size"> &
-  Omit<ComponentProps<"a">, "ref">;
+} & Omit<ComponentProps<"a">, "ref"> &
+  Pick<ButtonProps, "size">;
 
 export const PaginationLink: FC<PaginationLinkProps> = ({ className, isActive, size = "icon", ...props }) => (
   <PaginationItem>

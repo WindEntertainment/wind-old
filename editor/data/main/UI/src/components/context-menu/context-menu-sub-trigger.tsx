@@ -6,9 +6,9 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
 export const ContextMenuSubTrigger = forwardRef<
   ElementRef<typeof SubTrigger>,
-  ComponentPropsWithoutRef<typeof SubTrigger> & {
+  {
     inset?: boolean;
-  }
+  } & ComponentPropsWithoutRef<typeof SubTrigger>
 >(({ children, className, inset, ...props }, ref) => (
   <SubTrigger
     className={tw(

@@ -1,16 +1,27 @@
 project(editor)
 
-set(SOURCES
-    ./src/main.cpp
+set(HEADERS
+  ./app/include/game/systems/following-system.hpp
+  ./app/include/game/systems/controll-system.hpp
+  ./app/include/game/systems/move-system.hpp
+  ./app/include/game/systems/render-system.hpp
+
+  ./app/include/game/worlds.hpp
+  ./app/include/game/utils.hpp
 )
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+set(SOURCES
+  ./app/src/systems/render-system.cpp
+  ./app/src/systems/move-system.cpp
+  ./app/src/systems/controll-system.cpp
+  ./app/src/systems/following-system.cpp
 
-target_link_libraries(${PROJECT_NAME} PRIVATE wind-core)
-target_link_libraries(${PROJECT_NAME} PRIVATE wind-ultralight)
-target_link_libraries(${PROJECT_NAME} PRIVATE wind-asset-manager)
+  ./app/src/worlds/game-world.cpp
+  ./app/src/main.cpp
+)
 
-set(ASSETS_PATH "$<TARGET_FILE_DIR:${PROJECT_NAME}>/res")
 
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/res" "${ASSETS_PATH}")
+add_wind_game(${PROJECT_NAME} "main;resources" ${HEADERS} ${SOURCES})
+target_include_directories(${PROJECT_NAME} PRIVATE ./app/include/)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE wind-breeze)
