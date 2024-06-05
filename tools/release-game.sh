@@ -20,10 +20,6 @@ done
 
 cd "$root/build/$build_type" || exit
 
-if echo "$OS" | grep -qi "Windows"; then
-  cpack -B "$root/$output_folder"
-else
-  sudo cpack -B "$root/$output_folder"
-fi
+cpack -B "$root/$output_folder"
 
 cd "$call_dir" || exit
