@@ -5,9 +5,9 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
 export const DropdownMenuLabel = forwardRef<
   ElementRef<typeof Label>,
-  ComponentPropsWithoutRef<typeof Label> & {
+  {
     inset?: boolean;
-  }
+  } & ComponentPropsWithoutRef<typeof Label>
 >(({ className, inset, ...props }, ref) => (
   <Label className={tw("text-sm px-2 py-1.5 font-semibold", inset && "pl-8", className)} ref={ref} {...props} />
 ));
