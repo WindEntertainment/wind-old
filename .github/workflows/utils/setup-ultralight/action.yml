@@ -33,11 +33,11 @@ runs:
         cd ultralight
 
         if [ "$RUNNER_OS" == "Linux" ]; then
-          wget https://ultralight-sdk-dev.sfo2.cdn.digitaloceanspaces.com/ultralight-sdk-${{ env.ultralightVersion }}.7z
-          7za x ultralight-sdk-1.3.0-linux-x64.7z
+          wget https://ultralight-sdk-dev.sfo2.cdn.digitaloceanspaces.com/ultralight-sdk-${{ env.ultralightVersion }}.7z -O ultralight-sdk.7z
+          7za x ultralight-sdk.7z
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          wget https://ultralight-sdk-dev.sfo2.cdn.digitaloceanspaces.com/ultralight-sdk-${{ env.ultralightVersion }}.7z
-          7za x ultralight-sdk-1.4.0a-mac-arm64.7z
+          wget https://ultralight-sdk-dev.sfo2.cdn.digitaloceanspaces.com/ultralight-sdk-${{ env.ultralightVersion }}.7z -O ultralight-sdk.7z
+          7za x ultralight-sdk.7z
 
           echo -e "#include <Ultralight/String.h>\n$(cat SDK/include/Ultralight/ConsoleMessage.h )" > SDK/include/Ultralight/ConsoleMessage.h
         else
