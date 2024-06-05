@@ -7,11 +7,11 @@ import { FC } from "react";
 import { FormError } from "../form-error";
 import { Label } from "../label";
 
-export type SelectProps = RadixSelectProps & {
+export type SelectProps = {
   containerClassName?: string;
   error?: false | string;
   label?: string;
-};
+} & RadixSelectProps;
 
 export const Select: FC<SelectProps> = ({ children, containerClassName, error, label, ...props }) => {
   return (

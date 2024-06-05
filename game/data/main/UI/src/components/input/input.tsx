@@ -4,11 +4,11 @@ import { InputHTMLAttributes, forwardRef } from "react";
 import { FormError } from "../form-error";
 import { Label } from "../label";
 
-export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+export type InputProps = {
   containerClassName?: string;
   error?: false | string;
   label?: string;
-};
+} & InputHTMLAttributes<HTMLInputElement>;
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, containerClassName, defaultValue = "", error, label, type, ...props }, ref) => {
