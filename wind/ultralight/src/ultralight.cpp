@@ -1,5 +1,3 @@
-#include "Ultralight/ConsoleMessage.h"
-
 #include "Ultralight/KeyEvent.h"
 #include "Ultralight/Listener.h"
 #include "Ultralight/MouseEvent.h"
