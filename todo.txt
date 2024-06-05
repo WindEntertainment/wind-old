@@ -1,8 +1,16 @@
+- Error handling
+1. create
+
+- Testing
+1. create
+
+- Editor
+1. create
+
 - Input system
 1. mods(shift/alt) support
 2. joystick/gamepad support
 3. keys combination support
-4. Better error handling(status/message)
 5. Input system removal of binds/callbacks
 
 - Asset pipeline
@@ -12,3 +20,6 @@
 
 - CI
 1. artifacts + releases
+
+- Type generator
+1. Integrate type generator for c++ js event manager
