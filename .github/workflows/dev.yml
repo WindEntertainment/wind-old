@@ -31,10 +31,8 @@ jobs:
               isRelease: false,
             }
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout
+        uses: "./.github/workflows/utils/checkout"
       - name: Env
         uses: "./.github/workflows/utils/json-to-env"
         with:
@@ -93,10 +91,8 @@ jobs:
               isRelease: false,
             }
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout
+        uses: "./.github/workflows/utils/checkout"
       - name: Env
         uses: "./.github/workflows/utils/json-to-env"
         with:
@@ -153,10 +149,8 @@ jobs:
               isRelease: false,
             }
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout
+        uses: "./.github/workflows/utils/checkout"
       - name: Env
         uses: "./.github/workflows/utils/json-to-env"
         with:

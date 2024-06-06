@@ -1,0 +1,14 @@
+name: Checkout
+description: Checkout code
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        lfs: true
+    - name: Set up Git LFS
+      shell: bash
+      run: git lfs install
