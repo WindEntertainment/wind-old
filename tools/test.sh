@@ -27,6 +27,6 @@ cd "$root/build/Debug" || exit
 
 ctest
 
-make coverage
+# make coverage
 
 cd "$root" || exit
