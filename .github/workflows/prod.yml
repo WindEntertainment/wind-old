@@ -30,8 +30,13 @@ jobs:
               isRelease: true,
             }
     steps:
-      - name: Checkout
-        uses: "./.github/workflows/utils/checkout"
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+      - name: LFS
+        uses: "./.github/workflows/utils/lfs"
       - name: Env
         uses: "./.github/workflows/utils/json-to-env"
         with:
@@ -92,8 +97,13 @@ jobs:
               isRelease: true,
             }
     steps:
-      - name: Checkout
-        uses: "./.github/workflows/utils/checkout"
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+      - name: LFS
+        uses: "./.github/workflows/utils/lfs"
       - name: Env
         uses: "./.github/workflows/utils/json-to-env"
         with:
@@ -154,8 +164,13 @@ jobs:
               isRelease: true,
             }
     steps:
-      - name: Checkout
-        uses: "./.github/workflows/utils/checkout"
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+      - name: LFS
+        uses: "./.github/workflows/utils/lfs"
       - name: Env
         uses: "./.github/workflows/utils/json-to-env"
         with:
