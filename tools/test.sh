@@ -25,7 +25,7 @@ cd "$root/build/Debug" || exit
 
 make
 
-cd "$root/build/Debug" || exit
+cd "tests" || exit
 
 make
 ctest
