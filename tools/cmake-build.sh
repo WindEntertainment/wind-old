@@ -20,7 +20,7 @@ while [[ "$#" -gt 0 ]]; do
   shift
 done
 
-if [[ $skip_configure = true ]]; then
+if [[ $skip_configure = false ]]; then
   wm run cmake-configure --build-type "$build_type"
 fi
 
