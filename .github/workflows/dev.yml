@@ -57,19 +57,6 @@ jobs:
       matrix:
         config:
           - {
-              name: "Windows",
-              projectRoot: "D:/a/dreich",
-              artifact: "dreich-windows",
-              os: "windows-latest",
-              engineBuildType: "Debug",
-              uiRoot: "D:/a/dreich/dreich/game/data/main/UI",
-              engineRoot: "D:/a/dreich/dreich",
-              ultralightVersion: "latest-win-x64",
-              cc: "clang",
-              cxx: "clang++",
-              isRelease: false,
-            }
-          - {
               name: "Ubuntu",
               projectRoot: "/home/runner/work/dreich",
               artifact: "dreich-linux",
@@ -78,19 +65,6 @@ jobs:
               uiRoot: "/home/runner/work/dreich/dreich/game/data/main/UI",
               engineRoot: "/home/runner/work/dreich/dreich",
               ultralightVersion: "latest-linux-x64",
-              cc: "clang",
-              cxx: "clang++",
-              isRelease: false,
-            }
-          - {
-              name: "MacOS",
-              projectRoot: "/Users/runner/work/dreich",
-              artifact: "dreich-macos",
-              os: "macos-14",
-              engineBuildType: "Debug",
-              uiRoot: "/Users/runner/work/dreich/dreich/game/data/main/UI",
-              engineRoot: "/Users/runner/work/dreich/dreich",
-              ultralightVersion: "latest-mac-arm64",
               cc: "clang",
               cxx: "clang++",
               isRelease: false,

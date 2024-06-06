@@ -4,14 +4,14 @@ source "$(dirname "$0")/global.sh"
 
 build_type="Release"
 target="game"
-skip_configure=true
+skip_configure=false
 
 call_dir=$(pwd)
 root=""
 
 while [[ "$#" -gt 0 ]]; do
   case $1 in
-    -sc|--skip-configure) skip_configure=false; ;;
+    -sc|--skip-configure) skip_configure=true; ;;
     -bt|--build-type) build_type="$2"; shift ;;
     -t|--target) target="$2"; shift ;;
     --root) root="$2"; shift ;;
