@@ -2,7 +2,7 @@ name: Test engine
 description: Test engine
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Setup conan base
       uses: ./.github/workflows/utils/setup-conan
@@ -15,3 +15,17 @@ runs:
 
     - name: Prepare engine env
       uses: ./.github/workflows/modules/engine/setup-env
+
+    - name: Testing
+      shell: bash
+      run: |
+        wm run test -w
+
+    - uses: codecov/codecov-action@v4
+      with:
+        fail_ci_if_error: true
+        # files: ./coverage1.xml,./coverage2.xml # optional
+        flags: engine
+        name: dreich
+        token: ${{ secrets.CODECOV_TOKEN }}
+        verbose: true
