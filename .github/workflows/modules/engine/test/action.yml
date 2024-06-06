@@ -21,7 +21,6 @@ runs:
       run: |
         export CC=${{ env.cc }}
         export CXX=${{ env.cxx }}
-
         wm run test -w
 
     # - name: Setup conan base

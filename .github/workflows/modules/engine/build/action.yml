@@ -26,8 +26,8 @@ runs:
       run: |
         export CC=${{ env.cc }}
         export CXX=${{ env.cxx }}
-        wm run install
-        wm run release-game -o releases
+        wm run install -b ${{ env.engineBuildType }}
+        wm run release-game -o releases -b ${{ env.engineBuildType }}
         cd releases
         7z x -y $(pwd)/dreich.zip -o$(pwd)
         ls -a

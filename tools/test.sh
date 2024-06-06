@@ -20,7 +20,6 @@ cd "$root" || exit
 if [[ $with_build = true ]]; then
   wm run install -b Debug
 fi
-#  -b Release
 
 cmake --build "$root/build/Debug" --parallel 10 --target tests
 
