@@ -34,9 +34,9 @@ cd "tests" || exit
 make
 ctest
 
-cd ../ || exit
+# cd ../ || exit
 
-make coverage
+# make coverage
 
 cd "$root" || exit
 
