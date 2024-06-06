@@ -2,8 +2,8 @@
 
 source "$(dirname "$0")/global.sh"
 
-build_type="Release"
-output_folder="releases"
+build_type=Release
+output_folder=releases
 
 call_dir=$(pwd)
 root=""

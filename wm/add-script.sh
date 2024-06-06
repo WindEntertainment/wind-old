@@ -4,7 +4,7 @@ source "$(dirname "$0")/global.sh"
 
 call_dir=$(pwd)
 root=""
-name="script"
+name=script
 
 while [[ "$#" -gt 0 ]]; do
   case $1 in

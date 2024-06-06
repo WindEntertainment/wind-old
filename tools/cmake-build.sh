@@ -2,8 +2,8 @@
 
 source "$(dirname "$0")/global.sh"
 
-build_type="Release"
-target="game"
+build_type=Release
+target=game
 skip_configure=false
 
 call_dir=$(pwd)

@@ -5,7 +5,7 @@ source "$(dirname "$0")/global.sh"
 call_dir=$(pwd)
 root=""
 
-project="game"
+project=game
 
 while [[ "$#" -gt 0 ]]; do
   case $1 in

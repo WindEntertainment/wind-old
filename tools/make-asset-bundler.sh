@@ -2,7 +2,7 @@
 
 source "$(dirname "$0")/global.sh"
 
-build_type="Release"
+build_type=Release
 skip_build=false
 
 call_dir=$(pwd)
