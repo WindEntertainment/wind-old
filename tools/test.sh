@@ -18,13 +18,13 @@ done
 cd "$root" || exit
 
 if [[ $with_build = true ]]; then
-  wm run install -w
+  wm run install -b Debug
 fi
 #  -b Release
 
-cmake --build "$root/build/Release" --parallel 10 --target tests
+cmake --build "$root/build/Debug" --parallel 10 --target tests
 
-cd "$root/build/Release/tests" || exit
+cd "$root/build/Debug/tests" || exit
 
 make
 ctest
