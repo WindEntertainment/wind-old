@@ -107,6 +107,7 @@ jobs:
         uses: "./.github/workflows/utils/json-to-env"
         with:
           json: ${{ toJSON(matrix.config) }}
+          codecovToken: ${{ secrets.CODECOV_TOKEN }}
       - uses: ./.github/workflows/utils/setup-base-libs
       - name: Engine
         uses: "./.github/workflows/modules/engine/test"

@@ -27,5 +27,5 @@ runs:
         # files: ./coverage1.xml,./coverage2.xml # optional
         flags: engine
         name: dreich
-        token: ${{ secrets.CODECOV_TOKEN }}
+        token: ${{ env.CODECOV_TOKEN }}
         verbose: true
