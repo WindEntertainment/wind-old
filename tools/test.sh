@@ -25,13 +25,7 @@ cmake --build "$root/build/Debug/tests"
 
 cd "$root/build/Debug" || exit
 
-# cmake --build "$root/build/Debug"
-
-cd "tests" || exit
-
 ctest
-
-cd ../ || exit
 
 make coverage
 
