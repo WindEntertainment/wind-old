@@ -26,7 +26,7 @@ cmake --build "$root/build/Release" --parallel 10 --target tests
 
 cd "$root/build/Release/tests" || exit
 
-# make
-# ctest
+make
+ctest
 
 cd "$root" || exit
