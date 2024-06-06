@@ -19,7 +19,8 @@ class MyConanFile(ConanFile):
     "cxxopts/3.1.1",
     "glad/0.1.36",
     "glfw/3.3.8",
-    "glm/cci.20230113"
+    "glm/cci.20230113",
+    "catch2/3.5.4"
   ]
 
   def layout(self):
