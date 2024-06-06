@@ -16,12 +16,13 @@ runs:
     - name: Install dependencies
       uses: ./.github/workflows/modules/engine/install-dependencies
 
-    # - name: Build game with wm
-    #   shell: bash
-    #   run: |
-    #     export CC=${{ env.cc }}
-    #     export CXX=${{ env.cxx }}
-    #     wm run test -w
+    - name: Build game with wm
+      shell: bash
+      run: |
+        export CC=${{ env.cc }}
+        export CXX=${{ env.cxx }}
+
+    # wm run test -w
 
     # - name: Setup conan base
     #   uses: ./.github/workflows/utils/setup-conan
