@@ -2,13 +2,14 @@
 
 source "$(dirname "$0")/global.sh"
 
-skip_build=false
+build_type="Release"
 
+call_dir=$(pwd)
 root=""
 
 while [[ "$#" -gt 0 ]]; do
   case $1 in
-    -sb|--skip-build) skip_build=true; ;;
+    -bt|--build-type) build_type="$2"; shift; ;;
     --root) root="$2"; shift; ;;
     *) echo "Unknown parameter passed: $1"; exit; ;;
   esac
@@ -17,13 +18,6 @@ done
 
 cd "$root" || exit
 
-if [[ $skip_build = false ]]; then
-  wm run cmake-install --build-type "Debug" --target tests
-fi
+conan install . --build=missing -s build_type="$build_type"
 
-cd "$root/build/Debug/tests" || exit
-
-make
-ctest
-
-cd "$root" || exit
+cd "$call_dir" || exit

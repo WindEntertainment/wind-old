@@ -28,6 +28,7 @@
     "CODECOV",
     "conanfile",
     "Controll",
+    "cpack",
     "DCMAKE",
     "dreich",
     "elif",

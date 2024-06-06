@@ -26,8 +26,10 @@ runs:
       run: |
         export CC=${{ env.cc }}
         export CXX=${{ env.cxx }}
-        wm run install -b ${{ env.engineBuildType }}
-        wm run release-game -o releases -b ${{ env.engineBuildType }}
+
+        wm run cmake-build -t game -bt ${{ env.engineBuildType }}
+        wm run cpack-build
+
         cd releases
         7z x -y $(pwd)/dreich.zip -o$(pwd)
         ls -a
