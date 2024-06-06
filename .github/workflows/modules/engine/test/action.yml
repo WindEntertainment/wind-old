@@ -7,14 +7,14 @@ runs:
     - name: Setup conan base
       uses: ./.github/workflows/utils/setup-conan
 
-    - name: Install dependencies
-      uses: ./.github/workflows/modules/engine/install-dependencies
-
     - name: Setup ultralight base
       uses: ./.github/workflows/utils/setup-ultralight
 
     - name: Prepare engine env
       uses: ./.github/workflows/modules/engine/setup-env
+
+    - name: Install dependencies
+      uses: ./.github/workflows/modules/engine/install-dependencies
 
     - name: Testing
       shell: bash
