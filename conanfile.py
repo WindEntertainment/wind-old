@@ -20,7 +20,6 @@ class MyConanFile(ConanFile):
     "glad/0.1.36",
     "glfw/3.3.8",
     "glm/cci.20230113",
-    # "catch2/3.6.0"
     "doctest/2.4.11"
   ]
 
