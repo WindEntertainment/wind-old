@@ -19,7 +19,7 @@ cd "$root" || exit
 
 
 if [[ $with_build = true ]]; then
-  wm run install -b Debug
+  wm run install -w -b Debug
 fi
 
 cd "$root/build/Debug/tests" || exit
