@@ -21,39 +21,11 @@ if [[ $with_build = true ]]; then
   wm run install -w -b Debug
 fi
 
-# cmake --build "$root/build/Debug/tests"
+cmake --build "$root/build/Debug/tests"
 
 cd "$root/build/Debug" || exit
 
 make
-
-# cmake --build "$root/build/Debug"
-
-cd "tests" || exit
-
-make
 ctest
 
-# cd ../ || exit
-
-# make coverage
-
 cd "$root" || exit
-
-
-# cd "$root" || exit
-
-# if [[ $with_build = true ]]; then
-#   wm run install -w -b Debug
-# fi
-
-# cmake --build "$root/build/Debug/tests"
-
-# cd "$root/build/Debug" || exit
-
-# make
-# ctest
-
-# make coverage
-
-# cd "$root" || exit
