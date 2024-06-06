@@ -58,14 +58,14 @@ jobs:
       matrix:
         config:
           - {
-              name: "Ubuntu",
-              projectRoot: "/home/runner/work/dreich",
-              artifact: "dreich-linux-${{ github.event.pull_request.title }}",
-              os: "ubuntu-latest",
+              name: "MacOS",
+              projectRoot: "/Users/runner/work/dreich",
+              artifact: "dreich-macos-${{ github.event.pull_request.title }}",
+              os: "macos-14",
               engineBuildType: "Release",
-              uiRoot: "/home/runner/work/dreich/dreich/game/data/main/UI",
-              engineRoot: "/home/runner/work/dreich/dreich",
-              ultralightVersion: "latest-linux-x64",
+              uiRoot: "/Users/runner/work/dreich/dreich/game/data/main/UI",
+              engineRoot: "/Users/runner/work/dreich/dreich",
+              ultralightVersion: "latest-mac-arm64",
               cc: "clang",
               cxx: "clang++",
               isRelease: true,
