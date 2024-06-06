@@ -32,6 +32,6 @@ ctest
 
 cd ../ || exit
 
-sudo make coverage
+make coverage
 
 cd "$root" || exit

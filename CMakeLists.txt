@@ -10,7 +10,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     COMMAND mkdir ${CMAKE_SOURCE_DIR}/coverage
     COMMAND game-tests
     COMMAND wind-tests
-    COMMAND gcovr --root ${CMAKE_SOURCE_DIR} --exclude '.*/tests/.*' --exclude '.*/CMakeFiles/.*' --exclude '.*/build/.*' --html --html-details -o ${CMAKE_SOURCE_DIR}/coverage/index.html
+    COMMAND gcovr --root . --exclude '.*/tests/.*' --exclude '.*/CMakeFiles/.*' --exclude '.*/build/.*' --html --html-details -o ${CMAKE_SOURCE_DIR}/coverage/index.html
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     COMMENT "Generating code coverage report..."
   )
