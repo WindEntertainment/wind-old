@@ -6,7 +6,8 @@ inputs:
     required: true
     description: JSON
   codecovToken:
-    required: true
+    required: false
+    default: ""
     description: CODECOV_TOKEN
 
 runs:
@@ -29,4 +30,4 @@ runs:
           echo "envHash=$envHash" >> $GITHUB_ENV
         fi
 
-        echo "$CODECOV_TOKEN=$codecovToken" >> $GITHUB_ENV
+        echo "CODECOV_TOKEN=$codecovToken" >> $GITHUB_ENV
