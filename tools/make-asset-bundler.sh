@@ -21,7 +21,7 @@ done
 cd "$root" || exit 2
 
 if [[ $skip_build = false ]]; then
-  wm run cmake-install --build-type "$build_type" --target wind-asset-bundler
+  wm run cmake-build --build-type "$build_type" --target wind-asset-bundler
 fi
 
 cd build/"$build_type"/wind/core/asset-pipeline || exit 2

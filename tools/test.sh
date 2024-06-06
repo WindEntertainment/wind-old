@@ -18,7 +18,7 @@ done
 cd "$root" || exit
 
 if [[ $skip_build = false ]]; then
-  wm run cmake-install --build-type "Debug" --target tests
+  wm run cmake-build --build-type "Debug" --target tests
 fi
 
 cd "$root/build/Debug/tests" || exit
