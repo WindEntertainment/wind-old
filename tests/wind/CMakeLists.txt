@@ -1,6 +1,6 @@
 project(wind-tests)
 
-find_package(Catch2 3 REQUIRED)
+find_package(Catch2 REQUIRED)
 
 include_directories(${CMAKE_SOURCE_DIR}/wind)
 

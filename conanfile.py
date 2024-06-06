@@ -20,11 +20,14 @@ class MyConanFile(ConanFile):
     "glad/0.1.36",
     "glfw/3.3.8",
     "glm/cci.20230113",
-    # "catch2/3.5.4"
+    "catch2/3.5.4"
   ]
 
   def layout(self):
     cmake_layout(self)
+
+  def requirements(self):
+      self.requires("catch2/3.6.0")
 
   def build(self):
     cmake = CMake(self)
