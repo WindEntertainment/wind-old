@@ -21,11 +21,11 @@ runs:
       run: |
         wm run test -w
 
-    - uses: codecov/codecov-action@v4
-      with:
-        fail_ci_if_error: true
-        # files: ./coverage1.xml,./coverage2.xml # optional
-        flags: engine
-        name: dreich
-        token: ${{ env.CODECOV_TOKEN }}
-        verbose: true
+    # - uses: codecov/codecov-action@v4
+    #   with:
+    #     fail_ci_if_error: true
+    #     # files: ./coverage1.xml,./coverage2.xml # optional
+    #     flags: engine
+    #     name: dreich
+    #     token: ${{ env.CODECOV_TOKEN }}
+    #     verbose: true

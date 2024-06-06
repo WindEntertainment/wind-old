@@ -32,6 +32,6 @@ ctest
 
 cd ../ || exit
 
-make coverage
+make coverage --verbose -n
 
 cd "$root" || exit
