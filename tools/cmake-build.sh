@@ -26,6 +26,6 @@ fi
 
 cd "$root" || exit
 
-cmake --build "$root/build/$build_type" --parallel 10 --target "$target"
+cmake --build "$root/build/$build_type" --parallel 10 --target "$target" --verbose
 
 cd "$call_dir" || exit

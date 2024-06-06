@@ -8,7 +8,7 @@ class MyConanFile(ConanFile):
   name = "dreich"
   version = "1.0"
   settings = "os", "compiler", "build_type", "arch"
-  generators = "CMakeDeps", "CMakeToolchain"
+  generators = "CMakeDeps", "CMakeToolchain", "cmake"
   exports_sources = "*"
   requires = [
     "spdlog/1.13.0",
