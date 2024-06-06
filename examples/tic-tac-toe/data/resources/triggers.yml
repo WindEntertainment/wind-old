@@ -1,0 +1,33 @@
+triggers:
+  - name: ultralightMouseMove
+    bindings:
+      - key: KEYCODES::MOUSE_MOVE
+        action: KEY_ACTIONS::UNKNOWN
+  - name: ultralightMouseScroll
+    bindings:
+      - key: KEYCODES::MOUSE_SCROLL
+        action: KEY_ACTIONS::UNKNOWN
+  - name: ultralightMousePress
+    bindings:
+      - key: KEYCODES::ALL_MOUSE_KEYS
+        action: KEY_ACTIONS::PRESSED
+  - name: ultralightMouseRelease
+    bindings:
+      - key: KEYCODES::ALL_MOUSE_KEYS
+        action: KEY_ACTIONS::RELEASED
+  - name: ultralightKeyPress
+    bindings:
+      - key: KEYCODES::ALL_KEYBOARD_KEYS
+        action: KEY_ACTIONS::PRESSED
+  - name: ultralightKeyHold
+    bindings:
+      - key: KEYCODES::ALL_KEYBOARD_KEYS
+        action: KEY_ACTIONS::HELD
+  - name: ultralightKeyRelease
+    bindings:
+      - key: KEYCODES::ALL_KEYBOARD_KEYS
+        action: KEY_ACTIONS::RELEASED
+  - name: ultralightChars
+    bindings:
+      - key: KEYCODES::ALL_KEYBOARD_CHARS
+        action: KEY_ACTIONS::UNKNOWN

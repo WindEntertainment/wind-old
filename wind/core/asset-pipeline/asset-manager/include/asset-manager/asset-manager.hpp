@@ -93,7 +93,7 @@ class AssetManager {
 
         return true;
       } catch (std::exception& ex) {
-        spdlog::error("Fail readBytes from bundle. Offest: {}, Size: {}", offset, size);
+        spdlog::error("Fail readBytes from bundle. Offset: {}, Size: {}", offset, size);
         return false;
       }
     }
@@ -160,7 +160,7 @@ public:
 
     m_preloads.insert(std::make_pair(
       id,
-      std::make_any(std::make_shared(getAsset<T>(_key)))));
+      std::shared_ptr<T>(getAsset<T>(_key))));
   }
 
   template <typename T>
