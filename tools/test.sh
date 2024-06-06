@@ -23,9 +23,9 @@ fi
 
 cmake --build "$root/build/Debug" --parallel 10 --target tests
 
-# cd "$root/build/Debug/tests" || exit
+cd "$root/build/Debug/tests" || exit
 
 # make
 # ctest
 
-# cd "$root" || exit
+cd "$root" || exit
