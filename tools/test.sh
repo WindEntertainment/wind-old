@@ -21,10 +21,11 @@ if [[ $with_build = true ]]; then
   wm run install -w -b Debug
 fi
 
-cmake --build "$root/build/Debug/tests"
+cmake --build "$root/build/Debug" --parallel 10 --target tests
 
-cd "$root/build/Debug" || exit
+cd "$root/build/Debug/tests" || exit
 
+make
 ctest
 
 cd "$root" || exit
