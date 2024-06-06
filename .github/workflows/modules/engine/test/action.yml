@@ -19,6 +19,8 @@ runs:
     - name: Testing
       shell: bash
       run: |
+        export CC=${{ env.cc }}
+        export CXX=${{ env.cxx }}
         wm run test -w
 
     # - uses: codecov/codecov-action@v4
