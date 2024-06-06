@@ -17,18 +17,21 @@ done
 
 cd "$root" || exit
 
-
 if [[ $with_build = true ]]; then
   wm run install -w -b Debug
 fi
 
-cd "$root/build/Debug/tests" || exit
+cd "$root/build/Debug" || exit
+
+make
+
+cd "$root/build/Debug" || exit
 
 make
 ctest
 
-cd ../
+cd ../ || exit
 
 make coverage
 
-cd "$root"
+cd "$root" || exit
