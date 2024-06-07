@@ -20,11 +20,11 @@ runs:
     - name: Install dependencies
       uses: ./.github/workflows/modules/engine/install-dependencies
 
-    # - name: Build game with wm
-    #   shell: bash
-    #   run: |
-    #     export CC=${{ env.cc }}
-    #     export CXX=${{ env.cxx }}
+    - name: Build game with wm
+      shell: bash
+      run: |
+        export CC=${{ env.cc }}
+        export CXX=${{ env.cxx }}
     #     wm run test
 
     # - uses: codecov/codecov-action@v4
