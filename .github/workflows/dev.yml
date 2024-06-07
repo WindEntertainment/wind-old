@@ -147,5 +147,7 @@ jobs:
       - name: UI
         uses: "./.github/workflows/modules/ui/build"
       - uses: ./.github/workflows/utils/setup-base-libs
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
       - name: Engine
         uses: "./.github/workflows/modules/engine/build"
