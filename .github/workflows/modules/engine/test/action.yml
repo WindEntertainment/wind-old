@@ -25,7 +25,7 @@ runs:
       run: |
         export CC=${{ env.cc }}
         export CXX=${{ env.cxx }}
-    #     wm run test
+        wm run test
 
     # - uses: codecov/codecov-action@v4
     #   with:

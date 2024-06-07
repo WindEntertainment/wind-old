@@ -21,7 +21,9 @@ add_subdirectory(./game/)
 add_subdirectory(./examples/)
 add_subdirectory(./tests/)
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+option(ENABLE_TESTS "Enable custom tests" OFF)
+
+if(ENABLE_TESTS AND CMAKE_BUILD_TYPE STREQUAL "Debug")
   message("Testing enabled")
   enable_testing()
 

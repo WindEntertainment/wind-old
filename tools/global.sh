@@ -16,3 +16,13 @@ throw() {
 
   exit "$status"
 }
+
+# set_boolean() {
+#   local var_name=$1
+#   local opt_value=$2
+#   if [ "$opt_value" = false ]; then
+#       eval "$var_name=false"
+#   else
+#       eval "$var_name=true"
+#   fi
+# }
