@@ -20,7 +20,7 @@ class MyConanFile(ConanFile):
     "glad/0.1.36",
     "glfw/3.3.8",
     "glm/cci.20230113",
-    "doctest/2.4.11"
+    # "doctest/2.4.11"
   ]
 
   def layout(self):

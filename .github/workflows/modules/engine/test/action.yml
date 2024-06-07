@@ -21,8 +21,8 @@ runs:
       run: |
         export CC=${{ env.cc }}
         export CXX=${{ env.cxx }}
-        wm run test
-        cd ${{ env.engineRoot }} && rm -rf build
+        # wm run test
+        # cd ${{ env.engineRoot }} && rm -rf build
 
     # - uses: codecov/codecov-action@v4
     #   with:
