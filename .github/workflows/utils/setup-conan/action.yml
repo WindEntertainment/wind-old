@@ -68,5 +68,5 @@ runs:
         fi
       shell: bash
 
-    # - name: Setup conan cache
-    #   uses: ./.github/workflows/utils/cache/get-conan-cache
+    - name: Setup conan cache
+      uses: ./.github/workflows/utils/cache/get-conan-cache
