@@ -20,6 +20,12 @@ done
 
 cd "$root/build/$build_type" || exit
 
+if [ "$OS" != "Windows" ]; then
+  if [[ $clear_output_folder ]]; then
+    sudo rm -rf "$output_folder" || echo ""
+  fi
+fi
+
 cpack -B "$root/$output_folder"
 
 cd "$call_dir" || exit
