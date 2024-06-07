@@ -10,10 +10,9 @@ static Mesh* m_defaultRectangle = nullptr;
 static Mesh* m_defaultCircle = nullptr;
 
 void DefaultRes::load() {
-  // clang-format off
 
-    m_default2DShader = new Shader(
-        R"(
+  m_default2DShader = new Shader(
+    R"(
             #version 330 core
 
             layout (location = 0) in vec3 aPos;
@@ -30,7 +29,7 @@ void DefaultRes::load() {
                 TexCoord = aTexCoords;
             }
         )",
-        R"(
+    R"(
             #version 330 core
 
             out vec4 FragColor;
@@ -45,11 +44,10 @@ void DefaultRes::load() {
                     discard;
                 FragColor = c;
             }
-        )"
-    );
+        )");
 
-    m_defaultParticleShader = new Shader(
-        R"(
+  m_defaultParticleShader = new Shader(
+    R"(
             #version 330 core
 
             layout (location = 0) in vec3 aPos;
@@ -66,7 +64,7 @@ void DefaultRes::load() {
                 TexCoord = aTexCoords;
             }
         )",
-        R"(
+    R"(
             #version 330 core
 
             out vec4 FragColor;
@@ -78,58 +76,50 @@ void DefaultRes::load() {
             void main() {
                 FragColor = color;
             }
-        )"
-    );
+        )");
 
-    m_defaultRectangle = new Mesh(
-        {
-            { 0.5f,   0.5f, 0.0f },
-            { 0.5f,  -0.5f, 0.0f },
-            { -0.5f, -0.5f, 0.0f },
-            { -0.5f,  0.5f, 0.0f }
-        },
-        {0, 1, 3, 1, 2, 3},
-        {
-            { 1.0f, 0.0f },
-            { 1.0f, 1.0f },
-            { 0.0f, 1.0f },
-            { 0.0f, 0.0f },
-        }
-    );
-
+  m_defaultRectangle = new Mesh(
+    {{0.5f, 0.5f, 0.0f},
+      {0.5f, -0.5f, 0.0f},
+      {-0.5f, -0.5f, 0.0f},
+      {-0.5f, 0.5f, 0.0f}},
+    {0, 1, 3, 1, 2, 3},
     {
-        std::vector<glm::vec3> vertices;
-        std::vector<unsigned int> indices;
-        std::vector<glm::vec2> uv;
+      {1.0f, 0.0f},
+      {1.0f, 1.0f},
+      {0.0f, 1.0f},
+      {0.0f, 0.0f},
+    });
 
-        const int numSegments = 12;
-        const float segmentAngle = 2.f * glm::pi<float>() / numSegments;
+  {
+    std::vector<glm::vec3> vertices;
+    std::vector<unsigned int> indices;
+    std::vector<glm::vec2> uv;
 
-        vertices.push_back({0, 0, 0});
-        uv.push_back({0.5f, 0.5f});
+    const int numSegments = 12;
+    const float segmentAngle = 2.f * glm::pi<float>() / numSegments;
 
-        for (int i = 0; i < numSegments; ++i) {
-            float angle = i * segmentAngle;
-            float c = cosf(angle),
-                  s = sinf(angle);
+    vertices.push_back({0, 0, 0});
+    uv.push_back({0.5f, 0.5f});
 
-            vertices.push_back({ c, s, 0.f });
-            uv.push_back({
-                0.5f + 0.5f * c,
-                0.5f + 0.5f * s
-            });
-        }
+    for (int i = 0; i < numSegments; ++i) {
+      float angle = i * segmentAngle;
+      float c = cosf(angle),
+            s = sinf(angle);
 
-        for (int i = 1; i <= numSegments; ++i) {
-            indices.push_back(0);
-            indices.push_back(i);
-            indices.push_back((i % numSegments) + 1);
-        }
-
-        m_defaultCircle = new Mesh(vertices, indices, uv);
+      vertices.push_back({c, s, 0.f});
+      uv.push_back({0.5f + 0.5f * c,
+        0.5f + 0.5f * s});
     }
 
-  // clang-format on
+    for (int i = 1; i <= numSegments; ++i) {
+      indices.push_back(0);
+      indices.push_back(i);
+      indices.push_back((i % numSegments) + 1);
+    }
+
+    m_defaultCircle = new Mesh(vertices, indices, uv);
+  }
 }
 
 void DefaultRes::free() {

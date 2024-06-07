@@ -17,41 +17,27 @@ namespace game {
 World* loadGameWorld() {
   World* world = new World();
 
-  // clang-format off
-  
   auto gameState = world->createEntity();
-  
+
   auto background = world->createEntity();
   world->attachComponent(background, Transform{.scale = {600, 600}});
-  world->attachComponent(background, Renderable{
-    .texture = AssetManager::getAsset<Texture>("main/art/background.png")
-  });
+  world->attachComponent(background, Renderable{.texture = AssetManager::getAsset<Texture>("main/art/background.png")});
 
-  
   Map map;
   for (int i = 0; i < MAP_WIDTH; ++i)
     for (int j = 0; j < MAP_HEIGHT; ++j) {
       map.cells[i][j] = world->createEntity();
-      world->attachComponent(map.cells[i][j], Renderable{
-        .texture = nullptr
-      });
-      world->attachComponent(map.cells[i][j], Transform{
-        .position = { -168 + i * 168, -178 + j * 168, 0 },
-        .scale = {168, 168}
-      });
-    } 
+      world->attachComponent(map.cells[i][j], Renderable{.texture = nullptr});
+      world->attachComponent(map.cells[i][j], Transform{.position = {-168 + i * 168, -178 + j * 168, 0}, .scale = {168, 168}});
+    }
 
   world->attachComponent(gameState, map);
-  world->attachComponent(gameState, GameState{
-    .stepBy = StepBy::PLAYER
-  });
+  world->attachComponent(gameState, GameState{.stepBy = StepBy::PLAYER});
 
   world->addSystem(std::make_unique<RenderSystem>());
   world->addSystem(std::make_unique<TicTacToeSystem>());
   world->addSystem(std::make_unique<EnemySystem>());
   world->addSystem(std::make_unique<PlayerSystem>());
-
-  // clang-format on
 
   return world;
 }

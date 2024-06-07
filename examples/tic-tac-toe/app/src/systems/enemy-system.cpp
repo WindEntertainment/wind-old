@@ -25,10 +25,8 @@ void EnemySystem::update(wind::World& world) {
 
   map.map[x][y] = Sign::TOES;
 
-  // clang-format off
-  world.getComponent<Renderable>( map.cells[x][y]).texture =
-     AssetManager::getAsset<Texture>(fmt::format("main/art/toes_{}.png", rand() % 3).c_str());
-  // clang-format on
+  world.getComponent<Renderable>(map.cells[x][y]).texture =
+    AssetManager::getAsset<Texture>(fmt::format("main/art/toes_{}.png", rand() % 3).c_str());
 
   state.stepBy = StepBy::PLAYER;
 }

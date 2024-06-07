@@ -30,6 +30,7 @@ runs:
             [conf]
             tools.system.package_manager:mode=install
             tools.system.package_manager:sudo=True
+            tools.cmake.cmaketoolchain:generator=Unix Makefiles
           " > /home/runner/.conan2/profiles/default
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo "
@@ -57,6 +58,7 @@ runs:
             [conf]
             tools.system.package_manager:mode=install
             tools.system.package_manager:sudo=True
+            tools.cmake.cmaketoolchain:generator=Unix Makefiles
           " > /Users/runner/.conan2/profiles/default
         else
           echo "$RUNNER_OS not supported"
