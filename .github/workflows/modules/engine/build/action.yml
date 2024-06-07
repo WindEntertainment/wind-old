@@ -27,11 +27,7 @@ runs:
         export CC=${{ env.cc }}
         export CXX=${{ env.cxx }}
 
-        # wm run cmake-build -t game -bt ${{ env.engineBuildType }}
-        # cmake --build "$root/build/Debug" --parallel 10
-
-        wm run cmake-configure -bt ${{ env.engineBuildType }}
-        cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game
+        wm run cmake-build -t game -bt ${{ env.engineBuildType }}
         wm run cpack-build -bt ${{ env.engineBuildType }}
 
         cd releases
