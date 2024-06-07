@@ -4,14 +4,11 @@ namespace wind {
 
 std::vector<assets::AssetPipe*> assets::PipeRegister::m_pipes;
 
-// clang-format off
-assets::PipeRegister assets::PipeRegister::m_register =  assets::PipeRegister(std::vector<AssetPipe*>{
+assets::PipeRegister assets::PipeRegister::m_register = assets::PipeRegister(std::vector<AssetPipe*>{
   new ShaderPipe(),
   new ImagePipe(),
   new DefaultPipe(),
-  new CopyPipe()
-});
-// clang-format on
+  new CopyPipe()});
 
 namespace assets {
 

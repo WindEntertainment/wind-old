@@ -1,0 +1,9 @@
+name: LFS
+description: LFS setup
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Git LFS
+      shell: bash
+      run: git lfs install

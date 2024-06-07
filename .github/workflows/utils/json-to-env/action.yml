@@ -5,9 +5,13 @@ inputs:
   json:
     required: true
     description: JSON
+  codecovToken:
+    required: false
+    default: ""
+    description: CODECOV_TOKEN
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Create default profile
       shell: bash
@@ -25,3 +29,5 @@ runs:
           envHash=$(echo -n "$json" | sha256sum | cut -d ' ' -f1)
           echo "envHash=$envHash" >> $GITHUB_ENV
         fi
+
+        echo "CODECOV_TOKEN=$codecovToken" >> $GITHUB_ENV

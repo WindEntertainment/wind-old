@@ -84,12 +84,8 @@ void Renderer::setOrtho(glm::ivec2 _size, float _scope) {
   m_projectionPortSize = _size;
   m_scope = _scope;
 
-  // clang-format off
-    m_orthoMatrix = glm::ortho(
-        -static_cast<float>(_size.x / 2  * _scope), static_cast<float>(_size.x / 2  * _scope),
-        -static_cast<float>(_size.y / 2  * _scope), static_cast<float>(_size.y / 2 * _scope),
-        -1.f, 1.f);
-  // clang-format on
+  m_orthoMatrix = glm::ortho(
+    -static_cast<float>(_size.x / 2 * _scope), static_cast<float>(_size.x / 2 * _scope), -static_cast<float>(_size.y / 2 * _scope), static_cast<float>(_size.y / 2 * _scope), -1.f, 1.f);
 }
 
 void Renderer::setScope(float _scope) {

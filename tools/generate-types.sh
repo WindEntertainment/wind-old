@@ -5,12 +5,12 @@ source "$(dirname "$0")/global.sh"
 call_dir=$(pwd)
 root=""
 
-project="game"
+project=game
 
 while [[ "$#" -gt 0 ]]; do
   case $1 in
     -p|--project) project="$2"; shift ;;
-    -r|--root) root="$2"; shift ;;
+    --root) root="$2"; shift ;;
     *) echo "Unknown parameter passed: $1"; exit 1 ;;
   esac
   shift

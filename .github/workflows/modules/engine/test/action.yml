@@ -2,16 +2,36 @@ name: Test engine
 description: Test engine
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Setup conan base
+      shell: bash
+      run: |
+        echo 1
+    - name: Setup conan base
       uses: ./.github/workflows/utils/setup-conan
-
-    - name: Install dependencies
-      uses: ./.github/workflows/modules/engine/install-dependencies
 
     - name: Setup ultralight base
       uses: ./.github/workflows/utils/setup-ultralight
 
     - name: Prepare engine env
       uses: ./.github/workflows/modules/engine/setup-env
+
+    - name: Install dependencies
+      uses: ./.github/workflows/modules/engine/install-dependencies
+
+    - name: Build game with wm
+      shell: bash
+      run: |
+        export CC=${{ env.cc }}
+        export CXX=${{ env.cxx }}
+        wm run test
+
+    # - uses: codecov/codecov-action@v4
+    #   with:
+    #     fail_ci_if_error: true
+    #     files: ./coverage
+    #     flags: engine
+    #     name: dreich
+    #     token: ${{ env.CODECOV_TOKEN }}
+    #     verbose: true

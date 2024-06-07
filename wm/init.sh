@@ -18,7 +18,7 @@ mkdir "$DEFAULT_SCRIPTS_FOLDER"
 
 cp "$(dirname "$0")/health.sh" "$(pwd)/$DEFAULT_SCRIPTS_FOLDER"
 
-if [ "$OS" != "Windows" ]; then
+if echo "$OS" | grep -qi "Windows"; then
   for file in "$DEFAULT_SCRIPTS_FOLDER"/*.sh; do
     if [ -f "$file" ]; then
       sudo chmod +x "$file"

@@ -3,11 +3,14 @@ name: dev
 on:
   push:
     branches:
-      - "**"
-      - "!master"
+      - "dev"
 
 permissions:
   contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   linting:
@@ -35,6 +38,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          lfs: true
+      - name: LFS
+        uses: "./.github/workflows/utils/lfs"
       - name: Env
         uses: "./.github/workflows/utils/json-to-env"
         with:
@@ -54,32 +60,6 @@ jobs:
       matrix:
         config:
           - {
-              name: "Windows",
-              projectRoot: "D:/a/dreich",
-              artifact: "dreich-windows",
-              os: "windows-latest",
-              engineBuildType: "Debug",
-              uiRoot: "D:/a/dreich/dreich/game/data/main/UI",
-              engineRoot: "D:/a/dreich/dreich",
-              ultralightVersion: "latest-win-x64",
-              cc: "clang",
-              cxx: "clang++",
-              isRelease: false,
-            }
-          - {
-              name: "Ubuntu",
-              projectRoot: "/home/runner/work/dreich",
-              artifact: "dreich-linux",
-              os: "ubuntu-latest",
-              engineBuildType: "Debug",
-              uiRoot: "/home/runner/work/dreich/dreich/game/data/main/UI",
-              engineRoot: "/home/runner/work/dreich/dreich",
-              ultralightVersion: "latest-linux-x64",
-              cc: "clang",
-              cxx: "clang++",
-              isRelease: false,
-            }
-          - {
               name: "MacOS",
               projectRoot: "/Users/runner/work/dreich",
               artifact: "dreich-macos",
@@ -97,10 +77,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          lfs: true
+      - name: LFS
+        uses: "./.github/workflows/utils/lfs"
       - name: Env
         uses: "./.github/workflows/utils/json-to-env"
         with:
           json: ${{ toJSON(matrix.config) }}
+          codecovToken: ${{ secrets.CODECOV_TOKEN }}
       - uses: ./.github/workflows/utils/setup-base-libs
       - name: Engine
         uses: "./.github/workflows/modules/engine/test"
@@ -108,7 +92,6 @@ jobs:
   building:
     name: "Build: ${{ matrix.config.name }}"
     runs-on: ${{ matrix.config.os }}
-
     strategy:
       fail-fast: false
       matrix:
@@ -157,6 +140,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          lfs: true
+      - name: LFS
+        uses: "./.github/workflows/utils/lfs"
       - name: Env
         uses: "./.github/workflows/utils/json-to-env"
         with:

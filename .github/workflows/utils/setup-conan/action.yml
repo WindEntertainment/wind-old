@@ -2,10 +2,10 @@ name: Setup conan
 description: Setup conan
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Install conan
-      if:  env.os != 'macos-14'
+      if: env.os != 'macos-14'
       uses: turtlebrowser/get-conan@main
       with:
         version: 2.1.0
@@ -16,7 +16,7 @@ runs:
         conan profile detect
 
     - name: Config profile
-      run:   |
+      run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           echo "
             [settings]
@@ -30,6 +30,7 @@ runs:
             [conf]
             tools.system.package_manager:mode=install
             tools.system.package_manager:sudo=True
+            tools.cmake.cmaketoolchain:generator=Unix Makefiles
           " > /home/runner/.conan2/profiles/default
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo "
@@ -38,15 +39,11 @@ runs:
             build_type=${{ env.engineBuildType }}
             compiler=clang
             compiler.cppstd=gnu23
-            compiler.runtime=dynamic
-            compiler.runtime_type=${{ env.engineBuildType }}
-            compiler.runtime_version=v143
-            compiler.version=16
+            compiler.version=17
             os=Windows
             [conf]
             tools.system.package_manager:mode=install
-            tools.system.package_manager:sudo=True
-            tools.microsoft.msbuild:vs_version=17
+            tools.cmake.cmaketoolchain:generator=Unix Makefiles
           " > C:\\Users\\runneradmin\\.conan2\\profiles\\default
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo "
@@ -61,6 +58,7 @@ runs:
             [conf]
             tools.system.package_manager:mode=install
             tools.system.package_manager:sudo=True
+            tools.cmake.cmaketoolchain:generator=Unix Makefiles
           " > /Users/runner/.conan2/profiles/default
         else
           echo "$RUNNER_OS not supported"

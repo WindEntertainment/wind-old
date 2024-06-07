@@ -2,15 +2,17 @@
 
 source "$(dirname "$0")/global.sh"
 
-build_type="Release"
+build_type=Release
+skip_build=false
 
 call_dir=$(pwd)
 root=""
 
 while [[ "$#" -gt 0 ]]; do
   case $1 in
-    -b|--build-type) build_type="$2"; shift ;;
-    -r|--root) root="$2"; shift ;;
+    -bt|--build-type) build_type="$2"; shift ;;
+    -sb|--skip-build) skip_build=true; ;;
+    --root) root="$2"; shift ;;
     *) echo "Unknown parameter passed: $1"; exit 1 ;;
   esac
   shift
@@ -18,9 +20,9 @@ done
 
 cd "$root" || exit 2
 
-cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="$build_type" -DCMAKE_TOOLCHAIN_FILE="$root/build/$build_type/generators/conan_toolchain.cmake" -S"$root" -B"$root/build/$build_type"
-
-cmake --build "$root/build/$build_type" --parallel 10 --target wind-asset-bundler
+if [[ $skip_build = false ]]; then
+  wm run cmake-build --build-type "$build_type" --target wind-asset-bundler
+fi
 
 cd build/"$build_type"/wind/core/asset-pipeline || exit 2
 
