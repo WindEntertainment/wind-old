@@ -26,7 +26,7 @@ cp "$(dirname "$0")/health.sh" "$file"
 [ ! -f "$file" ] && throw 1 "File $file not created"
 
 
-if [ "$OS" != "Windows" ]; then
+if echo "$OS" | grep -qi "Windows"; then
   if [ -f "$file" ]; then
     sudo chmod +x "$file"
     echo "Added execute permission to: $file"
