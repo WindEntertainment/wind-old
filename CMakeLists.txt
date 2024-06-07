@@ -25,7 +25,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   message("Testing enabled")
   enable_testing()
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+  # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
 
   add_custom_target(coverage
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/coverage
