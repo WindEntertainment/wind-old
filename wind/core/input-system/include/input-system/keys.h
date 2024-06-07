@@ -255,6 +255,7 @@ KEYCODES mapStringToKeycode(std::string action);
 std::string mapKeyActionToString(KEY_ACTIONS action);
 std::string mapKeycodeToString(KEYCODES action);
 
+KEY_ACTIONS mapGlfwActionToKeyAction(int action);
 Key mapGlfwMouseCodeToKey(int glfwKey, int action);
 Key mapGlfwJoystickCodeToKey(int glfwKey, int action);
 Key mapGlfwGamepadButtonCodeToKey(int glfwKey);
