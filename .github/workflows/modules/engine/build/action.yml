@@ -49,29 +49,6 @@ runs:
         path: ${{ env.projectRoot }}/dreich/game/data/.cache
         key: ${{ env.envHash }}-${{ hashFiles('${{ env.projectRoot }}/dreich/game/data/**/.export-config') }}-${{ env.os }}-asset-manager
 
-    # - name: Prepare assets
-    #   uses: ./.github/workflows/modules/engine/assets
-
-    # - name: Build game
-    #   run:   |
-    #     if [ "$RUNNER_OS" == "Linux" ]; then
-    #       export CC=${{ env.cc }}
-    #       export CXX=${{ env.cxx }}
-    #       cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game
-    #     elif [ "$RUNNER_OS" == "macOS" ]; then
-    #       cmake --build $(pwd)/build/${{ env.engineBuildType }} --parallel 10 --target game
-    #     elif [ "$RUNNER_OS" == "Windows" ]; then
-    #       cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=${{ env.engineBuildType }} -DCMAKE_TOOLCHAIN_FILE="${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}/generators/conan_toolchain.cmake" -S "${{ env.projectRoot }}/dreich" -B "${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}"
-    #       cmake --build "${{ env.projectRoot }}/dreich/build/${{ env.engineBuildType }}" --parallel 10 --target game
-    #     else
-    #       echo "$RUNNER_OS not supported"
-    #       exit 1
-    #     fi
-
-    #     cd build/${{ env.engineBuildType }}
-    #     cpack
-    #   shell: bash
-
     # - name: Upload package as artifact
     #   if: ${{ env.isRelease == true }}
     #   uses: actions/upload-artifact@v4
