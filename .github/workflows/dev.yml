@@ -98,7 +98,7 @@ jobs:
               projectRoot: "D:/a/dreich",
               artifact: "dreich-windows",
               os: "windows-latest",
-              engineBuildType: "Debug",
+              engineBuildType: "Release",
               uiRoot: "D:/a/dreich/dreich/game/data/main/UI",
               engineRoot: "D:/a/dreich/dreich",
               ultralightVersion: "latest-win-x64",
