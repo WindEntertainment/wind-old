@@ -35,7 +35,8 @@ runs:
       if: env.os == 'windows-latest'
       shell: powershell
       run: |
-        choco install make cmake llvm 7zip yq
+        choco install make cmake 7zip yq
+        choco install llvm --version=18.1.6
 
     - name: Setup wm
       shell: bash
