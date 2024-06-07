@@ -19,15 +19,16 @@ message("Building with CMake version: ${CMAKE_VERSION}")
 add_subdirectory(./wind/)
 add_subdirectory(./game/)
 add_subdirectory(./examples/)
-add_subdirectory(./tests/)
 
 option(ENABLE_TESTS "Enable custom tests" OFF)
 
 if(ENABLE_TESTS AND CMAKE_BUILD_TYPE STREQUAL "Debug")
   message("Testing enabled")
-  enable_testing()
 
+  enable_testing()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+
+  add_subdirectory(./tests/)
 
   add_custom_target(coverage
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/coverage
@@ -39,5 +40,6 @@ if(ENABLE_TESTS AND CMAKE_BUILD_TYPE STREQUAL "Debug")
     COMMENT "Generating code coverage report..."
   )
 endif()
+
 
 include(cpack/cpack.cmake)
