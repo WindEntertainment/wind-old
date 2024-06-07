@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 
-# if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-#   message("Testing enabled")
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  message("Testing enabled")
 #   enable_testing()
 
 #   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
@@ -14,7 +14,7 @@ cmake_minimum_required(VERSION 3.22)
 #     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 #     COMMENT "Generating code coverage report..."
 #   )
-# endif()
+endif()
 
 # Start read .env file
 file(STRINGS ".env" ENV_VARS)

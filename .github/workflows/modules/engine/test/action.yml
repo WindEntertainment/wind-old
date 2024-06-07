@@ -8,17 +8,17 @@ runs:
       shell: bash
       run: |
         echo 1
-    # - name: Setup conan base
-    #   uses: ./.github/workflows/utils/setup-conan
+    - name: Setup conan base
+      uses: ./.github/workflows/utils/setup-conan
 
-    # - name: Setup ultralight base
-    #   uses: ./.github/workflows/utils/setup-ultralight
+    - name: Setup ultralight base
+      uses: ./.github/workflows/utils/setup-ultralight
 
-    # - name: Prepare engine env
-    #   uses: ./.github/workflows/modules/engine/setup-env
+    - name: Prepare engine env
+      uses: ./.github/workflows/modules/engine/setup-env
 
-    # - name: Install dependencies
-    #   uses: ./.github/workflows/modules/engine/install-dependencies
+    - name: Install dependencies
+      uses: ./.github/workflows/modules/engine/install-dependencies
 
     # - name: Build game with wm
     #   shell: bash
