@@ -18,7 +18,6 @@ done
 response=$(gh api \
   -H "Accept: application/vnd.github+json" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
-  -q "per_page=1000" \
   /repos/Dronner-Inc/dreich/actions/caches)
 
 if [ $? -eq 0 ]; then
