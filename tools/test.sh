@@ -18,9 +18,9 @@ done
 cd "$root" || exit
 
 if [[ $skip_build = false ]]; then
-  wm run cmake-build --build-type "Debug" --target tests
-  wm run cmake-build --build-type "Debug" --target game-tests
-  wm run cmake-build --build-type "Debug" --target wind-tests
+  wm run cmake-build --build-type Debug --target tests
+  wm run cmake-build --build-type Debug --target game-tests
+  wm run cmake-build --build-type Debug --target wind-tests
 fi
 
 cd "$root/build/Debug/tests" || exit
