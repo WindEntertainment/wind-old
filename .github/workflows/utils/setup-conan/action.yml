@@ -38,15 +38,11 @@ runs:
             build_type=${{ env.engineBuildType }}
             compiler=clang
             compiler.cppstd=gnu23
-            compiler.runtime=dynamic
-            compiler.runtime_type=${{ env.engineBuildType }}
-            compiler.runtime_version=v143
             compiler.version=16
             os=Windows
             [conf]
             tools.system.package_manager:mode=install
-            tools.system.package_manager:sudo=True
-            tools.microsoft.msbuild:vs_version=17
+            tools.cmake.cmaketoolchain:generator=Unix Makefiles
           " > C:\\Users\\runneradmin\\.conan2\\profiles\\default
         elif [ "$RUNNER_OS" == "macOS" ]; then
           echo "
