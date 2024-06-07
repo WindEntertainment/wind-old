@@ -3,12 +3,14 @@
 source "$(dirname "$0")/global.sh"
 
 skip_build=false
+with_coverage=false
 
 root=""
 
 while [[ "$#" -gt 0 ]]; do
   case $1 in
     -sb|--skip-build) skip_build=true; ;;
+    -wc|--with-coverage) with_coverage=true; ;;
     --root) root="$2"; shift; ;;
     *) echo "Unknown parameter passed: $1"; exit; ;;
   esac
@@ -26,5 +28,11 @@ fi
 cd "$root/build/Debug/tests" || exit
 
 ctest
+
+if [[ $with_coverage = true ]]; then
+  cd "../" || exit
+  make
+  make coverage
+fi
 
 cd "$root" || exit

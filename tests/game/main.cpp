@@ -12,8 +12,6 @@ int main(int argc, char** argv) {
     // propagate the result of the tests
     return res;
   }
-
-  printf("%s\n", "Hello, World!");
 }
 
 int factorial(const int number) {
@@ -28,9 +26,3 @@ TEST_CASE("testing the factorial function") {
   CHECK(factorial(3) == 6);
   CHECK(factorial(10) == 3628800);
 }
-
-// running notes
-// ./example_exe --no-run (run normal program)
-// ./example_exe --exit (run tests then exit)
-// ./example_exe (run tests then run program)
-// ./example_exe --success (print successful test casts)

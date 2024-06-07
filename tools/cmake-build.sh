@@ -15,7 +15,6 @@ while [[ "$#" -gt 0 ]]; do
     -sc|--skip-configure) skip_configure=true; ;;
     -bt|--build-type) build_type="$2"; shift ;;
     -wt|--with-testing) testing_config="--with-testing"; ;;
-
     -t|--target) target="$2"; shift ;;
     --root) root="$2"; shift ;;
     *) echo "Unknown parameter passed: $1"; exit 1 ;;
