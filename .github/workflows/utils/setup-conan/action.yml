@@ -38,7 +38,7 @@ runs:
             build_type=${{ env.engineBuildType }}
             compiler=clang
             compiler.cppstd=gnu23
-            compiler.version=16
+            compiler.version=17
             os=Windows
             [conf]
             tools.system.package_manager:mode=install

@@ -10,6 +10,9 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   linting:
     name: "Linting ${{ matrix.config.name }}"
