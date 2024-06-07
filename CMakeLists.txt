@@ -4,16 +4,16 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   message("Testing enabled")
 #   enable_testing()
 
-#   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
-#     add_custom_target(coverage
-#     COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/coverage
-#     COMMAND mkdir ${CMAKE_BINARY_DIR}/coverage
-#     COMMAND game-tests
-#     COMMAND wind-tests
-#     COMMAND gcovr --root ${CMAKE_SOURCE_DIR} --exclude '.*/tests/.*' --exclude '.*/CMakeFiles/.*' --exclude '.*/build/.*' --html --html-details -o ${CMAKE_BINARY_DIR}/coverage/index.html
-#     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-#     COMMENT "Generating code coverage report..."
-#   )
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+    add_custom_target(coverage
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/coverage
+    COMMAND mkdir ${CMAKE_BINARY_DIR}/coverage
+    COMMAND game-tests
+    COMMAND wind-tests
+    COMMAND gcovr --root ${CMAKE_SOURCE_DIR} --exclude '.*/tests/.*' --exclude '.*/CMakeFiles/.*' --exclude '.*/build/.*' --html --html-details -o ${CMAKE_BINARY_DIR}/coverage/index.html
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    COMMENT "Generating code coverage report..."
+  )
 endif()
 
 # Start read .env file
