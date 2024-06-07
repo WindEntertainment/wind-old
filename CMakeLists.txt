@@ -35,6 +35,6 @@ message("Building with CMake version: ${CMAKE_VERSION}")
 add_subdirectory(./wind/)
 add_subdirectory(./game/)
 add_subdirectory(./examples/)
-# add_subdirectory(./tests/)
+add_subdirectory(./tests/)
 
 include(cpack/cpack.cmake)
