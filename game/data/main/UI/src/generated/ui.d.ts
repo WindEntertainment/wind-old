@@ -19,4 +19,3 @@ type HelloOutput = {
 export type CppEvents = {
   hello: (input: HelloInput) => HelloOutput;
 };
-
