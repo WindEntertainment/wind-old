@@ -2,6 +2,7 @@ project(wind-core)
 
 # modules
 add_subdirectory(./utils/)
+add_subdirectory(./event-manager/)
 add_subdirectory(./window/)
 add_subdirectory(./renderer/)
 add_subdirectory(./resources/)
@@ -13,6 +14,7 @@ add_library(${PROJECT_NAME} SHARED core.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC ./include/)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC wind-utils)
+target_link_libraries(${PROJECT_NAME} PUBLIC wind-event-manager)
 target_link_libraries(${PROJECT_NAME} PUBLIC wind-window)
 target_link_libraries(${PROJECT_NAME} PUBLIC wind-renderer)
 target_link_libraries(${PROJECT_NAME} PUBLIC wind-resources)
