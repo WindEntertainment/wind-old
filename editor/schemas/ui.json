@@ -1,24 +1,28 @@
 {
-  "JSEvents": {
+  "JsEvents": {
     "methods": {
-      "hello": {
+      "loadProject": {
         "input": {
-          "world": "string"
+          "name": "std::string",
+          "createdAt": "int",
+          "maps": "std::string"
         },
         "output": {
-          "world": "string"
+          "success": "bool"
         }
       }
     }
   },
   "CppEvents": {
     "methods": {
-      "hello": {
+      "saveProject": {
         "input": {
-          "world": "string"
+          "name": "std::string",
+          "createdAt": "int",
+          "maps": "std::string"
         },
         "output": {
-          "world": "string"
+          "success": "bool"
         }
       }
     }

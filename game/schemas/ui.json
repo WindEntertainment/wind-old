@@ -1,0 +1,26 @@
+{
+  "JSEvents": {
+    "methods": {
+      "hello": {
+        "input": {
+          "world": "string"
+        },
+        "output": {
+          "world": "string"
+        }
+      }
+    }
+  },
+  "CppEvents": {
+    "methods": {
+      "hello": {
+        "input": {
+          "world": "string"
+        },
+        "output": {
+          "world": "number"
+        }
+      }
+    }
+  }
+}
