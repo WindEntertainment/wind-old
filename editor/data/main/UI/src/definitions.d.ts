@@ -17,8 +17,9 @@ declare module "react" {
   ): ForwardRefExoticComponent<PropsWithoutRef<C> & RefAttributes<T>>;
 }
 
-// declare module "@tanstack/react-router" {
-//   interface Register {
-//     router: typeof router;
-//   }
-// }
+declare global {
+  interface Window {
+    emitJSEvent: (args: string) => void;
+  }
+  declare function emitCppEvent(args: string): void;
+}

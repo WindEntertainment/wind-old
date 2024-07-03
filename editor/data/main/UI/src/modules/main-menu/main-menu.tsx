@@ -3,6 +3,7 @@ import { Card } from "@/components/card";
 import { useForm, zodResolver } from "@/components/form";
 import { FormInput } from "@/components/input";
 import { PageWrapper } from "@/components/page-wrapper";
+import { triggerCppEvent } from "@/event-manager";
 import { tw } from "@/tw";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
@@ -27,9 +28,19 @@ export const MainMenu = () => {
 
   return (
     <PageWrapper isFooterShown={false} isHeaderShown={false}>
-      <Card className={tw(" p-5", isGay && "bg-gradient-to-r from-red-500 via-yellow-500 to-green-500")}>
+      <Card className={tw("p-5", isGay && "bg-gradient-to-r from-red-500 via-yellow-500 to-green-500")}>
         {t("hello")}
         <p className="text-center hover:text-green-500">Make me gay!</p>
+        <Button
+          onClick={() => {
+            triggerCppEvent({
+              data: { createdAt: Number(new Date()), maps: "map", name: "Project1" },
+              name: "saveProject",
+            });
+          }}
+        >
+          Emit cpp
+        </Button>
         <div className="flex w-full justify-around">
           <Button
             onClick={() => {
