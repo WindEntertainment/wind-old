@@ -1,5 +1,5 @@
-export type SchemaObject = { [paramName: string]: SchemaObject | string | SchemaTypes };
-export type SchemaPlainObject = { [paramName: string]: string | SchemaTypes };
+export type SchemaObject = { [paramName: string]: SchemaObject | string | SchemaTypes } | string;
+export type SchemaPlainObject = { [paramName: string]: string | SchemaTypes } | string;
 
 export type MethodSchema = {
   [className: string]: {
@@ -22,20 +22,26 @@ export enum Language {
 }
 
 export enum SchemaTypes {
-  BOOLEAN = "boolean",
-  NUMBER = "number",
-  STRING = "string",
+  BOOLEAN = "bool",
+  INT = "int",
+  FLOAT = "float",
+  STD_STRING = "std::string",
+  VOID = "void",
 }
 
 export const mappers: Record<Language, Record<SchemaTypes, string>> = {
   cpp: {
-    [SchemaTypes.BOOLEAN]: "bool" ,
-    [SchemaTypes.NUMBER]: "int" ,
-    [SchemaTypes.STRING]: "std::string" ,
+    [SchemaTypes.BOOLEAN]: "bool",
+    [SchemaTypes.INT]: "int",
+    [SchemaTypes.FLOAT]: "float",
+    [SchemaTypes.STD_STRING]: "std::string",
+    [SchemaTypes.VOID]: "void",
   },
   ts: {
-    [SchemaTypes.BOOLEAN]: "boolean" ,
-    [SchemaTypes.NUMBER]: "number" ,
-    [SchemaTypes.STRING]: "string" ,
+    [SchemaTypes.BOOLEAN]: "boolean",
+    [SchemaTypes.INT]: "number",
+    [SchemaTypes.FLOAT]: "number",
+    [SchemaTypes.STD_STRING]: "string",
+    [SchemaTypes.VOID]: "void",
   },
 };

@@ -6,36 +6,43 @@ const mapTypeToTS = (type: SchemaTypes | string) => {
 };
 
 const generateType = (name: string, fields: SchemaPlainObject) => {
-  let type = "";
+  if (typeof fields === "string") {
+    return `type ${name} = ${fields};\n`;
+  } else {
+    let type = "";
 
-  for (const [field, datatype] of Object.entries(fields)) {
-    type += `  ${field}: ${mapTypeToTS(datatype)};\n`;
+    for (const [field, datatype] of Object.entries(fields)) {
+      type += `  ${field}: ${mapTypeToTS(datatype)};\n`;
+    }
+
+    return `type ${name} = {\n` + type + "};\n";
   }
-
-  return `type ${name} = {\n` + type + "};\n";
 };
 
 const generateNestedTypes = (name: string, fields: SchemaObject) => {
   let innerTypes = "";
 
-  const type: Record<string, string> = {};
+  let type: SchemaPlainObject = {};
 
-  for (const [field, datatype] of Object.entries(fields)) {
-    if (typeof datatype === "string") {
-      type[field] = datatype;
-    } else {
-      type[field] = name + capitalizeFirstLetter(field);
-      innerTypes += generateNestedTypes(name + capitalizeFirstLetter(field), datatype);
+  if (typeof fields === "string") {
+    type = fields;
+  } else {
+    for (const [field, datatype] of Object.entries(fields)) {
+      if (typeof datatype === "string") {
+        type[field] = datatype;
+      } else {
+        type[field] = name + capitalizeFirstLetter(field);
+        innerTypes += generateNestedTypes(name + capitalizeFirstLetter(field), datatype);
+      }
     }
   }
-
   return innerTypes + generateType(name, type);
 };
 
 function generateStruct(className: string, classSchema: MethodSchema[string]) {
   let classCode = "";
 
-  let methodsCode = `\nexport type ${className} = {\n`;
+  let methodsCode = `\n export type Methods = {\n`;
 
   const { methods } = classSchema;
 
@@ -43,14 +50,16 @@ function generateStruct(className: string, classSchema: MethodSchema[string]) {
     const { input, output } = methods[methodName];
     const upperMethodName = capitalizeFirstLetter(methodName);
 
-    classCode += generateNestedTypes(`${upperMethodName}Input`, input);
-    classCode += generateNestedTypes(`${upperMethodName}Output`, output);
+    classCode += `namespace ${upperMethodName} {\n`;
+    classCode += generateNestedTypes(`Input`, input);
+    classCode += generateNestedTypes(`Output`, output);
+    classCode += `}`;
 
-    methodsCode += `  ${methodName}: (input: ${upperMethodName}Input) => ${upperMethodName}Output;\n`;
+    methodsCode += `  ${methodName}: (input: ${upperMethodName}.Input) => ${upperMethodName}.Output;\n`;
   }
-  methodsCode += `};\n\n`;
+  methodsCode += `};\n`;
 
-  return classCode + methodsCode;
+  return `export namespace ${className}{${classCode}${methodsCode}};\n\n`;
 }
 
 export const parseTS = (schema: MethodSchema) => {

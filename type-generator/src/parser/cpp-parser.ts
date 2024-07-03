@@ -8,24 +8,31 @@ const mapTypeToCpp = (type: SchemaTypes | string) => {
 const generateStruct = (name: string, fields: SchemaPlainObject) => {
   let struct = "";
 
-  for (const [field, datatype] of Object.entries(fields)) {
-    struct += `    ${mapTypeToCpp(datatype)} ${field};\n`;
+  if (typeof fields === "string") {
+    return `struct ${name} = ${fields};\n`;
+  } else {
+    for (const [field, datatype] of Object.entries(fields)) {
+      struct += `    ${mapTypeToCpp(datatype)} ${field};\n`;
+    }
+    return `  struct ${name} {\n` + struct + "  };\n";
   }
-
-  return `  struct ${name} {\n` + struct + "  };\n";
 };
 
 const generateNestedStructs = (name: string, fields: SchemaObject) => {
   let innerStructs = "";
 
-  const struct: Record<string, string> = {};
+  let struct: SchemaPlainObject = {};
 
-  for (const [field, datatype] of Object.entries(fields)) {
-    if (typeof datatype === "string") {
-      struct[field] = datatype;
-    } else {
-      struct[field] = name + capitalizeFirstLetter(field);
-      innerStructs += generateNestedStructs(name + capitalizeFirstLetter(field), datatype);
+  if (typeof fields === "string") {
+    struct = fields;
+  } else {
+    for (const [field, datatype] of Object.entries(fields)) {
+      if (typeof datatype === "string") {
+        struct[field] = datatype;
+      } else {
+        struct[field] = name + capitalizeFirstLetter(field);
+        innerStructs += generateNestedStructs(name + capitalizeFirstLetter(field), datatype);
+      }
     }
   }
 
@@ -34,6 +41,7 @@ const generateNestedStructs = (name: string, fields: SchemaObject) => {
 
 function generateClass(className: string, classSchema: MethodSchema[string]) {
   let classCode = "";
+  let methodsCode = `\n class Methods {\n`;
 
   const { methods } = classSchema;
 
@@ -41,13 +49,15 @@ function generateClass(className: string, classSchema: MethodSchema[string]) {
     const { input, output } = methods[methodName];
     const upperMethodName = capitalizeFirstLetter(methodName);
 
-    classCode += generateNestedStructs(`${upperMethodName}Input`, input);
-    classCode += generateNestedStructs(`${upperMethodName}Output`, output);
+    classCode += `namespace ${upperMethodName} {\n`;
+    classCode += generateNestedStructs(`Input`, input);
+    classCode += generateNestedStructs(`Output`, output);
+    classCode += `}`;
 
-    classCode += `  ${upperMethodName}Output ${methodName}(const ${upperMethodName}Input& input) const;\n\n`;
+    methodsCode += `  ${upperMethodName}::Output ${methodName}(const ${upperMethodName}::Input& input);\n\n`;
   }
 
-  return `\nclass ${className} {\n` + classCode + "};\n";
+  return `\nnamespace ${className}{${classCode}${methodsCode}};};\n\n`;
 }
 
 export const parseCpp = (schema: MethodSchema) => {
