@@ -5,7 +5,6 @@
 #include "input-system/keys.h"
 
 #include "editor/event-manager.hpp"
-#include "editor/js-core-utils.hpp"
 #include "utils/includes.h"
 #include <JavaScriptCore/JSRetainPtr.h>
 #include <algorithm>
@@ -14,7 +13,6 @@
 #include <functional>
 #include <input-system/input-system.h>
 #include <iostream>
-#include <nlohmann/json.hpp>
 #include <ostream>
 #include <renderer/renderer.hpp>
 #include <spdlog/spdlog.h>
@@ -24,8 +22,6 @@
 #include <utils/utils.h>
 #include <wind-ultralight/ultralight.h>
 #include <window/window.h>
-
-using json = nlohmann::json;
 
 int main(int argc, char** argv) {
 
@@ -103,33 +99,37 @@ int main(int argc, char** argv) {
 
   Ultralight::init();
 
-  const auto uiTexture = Ultralight::loadView("main/UI/dist/index.html", {800, 600});
+  std::function<void(ultralight::View*)> onDomReady = [](ul::View* view) {
+    auto scoped_context = view->LockJSContext();
+
+    JSContextRef ctx = (*scoped_context);
+
+    JSStringRef name = JSStringCreateWithUTF8CString("emitCppEvent");
+
+    JSObjectRef func = JSObjectMakeFunctionWithCallback(ctx, name, handleCppEvent);
+
+    JSObjectRef globalObj = JSContextGetGlobalObject(ctx);
+
+    JSObjectSetProperty(ctx, globalObj, name, func, 0, 0);
+
+    JSStringRelease(name);
+  };
+
+  auto viewLogger = new wind::ViewLogger();
+  auto loadLogger = new wind::LoadLogger(onDomReady);
+  auto networkLogger = new wind::NetworkLogger();
+
+  const auto uiTexture = Ultralight::loadView("main/UI/dist/index.html", {800, 600}, viewLogger, loadLogger, networkLogger);
 
   auto onClick = [](InputSystemContext* inputSystemContext) {
     forEach(Ultralight::m_views, [&](auto view) {
       auto scoped_context = view->LockJSContext();
       JSContextRef context = (*scoped_context);
 
-      // JSEvent s;
-      // s.name = "hello";
-      // s.add("one", 1);
-      // s.add("two", 2);
-      // s.add("three", 3);
-
-      int date = 1719923568798;
+      long date = 1719923568798;
       auto emitter = new JsEvents::Methods();
 
       emitter->loadProject(JsEvents::LoadProject::Input{"Project1", date, "Map1,Map2"}, context);
-
-      // JSValueRef result = emitJSEvent(context, s, &exception);
-
-      // if (exception) {
-      //   spdlog::info(JSValueRefToString(context, exception));
-      // }
-
-      // if (result) {
-      //   spdlog::info(JSValueRefToString(context, result));
-      // }
     });
   };
 
@@ -152,7 +152,6 @@ int main(int argc, char** argv) {
   // };
 
   InputSystem::addTriggerCallbacks("ultralightMousePress", new std::function(onClick));
-  InputSystem::addTriggerCallbacks("ultralightMousePress", new std::function(addCppEventToJSScope));
 
   //=============Main loop=================//
 

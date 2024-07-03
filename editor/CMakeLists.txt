@@ -1,22 +1,16 @@
 project(editor)
 
 set(HEADERS
-  ./app/include/game/systems/following-system.hpp
-  ./app/include/game/systems/controll-system.hpp
-  ./app/include/game/systems/move-system.hpp
-  ./app/include/game/systems/render-system.hpp
+  ./app/include/editor/utils.hpp
+  ./app/include/editor/event-manager.hpp
 
-  ./app/include/game/worlds.hpp
-  ./app/include/game/utils.hpp
+  ./app/include/editor/generated/ui.hpp
 )
 
 set(SOURCES
-  ./app/src/systems/render-system.cpp
-  ./app/src/systems/move-system.cpp
-  ./app/src/systems/controll-system.cpp
-  ./app/src/systems/following-system.cpp
+  ./app/src/event-manager.cpp
+  ./app/src/events.cpp
 
-  ./app/src/worlds/game-world.cpp
   ./app/src/main.cpp
 )
 
@@ -25,3 +19,9 @@ add_wind_game(${PROJECT_NAME} "main;resources" ${HEADERS} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ./app/include/)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-breeze)
+target_link_libraries(${PROJECT_NAME} PRIVATE wind-event-manager)
+target_link_libraries(${PROJECT_NAME} PRIVATE wind-ultralight)
+
+
+find_package(Boost REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC boost::boost)
