@@ -2,7 +2,7 @@ name: Lint UI
 description: Lint UI
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Setup node base
       uses: ./.github/workflows/utils/setup-node
