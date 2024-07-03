@@ -7,12 +7,22 @@ set(ULTRALIGHT_INSPECTOR_DIR "$ENV{ULTRALIGHT_PATH}/inspector")
 set(ULTRALIGHT_RESOURCES_DIR "$ENV{ULTRALIGHT_PATH}/resources")
 
 set(HEADERS
+    ./include/wind-ultralight/js-core-utils.hpp
+
     ./include/wind-ultralight/ultralight.h
     ./include/wind-ultralight/filesystem.hpp
+    ./include/wind-ultralight/load-logger.h
+    ./include/wind-ultralight/network-logger.h
+    ./include/wind-ultralight/view-logger.h
 )
 
 set(SOURCES
+    ./src/js-core-utils.cpp
+
     ./src/ultralight.cpp
+    ./src/load-logger.cpp
+    ./src/network-logger.cpp
+    ./src/view-logger.cpp
 )
 
 add_library(${PROJECT_NAME} STATIC

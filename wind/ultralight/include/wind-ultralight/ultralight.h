@@ -6,6 +6,9 @@
 #include "input-system/context.h"
 #include "input-system/keys.h"
 #include "logger.h"
+#include "wind-ultralight/load-logger.h"
+#include "wind-ultralight/network-logger.h"
+#include "wind-ultralight/view-logger.h"
 
 #include <renderer/texture.hpp>
 
@@ -32,15 +35,21 @@ public:
   static void triggerKeyHoldEvent(wind::InputSystemContext* context);
   static void triggerKeyReleaseEvent(wind::InputSystemContext* context);
 
-  static Texture* loadView(const std::string& path, const glm::ivec2 size);
+  static Texture* loadView(
+    const std::string& path,
+    const glm::ivec2 size,
+    ViewLogger* viewLogger = new ViewLogger(),
+    LoadLogger* loadLogger = new LoadLogger(),
+    NetworkLogger* networkLogger = new NetworkLogger());
 
   static spdlog::level::level_enum mapUltralightLogLevelToSpd(ul::MessageLevel level);
 
-private:
   // forced to use two vectors, because if you
   // make a map with ul::RefPtr<View> as a key
   // there will be a segmentation fault
   static std::vector<ul::RefPtr<ul::View>> m_views;
+
+private:
   static std::vector<Texture*> m_textures;
 
   static ul::RefPtr<ul::Renderer> m_renderer;

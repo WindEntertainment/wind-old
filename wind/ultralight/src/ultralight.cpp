@@ -14,116 +14,6 @@
 
 namespace wind {
 
-class ViewLogger : public ul::ViewListener {
-private:
-  inline std::string toUTF8(const ul::String& str) {
-    ul::String8 utf8 = str.utf8();
-    return std::string(utf8.data(), utf8.length());
-  }
-
-  inline const char* stringify(ul::MessageSource source) {
-    switch (source) {
-    case ul::kMessageSource_XML:
-      return "XML";
-    case ul::kMessageSource_JS:
-      return "JS";
-    case ul::kMessageSource_Network:
-      return "Network";
-    case ul::kMessageSource_ConsoleAPI:
-      return "ConsoleAPI";
-    case ul::kMessageSource_Storage:
-      return "Storage";
-    case ul::kMessageSource_AppCache:
-      return "AppCache";
-    case ul::kMessageSource_Rendering:
-      return "Rendering";
-    case ul::kMessageSource_CSS:
-      return "CSS";
-    case ul::kMessageSource_Security:
-      return "Security";
-    case ul::kMessageSource_ContentBlocker:
-      return "ContentBlocker";
-    case ul::kMessageSource_Other:
-      return "Other";
-    default:
-      return "";
-    }
-  }
-
-  inline const char* stringify(ul::MessageLevel level) {
-    switch (level) {
-    case ul::kMessageLevel_Log:
-      return "Log";
-    case ul::kMessageLevel_Warning:
-      return "Warning";
-    case ul::kMessageLevel_Error:
-      return "Error";
-    case ul::kMessageLevel_Debug:
-      return "Debug";
-    case ul::kMessageLevel_Info:
-      return "Info";
-    default:
-      return "";
-    }
-  }
-
-public:
-  void OnAddConsoleMessage(
-    ul::View* caller,
-    const ul::ConsoleMessage& log) override {
-
-    auto source = log.source();
-    auto level = log.level();
-    auto message = log.message();
-    auto source_id = log.source_id();
-    auto line_number = log.line_number();
-    auto column_number = log.column_number();
-
-    spdlog::log(Ultralight::mapUltralightLogLevelToSpd(level), "[UL::Console]: [{}] {}", stringify(source), toUTF8(message));
-
-    if (source == ul::kMessageSource_JS)
-      spdlog::log(Ultralight::mapUltralightLogLevelToSpd(level), "[UL::Console]: ({}) @ line: {}, column: {})", toUTF8(source_id), line_number, column_number);
-
-    std::cout << std::endl;
-  }
-};
-
-class LoadLogger : public ul::LoadListener {
-public:
-  void OnBeginLoading(ul::View* caller, uint64_t frame_id, bool is_main_frame, const ul::String& url) override {
-    spdlog::info("[UL::Loader]: Loading started, url: {}", url.utf8().data());
-  }
-
-  void OnFinishLoading(ul::View* caller, uint64_t frame_id, bool is_main_frame, const ul::String& url) override {
-    spdlog::info("[UL::Loader]: Loading finished, url: {}", url.utf8().data());
-  }
-
-  void OnFailLoading(
-    ul::View* caller, uint64_t frame_id, bool is_main_frame,
-    const ul::String& url, const ul::String& description,
-    const ul::String& error_domain, int error_code) override {
-    spdlog::log(
-      spdlog::level::err,
-      "[UL::Loader]: Loading failed, error code: {}, description: {}, error domain: {}, url: {}",
-      error_code,
-      description.utf8().data(),
-      error_domain.utf8().data(),
-      url.utf8().data());
-  }
-
-  void OnDOMReady(ul::View* caller, uint64_t frame_id, bool is_main_frame, const ul::String& url) override {
-    spdlog::info("[UL::Loader]: DOM ready, url: {}", url.utf8().data());
-  }
-};
-
-class NetworkLogger : public ul::NetworkListener {
-public:
-  bool OnNetworkRequest(ultralight::View* caller, ul::NetworkRequest& request) override {
-    spdlog::info("[UL::Network]: {} request, url: {}", request.url().utf8().data(), request.httpMethod().utf8().data());
-    return true;
-  };
-};
-
 std::vector<ul::RefPtr<ul::View>>
   Ultralight::m_views;
 std::vector<Texture*> Ultralight::m_textures;
@@ -279,16 +169,22 @@ void Ultralight::triggerMoveEvent(wind::InputSystemContext* context) {
   }
 }
 
-Texture* Ultralight::loadView(const std::string& _path, const glm::ivec2 _size) {
+Texture* Ultralight::loadView(
+  const std::string& _path,
+  const glm::ivec2 _size,
+  ViewLogger* viewLogger,
+  LoadLogger* loadLogger,
+  NetworkLogger* networkLogger) {
+
   ul::ViewConfig view_config;
   view_config.is_accelerated = false;
 
   ul::RefPtr<ul::View>
     view = m_renderer->CreateView(_size.x, _size.y, view_config, nullptr);
 
-  view->set_view_listener(new ViewLogger());
-  view->set_load_listener(new LoadLogger());
-  view->set_network_listener(new NetworkLogger());
+  view->set_view_listener(viewLogger);
+  view->set_load_listener(loadLogger);
+  view->set_network_listener(networkLogger);
 
   view->LoadURL(("file:///" + _path).c_str());
 
