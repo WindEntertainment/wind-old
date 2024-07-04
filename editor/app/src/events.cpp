@@ -23,7 +23,7 @@ LoadProject::Output Methods::loadProject(const LoadProject::Input& input, JSCont
 } // namespace JsEvents
 
 namespace CppEvents {
-SaveProject::Output Methods::saveProject(const SaveProject::Input& input) {
+SaveProject::Output Methods::saveProject(const SaveProject::Input& input, JSContextRef context) {
   spdlog::info("Data: {}, {}", input.name, input.createdAt);
   return SaveProject::Output{true};
 };

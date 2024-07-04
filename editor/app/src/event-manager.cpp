@@ -32,7 +32,7 @@ JSValueRef handleCppEvent(JSContextRef ctx, JSObjectRef function,
 
   std::unordered_map<std::string, std::function<void()>> handlers = {
     {"saveProject", [&]() {
-       temp->saveProject(wind::jsonToStruct<CppEvents::SaveProject::Input>(data));
+       temp->saveProject(wind::jsonToStruct<CppEvents::SaveProject::Input>(data), ctx);
      }}};
 
   auto it = handlers.find(name);
