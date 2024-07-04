@@ -1,28 +1,31 @@
 {
-  "JsEvents": {
-    "methods": {
-      "loadProject": {
-        "input": {
-          "name": "std::string",
-          "createdAt": "int",
-          "maps": "std::string"
-        },
-        "output": {
-          "success": "bool"
+  "header": "#include <JavaScriptCore/JSRetainPtr.h>\n#include <utils/includes.h>\n",
+  "classes": {
+    "JsEvents": {
+      "methods": {
+        "loadProject": {
+          "input": {
+            "name": "std::string",
+            "createdAt": "int",
+            "maps": "std::string"
+          },
+          "output": {
+            "success": "bool"
+          }
         }
       }
-    }
-  },
-  "CppEvents": {
-    "methods": {
-      "saveProject": {
-        "input": {
-          "name": "std::string",
-          "createdAt": "int",
-          "maps": "std::string"
-        },
-        "output": {
-          "success": "bool"
+    },
+    "CppEvents": {
+      "methods": {
+        "saveProject": {
+          "input": {
+            "name": "std::string",
+            "createdAt": "int",
+            "maps": "std::string"
+          },
+          "output": {
+            "success": "bool"
+          }
         }
       }
     }

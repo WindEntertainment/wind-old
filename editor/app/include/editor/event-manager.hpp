@@ -1,6 +1,5 @@
 #pragma once
 #include <JavaScriptCore/JSRetainPtr.h>
-#include <spdlog/spdlog.h>
 #include <utils/includes.h>
 #include <utils/utils.h>
 

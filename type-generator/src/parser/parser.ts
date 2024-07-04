@@ -1,10 +1,10 @@
 import * as fs from "fs";
 import * as path from "path";
-import prettier from "prettier";
 
-import { Language, MethodSchema } from "../shared";
+import { Language, MethodSchema, ParserConfigs } from "../shared";
 import { parseCpp } from "./cpp-parser";
 import { parseTS } from "./ts-parser";
+import { format } from "./formatter";
 
 const parsers = {
   [Language.CPP]: parseCpp,
@@ -14,23 +14,6 @@ const parsers = {
 const languageToExtension = {
   [Language.CPP]: ".hpp",
   [Language.TS]: ".d.ts",
-};
-
-const format = async ({ language, outputPath }: ParserConfigs, file: string) => {
-  switch (language) {
-    case Language.TS:
-      const options = await prettier.resolveConfig(outputPath);
-      return prettier.format(file, { ...options, plugins: [] });
-
-    default:
-      return file;
-  }
-};
-
-export type ParserConfigs = {
-  language: Language;
-  outputPath: string;
-  schemaPath: string;
 };
 
 export const parse = (config: ParserConfigs) => {

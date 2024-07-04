@@ -39,7 +39,7 @@ const generateNestedTypes = (name: string, fields: SchemaObject) => {
   return innerTypes + generateType(name, type);
 };
 
-function generateStruct(className: string, classSchema: MethodSchema[string]) {
+function generateStruct(className: string, classSchema: MethodSchema["classes"][string]) {
   let classCode = "";
 
   let methodsCode = `\n export type Methods = {\n`;
@@ -65,8 +65,8 @@ function generateStruct(className: string, classSchema: MethodSchema[string]) {
 export const parseTS = (schema: MethodSchema) => {
   let types = "";
 
-  for (const className in schema) {
-    types += generateStruct(className, schema[className]);
+  for (const className in schema.classes) {
+    types += generateStruct(className, schema.classes[className]);
   }
 
   return types;

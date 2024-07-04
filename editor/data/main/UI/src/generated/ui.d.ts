@@ -1,9 +1,9 @@
 export namespace JsEvents {
   namespace LoadProject {
     type Input = {
-      name: string;
       createdAt: number;
       maps: string;
+      name: string;
     };
     type Output = {
       success: boolean;
@@ -17,9 +17,9 @@ export namespace JsEvents {
 export namespace CppEvents {
   namespace SaveProject {
     type Input = {
-      name: string;
       createdAt: number;
       maps: string;
+      name: string;
     };
     type Output = {
       success: boolean;

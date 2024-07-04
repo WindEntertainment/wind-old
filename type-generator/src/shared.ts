@@ -2,11 +2,14 @@ export type SchemaObject = { [paramName: string]: SchemaObject | string | Schema
 export type SchemaPlainObject = { [paramName: string]: string | SchemaTypes } | string;
 
 export type MethodSchema = {
-  [className: string]: {
-    methods: {
-      [methodName: string]: {
-        input: SchemaObject;
-        output: SchemaObject;
+  header?: string;
+  classes: {
+    [className: string]: {
+      methods: {
+        [methodName: string]: {
+          input: SchemaObject;
+          output: SchemaObject;
+        };
       };
     };
   };
@@ -44,4 +47,10 @@ export const mappers: Record<Language, Record<SchemaTypes, string>> = {
     [SchemaTypes.STD_STRING]: "string",
     [SchemaTypes.VOID]: "void",
   },
+};
+
+export type ParserConfigs = {
+  language: Language;
+  outputPath: string;
+  schemaPath: string;
 };

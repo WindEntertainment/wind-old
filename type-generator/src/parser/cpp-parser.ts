@@ -9,7 +9,7 @@ const generateStruct = (name: string, fields: SchemaPlainObject) => {
   let struct = "";
 
   if (typeof fields === "string") {
-    return `struct ${name} = ${fields};\n`;
+    return `\nstruct ${name} = ${fields};\n`;
   } else {
     for (const [field, datatype] of Object.entries(fields)) {
       struct += `    ${mapTypeToCpp(datatype)} ${field};\n`;
@@ -39,9 +39,9 @@ const generateNestedStructs = (name: string, fields: SchemaObject) => {
   return innerStructs + generateStruct(name, struct);
 };
 
-function generateClass(className: string, classSchema: MethodSchema[string]) {
+function generateClass(className: string, classSchema: MethodSchema["classes"][string]) {
   let classCode = "";
-  let methodsCode = `\n class Methods {\n`;
+  let methodsCode = `\nclass Methods {\n`;
 
   const { methods } = classSchema;
 
@@ -49,22 +49,23 @@ function generateClass(className: string, classSchema: MethodSchema[string]) {
     const { input, output } = methods[methodName];
     const upperMethodName = capitalizeFirstLetter(methodName);
 
-    classCode += `namespace ${upperMethodName} {\n`;
+    classCode += `\nnamespace ${upperMethodName} {\n`;
     classCode += generateNestedStructs(`Input`, input);
     classCode += generateNestedStructs(`Output`, output);
-    classCode += `}`;
+    classCode += `}\n`;
 
-    methodsCode += `  ${upperMethodName}::Output ${methodName}(const ${upperMethodName}::Input& input);\n\n`;
+    methodsCode += `  ${upperMethodName}::Output ${methodName}(const ${upperMethodName}::Input& input);\n`;
   }
 
-  return `\nnamespace ${className}{${classCode}${methodsCode}};};\n\n`;
+  return `\nnamespace ${className} {${classCode}${methodsCode}};\n};\n\n`;
 }
 
 export const parseCpp = (schema: MethodSchema) => {
-  let structs = "";
+  let structs = "#pragma once\n";
+  structs += schema?.header;
 
-  for (const className in schema) {
-    structs += generateClass(className, schema[className]);
+  for (const className in schema.classes) {
+    structs += generateClass(className, schema.classes[className]);
   }
 
   return structs;

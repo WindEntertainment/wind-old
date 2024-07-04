@@ -1,28 +1,25 @@
 #pragma once
-#include <editor/event-manager.hpp>
+#include <JavaScriptCore/JSRetainPtr.h>
 #include <utils/includes.h>
-#include <utils/utils.h>
 
 namespace JsEvents {
-
 namespace LoadProject {
 struct Input {
   std::string name;
-  long createdAt;
+  int createdAt;
   std::string maps;
 };
 struct Output {
   bool success;
 };
 } // namespace LoadProject
+
 class Methods {
-public:
-  LoadProject::Output loadProject(const LoadProject::Input& input, JSContextRef context);
+  LoadProject::Output loadProject(const LoadProject::Input& input);
 };
 }; // namespace JsEvents
 
 namespace CppEvents {
-
 namespace SaveProject {
 struct Input {
   std::string name;
@@ -33,8 +30,8 @@ struct Output {
   bool success;
 };
 } // namespace SaveProject
+
 class Methods {
-public:
   SaveProject::Output saveProject(const SaveProject::Input& input);
 };
 }; // namespace CppEvents
