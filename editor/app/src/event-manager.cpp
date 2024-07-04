@@ -1,7 +1,6 @@
 #include "utils/includes.h"
 
 #include <JavaScriptCore/JSRetainPtr.h>
-#include <boost/hana.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <editor/event-manager.hpp>
@@ -12,8 +11,8 @@
 #include <wind-ultralight/js-core-utils.hpp>
 
 namespace editor {
+
 namespace pt = boost::property_tree;
-namespace hana = boost::hana;
 
 JSValueRef handleCppEvent(JSContextRef ctx, JSObjectRef function,
   JSObjectRef thisObject, size_t argumentCount,

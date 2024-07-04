@@ -1,6 +1,12 @@
 #include "wind-event-manager/convertor.hpp"
+#include <boost/hana.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
 
 namespace wind {
+namespace pt = boost::property_tree;
+namespace hana = boost::hana;
+
 template <typename Struct>
 const char* structToJsonObjectWithName(std::string name, Struct s) {
   pt::ptree tree;

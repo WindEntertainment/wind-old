@@ -1,15 +1,9 @@
-#include <boost/hana.hpp>
-#include <boost/property_tree/json_parser.hpp>
-#include <boost/property_tree/ptree.hpp>
 #include <editor/event-manager.hpp>
 #include <editor/generated/ui.hpp>
 #include <wind-event-manager/convertor.hpp>
 #include <wind-event-manager/emitter.hpp>
 
 namespace JsEvents {
-
-namespace pt = boost::property_tree;
-namespace hana = boost::hana;
 
 LoadProject::Output Methods::loadProject(const LoadProject::Input& input, JSContextRef context) {
   JSValueRef exception = nullptr;
