@@ -126,7 +126,7 @@ int main(int argc, char** argv) {
       auto scoped_context = view->LockJSContext();
       JSContextRef context = (*scoped_context);
 
-      long date = 1719923568798;
+      int date = 1719923;
       auto emitter = new JsEvents::Methods();
 
       emitter->loadProject(JsEvents::LoadProject::Input{"Project1", date, "Map1,Map2"}, context);

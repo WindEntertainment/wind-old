@@ -15,7 +15,8 @@ struct Output {
 } // namespace LoadProject
 
 class Methods {
-  LoadProject::Output loadProject(const LoadProject::Input& input);
+public:
+  LoadProject::Output loadProject(const LoadProject::Input& input, JSContextRef context);
 };
 }; // namespace JsEvents
 
@@ -32,6 +33,7 @@ struct Output {
 } // namespace SaveProject
 
 class Methods {
-  SaveProject::Output saveProject(const SaveProject::Input& input);
+public:
+  SaveProject::Output saveProject(const SaveProject::Input& input, JSContextRef context);
 };
 }; // namespace CppEvents

@@ -41,7 +41,7 @@ const generateNestedStructs = (name: string, fields: SchemaObject) => {
 
 function generateClass(className: string, classSchema: MethodSchema["classes"][string]) {
   let classCode = "";
-  let methodsCode = `\nclass Methods {\n`;
+  let methodsCode = `\nclass Methods {\npublic:\n`;
 
   const { methods } = classSchema;
 
@@ -54,7 +54,7 @@ function generateClass(className: string, classSchema: MethodSchema["classes"][s
     classCode += generateNestedStructs(`Output`, output);
     classCode += `}\n`;
 
-    methodsCode += `  ${upperMethodName}::Output ${methodName}(const ${upperMethodName}::Input& input);\n`;
+    methodsCode += `  ${upperMethodName}::Output ${methodName}(const ${upperMethodName}::Input& input, JSContextRef context);\n`;
   }
 
   return `\nnamespace ${className} {${classCode}${methodsCode}};\n};\n\n`;
@@ -62,6 +62,7 @@ function generateClass(className: string, classSchema: MethodSchema["classes"][s
 
 export const parseCpp = (schema: MethodSchema) => {
   let structs = "#pragma once\n";
+  structs += "#include <JavaScriptCore/JSRetainPtr.h>\n";
   structs += schema?.header;
 
   for (const className in schema.classes) {

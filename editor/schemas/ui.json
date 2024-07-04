@@ -1,5 +1,5 @@
 {
-  "header": "#include <JavaScriptCore/JSRetainPtr.h>\n#include <utils/includes.h>\n",
+  "header": "#include <utils/includes.h>\n",
   "classes": {
     "JsEvents": {
       "methods": {
