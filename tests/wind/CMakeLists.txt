@@ -1,9 +1,15 @@
 project(wind-tests)
 
-find_package(doctest REQUIRED)
+# find_package(doctest REQUIRED)
 
 add_executable(${PROJECT_NAME} main.cpp)
-target_link_libraries(${PROJECT_NAME} PRIVATE doctest::doctest)
+
+# target_link_libraries(${PROJECT_NAME} PRIVATE doctest::doctest)
+# find_package(Boost 1.85.0 REQUIRED COMPONENTS unit_test_framework)
+# target_link_libraries(tests Boost::unit_test_framework)
+find_package(Boost REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC boost::boost)
+
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-utils)
 target_link_libraries(${PROJECT_NAME} PRIVATE wind-input-system)
 

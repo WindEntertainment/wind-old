@@ -1,5 +1,4 @@
-#include <editor/event-manager.hpp>
-#include <editor/generated/ui.hpp>
+#include "editor/generated/ui.hpp"
 #include <wind-event-manager/convertor.hpp>
 #include <wind-event-manager/emitter.hpp>
 
