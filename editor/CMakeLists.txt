@@ -9,7 +9,7 @@ set(HEADERS
 
 set(SOURCES
   ./app/src/event-manager.cpp
-  ./app/src/events.cpp
+  # ./app/src/events.cpp
 
   ./app/src/main.cpp
 )

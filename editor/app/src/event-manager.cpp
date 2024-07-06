@@ -38,31 +38,31 @@ namespace hana = boost::hana;
 
 // template <typename Struct>
 // Struct jsonToStruct(const std::string& json) {
-//   pt::ptree tree;
-//   std::istringstream ss(json);
-//   pt::read_json(ss, tree);
+// pt::ptree tree;
+// std::istringstream ss(json);
+// pt::read_json(ss, tree);
 
-//   Struct result;
-//   hana::for_each(hana::keys(result), [&](auto key) {
-//     using Key = decltype(key);
-//     auto keyStr = hana::to<const char*>(key);
-//     using ValueType = typename std::decay<decltype(hana::at_key(result, key))>::type;
+// Struct result;
+// hana::for_each(hana::keys(result), [&](auto key) {
+//   using Key = decltype(key);
+//   auto keyStr = hana::to<const char*>(key);
+//   using ValueType = typename std::decay<decltype(hana::at_key(result, key))>::type;
 
-//     if (tree.find(keyStr) != tree.not_found()) {
-//       hana::at_key(result, key) = tree.get<ValueType>(keyStr);
-//     } else {
-//       hana::at_key(result, key) = ValueType{}; // Default value if key is not found
-//     }
-//   });
+//   if (tree.find(keyStr) != tree.not_found()) {
+//     hana::at_key(result, key) = tree.get<ValueType>(keyStr);
+//   } else {
+//     hana::at_key(result, key) = ValueType{}; // Default value if key is not found
+//   }
+// });
 
 //   return result;
 // }
 
-// struct MyStruct {
-//   BOOST_HANA_DEFINE_STRUCT(MyStruct,
-//     (int, id),
-//     (std::string, name));
-// };
+struct MyStruct {
+  BOOST_HANA_DEFINE_STRUCT(MyStruct,
+    (int, id),
+    (std::string, name));
+};
 
 JSValueRef handleCppEvent(JSContextRef ctx, JSObjectRef function,
   JSObjectRef thisObject, size_t argumentCount,
@@ -81,8 +81,24 @@ JSValueRef handleCppEvent(JSContextRef ctx, JSObjectRef function,
 
   std::unordered_map<std::string, std::function<void()>> handlers = {
     {"saveProject", [&]() {
-       //  jsonToStruct<MyStruct>(data);
-       temp->saveProject(wind::jsonToStruct<CppEvents::SaveProject::Input>(data), ctx);
+       pt::ptree tree;
+       std::istringstream ss(data);
+       pt::read_json(ss, tree);
+
+       MyStruct result;
+       hana::for_each(hana::keys(result), [&](auto key) {
+         using Key = decltype(key);
+         auto keyStr = hana::to<const char*>(key);
+         using ValueType = typename std::decay<decltype(hana::at_key(result, key))>::type;
+
+         if (tree.find(keyStr) != tree.not_found()) {
+           hana::at_key(result, key) = tree.get<ValueType>(keyStr);
+         } else {
+           hana::at_key(result, key) = ValueType{}; // Default value if key is not found
+         }
+       });
+       //  wind::jsonToStruct<MyStruct>(data);
+       //  temp->saveProject(wind::jsonToStruct<CppEvents::SaveProject::Input>(data), ctx);
      }}};
 
   auto it = handlers.find(name);
