@@ -101,17 +101,17 @@ int main(int argc, char** argv) {
   std::function<void(ultralight::View*)> onDomReady = [](ul::View* view) {
     auto scoped_context = view->LockJSContext();
 
-    JSContextRef ctx = (*scoped_context);
+    JSContextRef globalContext = (*scoped_context);
 
-    JSStringRef name = JSStringCreateWithUTF8CString("emitCppEvent");
+    JSStringRef functionName = JSStringCreateWithUTF8CString("emitCppEvent");
 
-    JSObjectRef func = JSObjectMakeFunctionWithCallback(ctx, name, handleCppEvent);
+    JSObjectRef function = JSObjectMakeFunctionWithCallback(globalContext, functionName, handleCppEvent);
 
-    JSObjectRef globalObj = JSContextGetGlobalObject(ctx);
+    JSObjectRef globalObject = JSContextGetGlobalObject(globalContext);
 
-    JSObjectSetProperty(ctx, globalObj, name, func, 0, 0);
+    JSObjectSetProperty(globalContext, globalObject, functionName, function, 0, 0);
 
-    JSStringRelease(name);
+    JSStringRelease(functionName);
   };
 
   auto viewLogger = new wind::ViewLogger();
@@ -122,8 +122,8 @@ int main(int argc, char** argv) {
 
   auto onClick = [](InputSystemContext* inputSystemContext) {
     forEach(Ultralight::m_views, [&](auto view) {
-      auto scoped_context = view->LockJSContext();
-      JSContextRef context = (*scoped_context);
+      auto viewContext = view->LockJSContext();
+      JSContextRef context = (*viewContext);
 
       int date = 1719923;
       auto emitter = new JsEvents::Methods();

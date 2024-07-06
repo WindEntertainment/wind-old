@@ -3,7 +3,6 @@
 #include <wind-event-manager/emitter.hpp>
 
 namespace JsEvents {
-
 LoadProject::Output Methods::loadProject(const LoadProject::Input& input, JSContextRef context) {
   JSValueRef exception = nullptr;
 

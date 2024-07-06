@@ -58,11 +58,11 @@ namespace hana = boost::hana;
 //   return result;
 // }
 
-struct MyStruct {
-  BOOST_HANA_DEFINE_STRUCT(MyStruct,
-    (int, id),
-    (std::string, name));
-};
+// struct MyStruct {
+//   BOOST_HANA_DEFINE_STRUCT(MyStruct,
+//     (int, id),
+//     (std::string, name));
+// };
 
 JSValueRef handleCppEvent(JSContextRef ctx, JSObjectRef function,
   JSObjectRef thisObject, size_t argumentCount,
