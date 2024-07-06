@@ -34,15 +34,17 @@
 // }
 
 BOOST_AUTO_TEST_CASE(test_mapGlfwActionToKeyAction_valid) {
-  BOOST_CHECK_EQUAL(wind::mapGlfwActionToKeyAction(GLFW_RELEASE), wind::KEY_ACTIONS::RELEASED);
-  BOOST_CHECK_EQUAL(wind::mapGlfwActionToKeyAction(GLFW_PRESS), wind::KEY_ACTIONS::PRESSED);
-  BOOST_CHECK_EQUAL(wind::mapGlfwActionToKeyAction(GLFW_REPEAT), wind::KEY_ACTIONS::HELD);
-  BOOST_CHECK_EQUAL(wind::mapGlfwActionToKeyAction(GLFW_KEY_UNKNOWN), wind::KEY_ACTIONS::RELEASED);
+  using namespace wind;
+  BOOST_CHECK_EQUAL(mapGlfwActionToKeyAction(GLFW_RELEASE), KEY_ACTIONS::RELEASED);
+  BOOST_CHECK_EQUAL(mapGlfwActionToKeyAction(GLFW_PRESS), KEY_ACTIONS::PRESSED);
+  BOOST_CHECK_EQUAL(mapGlfwActionToKeyAction(GLFW_REPEAT), KEY_ACTIONS::HELD);
+  BOOST_CHECK_EQUAL(mapGlfwActionToKeyAction(GLFW_KEY_UNKNOWN), KEY_ACTIONS::RELEASED);
 }
 
 BOOST_AUTO_TEST_CASE(test_mapGlfwActionToKeyAction_invalid) {
-  BOOST_CHECK_EQUAL(wind::mapGlfwActionToKeyAction(-1), wind::KEY_ACTIONS::RELEASED);
-  BOOST_CHECK_EQUAL(wind::mapGlfwActionToKeyAction(100), wind::KEY_ACTIONS::RELEASED);
+  using namespace wind;
+  BOOST_CHECK_EQUAL(mapGlfwActionToKeyAction(-1), KEY_ACTIONS::RELEASED);
+  BOOST_CHECK_EQUAL(mapGlfwActionToKeyAction(100), KEY_ACTIONS::RELEASED);
 }
 
 // TEST_CASE("Testing mapGlfwMouseCodeToKey function") {
