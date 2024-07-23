@@ -10,8 +10,6 @@ class MyConanFile(ConanFile):
   settings = "os", "compiler", "build_type", "arch"
   generators = "CMakeDeps", "CMakeToolchain"
   exports_sources = "*"
-  options = {"without_bzip2": [True, False]}
-  default_options = {"without_bzip2": True}
   requires = [
     "spdlog/1.13.0",
     "yaml-cpp/0.8.0",
@@ -28,10 +26,6 @@ class MyConanFile(ConanFile):
 
   def layout(self):
     cmake_layout(self)
-
-  def configure(self):
-    if self.options.without_bzip2:
-      self.options["boost"].without_bzip2 = True
 
   def build(self):
     cmake = CMake(self)

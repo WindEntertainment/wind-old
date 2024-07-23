@@ -9,7 +9,7 @@ set(HEADERS
 
 set(SOURCES
   ./app/src/event-manager.cpp
-  # ./app/src/events.cpp
+  ./app/src/events.cpp
 
   ./app/src/main.cpp
 )
@@ -24,4 +24,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE wind-ultralight)
 
 
 find_package(Boost REQUIRED)
+add_definitions(-DBOOST_DEBUG)
 target_link_libraries(${PROJECT_NAME} PUBLIC boost::boost)

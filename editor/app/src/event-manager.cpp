@@ -1,18 +1,4 @@
-#include "utils/includes.h"
-
 #include "editor/event-manager.hpp"
-#include "editor/generated/ui.hpp"
-#include "utils/utils.h"
-#include "wind-event-manager/convertor.hpp"
-#include "wind-event-manager/emitter.hpp"
-#include "wind-ultralight/js-core-utils.hpp"
-#include <JavaScriptCore/JSRetainPtr.h>
-#include <boost/hana/for_each.hpp>
-#include <boost/hana/keys.hpp>
-#include <boost/hana/string.hpp>
-#include <boost/property_tree/json_parser.hpp>
-#include <boost/property_tree/ptree.hpp>
-#include <spdlog/spdlog.h>
 
 namespace editor {
 

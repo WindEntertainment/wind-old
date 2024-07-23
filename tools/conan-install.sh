@@ -18,6 +18,6 @@ done
 
 cd "$root" || exit
 
-conan install . --build=missing -s build_type="$build_type"
+conan install . --build=all -s build_type="$build_type"
 
 cd "$call_dir" || exit

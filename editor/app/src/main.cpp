@@ -5,10 +5,18 @@
 #include "input-system/keys.h"
 
 #include "editor/event-manager.hpp"
+#include "editor/generated/ui.hpp"
 #include "utils/includes.h"
+#include "wind-ultralight/js-core-utils.hpp"
 #include <JavaScriptCore/JSRetainPtr.h>
 #include <algorithm>
 #include <asset-manager/asset-manager.hpp>
+#include <boost/hana/for_each.hpp>
+#include <boost/hana/keys.hpp>
+#include <boost/hana/string.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/version.hpp>
 #include <editor/generated/ui.hpp>
 #include <functional>
 #include <input-system/input-system.h>
@@ -21,6 +29,121 @@
 #include <utils/utils.h>
 #include <wind-ultralight/ultralight.h>
 #include <window/window.h>
+
+// namespace editor {
+
+// namespace pt = boost::property_tree;
+// namespace hana = boost::hana;
+
+// // template <typename Struct>
+// // Struct jsonToStruct(std::string& json) {
+// //   pt::ptree tree;
+// //   std::istringstream ss(json);
+// //   pt::read_json(ss, tree);
+
+// //   Struct result;
+// //   hana::for_each(hana::keys(result), [&](auto key) {
+// //     auto value = tree.get<decltype(hana::at_key(result, key))>(key);
+// //     hana::at_key(result, key) = value;
+// //   });
+
+// //   return result;
+// // }
+
+// // OR
+
+// // template <typename Struct>
+// // Struct jsonToStruct(const std::string& json) {
+// // pt::ptree tree;
+// // std::istringstream ss(json);
+// // pt::read_json(ss, tree);
+
+// // Struct result;
+// // hana::for_each(hana::keys(result), [&](auto key) {
+// //   using Key = decltype(key);
+// //   auto keyStr = hana::to<const char*>(key);
+// //   using ValueType = typename std::decay<decltype(hana::at_key(result, key))>::type;
+
+// //   if (tree.find(keyStr) != tree.not_found()) {
+// //     hana::at_key(result, key) = tree.get<ValueType>(keyStr);
+// //   } else {
+// //     hana::at_key(result, key) = ValueType{}; // Default value if key is not found
+// //   }
+// // });
+
+// //   return result;
+// // }
+
+// struct MyStruct {
+//   BOOST_HANA_DEFINE_STRUCT(MyStruct,
+//     (int, id),
+//     (std::string, name));
+// };
+
+// JSValueRef handleCppEvent(JSContextRef ctx, JSObjectRef function,
+//   JSObjectRef thisObject, size_t argumentCount,
+//   const JSValueRef arguments[], JSValueRef* exception) {
+
+//   std::string eventJson = wind::JSValueToStdString(ctx, arguments[0]);
+
+//   spdlog::info("-----------");
+//   spdlog::info("{}", eventJson);
+//   spdlog::info("-----------");
+
+//   pt::ptree tree;
+//   spdlog::info("1");
+
+//   std::istringstream ss(eventJson);
+//   spdlog::info("2");
+//   pt::read_json(ss, tree);
+//   spdlog::info("3");
+
+//   std::string name = tree.get<std::string>("name");
+//   std::string data = tree.get<std::string>("data");
+//   spdlog::info("4");
+//   auto temp = new CppEvents::Methods();
+
+//   std::unordered_map<std::string, std::function<void()>> handlers = {
+//     {"saveProject", [&]() {
+//        pt::ptree tree;
+//        std::istringstream ss(data);
+//        pt::read_json(ss, tree);
+
+//        MyStruct result;
+//        hana::for_each(hana::keys(result), [&](auto key) {
+//          using Key = decltype(key);
+//          auto keyStr = hana::to<const char*>(key);
+//          using ValueType = typename std::decay<decltype(hana::at_key(result, key))>::type;
+
+//          if (tree.find(keyStr) != tree.not_found()) {
+//            hana::at_key(result, key) = tree.get<ValueType>(keyStr);
+//          } else {
+//            hana::at_key(result, key) = ValueType{}; // Default value if key is not found
+//          }
+//        });
+//        //  wind::jsonToStruct<MyStruct>(data);
+//        //  temp->saveProject(wind::jsonToStruct<CppEvents::SaveProject::Input>(data), ctx);
+//      }}};
+
+//   auto it = handlers.find(name);
+
+//   if (it != handlers.end()) {
+//     it->second();
+//   }
+
+//   // const char* str =
+//   //   "console.log('BIMBO')";
+
+//   // JSStringRef script = JSStringCreateWithUTF8CString(str);
+
+//   // JSEvaluateScript(ctx, script, 0, 0, 0, 0);
+
+//   // JSStringRelease(script);
+
+//   return JSValueMakeNull(ctx);
+// }
+
+// } // namespace editor
 
 int main(int argc, char** argv) {
 
@@ -126,9 +249,9 @@ int main(int argc, char** argv) {
       JSContextRef context = (*viewContext);
 
       int date = 1719923;
-      auto emitter = new JsEvents::Methods();
+      // auto emitter = new JsEvents::Methods();
 
-      emitter->loadProject(JsEvents::LoadProject::Input{"Project1", date, "Map1,Map2"}, context);
+      // emitter->loadProject(JsEvents::LoadProject::Input{"Project1", date, "Map1,Map2"}, context);
     });
   };
 
