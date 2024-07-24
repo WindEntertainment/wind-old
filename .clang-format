@@ -1,0 +1,22 @@
+Language: Cpp
+BasedOnStyle: LLVM
+
+IndentWidth: 2
+ContinuationIndentWidth: 2
+AlignAfterOpenBracket: false
+UseTab: Never
+
+AlignOperands: true
+BreakBeforeBraces: Attach
+
+AccessModifierOffset: -2
+IndentAccessModifiers: false
+
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortBlocksOnASingleLine: Never
+
+PointerAlignment: Left
+
+BinPackArguments: false
+ColumnLimit: 0

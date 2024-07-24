@@ -1,0 +1,29 @@
+{
+  "name": "type-generator",
+  "type": "commonjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generator.ts",
+  "scripts": {
+    "generate": "tsx ./src/generator.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "18.14.2",
+    "@types/yargs": "^17.0.32",
+    "eslint": "~8.46.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-perfectionist": "^2.5.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "prettier": "^3.3.2",
+    "tsx": "^4.7.2",
+    "typescript": "^5.4.5",
+    "yargs": "^17.7.2"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  }
+}

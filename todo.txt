@@ -1,0 +1,25 @@
+- Error handling
+1. create
+
+- Testing
+1. coverage to 90%
+
+- Editor
+1. create
+
+- Input system
+1. mods(shift/alt) support
+2. joystick/gamepad support
+3. keys combination support
+5. Input system removal of binds/callbacks
+
+- Asset pipeline
+1. clearing unused cache bag
+2. clearing only *.obj files (otherwise there is a danger of clearing the necessary files)
+3. code refactoring
+
+- CI
+1. artifacts + releases
+
+- Type generator
+1. Integrate type generator for c++ js event manager

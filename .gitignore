@@ -1,0 +1,32 @@
+/build/
+/install/
+/logs/
+.cache
+res
+
+*.bundle
+CMakeUserPresets.json
+
+.history
+
+########## C++
+CMakeEnv.txt
+_CPack_Packages
+releases
+.env
+*.dll
+*.sln
+coverage
+
+########## Javascript
+logs
+*.log
+pnpm-debug.log*
+node_modules
+dist
+*.local
+
+########## C#
+dotnet-install.sh
+bin
+obj

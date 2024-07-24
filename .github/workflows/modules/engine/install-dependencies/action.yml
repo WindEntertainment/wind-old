@@ -1,0 +1,12 @@
+name: Install dependencies engine
+description: Install dependencies engine
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install dependencies
+      shell: bash
+      run: |
+        export CC=${{ env.cc }}
+        export CXX=${{ env.cxx }}
+        wm run conan-install -bt ${{ env.engineBuildType }}

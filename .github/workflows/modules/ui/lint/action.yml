@@ -1,0 +1,15 @@
+name: Lint UI
+description: Lint UI
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup node base
+      uses: ./.github/workflows/utils/setup-node
+
+    - name: Install dependencies
+      uses: ./.github/workflows/modules/ui/install-dependencies
+
+    - name: Lint
+      shell: bash
+      run: cd ${{ env.uiRoot }} && pnpm lint:fix

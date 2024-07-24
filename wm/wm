@@ -1,0 +1,48 @@
+#!/bin/bash
+
+find_wm() {
+  path="$(dirname "$(readlink -f "$0")")"
+  echo "$path"
+}
+
+source "$(find_wm)/global.sh"
+
+run() {
+  local args=("$@")
+  local command="${args[0]}"
+  local options=("${args[@]:1}")
+
+  root=$(find_config)
+
+  tool_script="$(get_scripts_folder "$root")/$command.sh"
+
+  [ ! -f "$tool_script" ] && throw 1 "Script with name '$command' not found in '$tool_script' folder."
+
+  $tool_script --root "$root" "${options[@]}"
+}
+
+commands=("$@")
+
+wm_command="${commands[0]}"
+
+
+case "$wm_command" in
+  "run")
+    script="${commands[1]}"
+    script_options=("${commands[@]:2}")
+    run $script "${script_options[@]}" ;;
+
+  "init")
+    "$(find_wm)/init.sh" ;;
+
+  "add-script")
+    script_options=("${commands[@]:1}")
+    root=$(find_config)
+    "$(find_wm)/add-script.sh" --root "$root" "${script_options[@]}" ;;
+
+  "config-path")
+    echo "Config: $(find_config)" ;;
+
+  *)
+    throw 1 "Unknown wm command: '$wm_command'" ;;
+esac

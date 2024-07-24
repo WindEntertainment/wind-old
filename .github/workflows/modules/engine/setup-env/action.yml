@@ -1,0 +1,14 @@
+name: Setup env
+description: Setup env
+
+runs:
+  using: "composite"
+  steps:
+    - name: Add env file
+      run: |
+        touch .env
+
+        echo "ULTRALIGHT_PATH=${{ env.ULTRALIGHT_PATH }}" >> .env
+
+        cat .env
+      shell: bash
