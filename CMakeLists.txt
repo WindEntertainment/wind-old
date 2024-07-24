@@ -27,7 +27,7 @@ if(ENABLE_TESTS AND CMAKE_BUILD_TYPE STREQUAL "Debug")
   add_custom_target(coverage
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_SOURCE_DIR}/tests/coverage
     COMMAND mkdir ${CMAKE_SOURCE_DIR}/tests/coverage
-    COMMAND game-tests
+    # COMMAND game-tests
     COMMAND wind-tests
     COMMAND gcovr --root ${CMAKE_SOURCE_DIR} --exclude '.*/tests/.*' --exclude '.*/CMakeFiles/.*' --exclude '.*/build/.*' --html --html-details -o ${CMAKE_SOURCE_DIR}/tests/coverage/index.html
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
@@ -38,8 +38,8 @@ if(ENABLE_TESTS AND CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif()
 
 add_subdirectory(./wind/)
-add_subdirectory(./game/)
-add_subdirectory(./editor/)
-add_subdirectory(./examples/)
+# add_subdirectory(./game/)
+# add_subdirectory(./editor/)
+# add_subdirectory(./examples/)
 
 include(cpack/cpack.cmake)

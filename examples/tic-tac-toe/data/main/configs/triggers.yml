@@ -1,5 +1,0 @@
-triggers:
-  - name: player
-    bindings:
-      - key: KEYCODES::MOUSE_BUTTON_LEFT
-        action: KEY_ACTIONS::PRESSED
